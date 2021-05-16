@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+
+  <!-- cache control -->
+  <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0">
+  <meta http-equiv="expires" content="0">
+  <meta http-equiv="pragma" content="no-cache">
+
+  <meta charset="utf-8">
+  <title>다짐(多Gym) - 운동할 땐, 다짐부터</title>
+  <meta name="title" content="다짐(多Gym) - 운동할 땐, 다짐부터">
+  <meta name="keywords" content="다짐,다짐앱,다짐어플,운동어플,운동앱,운동,건강,휘트니스,피트니스,헬스,골프,수영,요가,스포츠센터">
+  <meta name="description" content="헬스장, PT, 요가, 필라테스, 크로스핏 등 50개 종목의 체육시설 가격, 다짐에서 알아보세요!">
+  <meta name="author" content="다짐">
+  <link rel="canonical" href="https://www.da-gym.co.kr">
+
+  <base href="/">
+
+  <meta name="robots" content="index,follow">
+
+  <!-- og:start -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="다짐(多Gym) - 운동할 땐, 다짐부터">
+  <meta property="og:description" content="헬스장, PT, 요가, 필라테스, 크로스핏 등 50개 종목의 체육시설 가격, 다짐에서 알아보세요!">
+  <meta property="og:image" content="https://www.da-gym.co.kr/assets/og-image.png">
+  <meta property="og:locale" content="ko_KR">
+  <meta property="og:site_name" content="다짐">
+  <!-- og:end -->
+
+  <!-- business:start -->
+  <meta property="business:contact_data:street_address" content="노원구 동일로 174길 27(공릉1동 622) 서울창업디딤터 309호">
+  <meta property="business:contact_data:locality" content="서울특별시">
+  <meta property="business:contact_data:postal_code" content="01849">
+  <meta property="business:contact_data:country_name" content="대한민국">
+  <meta property="business:contact_data:email" content="contact@stone-i.co.kr">
+  <!-- business:end -->
+
+  <!-- app link start -->
+  <meta property="al:ios:url" content="https://dagym.app.link" />
+  <meta property="al:ios:app_store_id" content="1195530295" />
+  <meta property="al:ios:app_name" content="다짐(多Gym) - 운동할 땐, 다짐부터" />
+
+  <meta property="al:android:url" content="https://dagym.app.link">
+  <meta property="al:android:package" content="kr.co.stone_i.www.dagym">
+  <meta property="al:android:app_name" content="다짐(多Gym) - 운동할 땐, 다짐부터">
+  <!-- app link end -->
+
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="theme-color" content="#5467f5">
+
+
+  <!--NAVER WEB OWNER CHECK-->
+  <meta name="naver-site-verification" content="8eb4b4d9a6fc318524113969cdf0652154f81eba"/>
+
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico"/>
+
+  <!-- index.html -->
+
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+    #initial-loading {
+      opacity: 1;
+      z-index: 99999;
+      width: 100vw;
+      height: 100vh;
+      background: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      transition: all 1.4s 2s;
+    }
+    #initial-loading #initial-loading-logo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      -webkit-transform: translate(-50%,-50%);
+      width: 100px;
+      height: 76.3px;
+      background: url('data:image/png;base64,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');
+      background-size: 100% 100%;
+      transition: background 0.3s;
+    }
+    app-root:not(:empty) + #initial-loading {
+      opacity: 0;
+      z-index: -1;
+    }
+  </style>
+
+  <!--  google optimize start -->
+  <style>.async-hide { opacity: 0 !important} </style>
+  <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+    h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+    (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+  })(window,document.documentElement,'async-hide','dataLayer',4000,
+    {'GTM-5P8GBVC':true});</script>
+  <!--  google optimize end -->
+
+  <!--GA script start -->
+  <script>
+    var clientId = null;
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r;
+      i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+      a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0];
+      a.async = 1;
+      a.src = g;
+      m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-101603601-1', 'auto');
+    ga('require', 'GTM-5P8GBVC');
+    var host = window.location.hostname;
+    ga(function(tracker) {
+      clientId = tracker.get('clientId');
+    });
+  </script>
+  <!-- GA script end -->
+
+  <!-- Google Tag Manager -->
+  <script>(function (w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+      'gtm.start': new Date().getTime(), event: 'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+      j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src =
+      'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+  })(window, document, 'script', 'dataLayer', 'GTM-MGJ6JHB');</script>
+  <!--End Google Tag Manager-->
+
+  <script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+  <script>window.twttr = (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
+  </script>
+
+  <!-- Facebook Pixel Code -->
+  <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1958231907554108');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+                 src="https://www.facebook.com/tr?id=1958231907554108&ev=PageView&noscript=1"
+  /></noscript>
+  <!-- End Facebook Pixel Code -->
+
+  <!-- DAUM POSTCODE FINDER API -->
+  <script src="https://ssl.daumcdn.net/dmaps/map_js_init/postcode.v2.js?autoload=false"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+  <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.2.js"></script>
+  <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
+
+<link rel="stylesheet" href="styles.e6231e4e2994808a5b17.css"></head>
+<body class="enable-min-width">
+<span itemscope="" itemtype="http://schema.org/Organization">
+ <link itemprop="url" href="https://www.da-gym.co.kr">
+ <a itemprop="sameAs" href="https://blog.naver.com/stone-i"></a>
+ <a itemprop="sameAs" href="https://www.facebook.com/dagym0101"></a>
+ <a itemprop="sameAs" href="https://play.google.com/store/apps/details?id=kr.co.stone_i.www.dagym"></a>
+ <a itemprop="sameAs" href="https://itunes.apple.com/kr/app/%EB%8B%A4%EC%A7%90-%E5%A4%9Agym-%EC%9A%B4%EB%8F%99%ED%95%A0-%EB%95%90-%EB%8B%A4%EC%A7%90%EB%B6%80%ED%84%B0/id1195530295"></a>
+ <a itemprop="sameAs" href="https://www.instagram.com/dagym_official/"></a>
+ <a itemprop="sameAs" href="https://www.youtube.com/channel/UCi2F8t2EFPHzyNOd8TU5X0g"></a>
+</span>
+<script>window.__theme = 'bs4';</script>
+<app-root></app-root>
+<div id="initial-loading">
+  <div id="initial-loading-logo"></div>
+</div>
+<script type="text/javascript">
+  (function () {
+    var css = document.createElement('link');
+    css.href = '//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css';
+    css.rel = 'stylesheet';
+    css.type = 'text/css';
+    document.getElementsByTagName('head')[0].appendChild(css);
+  })();
+</script>
+<!-- BRANCH INIT START -->
+<script type="text/javascript">
+  (function(b,r,a,n,c,h,_,s,d,k){if(!b[n]||!b[n]._q){for(;s<_.length;)c(h,_[s++]);d=r.createElement(a);d.async=1;d.src="https://cdn.branch.io/branch-latest.min.js";k=r.getElementsByTagName(a)[0];k.parentNode.insertBefore(d,k);b[n]=h}})(window,document,"script","branch",function(b,r){b[r]=function(){b._q.push([r,arguments])}},{_q:[],_v:1},"addListener applyCode autoAppIndex banner closeBanner closeJourney creditHistory credits data deepview deepviewCta first getCode init link logout redeem referrals removeListener sendSMS setBranchViewData setIdentity track validateCode trackCommerceEvent logEvent".split(" "), 0);
+
+  branch.init('key_live_knqDR5DdgNYtZbldXr5wDjjoDtdEWQSt', function(err, data) {
+    // callback to handle err or data
+  });
+</script>
+<!-- BRANCH INIT END -->
+<!-- NAVER PREMIUM LOG ANALYTICS START -->
+<script type="text/javascript" src="//wcs.naver.net/wcslog.js"> </script>
+<script type="text/javascript">
+  if (!wcs_add) var wcs_add={};
+  wcs_add["wa"] = "s_256d423f9196";
+  if (!_nasa) var _nasa={};
+  wcs.inflow();
+  wcs_do(_nasa);
+</script>
+<!-- NAVER PREMIUM LOG ANALYTICS END -->
+
+<!-- BA script start -->
+<script type="text/javascript">
+  (function(w, d, a){
+    w.__baclient__ = {
+      load : function(src){
+        var b = d.createElement("script");
+        b.src = src; b.async=true; b.type = "text/javascript";
+        d.getElementsByTagName("head")[0].appendChild(b);
+      }
+    };w.__baclient__.load(a);
+  })(window, document, "//ba.beusable.net/script/ba/a257d6887a");
+</script>
+<!-- BA script end -->
+
+<script src="runtime.ef006c891fa92aa043aa.js" defer></script><script src="polyfills-es5.144d92bd703e4856634f.js" nomodule defer></script><script src="polyfills.9172868ac961277ff8d4.js" defer></script><script src="scripts.b0e47cd7b177704cc4a1.js" defer></script><script src="main.6bd51ecf3733bf64a462.js" defer></script></body>
+<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			div {
+				width: 50px;
+				height: 50px;
+				margin-bottom: 20px;
+				background: red;
+				/* 인라인은 안의 요소의 크기로 결정된다 */
+				/* 인라인 : 요소 */
+				/* 인라인 블럭 : 한줄에 여러 개 진열될 수 있는 상자  */
+				/* 블럭 : 한줄에 하나만 표기되는 상자 */
+			}
+			.container {
+				background: yellow;
+				left: 20px;
+				top: 20px;
+				position: relative;
+			}
+			.box {
+				background: blue;
+				left: 20px;
+				top: 20px;
+				position: relative;
+				/* static : 기본값으로 인해 위치 지정되지 않는다 */
+				/* relative : 원래 있어야 하는 자리 기준으로 위치 결정 */
+				/* absolute : 내 아이템과 가장 가까운 박스 기준으로 위치 결정 */
+				/* fixed : 상자에서 완전히 벗어나 페이지 기준 */
+				/* stiky : 원래 있어야 하는 자리에 있지만 스크롤을 따라간다 */
+			}
+		</style>
+	</head>
+	<body>
+		<article class="container">
+			<div></div>
+			<div class="box">I'm box</div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</article>
+	</body>
+</html>

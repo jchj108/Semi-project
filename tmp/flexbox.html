@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<style>
+			.container {
+				background: beige;
+				height: 100vh;
+				/* vh : 부모에 상관 없이 지정하겠다 */
+				/* containerlevel flexbox적용 */
+				/* 100%로 하면 안의 요소 크기로 결정되나 */
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				/* wrap을 하면 화면에 꽉 찼을 때 다음으로 넘어간다. nowrap이 default */
+				/* flex-flow : direction과 wrap여부를 합친것 */
+				justify-content: space-between;  /* 중심축에서 어떻게 배치할 것인지 결정*/
+				/* justify-content : 아이템을 어떻게 배치할 것인지 결정 */
+				/* space-around : 간격을 넣어준다 */
+				/* space-evnely : 동일한 간격 */
+				align-items: baseline;
+				align-content: center;
+				/* align-items : 반대축에서 어떻게 할 것인지 결정 */
+			}
+			.item {
+				width: 80px;
+				height: 80px;
+				border: 1px solid black;
+			}
+			.item1 {
+				background: #f05545;
+				order: 2;
+				/* 개별적인 요소 level에서 정렬 가능 */
+				align-self: center;
+				/* 개별적으로 요소 정렬 가능 */
+			}
+			.item2 {
+				background: #bc477b;
+			}
+			.item3 {
+				background: #7c43bd;
+			}
+			.item4 {
+				background: #6746c3;
+			}
+			.item5 {
+				background: #534bae;
+			}
+			.item6 {
+				background: #5472d3;
+			}
+			.item7 {
+				background: #4f83cc;
+			}
+			.item8 {
+				background: #428e92;
+			}
+			.item9 {
+				background: #39796b;
+			}
+			.item10 {
+				background: #4c8c4a;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+			<div class="item item1">1</div>
+			<div class="item item2">2</div>
+			<div class="item item3">3</div>
+			<div class="item item4">4</div>
+			<div class="item item5">5</div>
+			<div class="item item6">6</div>
+			<div class="item item7">7</div>
+			<div class="item item8">8</div>
+			<div class="item item9">9</div>
+			<div class="item item10">10</div>
+		</div>
+	</body>
+</html>
