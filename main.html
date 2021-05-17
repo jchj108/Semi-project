@@ -14,6 +14,17 @@
         opacity: 1;
       }
 
+      button {
+        background: inherit;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        overflow: visible;
+        cursor: pointer;
+        font: 400 13.3333px Arial;
+      }
+
       html {
         size: 100%;
       }
@@ -38,8 +49,6 @@
       }
 
       #main_wrapper {
-        width: 970px;
-        height: 907px;
         box-sizing: border-box;
         position: relative;
         max-width: 62.5rem;
@@ -51,27 +60,34 @@
       }
 
       .box {
-        width: 500px;
+        width: 485px;
         height: 500px;
-        border: 1px solid black;
+        /* border: 1px solid black; */
       }
 
       header {
         width: 100%;
         height: 72px;
         border-bottom: black 1px solid;
-        background: skyblue;
+        background: #00B1D2;
       }
 
       #box1 {
         margin-top: 40px;
         list-style: none;
         display: flex;
-        position: relative;
+        /* position: relative; */
         flex-direction: column;
         align-self: center;
         padding-right: 3.125rem;
-        position: relative;
+      }
+      #box2 {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        width: 500px;
+        display: flex;
+        flex-direction: column-reverse;
       }
 
       #find {
@@ -86,12 +102,11 @@
       }
 
       #group {
-        border: 2px solid #00c7ae;
+        border: 2px solid #00B1D2;
         border-radius: 4px;
         height: 60px;
         display: flex;
         align-items: stretch;
-        width: 100%;
       }
 
       #search_service {
@@ -123,7 +138,7 @@
       img {
         vertical-align: middle;
         margin: auto;
-        max-width: 100%;
+        /* max-width: 100%; */
       }
 
       .tab_type1 ul {
@@ -179,6 +194,11 @@
       }
       input#search_service {
         margin-right: 10px;
+      }
+
+      .btn {
+        font-weight: 600;
+        font-size: 1rem;
       }
 
       .tab-content.on {
@@ -329,22 +349,63 @@
           </div>
           <div id="pannel2" class="tab-content">
             <div style="line-height: 1.24">
-              <h2>
+              <h2 style="margin-bottom: 16px">
                 내 주변에는 <br />
                 어떤 시설이 있을까요?
               </h2>
             </div>
+            <p
+              style="
+                font-size: 1.1rem;
+                font-weight: 500;
+                line-height: normal;
+                color: #737373;
+                margin-block-start: 1em;
+                margin-block-end: 1em;
+                margin-inline-start: 0px;
+                margin-inline-end: 0px;
+              "
+            >
+              주변에서 내게 맞는 운동을 찾으세요
+            </p>
+            <button
+              style="
+                width: 215px;
+                height: 50px;
+                color: #fff;
+                background-color: #00c7ae;
+                border-color: #00c7ae;
+                margin-top: 10px;
+                border-radius: 0.375rem;
+              "
+              type="button"
+              class="btn"
+            >
+              지도에서 찾기
+            </button>
           </div>
         </div>
-        <div class="box" id="box2"></div>
+        <div class="box" id="box2">
+          <div id="mainImage1">
+            <img
+              class="mainImage"
+              width="580px"
+              src="../image/pt_trainer.jpg"
+            />
+          </div>
+        </div>
       </div>
     </section>
   </body>
   <script>
     $(function () {
       $('.tab_type1 ul li a').click(function () {
+        const num = $('.tab_type1 ul li a').index($(this));
+
         $('.tab_type1 ul li a').removeClass('on'); // 초기화
+        $('.tab-content').removeClass('on');
         $(this).addClass('on');
+        $('.tabArea .tab-content:eq(' + num + ')').addClass('on');
       });
     });
   </script>
