@@ -52,7 +52,6 @@
         font-family: 'NotoSansKR';
         font-size: 1rem;
         font-weight: 400;
-        line-height: 1.5;
         color: #323232;
         text-align: left;
         background-color: #fff;
@@ -212,7 +211,7 @@
         display: block;
         margin-block-start: 1em;
         margin-block-end: 1em;
-        margin-top: 7px;
+        margin-top: 10px;
       }
       input#search_service {
         padding-left: 15px;
@@ -306,27 +305,42 @@
         flex-direction: column;
         justify-content: space-between;
         min-height: 100vh;
-        
       }
       .local-images {
-        margin-top: 80px;
+        margin-top: 90px;
         display: flex;
-        align-content: center;
+        align-content:center;
         align-items: center;
-        justify-content: space-between;
+        justify-content: center;
+        vertical-align: middle;
         flex-direction: row;
         flex-wrap: wrap;
+      
       }
       .local-image {
-        margin: 10px 10px 30px 10px;
-        width: 220px;
-        height: 220px;
-        background: #00b1d2;
-        border-radius: 30px;
+        width: 232px;
+        height: 232px;
         overflow: hidden;
+        justify-content: center;
+        align-self: center;
       }
       .banner {
         margin-top: 50px;
+      }
+      h3 {
+        margin-top: 10px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .imageBox {
+        width: 250px;
+        height: 300px;
+        /* text-align: center; */
+        justify-content: center;
+        align-items: center;
+      }
+      .imageBox img {
+        /* margin-left: 10px; */
       }
     </style>
   </head>
@@ -524,10 +538,14 @@
         <h2 class="mini-title">인기 서비스</h2>
         <div class="swiper-container mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">
+              <img src="image/flower1.PNG" width="100%" />
+            </div>
             <div class="swiper-slide">Slide 2</div>
             <div class="swiper-slide">Slide 3</div>
-            <div class="swiper-slide">Slide 4</div>
+            <div class="swiper-slide">
+              <img src="image/flower5.PNG" width="100%" />
+            </div>
             <div class="swiper-slide">Slide 5</div>
             <div class="swiper-slide">Slide 6</div>
             <div class="swiper-slide">Slide 7</div>
@@ -557,51 +575,95 @@
         </div>
 
         <h2 class="mini-title">주변 시설</h2>
-        <div>
           <div class="local-images">
-            <div class="local-image">
-              <img src="image/flower1.PNG" width="100%" height="100%" />
+            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
             </div>
-            <div class="local-image">
-              <img src="image/flower2.PNG" width="100%" height="100%" />
+            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
             </div>
-            <div class="local-image">
-              <img src="image/flower3.PNG" width="100%" height="100%" />
-            </div>
-            <div class="local-image">
-              <img src="image/flower4.PNG" width="100%" height="100%" />
-            </div>
-            <div class="local-image">
-              <img src="image/flower5.PNG" width="100%" height="100%" />
-            </div>
-            <div class="local-image"></div>
-            <div class="local-image"></div>
-            <div class="local-image"></div>
           </div>
-        </div>
-        <h2 class="mini-title" style="top: 40px;">추천 시설</h2>
-        <div>
-          <div class="local-images" style="margin-top: 50px;">
-            <div class="local-image">
-              <img src="image/flower1.PNG" width="100%" height="100%" />
+          <h2 class="mini-title" style="margin-top: 0px;">추천 시설</h2>
+          <div class="local-images">
+            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
             </div>
-            <div class="local-image">
-              <img src="image/flower2.PNG" width="100%" height="100%" />
+            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
+            </div>            <div class="imageBox">
+              <div class="local-image">
+                <img src="image/flower1.PNG" width="100%" height="100%" />
+              </div>
+              <h3>title</h3>
             </div>
-            <div class="local-image">
-              <img src="image/flower3.PNG" width="100%" height="100%" />
-            </div>
-            <div class="local-image">
-              <img src="image/flower4.PNG" width="100%" height="100%" />
-            </div>
-            <div class="local-image">
-              <img src="image/flower5.PNG" width="100%" height="100%" />
-            </div>
-            <div class="local-image"></div>
-            <div class="local-image"></div>
-            <div class="local-image"></div>
           </div>
-        </div>
         <div class="banner">
           <img src="image/Myprotein-low (1).jpg" width="100%" />
         </div>
@@ -674,5 +736,3 @@
   </script>
   <script></script>
 </html>
-
-<!-- 경로 수정 -->
