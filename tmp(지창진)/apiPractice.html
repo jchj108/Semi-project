@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Document</title>
+    <script src="../tools/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <p id="dat"></p>
+
+    <script>
+      $.ajax({
+        url: 'http://api.kcisa.kr/openapi/service/rest/convergence2019/getConver09?serviceKey=5c8c24cc-7c25-4fb6-8593-eb255d8a2b0c&numOfRows=1000',
+        dataType: 'xml',
+        error: function () {
+          alert('Error');
+        },
+        success: function (xml) {
+          $(xml)
+            .find('item')
+            .each(function () {
+              var title = $(this).find('title').text('복싱');
+              var venue = $(this).find('venue').text();
+              // var url = $(this).find('url').text();
+              // var description = $(this).find('description').next().text();
+							// var spatial = $(this).find('spatial').text();
+							// var subjectCategory = $(this).find('subjectCategory').next().text();
+							var relation = $(this).find('relation').text();							
+							var view_text = title + venue + relation
+              $('#id').append(view_text); // #id 에 view_text 삽입 }); } });
+            });
+        },
+      });
+    </script>
+
+    <div id="id"></div>
+  </body>
+</html>
