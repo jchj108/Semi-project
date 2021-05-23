@@ -10,7 +10,7 @@ public class xmlParsingTest {
 		BufferedReader br = null;
 		try {
 
-			String urlstr = "http://api.kcisa.kr/openapi/service/rest/meta13/getKOCD0101?serviceKey=75005ce4-4725-485f-800b-e0fde88fa2bb";
+			String urlstr = "http://api.kcisa.kr/openapi/service/rest/convergence2019/getConver09?serviceKey=5c8c24cc-7c25-4fb6-8593-eb255d8a2b0c&numOfRows=100";
 			URL url = new URL(urlstr);
 			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
 			urlconnection.setRequestMethod("GET");
@@ -26,4 +26,6 @@ public class xmlParsingTest {
 		}
 
 	}
+	
+	
 }
