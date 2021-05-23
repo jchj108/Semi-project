@@ -227,6 +227,10 @@
 	
 	<script>
 		$('.title').click(function(){
+			// 비밀글의 제목을 클릭할 경우, 작성시 입력했던 비밀번호 받아 확인하고
+			// 맞지 않다면 alert("잘 못 입력하였습니다")
+			// 맞다면 조회 페이지로 이동하기
+			
 			var result = window.prompt("비밀번호를 입력하세요.");
 			
 			if(result != null && result.trim() != '') {
