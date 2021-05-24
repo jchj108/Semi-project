@@ -24,14 +24,18 @@
 		margin-top: 100px;
 		margin-bottom: 100px;
 		
+	}
+	
+	.choicePack {
+		margin: 20px;
 	}	
 	  
     .pagination {
-      	width: 900px;
+      	width: 90%;
  		list-style-type: none;
 		display: block;
 		text-align: center;
- 		
+		margin-top: 50px;  		
  	}
  	
  	.page-item {
@@ -44,6 +48,10 @@
  		text-decoration: none; 
  		color: #00b1d2; 
  		font-weight: bold;
+ 		border: 1px solid lightgrey;
+ 		padding: 0.5rem 0.75rem;
+		margin-left: -1px;
+		line-height: 1.25;
  	}
  	
  	 .page-link:hover {
@@ -82,6 +90,10 @@
  	 	text-align: center;
  	 }
  	 
+ 	 #faq {
+ 	 	margin-left: 230px;
+ 	 }
+ 	 
  	 .title:hover {
  	 	text-decoration: underline;
  	 	font-weight: bold;
@@ -94,14 +106,14 @@
  	 	font-weight: bold;
  	 	text-align: center;
  	 	padding: 0.5rem;
- 	 	margin: 15px;
+ 	 	margin: 30px;
  	 	border-radius: 10px;
  	 	float: right;
  	 		 	
  	 } 	
  	 
  	.search {
- 	 	width: 900px;
+ 	 	width: 100%;
  	 	text-align: center;
  	 	clear: both;
  	 }
@@ -110,6 +122,12 @@
  		margin: 5px;
  		padding: 0.3rem;
  	}
+ 	
+ 	#searchKeyword {
+ 		display: inline-block;
+ 		width: 30%;
+ 	}
+ 	
  	
 	
 </style>
@@ -121,7 +139,7 @@
 	<div class="container">	
 		<div class="choicePack">
 			<span class="choice" id="faq">FAQ</span>
-			<span class="choice" id="QNA">QNA</span>
+			<span class="choice" id="qna">QNA</span>
 		</div>
 		
 		<div class="content">
@@ -194,7 +212,7 @@
 					<option value="제목">제목</option>
 					<option value="작성자">작성자</option>					
 				</select>
-				<input type="text" name="searchKeyword" maxlength="20">
+				<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword'>
 				<input type="submit" name="searchSubmit" value="검색">
 			</form>
 		</div>
