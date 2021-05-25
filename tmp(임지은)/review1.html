@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
+<title>Insert title here</title>
+<style>	
+	header{height: 72px;}
+	body{font-family: 'Noto Sans KR';}
+	
+	#container-wrap{margin: 50px;}
+	
+	/* 사이드바 */
+	#subleft-cont{position: fixed;}
+	.category-menu>p, .information{text-align: center;}
+	.category-menu{width: 200px; margin-top: 20px;}
+	
+	/* 리뷰작성 */
+	#subright-cont{/* border: 1px solid gray;  */
+					width: 500px; 
+					position: absolute; left: 50%; top: 50%; 
+					margin-left: -200px; margin-top: -300px;}
+	
+	.section{margin: 20px 5px 15px 5px;}
+	.title{width: 130px; margin: 0px 0px 5px 5px; display: inline-block;}
+	.detail{height: 100%; vertical-align: top;}
+	.score-box{display: inline-block;}
+	.rating-box{width: 320px; padding: 3px; margin-bottom: 8px; 
+				border: 1px solid lightgray; border-radius: 5px;}
+	.description{display: inline-block; padding: 2px 2px 2px 2px; margin-bottom: 8px;}
+	.div-keyword{text-align: center; margin: 5px 10px 10px 5px;}
+	.div-keyword>input[type=checkbox]{margin: 0px 10px 0px 10px;}
+	#button-keyword{margin-left: 8px;}
+	
+	.div-photo{display: inline-block; margin-left: 50px;}
+	.button-register{text-align: center; margin: 30px 30px 30px 30px;}
+	#button-keyword, #button-photo{background-color: #00B1D2; color: white; border-radius: 5px;}
+	#div-cancle{display: inline-block; margin-right: 7px;}
+	#div-enroll{display: inline-block; margin-left: 7px;}
+	#enroll{padding: 5px 20px 5px 20px;
+			background-color: #00B1D2; color: white; border-radius: 10px;}
+	#cancle{padding: 5px 20px 5px 20px;
+			background-color: white; color: #00B1D2; border-radius: 10px;}
+	
+</style>
+	
+</head>
+<body>
+	
+	<header></header>
+	
+	<div id="container-wrap" class="div-cont">
+		<div id="contents">
+			<div id="subleft-cont">
+				<div class="category-menu">
+					<p>A필라테스 평가하기</p>
+					<div class="img"><img style="width:200px;" src="image/flower1.PNG"></div>
+					<div class="information">
+						<p>정보</p>
+					</div>
+				</div>
+			</div>
+			
+			<div id="subright-cont">
+				<form>
+					<div class="section">
+						<div class="title">
+							<strong>전체 평점</strong>
+						</div>
+						<div class="score-box">
+							<div class="rating-box">
+								<div class="f1">평점</div>
+								<div class="score_star"></div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="section">
+						<div class="title detail">
+							<strong>항목별 평점</strong>
+						</div>
+						
+						<div class="score-box detail">
+							<div class="rating-box">
+								<div class="f1">시설</div>
+								<div class="score_star"></div>
+							</div>
+							<div class="rating-box">
+								<div class="f1">강사</div>
+								<div class="score_star"></div>
+							</div>
+							<div class="rating-box">
+								<div class="f1">서비스</div>
+								<div class="score_star"></div>
+							</div>
+							<div class="rating-box">
+								<div class="f1">가격</div>
+								<div class="score_star"></div>
+							</div>
+						</div>
+					</div>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>시설 키워드</strong>
+						</div>
+						<div class="description">
+							<span>이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</span>
+						</div>
+						<div class="div-keyword">
+							<input type="checkbox">체지방 감소
+							<input type="checkbox">근력 증가
+							<input type="checkbox">재활
+							<input type="checkbox">체형교정
+						</div>
+						<div class="div-keyword">
+							<input type="text" placeholder="키워드 직접입력"><button id="button-keyword">키워드 추가</button>
+						</div>
+					</div>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>이용 후기</strong>
+						</div>
+						<textarea style="width:450px; height: 150px;" placeholder="300자 이내로 입력해주세요."></textarea>
+					</div>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>사진 올리기</strong>
+						</div>
+						<br>
+						<div class="description">
+							<span>시설 사진이나 운동 사진을 올려주세요.</span>
+						</div>
+						<div class="div-photo">
+							<button id="button-photo">사진 올리기</button> (1/10)
+						</div>
+					</div>
+					<div class="button-register">
+						<div id="div-cancle">
+							<button class="submit" type="button" id="cancle">취소하기</button>
+						</div>
+						<div id="div-enroll">
+							<button class="submit" type="button" id="enroll">등록하기</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+
+</body>
+</html>

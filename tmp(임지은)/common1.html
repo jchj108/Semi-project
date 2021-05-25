@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	body{font-family: 'Noto Sans KR';}
+	body{min-height: 700px; display: flex; flex-direction: column; }
+	
+	header{border-bottom: 1px solid lightgray; display: flex;}
+
+	.logo, .item{display: inline-block;}
+	.logo>img{height:72px; margin: 20px 0px 20px 40px;}
+	
+	.ul-item>li{list-style-type: none; display: inline-block; margin: 0px 10px 0px 10px;}
+	.item{margin: auto 100px auto auto;}
+	
+	
+	/* footer */
+	footer{text-align: center; /* position: absolute; left: 0; top: 0; width: 100%; height: 100%; */}
+	#footer-name{display: inline-block; margin-right: 10px;}
+	
+	footer{margin-top: auto; /* 최소 높이 하단에서 자동으로 뻗어나가도록 설정 */ }
+
+	
+</style>
+</head>
+<body>
+
+	<!-- header  -->
+	<header>
+		<div class="logo">
+			<img class="navbar-brand" src="image/logo.PNG" alt="logo">
+		</div>
+		<div class="item">
+			<ul class="ul-item">
+				<li><a href="#">회원가입</a></li>
+				<li><a href="#">로그인</a></li>
+			</ul>
+		</div>
+	</header>
+    
+	<!-- Page Content-->
+	<div class="container">
+	
+	</div>
+	
+	<!-- footer -->
+	<footer>
+		<p id="footer-name"><b>내일은 운동해야지</b></p>
+		<a href="#">개인정보처리방침</a> |
+		<a href="#">이용약관</a> |
+		<a href="#">위치기반 서비스 이용 약관</a> |
+		<a href="#"><b>고객센터</b></a>
+	</footer>
+
+</body>
+</html>
