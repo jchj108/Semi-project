@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>시설 상세 페이지</title>
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="../부트스트랩(상세)/css/styles.css" rel="stylesheet" />
+        
+<script src="js/jquery-3.6.0.min.js"></script>
+<style>
+	* {font-family: 'NotoSansKR';}
+       		
+	#category-title{
+		font-size: 20px; 
+		font-weight: bold; 
+		border-top-left-radius: 3px; 
+		border-top-right-radius: 3px;
+	}
+       		       		
+       		
+	.main-title{border: 1px solid lightgray; padding: 15px;}
+	.main-button{margin: 3px;}
+	       		
+	.list-group{position: fixed; width: 230px; padding-top: 40px;}
+	.list-group-item{color: black;}
+	       		
+	       		
+	.info{border: 1px solid lightgray; border-radius: 2px; margin-top: 20px;}
+	.info-content{padding: 15px;}
+	
+
+	.review-card{
+		border: 1px solid lightgray; 
+		border-radius: 2px; 
+		margin-top: 20px;
+		margin-bottom: 10px;
+		height: 250px;
+	}
+       		
+	.card-img-top{
+		margin: 10px; 
+		width: 100px; 
+		height: 100px; 
+		display: inline-block;
+	}
+	.review-info{float: left;}
+       		
+	.card-text{height: 85px;}
+       		
+	#modify{margin-left: 70%;}
+       		
+	.buttons{margin-left: 10px;}
+       		
+       		
+       		
+    /* Header */
+	.navbar-light{background-color: white; border-bottom: 1px solid lightgray;}
+	nav-link{color: black;; !important;}
+	
+	/* Footer */
+	footer{background-color: white; color: black; border-top: 1px solid lightgray;}
+	
+	.f1{display: flex;}
+	.f1-col{flex: 1; font-size: 13px;}
+
+	.f2{display: flex;
+		border-top: 1px solid lightgray;
+		border-bottom: 1px solid lightgray; 
+		margin: 50px 0px 50px 0px;
+		padding: 15px 0px 15px 0px;}
+	.f2-col{flex: 1;}
+	
+	.copyright{color: gray; font-size: 13px;}
+       		
+       	
+</style>
+</head>
+<body>
+	<!-- Header-->
+    <nav class="navbar navbar-expand-lg navbar-light">
+		<div class="container">
+        	<img src="image/logo.PNG" style="height: 72px;">
+        	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#!">회원가입</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="#!">로그인</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content-->
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="list-group">
+				<!-- 지도 추가 -->
+				<div id="map" style="width: 230px;height: 230px;"></div>
+				<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51a2be588394023dffe06fdafc5726ca"></script>
+				<script>
+					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+					mapOption = {
+								center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
+								level: 3, // 지도의 확대 레벨
+							    mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+					}; 
+					
+					// 지도를 생성한다 
+					var map = new kakao.maps.Map(mapContainer, mapOption); 
+				</script>
+				<br>
+				<!-- Sidebar 문제점 : footer까지 침범함(위치 제한 가능한지 확인) -->		
+                <div class="list-group-item" id="category-title">추천 카테고리</div>
+                	<a class="list-group-item" href="#!">필라테스</a>
+                	<a class="list-group-item" href="#!">요가</a>
+               		<a class="list-group-item" href="#!">피트니스</a>
+                	<a class="list-group-item" href="#!">크로스핏</a>
+                	<a class="list-group-item" href="#!">복싱</a>
+                	<a class="list-group-item" href="#!">스피닝</a>
+                	<a class="list-group-item" href="#!">수영</a>
+                	<a class="list-group-item" href="#!">축구</a>
+                </div>
+			</div>
+            <div class="col-lg-9">
+            	<div class="carousel slide my-4" id="carouselExampleIndicators" data-ride="carousel">
+                	<ol class="carousel-indicators">
+                    	<li class="active" data-target="#carouselExampleIndicators" data-slide-to="0"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                <div class="carousel-inner" role="listbox">
+                	<div class="carousel-item active"><img class="image" src="image/f&g.jpg" alt="First slide" width='900' height='400'/></div>
+                	<div class="carousel-item"><img class="image" src="image/f&g.jpg" alt="Second slide" width='900' height='400'/></div>
+                	<div class="carousel-item"><img class="image" src="image/f&g.jpg" alt="Third slide" width='900' height='400'/></div>
+               	</div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                	<span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+                	<span class="sr-only">Next</span>
+                </a>
+                </div>
+                <div>
+                	<div class="main-title">
+	                    <h2>F&G 피트니스</h2>
+	                    <h6>강남구 역삼동</h6>
+	                    <table>
+                        	<tr>
+                        		<td id="count">3명의 평가</td>
+                        		<td>|</td>
+                        		<td id="point">4.0점</td>
+                        		<td id="star">★ ★ ★ ★ ☆</td>
+                        	<tr>
+                        </table>
+                        <hr>
+	                        <input type="button" class="main-button" value="♡ 좋아요">
+	                        <input type="button" class="main-button" value="리뷰작성">
+	                        <input type="button" class="main-button" value="즐겨찾기">
+                    </div>
+                </div>
+                    
+                <div class="info">
+                	<div class="info-content">
+                    	<h6>상세주소 : 서울특별시 강남구 역삼동 646-14</h6>
+                    	<h6>전화번호 : 010-0000-0000</h6>
+                    	<br>
+                    	<p>
+                    		운영시간<br>
+							[평　일] 06:00 ~ 23:00<br>
+							[토요일] 09:00 ~ 18:00<br>
+							[휴관일] 공휴일,매주 일요일
+                    	</p>
+                    </div>
+                </div>
+                    
+                <div class="review-card">
+                	<div class="review-info">
+                    	<img class="card-img-top" src="image/default_profile.png" />
+                    </div>
+                    <div class="card-body">
+                    	<span>아이디</span><br>
+                    	<span>점수 : </span><span> 3.8 / 5</span><br>
+                    	<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                        
+                    </div>
+                    <hr>
+                    <div class="buttons">
+	                	<input type="button" value="공감 4">
+	                	<input type="button" class="manager-btn" value="수정">
+	                	<input type="button" class="manager-btn" value="삭제">
+                    </div>
+                </div>
+                <div class="review-card">
+                    <div class="review-info">
+                    	<img class="card-img-top" src="image/default_profile.png" />
+                    </div>
+                    <div class="card-body">
+                    	<span>아이디</span><br>
+                        <span>점수 : </span><span> 3.8 / 5</span><br>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <hr>
+                    <div class="buttons">
+	                	<input type="button" value="공감 4">
+	                	<input type="button" class="manager-btn" value="수정">
+	                	<input type="button" class="manager-btn" value="삭제">
+                    </div>
+                </div>
+                <div class="review-card">
+                	<div class="review-info">
+                    	<img class="card-img-top" src="image/default_profile.png" />
+                    </div>
+                    <div class="card-body">
+                    	<span>아이디</span><br>
+                        <span>점수 : </span><span> 3.8 / 5</span><br>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
+                    </div>
+                    <hr>
+                    <div class="buttons">
+	                    <input type="button" value="공감 4">
+	                    <input type="button" class="manager-btn" value="수정">
+	                    <input type="button" class="manager-btn" value="삭제">
+                    </div>
+                </div>
+            </div>
+        </div>
+	</div>
+        
+	<!-- Footer-->
+    <footer class="py-5">
+		<div class="container">
+			<div class="f1">
+				<div class="f1-col">
+					이용문의<br>
+			        <span style="font-size: 35px; font-weight: 700px; color:#00B1D2; ">1588-0215</span><br>
+			        	AM 10:00 - PM 07:00<br>
+			        	토 일 공휴일 휴무
+		        </div>
+		        <div class="f1-col">
+			        <b>내일도 운동가야지</b><br>
+					서울시 강남구 역삼동<br>
+					대표 : 꽉자바<br>
+					사업자번호 : 707-0982-2133<br>
+					contact@kkakjava.co.kr<br>
+		        </div>
+        	</div>
+
+			<div class="f2">
+				<div class="f2-col"><a href="#!">이용약관</a></div>
+				<div class="f2-col"><a href="#!">개인정보처리방침</a></div>
+				<div class="f2-col"><a href="#!">위치정보이용약관</a></div>
+				<div class="f2-col"><a href="#!">고객센터</a></div>
+			</div>
+	        	
+	        <span class="copyright">Copyright ⓒ Kkakjava Co., Ltd. All rights reserved.</span>
+        </div>
+	</footer>
+       
+	<script>
+		$(document).ready(function(){
+			$('.manager-btn').hide();
+        });
+    </script>
+        
+	<!-- Bootstrap core JS-->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+</body>
+</html>
