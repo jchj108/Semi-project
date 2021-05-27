@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>Shop Homepage - Start Bootstrap Template</title>
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="../부트스트랩(상세)/css/styles.css" rel="stylesheet" />
+<script src="js/jquery-3.6.0.min.js"></script>
+        	
+<style>
+        
+	* {font-family: 'Noto Sans KR';} 
+    
+	.main{
+		margin-top: 30px;
+		display: inline-block;
+		width: 700px; 
+		height: 930px; 
+		margin-left: 25%;
+	}
+	
+	.title{font-size: 30px; font-weight: bolder; text-align: center;}
+	
+	.contents-inside{margin-left: 15%; height: 700px;}
+	
+	input{margin-left: 10px; margin-right: 10px; }
+	
+	#road-name-address, #detailed-address{width: 350px; margin-left: 82px;}
+	
+	
+	.phone{width: 60px; text-align: center;}
+	
+	#day-off{margin-left: 80px;}
+	
+	#introduce{border: 1px solid black;  width: 500px; height: 200px; resize: none;}
+	
+	
+	.input-cancel{margin-left: 30%;}
+	.input-btn{width: 100px; height: 40px;}
+	
+	input{margin-top: 10px;}
+	
+	label{margin-top: 5px; font-weight: bold;}
+	
+	
+		 
+	/* Header */
+	.navbar-light{background-color: white; border-bottom: 1px solid lightgray;}
+	nav-link{color: black;; !important;}
+	
+	/* Footer */
+	footer{background-color: white; color: black; border-top: 1px solid lightgray;}
+	
+	.f1{display: flex;}
+	.f1-col{flex: 1; font-size: 13px;}
+
+	.f2{display: flex;
+		border-top: 1px solid lightgray;
+		border-bottom: 1px solid lightgray; 
+		margin: 50px 0px 50px 0px;
+		padding: 15px 0px 15px 0px;}
+	.f2-col{flex: 1;}
+	
+	.copyright{color: gray; font-size: 13px;} 
+</style>
+        
+</head>
+<body>
+	<!-- Header-->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <img src="image/logo.PNG" style="height: 72px;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+	                <li class="nav-item active">
+	                	<a class="nav-link" href="#!">회원가입</a>
+	                </li>
+                    <li class="nav-item active">
+						<a class="nav-link" href="#!">로그인</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+    </nav>
+    
+    <!-- Page Content-->
+    <div class="container">
+		<div class="row">
+        	<div class="col-lg-9">
+            	<div class="main">
+            		<p class="title">시설 정보 입력</p>
+            		<hr>
+            		<form class="contents-inside">
+	            			<label>시설 명 : </label><input type="text" placeholder="시설 명을 입력하세요"><br>
+	            			<label>상세주소 : </label><input type="text" placeholder="우편번호"><input type="button" value="우편번호찾기" src="#"><br>
+	            			<input type="text" placeholder="도로명 주소" id="road-name-address"><br>
+	            			<input type="text" placeholder="상세주소" id="detailed-address"><br>
+	            			<label>전화번호 : </label><input type="text" class="phone" id="num1">-<input type="text" class="phone" id="num2">-<input type="text" class="phone" id="num3"><br>
+	            			<label>운영시간 : </label> 평일 open<input type="time">close<input type="time"><br>
+	            			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	            			주말 open<input type="time">close<input type="time">
+	            			<br>
+	            			&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	            			휴관일 : <input type="text">
+	            			<br>
+	            			<label>시설 소개 </label>    <span id="counter">0</span>/300
+	            			<br>
+	            			<textarea id="introduce"></textarea>
+	            			<br>
+	            			<label>메인 사진 : </label><input type="file">
+	            			<br>
+	            			<label>시설 사진 : </label><input type="file">
+	            			<br>
+            		</form>
+            		<hr>
+            		<div class="input-cancel">
+	            		<input type="button" class="input-btn" value="입력">
+	            		<input type="button" class="input-btn" value="취소">
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer-->
+	<footer class="py-5">
+		<div class="container">
+			<div class="f1">
+				<div class="f1-col">
+					이용문의<br>
+					<span style="font-size: 35px; font-weight: 700px; color:#00B1D2; ">1588-0215</span><br>
+						AM 10:00 - PM 07:00<br>
+			        	토 일 공휴일 휴무
+		        </div>
+		        <div class="f1-col">
+			        <b>내일도 운동가야지</b><br>
+					서울시 강남구 역삼동<br>
+					대표 : 꽉자바<br>
+					사업자번호 : 707-0982-2133<br>
+					contact@kkakjava.co.kr<br>
+		        </div>
+        	</div>
+			<div class="f2">
+				<div class="f2-col"><a href="#!">이용약관</a></div>
+				<div class="f2-col"><a href="#!">개인정보처리방침</a></div>
+				<div class="f2-col"><a href="#!">위치정보이용약관</a></div>
+				<div class="f2-col"><a href="#!">고객센터</a></div>
+			</div>
+	        <span class="copyright">Copyright ⓒ Kkakjava Co., Ltd. All rights reserved.</span>
+        </div>
+    </footer>
+    
+    
+    <script>
+	    $('#introduce').keyup(function(){
+			var input = $(this).val();
+			var inputLength = input.length;
+			$('#counter').html('<b>' + inputLength + "</b>");
+			
+			if(inputLength <= 300){
+				$('#counter').css('color','black');
+			} else{
+				$('#counter').css('color','red');
+				
+				$(this.attr('maxlength','300'));
+			}
+		});
+    
+	</script>
+        
+	<!-- Footer-->
+	<footer class="py-5 bg-dark">
+	<div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+	</footer>
+	
+	<!-- Bootstrap core JS-->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
