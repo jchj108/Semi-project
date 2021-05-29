@@ -13,6 +13,11 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
+    <script
+      type="text/javascript"
+      src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"
+    ></script>
+
     <style>
       body {
         font-family: 'Noto Sans KR';
@@ -61,7 +66,6 @@
     </style>
   </head>
   <body>
-
     <header>
       <div class="logo">
         <img class="navbar-brand" src="image/logo.PNG" alt="logo" />
@@ -86,41 +90,27 @@
         </div>
         <div class="col-lg-9">
           <div id="map" style="width: 750px; height: 750px"></div>
-
-          <script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51a2be588394023dffe06fdafc5726ca"></script>
           <script>
-            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-              mapOption = {
-                center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
-                level: 3, // 지도의 확대 레벨
-                mapTypeId: kakao.maps.MapTypeId.ROADMAP, // 지도종류
-              };
+            var map = new naver.maps.Map('map', {
+              Center: new naver.maps.LatLng(37.3595704, 127.105399),
+              zoom: 15,
+            })
 
-            // 지도를 생성한다
-            var map = new kakao.maps.Map(mapContainer, mapOption);
-
-            var data = [
-              [
-                37.56682,
-                126.97865,
-                '<div style="padding:5px;">Hello World!<div>',
-              ],
-            ];
-
-            for (var i = 0; i <= data.length; i++) {
-              var marker = new kakao.maps.Marker({
-                position: new kakao.maps.LatLng(data[i]),
-                map: map, // 마커를 표시할 지도 객체
-              });
-
-              var iwContent = '<div style="padding:5px;">Hello World!<div>';
-              // 인포윈도우를 생성합니다
-              var infowindow = new kakao.maps.InfoWindow({
-                content: iwContent,
-              });
-            }
-
-            // 지도에 마커를 생성하고 표시한다
+            var marker = new naver.maps.Marker({
+              position: new maps.LatLng(37.3595704, 127.105399),
+              map: map,
+              title: '공공체육시설',
+              icon: {
+                content:
+                  '<img src="' +
+                  HOME_PATH +
+                  '/img/example/pin_default.png" alt="" ' +
+                  'style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; ' +
+                  '-webkit-user-select: none; position: absolute; width: 22px; height: 35px; left: 0px; top: 0px;">',
+                size: new naver.maps.Size(22, 35),
+                anchor: new naver.maps.Point(11, 35),
+              },
+            })
           </script>
         </div>
       </div>
