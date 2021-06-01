@@ -9,5 +9,7 @@
 <body>
 	<%@ include file="WEB-INF/views/common/menubar.jsp" %>
 	<!-- test -->
+	<!-- test2 -->
+	
 </body>
 </html>
