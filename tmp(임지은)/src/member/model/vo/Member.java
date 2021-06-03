@@ -12,9 +12,18 @@ public class Member {
 	private Date m_date;
 	private String m_etc;
 	private int m_auth;
+	private String m_status;
 	
+	public Member() {}
+	
+	public Member(String m_email, String m_pwd) {
+		super();
+		this.m_email = m_email;
+		this.m_pwd = m_pwd;
+	}
+
 	public Member(int m_no, String m_email, String m_pwd, String m_name, char m_gender, String m_address, Date m_date,
-			String m_etc, int m_auth) {
+			String m_etc, int m_auth, String m_status) {
 		super();
 		this.m_no = m_no;
 		this.m_email = m_email;
@@ -25,12 +34,7 @@ public class Member {
 		this.m_date = m_date;
 		this.m_etc = m_etc;
 		this.m_auth = m_auth;
-	}
-
-	public Member(String m_email, String m_pwd) {
-		super();
-		this.m_email = m_email;
-		this.m_pwd = m_pwd;
+		this.m_status = m_status;
 	}
 
 	public int getM_no() {
@@ -105,14 +109,19 @@ public class Member {
 		this.m_auth = m_auth;
 	}
 
+	public String getM_status() {
+		return m_status;
+	}
+
+	public void setM_status(String m_status) {
+		this.m_status = m_status;
+	}
+
 	@Override
 	public String toString() {
 		return "Member [m_no=" + m_no + ", m_email=" + m_email + ", m_pwd=" + m_pwd + ", m_name=" + m_name
 				+ ", m_gender=" + m_gender + ", m_address=" + m_address + ", m_date=" + m_date + ", m_etc=" + m_etc
-				+ ", m_auth=" + m_auth + "]";
+				+ ", m_auth=" + m_auth + ", m_status=" + m_status + "]";
 	}
-	
-	
-	
 	
 }
