@@ -4,9 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인페이지</title>
 </head>
 <body>
-
+	<%@ include file="WEB-INF/views/common/menubar.jsp" %>
+	<!-- test -->
+	<!-- dev branch -->
 </body>
 </html>
