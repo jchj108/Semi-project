@@ -8,6 +8,7 @@
 </head>
 <body>
 	<%@ include file="WEB-INF/views/common/menubar.jsp" %>
-	<!-- test -->
+	<!-- 0604test  -->
+	<!-- 브랜치 -->
 </body>
 </html>
