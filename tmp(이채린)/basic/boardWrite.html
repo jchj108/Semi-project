@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>게시물 작성 페이지</title>
+<script src='tools/jquery-3.6.0.min.js'></script>
+<style>
+	* {
+		font-family: 'NotoSansKR';
+		
+	}
+	
+	header {
+        width: 100%;
+        height: 72px;
+        border-bottom: black 1px solid;
+        background: #00b1d2;
+      }
+      
+	.container {
+		width: 1200px;
+		height: 850px;
+		margin: 0 auto;
+		margin-top: 100px;
+		margin-bottom: 100px;
+		
+	}	
+      
+	.title, .body, .file, .secret, .pwd {
+		display: inline-block;
+		width: 10%;
+		margin: 10px;
+		font-weight: bold;
+	}
+	
+	#titleInput, #bodyInput {
+		width: 75%
+	}
+	
+	#pwdInput {
+		width: 30%;
+	}
+	
+	#bodyInput {
+		height: 400px;
+	}
+	
+	#submit, #reset {
+		width: 70px;
+		padding: 0.3rem;
+		background: #00b1d2;
+		color: white; 
+ 		font-weight: bold; 
+		border-radius: 10px; 
+		border: none;
+		cursor: pointer;
+	}
+	
+	.body {
+		vertical-align: top;
+	}
+	
+	.button {
+		margin-left: 75%;
+		margin-top: 30px;
+	}	
+	
+      
+</style>
+</head>
+<body>
+
+	<header></header>
+	
+	<div class="container">
+		<div class="input">
+			<form>
+				<span class="title">제목</span><input type="text" max="50" placeholder="제목을 입력해주세요" id="titleInput"><br>
+				<span class="body">내용</span><textarea rows="10" cols="20" placeholder="내용을 입력해주세요" id="bodyInput"></textarea><br>
+				<span class="file">파일</span><input type="file" id="fileInput" value="파일 선택" multiple="multiple"><br>
+				<span class="secret">비밀글 설정</span><input type="checkbox" id="secretInput" checked><br>
+				<span class="pwd">비밀번호 입력</span><input type="text" max="10" placeholder="비밀번호를 입력해주세요" id="pwdInput"><br>
+				<div class="button">
+					<input type="submit" id="submit" value="확인">
+					<input type="reset" value="취소" id="reset">
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<script>
+		$('#submit').click(function(){
+			// secretInput에 체크되어 있고 pwdInput를 입력하지 않았다면
+			// alert("비밀번호를 입력해주세요")
+			// 비밀번호만 입력되어있고 체크되어 있지 않다면 alert("비밀글 설정을 확인해주세요")
+			// 둘 다 아니여야만 작성 완료
+		});
+		
+		
+	</script>
+
+</body>
+</html>

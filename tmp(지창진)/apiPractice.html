@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Document</title>
+    <script src="../tools/jquery-3.6.0.min.js"></script>
+  </head>
+  <body>
+    <p id="dat"></p>
+
+    <script>
+
+
+      $.ajax({
+        url: 'http://api.kcisa.kr/openapi/service/rest/convergence2019/getConver09?serviceKey=5c8c24cc-7c25-4fb6-8593-eb255d8a2b0c&numOfRows=100&category=체육시설&where=서울',
+        // String targetUrl = "http://api.kcisa.kr/openapi/service/rest/meta13/getKOCD0101?serviceKey=75005ce4-4725-485f-800b-e0fde88fa2bb";
+
+        dataType: 'xml',
+        error: function () {
+          alert('Error');
+        },
+        success: function (xml) {
+          $(xml)
+            .find('item')
+            .each(function () {
+              var title = $(this).find('title').text();
+              var venue = $(this).find('venue').text();
+              // var url = $(this).find('url');
+              var description = $(this).find('description').text();
+							// var referenceIdentifier = $(this).find('referenceIdentifier');
+              var affiliation = $(this).find('affiliation').text();
+							// var subjectCategory = $(this).find('subjectCategory').text();
+							var relation = $(this).find('relation').text();							
+              var subDescription = $(this).find('subDescription').text();						
+              var subjectKeyword = $(this).find('subjectKeyword').text();
+              var subjectCategory	= $(this).find('subjectCategory	').text();
+							var view_text = title + venue + relation + affiliation + subjectKeyword
+              $('#id').append(view_text + '<br>'); // #id 에 view_text 삽입 }); } });
+              // $('#id').append(description + '<br>'); // #id 에 view_text 삽입 }); } });
+              
+            });
+        },
+      });
+      kakaoImgApiInsert();
+  
+      function kakaoImgApiInsert() {
+        //https://developers.kakao.com/tool/rest-api/open/get/v2-search-image
+  
+        $.ajax({
+          type: 'GET',
+  
+          url: 'https://dapi.kakao.com/v2/search/image',
+  
+          headers: {
+            Authorization: 'KakaoAK 560ac555ac9191358d412d7f7952b132',
+          },
+  
+          data: {
+            query: '중랑구 숙선옹주로 66',
+            sort: '', //accuracy(정확도순) 또는 recency(최신순)
+            page: 1, //결과 페이지 번호, 1~50 사이의 값, 기본 값 1
+            size: 5, //한 페이지에 보여질 문서 수, 1~80 사이의 값, 기본 값 80
+          },
+  
+          success: function (jdata) {
+            console.log(jdata);
+            $(jdata.documents).each(function (index) {
+              $('div#content').append('<img src="' + this.image_url + '"/>');
+            });
+          },
+  
+          error: function (xhr, textStatus) {
+            console.log(xhr.responseText);
+            console.log('에러');
+            return;
+          },
+        });
+      }
+    </script>
+  
+    <body>
+      <div id="content" style="display: grid"></div>
+    <div id="id"></div>
+  </body>
+</html>

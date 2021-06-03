@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>검색 상세 페이지</title>
+<script src='tools/jquery-3.6.0.min.js'></script>
+<style>
+	* {
+		font-family: 'NotoSansKR';
+	}
+	
+	h3 {
+		text-align: center;
+	}
+	
+	 header {
+        width: 100%;
+        height: 72px;
+        border-bottom: black 1px solid;
+        background: #00b1d2;
+      }
+	
+	.container {
+		width: 1200px;
+		height: 850px;
+		margin: 0 auto;
+		margin-top: 30px;
+		margin-bottom: 100px;
+	}
+	
+	.sidebar, .contents, .card{display: inline-block;}	
+	
+	.sidebar {
+		width: 180px;
+		margin-right: 50px;
+		
+	}
+	
+	.list-group-item, .list-group-title{
+		display: block;
+  		padding: 1rem 1rem;
+  		background-color: lightgrey;
+  		text-decoration: none;
+  		color: black;  	
+	}
+	
+	.list-map {margin-top: 10px;}
+	
+	.card {
+		border: solid 1px lightgrey; 
+		margin: 10px;
+	}	
+	
+	.card-footer {
+		border: solid 1px lightgrey; 
+		background: lightgrey; 
+		height: 35px;		
+	}
+	
+	.card-img{width: 250px;}
+	
+	.score, .card-title, .card-text {padding: 0.5rem;}
+	
+ 	.card-title {font-size: 14pt; color: #00b1d2;}
+ 	
+ 	.pagination {
+ 		list-style-type: none;
+		display: block;
+		text-align: center;
+ 		
+ 	}
+ 	
+ 	.page-item {
+		display: inline-block;
+ 		padding: 0.2rem;
+ 				
+ 	} 	
+ 	
+ 	.page-link {
+ 		text-decoration: none; 
+ 		color: #00b1d2; 
+ 		font-weight: bold;
+ 	}
+ 	
+ 	 .page-link:hover {color: lightgrey; text-decoration: underline;}
+	
+ 	.sortPack{
+ 		text-align: right
+ 	}
+
+ 	.sort {
+ 		display: inline-block;
+ 		text-decoration: none;
+ 		color: white;
+ 		background: #00b1d2; 		
+ 		padding: 0.5rem;
+ 		width: 150px;
+ 		text-align: center;
+ 		margin: 5px;
+ 		border-radius: 10px;
+ 				
+ 	}
+	
+</style>
+</head>
+<body>
+	<header></header>
+	<div class="container">	
+	
+		<!-- 사이드바 -->
+		<div class="sidebar">
+			<div class="list-group">
+				 <div class="list-group-title"><h3>운동 카테고리</h3></div>
+                 <a class="list-group-item" href="#">요가 / 필라테스</a>
+                 <a class="list-group-item" href="#">축구</a>
+                 <a class="list-group-item" href="#">테니스</a>
+                 <a class="list-group-item" href="#">댄스</a>
+                 <a class="list-group-item" href="#">수영</a>
+                 <a class="list-group-item" href="#">복싱</a>
+                 <a class="list-group-item" href="#">기타</a>
+                 
+                 <div class="list-map">
+                 	<div class="list-group-item"><h3>지도에서 찾기</h3></div>
+                 </div>
+			</div>
+		</div>
+		
+		<div class="contents">
+			<div class="title"><h2>내 주변의 운동시설</h2></div>
+			
+			<!-- 정렬 버튼 -->
+			<div class="sortPack">
+				<span class="sort" id="reviewSort">리뷰 순 정렬</span>
+				<span class="sort" id="scoreSort">평점 순 정렬</span>
+			</div>	
+			
+			<div class="info">
+				<div class="card">
+					<a href="#!"><img class="card-img" src="image/city1.png"></a>
+					<div class="card-body">
+						<h4 class="card-title">헬스장 1</h4>
+						<p class="card-text">서울특별시 역삼동</p>
+					</div>
+					<div class="card-footer"><small class="score">★ ★ ★ ★ ☆</small></div>
+				</div>
+				
+				<div class="card">
+					<a href="#!"><img class="card-img" src="image/city1.png"></a>
+					<div class="card-body">
+						<h4 class="card-title">헬스장 1</h4>
+						<p class="card-text">서울특별시 역삼동</p>
+					</div>
+					<div class="card-footer"><small class="score">★ ★ ★ ★ ☆</small></div>
+				</div>	
+				
+				<div class="card">
+					<a href="#!"><img class="card-img" src="image/city1.png"></a>
+					<div class="card-body">
+						<h4 class="card-title">헬스장 1</h4>
+						<p class="card-text">서울특별시 역삼동</p>
+					</div>
+					<div class="card-footer"><small class="score">★ ★ ★ ★ ☆</small></div>
+				</div>
+				<br>
+				<div class="card">
+					<a href="#!"><img class="card-img" src="image/city1.png"></a>
+					<div class="card-body">
+						<h4 class="card-title">헬스장 1</h4>
+						<p class="card-text">서울특별시 역삼동</p>
+					</div>
+					<div class="card-footer"><small class="score">★ ★ ★ ★ ☆</small></div>
+				</div>
+				
+				<div class="card">
+					<a href="#!"><img class="card-img" src="image/city1.png"></a>
+					<div class="card-body">
+						<h4 class="card-title">헬스장 1</h4>
+						<p class="card-text">서울특별시 역삼동</p>
+					</div>
+					<div class="card-footer"><small class="score">★ ★ ★ ★ ☆</small></div>
+				</div>
+				
+				<div class="card">
+					<a href="#!"><img class="card-img" src="image/city1.png"></a>
+					<div class="card-body">
+						<h4 class="card-title">헬스장 1</h4>
+						<p class="card-text">서울특별시 역삼동</p>
+					</div>
+					<div class="card-footer"><small class="score">★ ★ ★ ★ ☆</small></div>
+				</div>				
+					
+			</div>				
+		</div>	
+			<!-- 페이지 넘기기 -->
+			  <ul class="pagination">
+			    <li class="page-item">
+			      <a class="page-link" href="#">&laquo;</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">1</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">2</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">3</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">4</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">5</a>
+			    </li>
+			    <li class="page-item">
+			      <a class="page-link" href="#">&raquo;</a>
+			    </li>			    
+			</ul>
+	</div>
+    
+    
+    <script>
+    	$('.list-group-item').hover(function(){
+    		$(this).css({'background':'#00b1d2', 'color':'white'});
+    	}, function(){
+    		$(this).css({'background':'lightgrey', 'color':'black'});
+    	});
+    	
+    	$('.sort').mouseenter(function(){
+    		$(this).css('cursor', 'pointer');
+    	});
+    	
+    	$('#reviewSort').click(function(){
+    		// 리뷰 순 정렬하기
+    	});
+    	
+		$('#scoreSort').click(function(){
+    		// 평점 높은 순 정렬하기
+    	});
+    	
+    	
+    	
+    	
+    </script>
+</body>
+</html>

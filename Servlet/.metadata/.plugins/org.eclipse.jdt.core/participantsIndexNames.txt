@@ -1,0 +1,7 @@
+INDEX VERSION 1.131
+C:\Users\leech\OneDrive\πŸ≈¡ »≠∏È\Semi-project\Servlet\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\995322186.index
+\Semi\src
+C:\Users\leech\OneDrive\πŸ≈¡ »≠∏È\Semi-project\Servlet\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3008876446.index
+\Semi\src
+C:\Users\leech\OneDrive\πŸ≈¡ »≠∏È\Semi-project\Servlet\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\643777975.index
+\Semi\src
