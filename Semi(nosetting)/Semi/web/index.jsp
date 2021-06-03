@@ -8,6 +8,6 @@
 </head>
 <body>
 	<%@ include file="WEB-INF/views/common/menubar.jsp" %>
-	<!-- 브랜치에서 작성  -->
+	<!-- test 0216 -->
 </body>
 </html>
