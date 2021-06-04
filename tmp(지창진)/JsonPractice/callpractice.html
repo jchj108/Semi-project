@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>jQuery를 이용한 JSON 데이터 구하기</title>
+    <!-- <link rel="stylesheet" type="text/css" /> -->
+    <script src="../../tools/jquery-3.6.0.min.js"></script>
+    <script>
+			var title = '';
+			var path = '';
+			var ycode = new Array();
+			var title = new Array();
+			var xcode = new Array();
+      // $(document).ready(function () {
+				$.getJSON('gym.json', function (data) {
+					$.each(data, function (entryIndex, entry) {
+            title.push(entry.nm);
+						xcode.push(entry.xcode);
+						ycode.push(entry.ycode);
+          });
+					// document.getElementById("img").innerHTML = "<img src='" + path + "'>";
+					for(var i = 0; i < xcode.length; i++) {
+						document.getElementById("img").innerHTML += xcode[i];
+					}
+        });
+				
+      // });
+      // });
+    </script>
+		<div id="img">
+		</div>
+		<script>
+
+
+
+
+		</script>
+  </head>
+  <body>
+
+  </body>
+</html>
