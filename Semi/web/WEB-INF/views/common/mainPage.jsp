@@ -7,7 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"
+	src="<%=request.getContextPath()%>/tools/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <title>헤더/푸터</title>
@@ -564,7 +565,7 @@ footer {
 								<div id="group">
 									<input type="text" id="search_service" placeholder="서비스를 검색하세요" />
 									<div id="search_icon">
-										<img src="image/search.png" width="20px" height="20px" alt="검색" />
+										<img src="<%= request.getContextPath() %>/image/search.png" width="20px" height="20px" alt="검색" />
 									</div>
 								</div>
 							</form>
@@ -572,35 +573,35 @@ footer {
 					</div>
 					<ul class="category1-buttons categories grid">
 						<li class="category"><a><div class="category-icon">
-									<img src="image/free-icon-fitness-trainer-89842.png" width="45px" alt="헬스" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-fitness-trainer-89842.png" width="45px" alt="헬스" />
 									<p>헬스</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="image/free-icon-yoga-2043877.png" width="45px" alt="요가/필라테스" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-yoga-2043877.png" width="45px" alt="요가/필라테스" />
 									<p>요가/필라테스</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="image/free-icon-football-players-on-game-263102.png" width="45px" alt="축구" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-football-players-on-game-263102.png" width="45px" alt="축구" />
 									<p>축구</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="image/free-icon-tennis-3332598.png" alt="테니스" width="45x" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-tennis-3332598.png" alt="테니스" width="45x" />
 									<p>테니스</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="image/free-icon-dance-floor-857315.png" alt="댄스" width="45px" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-dance-floor-857315.png" alt="댄스" width="45px" />
 									<p>댄스</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="image/free-icon-swimming-50004.png" alt="수영" width="45x" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-swimming-50004.png" alt="수영" width="45x" />
 									<p>수영</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="image/sport.png" alt="복싱" width="45px" />
+									<img src="<%= request.getContextPath() %>/image/sport.png" alt="복싱" width="45px" />
 									<p>복싱</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="image/more (1).png" alt="헬스" width="45px" />
+									<img src="<%= request.getContextPath() %>/image/more (1).png" alt="헬스" width="45px" />
 									<p>기타</p>
 								</div></a></li>
 					</ul>
@@ -618,10 +619,10 @@ footer {
 			<div class="box" id="box2">
 				<div id="slideshow">
 					<div id="mainImage1">
-						<img class="mainImage" src="image/pt_trainer.jpg" />
+						<img class="mainImage" src="<%= request.getContextPath() %>/image/pt_trainer.jpg" />
 					</div>
 					<div id="mainImage2">
-						<img class="mainImage" src="image/pt_trainer_1.jpg" />
+						<img class="mainImage" src="<%= request.getContextPath() %>/image/pt_trainer_1.jpg" />
 					</div>
 				</div>
 			</div>
@@ -866,7 +867,6 @@ footer {
     	
     </script>
 	<!-- Bootstrap core JS-->
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
