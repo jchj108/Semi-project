@@ -71,3 +71,4 @@ local.properties
 .buildpath
 
 
+Semi/web/WEB-INF/classes/.gitignore
