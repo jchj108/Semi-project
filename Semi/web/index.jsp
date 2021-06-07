@@ -9,6 +9,6 @@
 	src="<%=request.getContextPath()%>/tools/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<%@ include file="WEB-INF/views/common/mainPage.jsp" %>
+	<%@ include file="WEB-INF/views/common/main.jsp" %>
 </body>
 </html>

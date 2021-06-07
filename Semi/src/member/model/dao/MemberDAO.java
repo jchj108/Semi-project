@@ -60,4 +60,29 @@ public class MemberDAO {
 		
 		return loginUser;
 	}
+
+	public int checkEmail(Connection conn, String inputEmail) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+		
+		String query = prop.getProperty("checkEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, inputEmail);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

@@ -20,5 +20,14 @@ public class MemberService {
 		return loginUser;
 	}
 
+	public int checkEmail(String inputEmail) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().checkEmail(conn, inputEmail);
+		
+		close(conn);
+		return result;
+	}
+
 
 }
