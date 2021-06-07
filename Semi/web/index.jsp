@@ -7,8 +7,6 @@
 <title>메인페이지</title>
 </head>
 <body>
-	<%@ include file="WEB-INF/views/common/menubar.jsp" %>
-	<!-- test -->
-	<!-- dev branch -->
+	<%@ include file="WEB-INF/views/common/main.jsp" %>
 </body>
 </html>

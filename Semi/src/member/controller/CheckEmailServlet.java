@@ -7,22 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class LogIn
+ * Servlet implementation class CheckEmailServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/checkEmail.me")
+public class CheckEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public CheckEmailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,24 +29,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		String inputEmail = request.getParameter("inputEmail");
 		
-		String email = request.getParameter("userEmail");
-		String pwd = request.getParameter("userPwd");
+		int result = new MemberService().checkEmail(inputEmail);
 		
-		Member mem = new Member(email, pwd);
+		request.setAttribute("result", result);
+		request.setAttribute("checkedEmail", inputEmail);
 		
-		Member loginUser = new MemberService().loginMember(mem);
-		
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			
-			response.sendRedirect(request.getContextPath());
-		} else {
-			request.setAttribute("msg", "로그인 실패");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-		}
+		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
 	}
 
 	/**
