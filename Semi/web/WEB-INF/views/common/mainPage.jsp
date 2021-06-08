@@ -365,7 +365,7 @@
 						<ul>
 							<li id="tab1"><a href="#a" class="on">서비스 찾기</a></li>
 							<li id="tab2"><a href="#a">운동 추천받기</a></li>
-							<li id="tab3"><a href="<%=request.getContextPath()%>/map.do">지도에서 찾기</a></li>
+							<li id="tab3"><a href="#a">지도에서 찾기</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -430,6 +430,15 @@
 					</div>
 					<p style="font-size: 1.1rem; font-weight: 500; line-height: normal; color: #737373; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;">맞춤형 운동을 제안해드려요</p>
 					<button style="width: 215px; height: 50px; color: #fff; background-color: #00b1d2; border-color: #00b1d2; margin-top: 10px; border-radius: 0.375rem;" type="button" class="btn">운동 추천받기</button>
+				</div>
+				<div id="pannel3" class="tab-content">
+					<div>
+						<h2 class="main_header" style="margin-bottom: 16px">
+							내 주변에는 <br /> 어떤 운동 시설이 있을까?
+						</h2>
+					</div>
+					<p style="font-size: 1.1rem; font-weight: 500; line-height: normal; color: #737373; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;">서울시 공공 체육 시설을 찾아드려요</p>
+					<button style="width: 215px; height: 50px; color: #fff; background-color: #00b1d2; border-color: #00b1d2; margin-top: 10px; border-radius: 0.375rem;" type="button" class="btn" id="searchMap">지도에서 찾기</button>
 				</div>
 			</div>
 			<div class="box" id="box2">
@@ -641,7 +650,9 @@
         })
     </script>
     <script>
-    	
+    	$('#searchMap').click(function() {
+    		location.href ="<%= request.getContextPath() %>/map.do";
+    	});
     </script>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
