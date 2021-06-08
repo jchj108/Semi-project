@@ -22,6 +22,7 @@
 </head>
 <body>
 		<div class="modal-dialog" role="document">
+		<!-- test1 -->
 			<div class="modal-content" id="signUpForm">
 				<div class="modal-header">
 					<div class="modal-title text-center" id="exampleModalLabel" >
