@@ -85,6 +85,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
 				<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;">
+				<img src="<%= request.getContextPath() %><%=loginUser.getM_profile()%>" style="height: 50px;">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">

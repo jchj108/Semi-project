@@ -32,7 +32,9 @@ public class MapServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 
-		request.getRequestDispatcher("WEB-INF/views/map/map.jsp").forward(request, response);
+//		request.setAttribute 로 맵 가져오기
+		
+		response.sendRedirect("WEB-INF/views/map/map.jsp");
 	}
 
 	/**
