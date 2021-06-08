@@ -1,4 +1,4 @@
-package map.controller;
+package member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -6,22 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import member.model.service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class MapServlet
+ * Servlet implementation class CheckEmailServlet
  */
-@WebServlet("/map.do")
-public class MapServlet extends HttpServlet {
+@WebServlet("/checkEmailForm.me")
+public class CheckEmailFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MapServlet() {
+    public CheckEmailFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,9 +26,9 @@ public class MapServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-
-		request.getRequestDispatcher("WEB-INF/views/map/map.jsp").forward(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
 	}
 
 	/**

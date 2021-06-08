@@ -33,8 +33,8 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		String email = request.getParameter("email");
-		String pwd = request.getParameter("pwd");
+		String email = request.getParameter("userEmail");
+		String pwd = request.getParameter("userPwd");
 		
 		Member mem = new Member(email, pwd);
 		
