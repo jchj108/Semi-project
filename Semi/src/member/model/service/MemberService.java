@@ -1,6 +1,8 @@
 package member.model.service;
 
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.rollback;
 import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -26,6 +28,21 @@ public class MemberService {
 		int result = new MemberDAO().checkEmail(conn, inputEmail);
 		
 		close(conn);
+		return result;
+	}
+
+	public int deleteMember(String email) {
+		Connection conn = getConnection();
+		int result = new MemberDAO().deleteMember(conn, email);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
 		return result;
 	}
 

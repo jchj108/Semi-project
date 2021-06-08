@@ -100,7 +100,7 @@
 								<button class="dropdown-item" style="font-weight: bold; color: black; pointer-events: none;">
 									반갑습니다, <%= loginUser.getM_name() %>님
 								</button>
-								<button class="dropdown-item" type="button">마이페이지</button>
+								<button class="dropdown-item" type="button" onclick="location.href='myPage.me'">마이페이지</button>
 								<div class="dropdown-divider"></div>
 								<button class="dropdown-item text-right" type="button" id="logout">로그아웃</button>
 							</div>
@@ -137,10 +137,10 @@
 	</script>
 
 <!-- Bootstrap core JS-->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
+
 
 </body>
 </html>
