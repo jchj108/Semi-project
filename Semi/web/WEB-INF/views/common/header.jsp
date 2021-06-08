@@ -101,7 +101,7 @@
 								<button class="dropdown-item" style="font-weight: bold; color: black; pointer-events: none;">
 									반갑습니다, <%= loginUser.getM_name() %>님
 								</button>
-								<button class="dropdown-item" type="button">마이페이지</button>
+								<button class="dropdown-item" type="button" onclick="location.href='myPage.me'">마이페이지</button>
 								<div class="dropdown-divider"></div>
 								<button class="dropdown-item text-right" type="button" id="logout">로그아웃</button>
 							</div>
