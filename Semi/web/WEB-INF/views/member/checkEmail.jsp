@@ -59,14 +59,18 @@
 		function inputValue(){
 			if('<%= checkedEmail %>' == "null"){
 	 			document.getElementById('inputEmail').value = opener.document.getElementById('email').value
-			} else{
+			} else {
 				document.getElementById('inputEmail').value = '<%= checkedEmail %>';
 			}
 		}
 		
 		document.getElementById('usedEmail').onclick=function(){
-			opener.document.getElementById('email').value = document.getElementById('inputEmail').value;
-			self.close();
+			if(<%= result %> > 0){
+				return false;
+			} else {
+				opener.document.getElementById('email').value = document.getElementById('inputEmail').value;
+				self.close();				
+			}
 		}
 	
 	</script>

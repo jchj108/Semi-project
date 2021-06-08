@@ -14,6 +14,7 @@ public class Member {
 	private int m_auth;
 	private String m_status;
 	
+	
 	public Member() {}
 	
 	public Member(String m_email, String m_pwd) {

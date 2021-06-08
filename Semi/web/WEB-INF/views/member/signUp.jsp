@@ -34,7 +34,7 @@
 				</div>
 					<h3 class="my-3 text-center">회원가입</h3>
 				<div class="login-form-background mx-auto row">
-					<form class="validation-form" name="signUpForm" action="<%= request.getContextPath() %>/login.me" method="post">
+					<form class="validation-form" name="signUpForm" action="<%= request.getContextPath() %>/signUp.me" method="post">
 						<div class="mb-1 row align-items-end">
 							<div class="col-md-9">
 								<label for="email">이메일</label> 
@@ -48,15 +48,13 @@
 		
 						<div class="mb-1">
 							<label for="password">비밀번호</label>
-							<input type="password" class="form-control" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요." required>
-							<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
+							<input type="password" class="form-control" id="pwd" name="pwd" placeholder="영문+숫자+특수문자 조합 8자리 이상 입력해주세요." required>
 						</div>
 						<div class="mb-3" id="pwdResult"></div>
 		
 						<div class="mb-1">
 							<label for="password2">비밀번호 확인</label>
 							<input type="password" class="form-control" id="pwd2" name="pwd2" required>
-							<div class="invalid-feedback">비밀번호 확인을 입력해주세요.</div>
 						</div>
 						<div class="mb-3" id="pwd2Result"></div>
 		
@@ -79,10 +77,10 @@
 						</div>
 
 						<div class="mb-3">
-							<label for="gender">대표사진 설정</label><br>
+							<label for="gender">대표사진</label><br>
 								<img src="<%= request.getContextPath() %>/image/default_profile.png" class="img-fluid" style="height: 100px;"> &nbsp;
 							<div class="custom-file d-inline-block align-bottom" style="width:200px;">
-								<input type="file" class="custom-file-input" id="customFile">
+								<input type="file" class="custom-file-input" id="profilePhoto" name="profilePhoto">
 								<label class="custom-file-label" for="customFile">파일선택</label>
 							</div>
 						</div>
@@ -96,17 +94,16 @@
 						<div class="row mb-3">
 							<div class="col-md-4">
 								<label for="excersice">운동 경력(선택)</label>
-								<select class="custom-select d-block w-100" id="excersice">
-									<option value=""></option>
-									<option selected>경력없음</option>
-									<option>3개월 이상</option>
-									<option>6개월 이상</option>
-									<option>1년 이상</option>
+								<select class="custom-select d-block w-100" id="etc" name="etc">
+									<option value="noCareer"selected>경력없음</option>
+									<option value="3month">3개월 이상</option>
+									<option value="6month">6개월 이상</option>
+									<option value="1year">1년 이상</option>
 								</select>
 							</div>
 							<div class="col-md-8">
 								<label for="favorite">선호하는 운동(선택)</label>
-								<input type="text" class="form-control" id="favorite">
+								<input type="text" class="form-control" id="like" name="like">
 							</div>
 						</div>
 		
@@ -132,23 +129,53 @@
 		});
 		
 		$(function(){
-			var isEmail, isId, isPw, isPw2 = false;
+			var isEmail, isPwd, isPwd2 = false;
 			
 			$('#email').change(function(){
-				var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 				
 				if(!regExp.test($(this).val())){
 					$("#emailResult").text("올바른 이메일 형식이 아니에요").css("color","#dc3545");
 					$(this).focus();
+					
 					isEmail = false;
+				} else {
+					$("#emailResult").remove();
+					
+					isEmail = true;
 				}
-				
-				isEmail = true;
 			});
 			
 			$('#pwd').change(function(){
+				var regExp = /^[A-Za-z][A-Za-z0-9$@$!%*#?&-_]{7,}$/;
+				var regExp2 = /^[$@$!%*#?&-_]{8,}$/;
 				
+				if(!regExp.test($(this).val())) {
+					$("#pwdResult").text("올바른 비밀번호 형식이 아니에요.").css("color","#dc3545");
+					$(this).focus();
+					
+					isPwd = false;
+				} else {
+					$("#pwdResult").remove();
+					
+					isPwd = true;
+				}
+			});
+			
+			$('#pwd2').change(function(){
+				var pwd = $('#pwd').val();
+				var pwd2 = $('#pwd2').val();
 				
+				if(pwd != pwd2){
+					$('#pwd2Result').text('비밀번호가 일치하지 않아요.').css("color","#dc3545");
+					$(this).focus();
+					
+					isPwd2 = false;
+				} else {
+					$('#pwd2Result').text('비밀번호가 일치합니다.').css("color","green");
+					
+					isPwd2 = true;
+				}
 			});
 			
 		});
