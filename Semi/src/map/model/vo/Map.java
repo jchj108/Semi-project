@@ -112,6 +112,18 @@ public class Map {
 		G_IN_OUT = g_IN_OUT;
 	}
 
+	public Map(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
+			double g_XCODE) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_NAME = g_NAME;
+		G_ADDRESS = g_ADDRESS;
+		G_YCODE = g_YCODE;
+		G_XCODE = g_XCODE;
+	}
+
 	@Override
 	public String toString() {
 		return "Map [G_NO=" + G_NO + ", G_TYPE_NM=" + G_TYPE_NM + ", G_GU_NM=" + G_GU_NM + ", G_NAME=" + G_NAME
