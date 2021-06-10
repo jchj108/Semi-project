@@ -94,7 +94,8 @@
 					<ul class="nav ml-auto">
 						<li class="nav-item dropdown">
 							<p class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<%= loginUser.getM_name() %>&nbsp;고객님
+								<img src="<%= request.getContextPath() %><%=loginUser.getM_profile()%>" style="height: 30px;">
+								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<button class="dropdown-item" style="font-weight: bold; color: black; pointer-events: none;">
@@ -139,7 +140,5 @@
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
-<script src="js/scripts.js"></script>
-
 </body>
 </html>

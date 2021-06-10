@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -9,10 +11,8 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>map</title>
-    <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script
       type="text/javascript"
       src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"
@@ -116,7 +116,7 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-          <img src="image/logo.PNG" style="height: 72px" />
+          <img src="<%=request.getContextPath()%>/image/logo.png" style="height: 72px" />
           <button
             class="navbar-toggler"
             type="button"
@@ -142,40 +142,83 @@
       </nav>
     </header>
     <!-- Page Content-->
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3">
-          <h1 class="my-4">지도로 찾기</h1>
-          <div class="list-group">
-            <a class="list-group-item" href="#!">Category 1</a>
-            <a class="list-group-item" href="#!">Category 2</a>
-            <a class="list-group-item" href="#!">Category 3</a>
-          </div>
-        </div>
-        <div class="col-lg-9">
-          <div id="map" style="width: 750px; height: 750px"></div>
-          <script>
-            var map = new naver.maps.Map('map', {
-              Center: new naver.maps.LatLng(37.3595704, 127.105399),
-              zoom: 15,
-            })
+   	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<h1 class="my-4">지도로 찾기</h1>
+				<div class="list-group">
+					<a class="list-group-item" href="#!">Category 1</a> <a
+						class="list-group-item" href="#!">Category 2</a> <a
+						class="list-group-item" href="#!">Category 3</a>
+				</div>
+			</div>
+			<div class="col-lg-9">
+				<div id="map" style="width: 750px; height: 750px"></div>
+				<script>
+					var map = new naver.maps.Map('map', {
+						center : new naver.maps.LatLng(37.3595704, 127.105399),
+						zoom : 15,
+					})
 
-            var marker = new naver.maps.Marker({
-              position: new maps.LatLng(37.3595704, 127.105399),
-              map: map,
-              title: '공공체육시설',
-              icon: {
-                content:
-                  '<img src="' +
-                  HOME_PATH +
-                  '/img/example/pin_default.png" alt="" ' +
-                  'style="margin: 0px; padding: 0px; border: 0px solid transparent; display: block; max-width: none; max-height: none; ' +
-                  '-webkit-user-select: none; position: absolute; width: 22px; height: 35px; left: 0px; top: 0px;">',
-                size: new naver.maps.Size(22, 35),
-                anchor: new naver.maps.Point(11, 35),
-              },
-            })
-          </script>
+					var marker = new CustomMarker(37.3595704, 127.105399, 1, 2,
+							"헬스", "네이버 헬스", "ㅇㅇ시 ㅇㅇ동");
+					var marker = new CustomMarker(37.3599704, 127.109399, 2, 2,
+							"체육관", "네이버 헬스", "수시 사동");
+
+					function overGym(childID) {
+						$('#' + childID).show()
+					}
+
+					function outGym(childID) {
+						$('#' + childID).hide()
+					}
+
+					function CustomMarker(lat, lng, gymID, category, gymGubun,
+							name, address) {
+						var contents_html = "";
+
+						switch (category) {
+
+						case 1:
+							contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#b12121; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+									+ gymID
+									+ '\');" onmouseout="javascript:outGym(\''
+									+ gymID
+									+ '\');">'
+									+ '<div style="font-weight: bold; font-size:14px"> '
+									+ gymGubun
+									+ ' </div>'
+									+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+									+ name + '<br/>' + address + ' </div>';
+
+						case 2:
+							contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#b12121; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+									+ gymID
+									+ '\');" onmouseout="javascript:outGym(\''
+									+ gymID
+									+ '\');">'
+									+ '<div style="font-weight: bold; font-size:14px"> '
+									+ gymGubun
+									+ ' </div>'
+									+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+									+ name + '<br/>' + address + ' </div>';
+						}
+
+						var marker = new naver.maps.Marker({
+							position : new naver.maps.LatLng(lat, lng),
+							map : map,
+							title : gymGubun,
+							icon : {
+								content : contents_html,
+								size : new naver.maps.Size(38, 58),
+								anchor : new naver.maps.Point(19, 58),
+							},
+							draggable : false
+						});
+						return marker;
+					}
+				</script>
+			</div>
         </div>
       </div>
     </div>
@@ -218,7 +261,5 @@
     <!-- Bootstrap core JS-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
   </body>
 </html>

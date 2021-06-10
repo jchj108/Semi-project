@@ -1,11 +1,15 @@
 package member.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
  * Servlet implementation class SignUpServlet
@@ -27,15 +31,26 @@ public class SignUpServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+				
 		String email = request.getParameter("email");
 		String pwd = request.getParameter("pwd");
 		String name = request.getParameter("name");
-		String gender = request.getParameter("gender");
+		char gender = request.getParameter("gender").charAt(0);
 		String address = request.getParameter("address");
-		String profilePhoto = request.getParameter("profilePhoto");
 		String etc = request.getParameter("etc");
+		String profile = request.getParameter("profile");
 		String like = request.getParameter("like");
+		
+		Member mem = new Member(email, pwd, name, gender, address, etc, profile, like);
+		
+		int result = new MemberService().insertMember(mem);
+		
+		if(result > 0) {
+			response.sendRedirect(request.getContextPath());
+		} else {
+			request.setAttribute("msg", "회원가입에 실패하였습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp");
+		}
 	}
 
 	/**

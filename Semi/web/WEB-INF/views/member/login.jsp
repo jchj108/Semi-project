@@ -35,7 +35,7 @@
 						</div>
 		
 						<div class="form-group">
-							<button type="submit" class="btn btn-lg btn-block" id="login" style="background-color: #00B1D2; color: white; width: 405px;">로그인</button>
+							<button type="submit" class="btn btn-lg btn-block" style="background-color: #00B1D2; color: white; width: 405px;">로그인</button>
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-lg btn-block" style="background-color: #FEE500">

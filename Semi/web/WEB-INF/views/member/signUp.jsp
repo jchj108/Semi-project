@@ -22,7 +22,6 @@
 </head>
 <body>
 		<div class="modal-dialog" role="document">
-		<!-- test1 -->
 			<div class="modal-content" id="signUpForm">
 				<div class="modal-header">
 					<div class="modal-title text-center" id="exampleModalLabel" >
@@ -48,7 +47,7 @@
 		
 						<div class="mb-1">
 							<label for="password">비밀번호</label>
-							<input type="password" class="form-control" id="pwd" name="pwd" placeholder="영문+숫자+특수문자 조합 8자리 이상 입력해주세요." required>
+							<input type="password" class="form-control" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요." required>
 						</div>
 						<div class="mb-3" id="pwdResult"></div>
 		
@@ -68,9 +67,9 @@
 								<label for="gender">성별</label>
 								<div class="radio">
 									<label style="margin-right: 50px;">
-									<input type="radio" name="gender" value="man" checked>남
+									<input type="radio" name="gender" value="male" checked>남
 									&nbsp; &nbsp;
-									<input type="radio" name="gender" value="woman">여
+									<input type="radio" name="gender" value="female">여
 									</label>
 								</div>
 							</div>
@@ -80,7 +79,7 @@
 							<label for="gender">대표사진</label><br>
 								<img src="<%= request.getContextPath() %>/image/default_profile.png" class="img-fluid" style="height: 100px;"> &nbsp;
 							<div class="custom-file d-inline-block align-bottom" style="width:200px;">
-								<input type="file" class="custom-file-input" id="profilePhoto" name="profilePhoto">
+								<input type="file" class="custom-file-input" id="profile" name="profile">
 								<label class="custom-file-label" for="customFile">파일선택</label>
 							</div>
 						</div>
@@ -93,12 +92,12 @@
 		
 						<div class="row mb-3">
 							<div class="col-md-4">
-								<label for="excersice">운동 경력(선택)</label>
+								<label for="excersice">운동 경력</label>
 								<select class="custom-select d-block w-100" id="etc" name="etc">
-									<option value="noCareer"selected>경력없음</option>
-									<option value="3month">3개월 이상</option>
-									<option value="6month">6개월 이상</option>
-									<option value="1year">1년 이상</option>
+									<option value="경력 없음"selected>경력없음</option>
+									<option value="3개월 이상">3개월 이상</option>
+									<option value="6개월 이상">6개월 이상</option>
+									<option value="1년 이상">1년 이상</option>
 								</select>
 							</div>
 							<div class="col-md-8">
@@ -121,15 +120,17 @@
 		
 		
 	<script>
-		$('#checkEmailBtn').on('click', function(){
-			var popupX = (window.screen.width/2) - (450/2) - 15;
-			var popupY = (window.screen.height/2) - (350/2);
-						
-			window.open('checkEmailForm.me', 'checkEmail', 'width=450, height=350, left=' + popupX + ', top='+ popupY);
-		});
-		
 		$(function(){
-			var isEmail, isPwd, isPwd2 = false;
+			var isEmail, isEmailCheck, isPwd, isPwd2 = false;
+
+			$('#checkEmailBtn').on('click', function(){
+				var popupX = (window.screen.width/2) - (450/2) - 15;
+				var popupY = (window.screen.height/2) - (350/2);
+							
+				window.open('checkEmailForm.me', 'checkEmail', 'width=450, height=350, left=' + popupX + ', top='+ popupY);
+				
+				isEmailCheck = true;
+			});
 			
 			$('#email').change(function(){
 				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -148,7 +149,6 @@
 			
 			$('#pwd').change(function(){
 				var regExp = /^[A-Za-z][A-Za-z0-9$@$!%*#?&-_]{7,}$/;
-				var regExp2 = /^[$@$!%*#?&-_]{8,}$/;
 				
 				if(!regExp.test($(this).val())) {
 					$("#pwdResult").text("올바른 비밀번호 형식이 아니에요.").css("color","#dc3545");
@@ -178,7 +178,23 @@
 				}
 			});
 			
+			$('.signUpForm').submit(function(){
+				if(isEmail && isEmailCheck && isPwd && isPwd2== true){
+				 	alert('반갑습니다');
+				 	
+					return true;
+				} else {
+					if(!isEmail) $('#email').focus();
+					else if(!isEmailCheck) alert('이메일 중복확인을 해주세요.');
+					else if(!isPwd) $('#pwd').focus();
+					else if(!isPwd2) $('#pwd2').focus();
+					
+					return false;
+				}
+			})
+			
 		});
+		
 		
 	</script>
 
