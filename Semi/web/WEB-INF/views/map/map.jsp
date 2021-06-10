@@ -8,6 +8,12 @@
 			System.out.println(m.getG_XCODE()); 
 		}
 	}
+	
+	if(!list.isEmpty()) {
+		for(int i = 0; i<list.size(); i++) {
+			System.out.println(list.get(i));
+		}
+	}
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -168,6 +174,7 @@
 						center : new naver.maps.LatLng(37.3595704, 127.105399),
 						zoom : 15,
 					})
+					
 
 					var marker = new CustomMarker(37.3595704, 127.105399, 1, 2,
 							"헬스", "네이버 헬스", "ㅇㅇ시 ㅇㅇ동");
