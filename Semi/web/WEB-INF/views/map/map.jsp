@@ -11,9 +11,10 @@
 	
 	if(!list.isEmpty()) {
 		for(int i = 0; i<list.size(); i++) {
-			System.out.println(list.get(i));
+			System.out.println(list.get(i).getG_XCODE());
 		}
 	}
+	System.out.println(list.get(1).getG_XCODE());
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -171,15 +172,18 @@
 				<div id="map" style="width: 750px; height: 750px"></div>
 				<script>
 					var map = new naver.maps.Map('map', {
-						center : new naver.maps.LatLng(37.3595704, 127.105399),
+						center : new naver.maps.LatLng(37.4940304, 127.0928888),
 						zoom : 15,
 					})
 					
-
-					var marker = new CustomMarker(37.3595704, 127.105399, 1, 2,
-							"헬스", "네이버 헬스", "ㅇㅇ시 ㅇㅇ동");
-					var marker = new CustomMarker(37.3599704, 127.109399, 2, 2,
-							"체육관", "네이버 헬스", "수시 사동");
+				<% for(int i = 0; i < list.size(); i++) { %>
+					var marker = new CustomMarker(<%=list.get(i).getG_YCODE() %>, 
+													  <%=list.get(i).getG_XCODE() %>,
+													  <%=list.get(i).getG_NO() %>, 2,
+													  "<%=list.get(i).getG_TYPE_NM()%>",
+													  "<%=list.get(i).getG_NAME()%>",
+													  "<%=list.get(i).getG_ADDRESS() %>");
+				<% } %>
 
 					function overGym(childID) {
 						$('#' + childID).show()
@@ -193,10 +197,130 @@
 							name, address) {
 						var contents_html = "";
 
-						switch (category) {
-
-						case 1:
-							contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#b12121; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+						switch (gymGubun) {
+							case "생활체육관":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#C62828; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+	
+							case "수영장":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#AD1457; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "축구장":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#6A1B9A; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "학교체육시설":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#4527A0; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "테니스장":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#283593; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "골프연습장":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#1565C0; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "족구장":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#0277BD; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "배드민턴장":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#00838F; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "농구장":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#00695C; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							case "구기체육관":
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#2E7D32; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
+										+ gymID
+										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');">'
+										+ '<div style="font-weight: bold; font-size:14px"> '
+										+ gymGubun
+										+ ' </div>'
+										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
+										+ name + '<br/>' + address + ' </div>';
+										break;
+							default : 
+								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#558B2F; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 									+ gymID
 									+ '\');" onmouseout="javascript:outGym(\''
 									+ gymID
@@ -206,19 +330,8 @@
 									+ ' </div>'
 									+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
 									+ name + '<br/>' + address + ' </div>';
-
-						case 2:
-							contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#b12121; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
-									+ gymID
-									+ '\');" onmouseout="javascript:outGym(\''
-									+ gymID
-									+ '\');">'
-									+ '<div style="font-weight: bold; font-size:14px"> '
-									+ gymGubun
-									+ ' </div>'
-									+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
-									+ name + '<br/>' + address + ' </div>';
-						}
+									break;
+							}
 
 						var marker = new naver.maps.Marker({
 							position : new naver.maps.LatLng(lat, lng),
@@ -275,7 +388,7 @@
     </footer>
   
     <!-- Bootstrap core JS-->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
