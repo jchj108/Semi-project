@@ -2,6 +2,15 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, map.model.vo.Map"%>
 <%
 	ArrayList<Map> list = (ArrayList<Map>) request.getAttribute("list");
+	ArrayList<Map> soccerList = new ArrayList();
+
+	
+	for(int i = 0; i<list.size(); i++) {
+		if(list.get(i).getG_TYPE_NM().equals("축구장")) {
+			soccerList.add(list.get(i));
+		}
+	}
+
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -149,14 +158,15 @@
 			<div class="col-lg-3">
 				<h1 class="my-4">지도로 찾기</h1>
 				<div class="list-group">
-					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?gubun=all'>Category 1</a> 
-					<a class="list-group-item" href="#!">생활체육관</a> 
-					<a class="list-group-item" href="#!">Category 3</a>
-					<a class="list-group-item" href="#!">Category 4</a>
-					<a class="list-group-item" href="#!">Category 5</a>
-					<a class="list-group-item" href="#!">Category 6</a>
-					<a class="list-group-item" href="#!">Category 7</a>
-					<a class="list-group-item" href="#!">Category 8</a>
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=all' onclick="loadGymMarker()">전체보기</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=living'>생활체육관</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=pool'>수영장</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=soccer'>축구장</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=school'>학교체육시설</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=tennis'>테니스장</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=golf'>골프연습장</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=footVolley'>족구장</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=etc'>기타</a> 
 				</div>
 			</div>
 			<div class="col-lg-9">
@@ -349,6 +359,7 @@
 					});
 					console.log(markers);
 					console.log(markers.length);
+					
 				</script>
 			</div>
         </div>
