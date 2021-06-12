@@ -31,6 +31,10 @@ public class MapServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String gubun = request.getParameter("category");
+		System.out.println(gubun);
+		
 		ArrayList<Map> list = new MapService().selectMap();
 		
 		String page = null;

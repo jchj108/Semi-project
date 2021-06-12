@@ -149,14 +149,22 @@
 			<div class="col-lg-3">
 				<h1 class="my-4">지도로 찾기</h1>
 				<div class="list-group">
-					<a class="list-group-item" href="#!">Category 1</a> <a
-						class="list-group-item" href="#!">Category 2</a> <a
-						class="list-group-item" href="#!">Category 3</a>
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?gubun=all'>Category 1</a> 
+					<a class="list-group-item" href="#!">생활체육관</a> 
+					<a class="list-group-item" href="#!">Category 3</a>
+					<a class="list-group-item" href="#!">Category 4</a>
+					<a class="list-group-item" href="#!">Category 5</a>
+					<a class="list-group-item" href="#!">Category 6</a>
+					<a class="list-group-item" href="#!">Category 7</a>
+					<a class="list-group-item" href="#!">Category 8</a>
 				</div>
 			</div>
 			<div class="col-lg-9">
-				<div id="map" style="width: 750px; height: 750px"></div>
+				<div id="map" style="height: 850px"></div>
 				<script>
+					
+					var markers = [];
+				
 					var map = new naver.maps.Map('map', {
 						center : new naver.maps.LatLng(37.4940304, 127.0928888),
 						zoom : 15,
@@ -331,12 +339,16 @@
 															  "<%=list.get(i).getG_TYPE_NM()%>",
 															  "<%=list.get(i).getG_NAME()%>",
 															  "<%=list.get(i).getG_ADDRESS() %>");
+							markers.push(marker[<%=i%>])
 						<% } %>
+						return markers;
 					}
 					$(document).ready(function() {
 					var tMarkers = loadGymMarker();
 					loadGymMarker();
 					});
+					console.log(markers);
+					console.log(markers.length);
 				</script>
 			</div>
         </div>
