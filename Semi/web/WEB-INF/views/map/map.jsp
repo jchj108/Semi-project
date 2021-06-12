@@ -2,15 +2,6 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, map.model.vo.Map"%>
 <%
 	ArrayList<Map> list = (ArrayList<Map>) request.getAttribute("list");
-	ArrayList<Map> soccerList = new ArrayList();
-
-	
-	for(int i = 0; i<list.size(); i++) {
-		if(list.get(i).getG_TYPE_NM().equals("축구장")) {
-			soccerList.add(list.get(i));
-		}
-	}
-
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -173,11 +164,9 @@
 				<div id="map" style="height: 850px"></div>
 				<script>
 					
-					var markers = [];
-				
 					var map = new naver.maps.Map('map', {
-						center : new naver.maps.LatLng(37.4940304, 127.0928888),
-						zoom : 15,
+						center : new naver.maps.LatLng(37.5642135, 127.0016985),
+						zoom : 13,
 					})
 					
 					function overGym(childID) {
@@ -349,17 +338,11 @@
 															  "<%=list.get(i).getG_TYPE_NM()%>",
 															  "<%=list.get(i).getG_NAME()%>",
 															  "<%=list.get(i).getG_ADDRESS() %>");
-							markers.push(marker[<%=i%>])
 						<% } %>
-						return markers;
 					}
 					$(document).ready(function() {
-					var tMarkers = loadGymMarker();
 					loadGymMarker();
 					});
-					console.log(markers);
-					console.log(markers.length);
-					
 				</script>
 			</div>
         </div>
