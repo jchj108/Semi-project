@@ -2,19 +2,6 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, map.model.vo.Map"%>
 <%
 	ArrayList<Map> list = (ArrayList<Map>) request.getAttribute("list");
-
-	if(!list.isEmpty()) {
-		for(Map m : list) {
-			System.out.println(m.getG_XCODE()); 
-		}
-	}
-	
-	if(!list.isEmpty()) {
-		for(int i = 0; i<list.size(); i++) {
-			System.out.println(list.get(i).getG_XCODE());
-		}
-	}
-	System.out.println(list.get(1).getG_XCODE());
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -33,11 +20,10 @@
       type="text/javascript"
       src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"
     ></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-
-      	*{font-family: 'Noto Sans KR';}
-	
+    
+ 	*{font-family: 'Noto Sans KR';}
 	/* a태그 설정 */
 	.nav a, .f2 a{
 		text-decoration: none;
@@ -176,15 +162,6 @@
 						zoom : 15,
 					})
 					
-				<% for(int i = 0; i < list.size(); i++) { %>
-					var marker = new CustomMarker(<%=list.get(i).getG_YCODE() %>, 
-													  <%=list.get(i).getG_XCODE() %>,
-													  <%=list.get(i).getG_NO() %>, 2,
-													  "<%=list.get(i).getG_TYPE_NM()%>",
-													  "<%=list.get(i).getG_NAME()%>",
-													  "<%=list.get(i).getG_ADDRESS() %>");
-				<% } %>
-
 					function overGym(childID) {
 						$('#' + childID).show()
 					}
@@ -192,9 +169,9 @@
 					function outGym(childID) {
 						$('#' + childID).hide()
 					}
-
-					function CustomMarker(lat, lng, gymID, category, gymGubun,
-							name, address) {
+					
+					function CustomMarker(lat, lng, gymID, category, gymGubun, name, address) {
+	
 						var contents_html = "";
 
 						switch (gymGubun) {
@@ -346,6 +323,20 @@
 						});
 						return marker;
 					}
+					function loadGymMarker() {
+						<% for(int i = 0; i < list.size(); i++) { %>
+							var marker = new CustomMarker(<%=list.get(i).getG_YCODE() %>, 
+															  <%=list.get(i).getG_XCODE() %>,
+															  <%=list.get(i).getG_NO() %>, 2,
+															  "<%=list.get(i).getG_TYPE_NM()%>",
+															  "<%=list.get(i).getG_NAME()%>",
+															  "<%=list.get(i).getG_ADDRESS() %>");
+						<% } %>
+					}
+					$(document).ready(function() {
+					var tMarkers = loadGymMarker();
+					loadGymMarker();
+					});
 				</script>
 			</div>
         </div>
@@ -388,7 +379,6 @@
     </footer>
   
     <!-- Bootstrap core JS-->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
