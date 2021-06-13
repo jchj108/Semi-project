@@ -13,7 +13,16 @@ public class Member {
 	private String m_etc;
 	private int m_auth;
 	private String m_status;
+	private String m_profile;
 	
+	public String getM_profile() {
+		return m_profile;
+	}
+
+	public void setM_profile(String m_profile) {
+		this.m_profile = m_profile;
+	}
+
 	public Member() {}
 	
 	public Member(String m_email, String m_pwd) {
@@ -23,7 +32,7 @@ public class Member {
 	}
 
 	public Member(int m_no, String m_email, String m_pwd, String m_name, char m_gender, String m_address, Date m_date,
-			String m_etc, int m_auth, String m_status) {
+			String m_etc, int m_auth, String m_status, String m_profile) {
 		super();
 		this.m_no = m_no;
 		this.m_email = m_email;
@@ -35,6 +44,7 @@ public class Member {
 		this.m_etc = m_etc;
 		this.m_auth = m_auth;
 		this.m_status = m_status;
+		this.m_profile = m_profile;
 	}
 
 	public int getM_no() {
@@ -121,7 +131,9 @@ public class Member {
 	public String toString() {
 		return "Member [m_no=" + m_no + ", m_email=" + m_email + ", m_pwd=" + m_pwd + ", m_name=" + m_name
 				+ ", m_gender=" + m_gender + ", m_address=" + m_address + ", m_date=" + m_date + ", m_etc=" + m_etc
-				+ ", m_auth=" + m_auth + ", m_status=" + m_status + "]";
+				+ ", m_auth=" + m_auth + ", m_status=" + m_status + ", m_profile=" + m_profile + "]";
 	}
+
+
 	
 }

@@ -51,7 +51,8 @@ public class MemberDAO {
 									   rset.getDate("M_DATE"),
 									   rset.getString("M_ETC"),
 									   rset.getInt("M_AUTH"),
-									   rset.getString("M_STATUS"));
+									   rset.getString("M_STATUS"),
+									   rset.getString("M_PROFILE"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
