@@ -20,7 +20,10 @@
       type="text/javascript"
       src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"
     ></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-1.10.1.js"
+  integrity="sha256-663tSdtipgBgyqJXfypOwf9ocmvECGG8Zdl3q+tk+n0="
+  crossorigin="anonymous"></script>    
     <style>
     
  	*{font-family: 'Noto Sans KR';}
@@ -138,6 +141,7 @@
 				<div id="map" style="height: 850px"></div>
 			</div>
 			<script>
+			
 			var mapDiv = document.getElementById('map'); // 'map'으로 선언해도 동일
 
 			var map = new naver.maps.Map('map', {
@@ -147,6 +151,17 @@
 
 			var markers = [];
 
+			
+			<% for(int i = 0; i < list.size(); i++) { %>
+			var marker = new CustomMarker(<%=list.get(i).getG_YCODE() %>, 
+											  <%=list.get(i).getG_XCODE() %>,
+											  <%=list.get(i).getG_NO() %>, 2,
+											  "<%=list.get(i).getG_TYPE_NM()%>",
+											  "<%=list.get(i).getG_NAME()%>",
+											  "<%=list.get(i).getG_ADDRESS() %>");
+				markers.push(marker[<%=i%>])
+			<% } %>
+			
 			function CustomMarker(lat, lng, gymID, category, gymGubun, name, address) {
 				var contents_html = "";
 
@@ -300,15 +315,7 @@
 				return marker;
 			}
 
-			<% for(int i = 0; i < list.size(); i++) { %>
-			var marker = new CustomMarker(<%=list.get(i).getG_YCODE() %>, 
-											  <%=list.get(i).getG_XCODE() %>,
-											  <%=list.get(i).getG_NO() %>, 2,
-											  "<%=list.get(i).getG_TYPE_NM()%>",
-											  "<%=list.get(i).getG_NAME()%>",
-											  "<%=list.get(i).getG_ADDRESS() %>");
-				markers.push(marker[<%=i%>])
-			<% } %>
+
 
 			$(document).ready(function() {
 				var htmlMarker1 = {
@@ -369,5 +376,7 @@
    	<%@ include file= "../common/footer.jsp" %>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<%= request.getContextPath()%>/tools/mc.js"></script>
+    
   </body>
 </html>
