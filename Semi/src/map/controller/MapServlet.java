@@ -32,7 +32,6 @@ public class MapServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
 		ArrayList<Map> list = new MapService().selectMap();
 		ArrayList<Map> livingList = new ArrayList();
 		ArrayList<Map> poolList = new ArrayList();

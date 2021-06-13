@@ -115,41 +115,15 @@
     </style>
   </head>
   <body>
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-          <img src="<%=request.getContextPath()%>/image/logo.png" style="height: 72px" />
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarResponsive"
-            aria-controls="navbarResponsive"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="nav nav-pills ml-auto">
-              <li class="nav-item active">
-                <a class="nav-link" href="#!">회원가입</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="#!">로그인</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+  	<!-- 헤더 -->
+    <%@ include file= "../common/header.jsp" %>
     <!-- Page Content-->
    	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
 				<h1 class="my-4">지도로 찾기</h1>
 				<div class="list-group">
-					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=all' onclick="loadGymMarker()">전체보기</a> 
+					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=all'>전체보기</a> 
 					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=living'>생활체육관</a> 
 					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=pool'>수영장</a> 
 					<a class="list-group-item" href='<%= request.getContextPath()%>/map.do?type=soccer'>축구장</a> 
@@ -163,11 +137,16 @@
 			<div class="col-lg-9">
 				<div id="map" style="height: 850px"></div>
 				<script>
+				
+					var seoul = new naver.maps.LatLngBounds(
+					    new naver.maps.LatLng(37.413294, 127.269311),
+					    new naver.maps.LatLng(37.715133, 126.734086));
 					
 					var map = new naver.maps.Map('map', {
-						center : new naver.maps.LatLng(37.5642135, 127.0016985),
-						zoom : 13,
-					})
+						 zoom:11,
+						 minZoom:11,
+					     maxBounds: seoul,
+					}) 
 					
 					function overGym(childID) {
 						$('#' + childID).show()
@@ -178,7 +157,6 @@
 					}
 					
 					function CustomMarker(lat, lng, gymID, category, gymGubun, name, address) {
-	
 						var contents_html = "";
 
 						switch (gymGubun) {
@@ -267,7 +245,7 @@
 										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
 										+ name + '<br/>' + address + ' </div>';
 										break;
-							case "배드민턴장":
+/*							case "배드민턴장":
 								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#00838F; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
@@ -302,7 +280,7 @@
 										+ ' </div>'
 										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
 										+ name + '<br/>' + address + ' </div>';
-										break;
+										break; */
 							default : 
 								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#558B2F; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 									+ gymID
@@ -349,41 +327,7 @@
       </div>
     </div>
     <!-- Footer-->
-    <footer class="py-5">
-      <div class="container">
-        <div class="f1">
-          <div class="f1-col">
-            이용문의<br> <span
-              style="font-size: 35px; font-weight: 700px; color: #00B1D2;">1588-0215</span><br>
-            AM 10:00 - PM 07:00<br> 토 일 공휴일 휴무
-          </div>
-  
-          <div class="f1-col">
-            <b>내일도 운동가야지</b><br> 서울시 강남구 역삼동<br> 대표 : 꽉자바<br>
-            사업자번호 : 707-0982-2133<br> contact@kkakjava.co.kr<br>
-          </div>
-        </div>
-  
-        <div class="f2">
-          <div class="f2-col">
-            <a href="#!">이용약관</a>
-          </div>
-          <div class="f2-col">
-            <a href="#!">개인정보처리방침</a>
-          </div>
-          <div class="f2-col">
-            <a href="#!">위치정보이용약관</a>
-          </div>
-          <div class="f2-col">
-            <a href="#!">고객센터</a>
-          </div>
-        </div>
-  
-        <span class="copyright">Copyright ⓒ Kkakjava Co., Ltd. All
-          rights reserved.</span>
-      </div>
-    </footer>
-  
+   	<%@ include file= "../common/footer.jsp" %>
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
   </body>
