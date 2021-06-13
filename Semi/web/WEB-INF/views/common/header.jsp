@@ -93,7 +93,8 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav ml-auto">
 						<li class="nav-item dropdown">
-							<p class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<p class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								style="font-size: 15px;">
 								<img src="<%= request.getContextPath() %><%=loginUser.getM_profile()%>" style="height: 30px;">
 								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
 							</p>

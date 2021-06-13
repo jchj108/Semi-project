@@ -75,32 +75,11 @@
 				self.close();
 			}
 		});
-		
-		
-// 		$(function(){
-			
-// 			var isBtn = false;
-			
-// 			document.getElementById('useEmailBtn').onclick=function(){
-				
-<%-- 				if(isBtn && <%= result %> <= 0){ --%>
-// 					opener.document.getElementById('email').value = document.getElementById('inputEmail').value;
-// 					self.close();
-					
-// 				} else if(!isBtn){
-// 					alert('중복확인 버튼을 클릭해주세요.');
-					
-<%-- 				} else if(<%= result %> > 0){ --%>
-// 					alert('새로운 이메일을 입력해주세요.');
-// 				}
-// 			};
-// 		});
+
  			
 	</script>
 	
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-<!-- Core theme JS-->
-<script src="js/scripts.js"></script>
 </body>
 </html>
