@@ -17,6 +17,7 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"></script>
 <script src="<%=request.getContextPath()%>/tools/jquery-3.6.0.min.js"></script>
 <script src="<%=request.getContextPath()%>/tools/MarkerClustering.js"></script>
+<script src="<%=request.getContextPath()%>/tools/MarkerOverlappingRecognizer.js"></script>
 <style>
 * {
 	font-family: 'Noto Sans KR';
@@ -137,19 +138,15 @@ footer {
 				<script>
 					var markers = [];
 					
-/*					var seoul = new naver.maps.LatLngBounds(
+					var seoul = new naver.maps.LatLngBounds(
 					    new naver.maps.LatLng(37.413294, 127.269311),
 					    new naver.maps.LatLng(37.715133, 126.734086));
 					
 					var map = new naver.maps.Map('map', {
-						 zoom:11,
+						 zoom:12,
 						 minZoom:11,
 					     maxBounds: seoul,
-					}) */
-					
-					var map = new naver.maps.Map('map', {
-						 zoom:11,
-					})
+					}) 
 					
 					
 					function CustomMarker(lat, lng, gymID, category, gymGubun, name, address) {
@@ -344,13 +341,13 @@ footer {
 
 								var markerClustering = new MarkerClustering({
 									minClusterSize: 2,
-									maxZoom: 8,
+									maxZoom: 15,
 									map: map,
 									markers: markers,
 									disableClickZoom: false,
 									gridSize: 120,
 									icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
-									indexGenerator: [10, 100, 200, 500, 1000],
+									indexGenerator: [5, 10, 15, 20, 50],
 									stylingFunction: function(clusterMarker, count) {
 										$(clusterMarker.getElement()).find('div:first-child').text(count);
 									}
