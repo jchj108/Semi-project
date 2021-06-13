@@ -46,7 +46,7 @@ public class SignUpServlet extends HttpServlet {
 		int result = new MemberService().insertMember(mem);
 		
 		if(result > 0) {
-			response.sendRedirect(request.getContextPath());
+			response.sendRedirect("/login.me");
 		} else {
 			request.setAttribute("msg", "회원가입에 실패하였습니다.");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;

@@ -25,7 +25,7 @@
 			<div class="modal-content" id="signUpForm">
 				<div class="modal-header">
 					<div class="modal-title text-center" id="exampleModalLabel" >
-						<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 100px;">
+						<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 100px; margin-left: 150px;">
 					</div>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -179,7 +179,7 @@
 			});
 			
 			$('.signUpForm').submit(function(){
-				if(isEmail && isEmailCheck && isPwd && isPwd2== true){
+				if(isEmail && isEmailCheck && isPwd && isPwd2 == true){
 				 	alert('반갑습니다');
 				 	
 					return true;

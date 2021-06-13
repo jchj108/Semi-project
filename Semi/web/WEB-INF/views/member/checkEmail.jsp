@@ -24,7 +24,7 @@
 		<p style="text-align: center; font-size: 15px; margin-botton: 40px;">사용하고자 하는 이메일을 입력하신 후, <br> 중복확인 버튼을 클릭하세요.</p>
 		
 		<form class="mb-3" id="checkEmailForm" action="<%= request.getContextPath() %>/checkEmail.me">
-			<div class="row justify-content-center">
+			<div class="row justify-content-center mb-3">
 				<div class="col-8">
 					<input type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="you@example.com" required>
 				</div>

@@ -34,6 +34,10 @@
 		color: #00B1D2;
 	}
 	
+	.homeLogo:hover{
+		cursor: pointer;
+	}
+	
 	/* login */
 	#signUpLogin:hover, #findPwd:hover{
 		cursor: pointer;
@@ -66,7 +70,7 @@
 	<% if(loginUser == null) { %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
-				<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;">
+				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -81,10 +85,40 @@
 				</div>
 			</div>
 		</nav>
-	<% } else { %>
+	<% } else if(loginUser.getM_auth() == 0){ %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
-				<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;">
+				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarResponsive" aria-controls="navbarResponsive"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse">
+					<ul class="nav ml-auto">
+						<li class="nav-item dropdown">
+							<p class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								style="font-size: 15px;">
+								<img src="<%= request.getContextPath() %><%=loginUser.getM_profile()%>" style="height: 30px;">
+								&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자
+							</p>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
+								<button class="dropdown-item" type="button">회원정보관리</button>
+								<button class="dropdown-item" type="button">시설관리</button>
+								<button class="dropdown-item" type="button">게시글관리</button>
+								<button class="dropdown-item" type="button">통계조회</button>
+								<div class="dropdown-divider"></div>
+								<button class="dropdown-item text-right" type="button" id="logout">로그아웃</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	<% } else {%>
+		<nav class="navbar navbar-expand-lg navbar-light">
+			<div class="container">
+				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -124,16 +158,20 @@
 	</div>
 	
 	<script>
-		$('#login').click(function(){
+		$('#login').on('click', function(){
 			$('#loginModal').modal("show");
 		});
 		
-		$('#logout').click(function(){
+		$('#logout').on('click', function(){
 			location.href = "<%= request.getContextPath() %>/logout.me";						
 		});
 		
-		$('#signUp').click(function() {
+		$('#signUp').on('click', function() {
 			$('#signUpModal').modal("show");		
+		});
+		
+		$('.homeLogo').on('click', function(){
+			location.href = "<%= request.getContextPath() %>";
 		});
 		
 	</script>
