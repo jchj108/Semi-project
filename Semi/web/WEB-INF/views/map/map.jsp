@@ -16,7 +16,7 @@
 >
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"></script>
 <script src="<%=request.getContextPath()%>/tools/jquery-3.6.0.min.js"></script>
-<script src="<%=request.getContextPath()%>/tools/mc.js"></script>
+<script src="<%=request.getContextPath()%>/tools/MarkerClustering.js"></script>
 <style>
 * {
 	font-family: 'Noto Sans KR';
