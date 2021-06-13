@@ -31,33 +31,40 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-					<h3 class="my-3 text-center">회원가입</h3>
+				<h3 class="my-4 text-center">회원가입</h3>
 				<div class="login-form-background mx-auto row">
-					<form class="validation-form" name="signUpForm" action="<%= request.getContextPath() %>/signUp.me" method="post">
-						<div class="mb-1 row align-items-end">
-							<div class="col-md-9">
-								<label for="email">이메일</label> 
-								<input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+					<form class="validation-form" name="signUpForm" action="<%= request.getContextPath() %>/signUp.me" encType="multipart/form-data" method="post">
+						
+						<div class="mb-4">
+							<div class="row align-items-end mb-1">
+								<div class="col-md-9">
+									<label for="email">이메일</label> 
+									<input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+								</div>
+								<div class="col-md-3">
+									<button type="button" class="btn" id="checkEmailBtn" style="background-color: #00B1D2; color: white;">중복확인</button>
+								</div>
 							</div>
-							<div class="col-md-3">
-								<button type="button" class="btn" id="checkEmailBtn" style="background-color: #00B1D2; color: white;">중복확인</button>
+							<div id="emailResult"></div>
+						</div>
+						
+						<div class="mb-4">
+							<div class="mb-1">
+								<label for="password">비밀번호</label>
+								<input type="password" class="form-control" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요." required>
 							</div>
+							<div id="pwdResult"></div>
 						</div>
-						<div class="mb-3" id="emailResult"></div>
-		
-						<div class="mb-1">
-							<label for="password">비밀번호</label>
-							<input type="password" class="form-control" id="pwd" name="pwd" placeholder="영문+숫자 조합 8자리 이상 입력해주세요." required>
+						
+						<div class="mb-4">
+							<div class="mb-1">
+								<label for="password2">비밀번호 확인</label>
+								<input type="password" class="form-control" id="pwd2" name="pwd2" required>
+							</div>
+							<div id="pwd2Result"></div>
 						</div>
-						<div class="mb-3" id="pwdResult"></div>
 		
-						<div class="mb-1">
-							<label for="password2">비밀번호 확인</label>
-							<input type="password" class="form-control" id="pwd2" name="pwd2" required>
-						</div>
-						<div class="mb-3" id="pwd2Result"></div>
-		
-						<div class="row mb-3">
+						<div class="row mb-4">
 							<div class="col-md-6">
 								<label for="name">이름</label>
 								<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력해주세요." required>
@@ -75,22 +82,22 @@
 							</div>
 						</div>
 
-						<div class="mb-3">
+						<div class="mb-4">
 							<label for="gender">대표사진</label><br>
-								<img src="<%= request.getContextPath() %>/image/default_profile.png" class="img-fluid" style="height: 100px;"> &nbsp;
+								<img src="<%= request.getContextPath() %>/profile_uploadFiles/default_profileFile.png" class="img-fluid" id="profile_img" style="height: 100px;"> &nbsp;&nbsp;
 							<div class="custom-file d-inline-block align-bottom" style="width:200px;">
-								<input type="file" class="custom-file-input" id="profile" name="profile">
+								<input type="file" class="custom-file-input" id="profile" name="profile" onchange="LoadImg(this)">
 								<label class="custom-file-label" for="customFile">파일선택</label>
 							</div>
 						</div>
 		
-						<div class="mb-3">
+						<div class="mb-4">
 							<label for="address">주소</label>
 							<input type="text" class="form-control" id="address" name="address" placeholder="서울특별시 강남구 역삼동 (동까지 기재)" required>
 							<div class="invalid-feedback">주소를 입력해주세요.</div>
 						</div>
 		
-						<div class="row mb-3">
+						<div class="row mb-4">
 							<div class="col-md-4">
 								<label for="excersice">운동 경력</label>
 								<select class="custom-select d-block w-100" id="etc" name="etc">
@@ -107,17 +114,19 @@
 						</div>
 		
 						<hr class="mb-4">
-						<div class="custom-control custom-checkbox">
+						
+						<div class="custom-control custom-checkbox mb-4">
 							<input type="checkbox" class="custom-control-input" id="aggrement" required>
 							<label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
 						</div>
-						<div class="mb-4"></div>
-						<button class="btn btn-lg btn-block" type="submit" style="background-color: #00B1D2; color: white;">가입 완료</button>
+						
+						<div class="mb-2">
+							<button class="btn btn-lg btn-block" type="submit" style="background-color: #00B1D2; color: white;">가입 완료</button>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-		
 		
 	<script>
 		$(function(){
@@ -192,8 +201,20 @@
 					return false;
 				}
 			});
-			
 		});
+		
+		function LoadImg(value){
+			
+			if(value.files && value.files[0]){
+				var reader = new FileReader();
+				
+				reader.onload = function(e){								
+					$("#profile_img").attr("src", e.target.result);
+				}
+				
+				reader.readAsDataURL(value.files[0]);	
+			}
+		}
 		
 		
 	</script>

@@ -90,16 +90,15 @@
 			<div class="container">
 				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
-					data-target="#navbarResponsive" aria-controls="navbarResponsive"
-					aria-expanded="false" aria-label="Toggle navigation">
+					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse">
 					<ul class="nav ml-auto">
 						<li class="nav-item dropdown">
-							<p class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								style="font-size: 15px;">
-								<img src="<%= request.getContextPath() %><%=loginUser.getM_profile()%>" style="height: 30px;">
+								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
 								&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
@@ -127,9 +126,9 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav ml-auto">
 						<li class="nav-item dropdown">
-							<p class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								style="font-size: 15px;">
-								<img src="<%= request.getContextPath() %><%=loginUser.getM_profile()%>" style="height: 30px;">
+								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
 								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
