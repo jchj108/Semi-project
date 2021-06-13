@@ -148,7 +148,6 @@ footer {
 					     maxBounds: seoul,
 					}) 
 					
-					
 					function CustomMarker(lat, lng, gymID, category, gymGubun, name, address) {
 						var contents_html = "";
 
@@ -238,42 +237,6 @@ footer {
 										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
 										+ name + '<br/>' + address + ' </div>';
 										break;
-/*							case "배드민턴장":
-								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#00838F; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
-										+ gymID
-										+ '\');" onmouseout="javascript:outGym(\''
-										+ gymID
-										+ '\');">'
-										+ '<div style="font-weight: bold; font-size:14px"> '
-										+ gymGubun
-										+ ' </div>'
-										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
-										+ name + '<br/>' + address + ' </div>';
-										break;
-							case "농구장":
-								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#00695C; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
-										+ gymID
-										+ '\');" onmouseout="javascript:outGym(\''
-										+ gymID
-										+ '\');">'
-										+ '<div style="font-weight: bold; font-size:14px"> '
-										+ gymGubun
-										+ ' </div>'
-										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
-										+ name + '<br/>' + address + ' </div>';
-										break;
-							case "구기체육관":
-								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#2E7D32; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
-										+ gymID
-										+ '\');" onmouseout="javascript:outGym(\''
-										+ gymID
-										+ '\');">'
-										+ '<div style="font-weight: bold; font-size:14px"> '
-										+ gymGubun
-										+ ' </div>'
-										+ '<div style="font-weight: normal; font-size:13px; margin-top:3px; display:none" id="'+gymID+'">'
-										+ name + '<br/>' + address + ' </div>';
-										break; */
 							default : 
 								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#558B2F; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 									+ gymID
