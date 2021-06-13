@@ -389,35 +389,35 @@
 					</div>
 					<ul class="category1-buttons categories grid">
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-fitness-trainer-89842.png" width="45px" alt="헬스" />
-									<p>헬스</p>
-								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-yoga-2043877.png" width="45px" alt="요가/필라테스" />
-									<p>요가/필라테스</p>
+									<img src="<%= request.getContextPath() %>/image/free-icon-swimming-50004.png" width="45px" alt="수영" />
+									<p>수영</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
 									<img src="<%= request.getContextPath() %>/image/free-icon-football-players-on-game-263102.png" width="45px" alt="축구" />
 									<p>축구</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-tennis-3332598.png" alt="테니스" width="45x" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-tennis-3332598.png" width="45px" alt="테니스" />
 									<p>테니스</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-dance-floor-857315.png" alt="댄스" width="45px" />
-									<p>댄스</p>
+									<img src="<%= request.getContextPath() %>/image/golfer.png" alt="골프" width="45x" />
+									<p>골프</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-swimming-50004.png" alt="수영" width="45x" />
-									<p>수영</p>
+									<img src="<%= request.getContextPath() %>/image/artboard-pixel-scalable-to-any-size-perfect-vector-image-use-web-shop-many-glyph-beautiful-football-ball-icon-121131289.jpg" alt="족구" width="45px" />
+									<p>족구</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/sport.png" alt="복싱" width="45px" />
-									<p>복싱</p>
+									<img src="<%= request.getContextPath() %>/image/man-playing-badminton.png" alt="배드민턴" width="45x" />
+									<p>배드민턴</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/more (1).png" alt="헬스" width="45px" />
+									<img src="<%= request.getContextPath() %>/image/basketball-player-scoring.png" alt="농구" width="45px" />
+									<p>농구</p>
+								</div></a></li>
+						<li class="category"><a><div class="category-icon">
+									<img src="<%= request.getContextPath() %>/image/more (1).png" alt="기타" width="45px" />
 									<p>기타</p>
 								</div></a></li>
 					</ul>

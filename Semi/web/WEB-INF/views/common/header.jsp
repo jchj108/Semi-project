@@ -66,7 +66,7 @@
 	<% if(loginUser == null) { %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
-				<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;">
+				<a href="<%= request.getContextPath() %>/home.do"><img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;"></a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">
