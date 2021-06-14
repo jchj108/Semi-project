@@ -250,7 +250,7 @@ footer {
 									+ name + '<br/>' + address + ' </div>';
 									break;
 							}
-
+					
 						var marker = new naver.maps.Marker({
 							position : new naver.maps.LatLng(lat, lng),
 							map : map,
@@ -308,7 +308,7 @@ footer {
 									map: map,
 									markers: markers,
 									disableClickZoom: false,
-									gridSize: 120,
+									gridSize: 300,
 									icons: [htmlMarker1, htmlMarker2, htmlMarker3, htmlMarker4, htmlMarker5],
 									indexGenerator: [5, 10, 15, 20, 50],
 									stylingFunction: function(clusterMarker, count) {
