@@ -1,4 +1,4 @@
-package map.model.service;
+package gym.model.service;
 
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
@@ -6,20 +6,18 @@ import static common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
-import map.model.dao.MapDAO;
-import map.model.vo.Map;
+import gym.model.dao.GymDAO;
+import gym.model.vo.Gym;
 
-public class MapService {
+public class GymService {
 
-	public ArrayList<Map> selectMap() {
+	public ArrayList<Gym> selectGym() {
 		
 		Connection conn = getConnection();
 
-		ArrayList<Map> list = new MapDAO().selectMap(conn);
+		ArrayList<Gym> list = new GymDAO().selectGymList(conn);
 		close(conn);
 
 		return list;
-		
 	}
-
 }

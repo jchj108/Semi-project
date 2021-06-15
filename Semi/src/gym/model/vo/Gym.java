@@ -1,6 +1,6 @@
-package map.model.vo;
+package gym.model.vo;
 
-public class Map {
+public class Gym {
 
 	private int G_NO;
 	private String G_TYPE_NM;
@@ -93,11 +93,11 @@ public class Map {
 		G_IN_OUT = g_IN_OUT;
 	}
 
-	public Map() {
+	public Gym() {
 
 	}
 
-	public Map(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
 			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT) {
 		super();
 		G_NO = g_NO;
@@ -112,7 +112,7 @@ public class Map {
 		G_IN_OUT = g_IN_OUT;
 	}
 
-	public Map(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
 			double g_XCODE) {
 		super();
 		G_NO = g_NO;
@@ -130,5 +130,4 @@ public class Map {
 				+ ", G_ADDRESS=" + G_ADDRESS + ", G_YCODE=" + G_YCODE + ", G_XCODE=" + G_XCODE + ", G_TEL=" + G_TEL
 				+ ", G_EDU_YN=" + G_EDU_YN + ", G_IN_OUT=" + G_IN_OUT + "]";
 	}
-
 }

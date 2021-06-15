@@ -113,7 +113,27 @@ public class MemberDAO {
 				pstmt.setString(7, mem.getM_profile());
 			} else {
 				pstmt.setString(7, mem.getM_like());
-			}
+			} 
+				result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+			
+	public int deleteMember(Connection conn, String email) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, email);
 			
 			result = pstmt.executeUpdate();
 			
@@ -123,6 +143,6 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		
-		return result;	
+		return result;
 	}
 }

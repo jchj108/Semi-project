@@ -1,4 +1,4 @@
-package map.model.dao;
+package gym.model.dao;
 
 import static common.JDBCTemplate.close;
 
@@ -12,13 +12,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import map.model.vo.Map;
+import gym.model.vo.Gym;
 
-public class MapDAO {
+public class GymDAO {
 	
 	private Properties prop = new Properties();
-	public MapDAO() {
-		String filename = MapDAO.class.getResource("/sql/map/map-query.properties").getPath();
+	public GymDAO() {
+		String filename = GymDAO.class.getResource("/sql/gym/gym-query.properties").getPath();
 		
 		try {
 			prop.load(new FileReader(filename));
@@ -30,29 +30,28 @@ public class MapDAO {
 	}
 	
 
-	public ArrayList<Map> selectMap(Connection conn) {
+	public ArrayList<Gym> selectGymList(Connection conn) {
 
 		Statement stmt = null;
 		ResultSet rset = null;
-		ArrayList<Map> list = new ArrayList<Map>();
+		ArrayList<Gym> list = new ArrayList<Gym>();
 		
-		String query = prop.getProperty("selectMap");
+		String query = prop.getProperty("selectGymList");
 
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
-				Map m = new Map(rset.getInt("g_NO"),
+				Gym g = new Gym(rset.getInt("g_NO"),
 							rset.getString("g_TYPE_NM"),
 							rset.getString("g_GU_NM"),
 							rset.getString("g_NAME"),
 							rset.getString("g_ADDRESS"),
 							rset.getDouble("g_YCODE"),
 							rset.getDouble("g_XCODE"));
-				list.add(m);
+				list.add(g);
 			}
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

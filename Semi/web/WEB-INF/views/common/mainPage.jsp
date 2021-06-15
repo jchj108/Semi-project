@@ -365,7 +365,7 @@
 						<ul>
 							<li id="tab1"><a href="#a" class="on">서비스 찾기</a></li>
 							<li id="tab2"><a href="#a">운동 추천받기</a></li>
-							<li id="tab3"><a href="<%=request.getContextPath()%>/map.do">지도에서 찾기</a></li>
+							<li id="tab3"><a href="#a">지도에서 찾기</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -389,35 +389,35 @@
 					</div>
 					<ul class="category1-buttons categories grid">
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-fitness-trainer-89842.png" width="45px" alt="헬스" />
-									<p>헬스</p>
-								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-yoga-2043877.png" width="45px" alt="요가/필라테스" />
-									<p>요가/필라테스</p>
+									<img src="<%= request.getContextPath() %>/image/free-icon-swimming-50004.png" width="45px" alt="수영" />
+									<p>수영</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
 									<img src="<%= request.getContextPath() %>/image/free-icon-football-players-on-game-263102.png" width="45px" alt="축구" />
 									<p>축구</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-tennis-3332598.png" alt="테니스" width="45x" />
+									<img src="<%= request.getContextPath() %>/image/free-icon-tennis-3332598.png" width="45px" alt="테니스" />
 									<p>테니스</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-dance-floor-857315.png" alt="댄스" width="45px" />
-									<p>댄스</p>
+									<img src="<%= request.getContextPath() %>/image/golfer.png" alt="골프" width="45x" />
+									<p>골프</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/free-icon-swimming-50004.png" alt="수영" width="45x" />
-									<p>수영</p>
+									<img src="<%= request.getContextPath() %>/image/artboard-pixel-scalable-to-any-size-perfect-vector-image-use-web-shop-many-glyph-beautiful-football-ball-icon-121131289.jpg" alt="족구" width="45px" />
+									<p>족구</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/sport.png" alt="복싱" width="45px" />
-									<p>복싱</p>
+									<img src="<%= request.getContextPath() %>/image/man-playing-badminton.png" alt="배드민턴" width="45x" />
+									<p>배드민턴</p>
 								</div></a></li>
 						<li class="category"><a><div class="category-icon">
-									<img src="<%= request.getContextPath() %>/image/more (1).png" alt="헬스" width="45px" />
+									<img src="<%= request.getContextPath() %>/image/basketball-player-scoring.png" alt="농구" width="45px" />
+									<p>농구</p>
+								</div></a></li>
+						<li class="category"><a><div class="category-icon">
+									<img src="<%= request.getContextPath() %>/image/more (1).png" alt="기타" width="45px" />
 									<p>기타</p>
 								</div></a></li>
 					</ul>
@@ -430,6 +430,15 @@
 					</div>
 					<p style="font-size: 1.1rem; font-weight: 500; line-height: normal; color: #737373; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;">맞춤형 운동을 제안해드려요</p>
 					<button style="width: 215px; height: 50px; color: #fff; background-color: #00b1d2; border-color: #00b1d2; margin-top: 10px; border-radius: 0.375rem;" type="button" class="btn">운동 추천받기</button>
+				</div>
+				<div id="pannel3" class="tab-content">
+					<div>
+						<h2 class="main_header" style="margin-bottom: 16px">
+							내 주변에는 <br /> 어떤 운동 시설이 있을까?
+						</h2>
+					</div>
+					<p style="font-size: 1.1rem; font-weight: 500; line-height: normal; color: #737373; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;">서울시 공공 체육 시설을 찾아드려요</p>
+					<button style="width: 215px; height: 50px; color: #fff; background-color: #00b1d2; border-color: #00b1d2; margin-top: 10px; border-radius: 0.375rem;" type="button" class="btn" id="searchMap">지도에서 찾기</button>
 				</div>
 			</div>
 			<div class="box" id="box2">
@@ -642,7 +651,9 @@
         })
     </script>
     <script>
-    	
+    	$('#searchMap').click(function() {
+    		location.href ="<%= request.getContextPath() %>/map.do";
+    	});
     </script>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
