@@ -33,10 +33,11 @@ public class CheckEmailServlet extends HttpServlet {
 		
 		int result = new MemberService().checkEmail(inputEmail);
 		
-		request.setAttribute("result", result);
-		request.setAttribute("checkedEmail", inputEmail);
+		response.getWriter().println(result);
 		
-		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
+//		request.setAttribute("result", result);
+//		request.setAttribute("checkedEmail", inputEmail);
+//		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
 	}
 
 	/**

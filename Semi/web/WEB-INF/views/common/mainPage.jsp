@@ -630,7 +630,7 @@ h3 {
 		</div>
 	</div>
 	<!-- Footer-->
-	<%@ include file="footer.jsp"%>
+	<%@ include file="footer.jsp" %>
 	<script>
 		$('#search_service').change(function() {
 			console.log('hi');
