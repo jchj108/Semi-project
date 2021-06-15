@@ -20,4 +20,14 @@ public class GymService {
 
 		return list;
 	}
+	
+	public ArrayList<Gym> searchGym(String gName) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().searchGym(conn, gName);
+		close(conn);
+		
+		return list;
+	}
 }

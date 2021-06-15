@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -57,6 +58,43 @@ public class GymDAO {
 		} finally {
 			close(rset);
 			close(stmt);
+		}
+		return list;
+	}
+	
+	public ArrayList<Gym> searchGym(Connection conn, String gName) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("searchGym");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, gName);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Gym g = new Gym();
+				g.setG_NO(rset.getInt("g_No"));
+				g.setG_TYPE_NM(rset.getString("g_type_nm"));
+				g.setG_GU_NM(rset.getString("g_gu_nm"));
+				g.setG_NAME(rset.getString("g_name"));
+				g.setG_ADDRESS(rset.getString("g_address"));
+				g.setG_YCODE(rset.getDouble("g_ycode"));
+				g.setG_XCODE(rset.getDouble("g_xcode"));
+				g.setG_TEL(rset.getString("g_tel"));
+				g.setG_EDU_YN(rset.getString("g_edu_yn"));
+				g.setG_IN_OUT(rset.getString("g_in_out"));
+				
+				list.add(g);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
 		}
 		return list;
 	}
