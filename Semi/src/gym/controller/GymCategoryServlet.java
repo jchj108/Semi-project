@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Mainservlet
+ * Servlet implementation class GymCategoryServlet
  */
-@WebServlet("/home.do")
-public class Mainservlet extends HttpServlet {
+@WebServlet("/gymCategory.do")
+public class GymCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Mainservlet() {
+    public GymCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +26,10 @@ public class Mainservlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
 		
-		request.setCharacterEncoding("UTF-8");
+		System.out.println(request.getParameter("category"));
 		
-		request.getRequestDispatcher("WEB-INF/views/common/mainPage.jsp").forward(request, response);
 	}
 
 	/**

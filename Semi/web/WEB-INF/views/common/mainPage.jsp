@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="member.model.vo.Member"%>
+<% String cp = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -548,46 +549,52 @@ input:-webkit-autofill:active
 						                  .appendTo( ul );
 						           }
 						        });
-
-						        
 								</script>
 							</form>
 						</div>
 					</div>
 					<ul class="category1-buttons categories grid">
-						<li class="category"><a><div class="category-icon">
-									<img src="<%=request.getContextPath()%>/image/free-icon-swimming-50004.png" width="45px" alt="수영" />
+						<li class="category">
+							<a href="<%=cp %>/gymCategory.do?category=swimming"><div class="category-icon">
+								<img src="<%=cp%>/image/free-icon-swimming-50004.png" width="45px" alt="수영" />
 									<p>수영</p>
 								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%=request.getContextPath()%>/image/free-icon-football-players-on-game-263102.png" width="45px" alt="축구" />
+						<li class="category"><a>
+							<a href="<%=cp %>/gymCategory.do?category=soccer"><div class="category-icon">
+									<img src="<%=cp%>/image/free-icon-football-players-on-game-263102.png" width="45px" alt="축구" />
 									<p>축구</p>
 								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%=request.getContextPath()%>/image/free-icon-tennis-3332598.png" width="45px" alt="테니스" />
+						<li class="category"><a>
+							<a href="<%=cp %>/gymCategory.do?category=tennis"><div class="category-icon">
+									<img src="<%=cp%>/image/free-icon-tennis-3332598.png" width="45px" alt="테니스" />
 									<p>테니스</p>
 								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%=request.getContextPath()%>/image/golfer.png" alt="골프" width="45x" />
+						<li class="category"><a>
+							<a href="<%=cp %>/gymCategory.do?category=golf"><div class="category-icon">
+									<img src="<%=cp%>/image/golfer.png" alt="골프" width="45x" />
 									<p>골프</p>
 								</div></a></li>
-						<li class="category"><a><div class="category-icon">
+						<li class="category"><a>
+							<a href="<%=cp %>/gymCategory.do?category=footVolley"><div class="category-icon">
 									<img
-										src="<%=request.getContextPath()%>/image/artboard-pixel-scalable-to-any-size-perfect-vector-image-use-web-shop-many-glyph-beautiful-football-ball-icon-121131289.jpg"
+										src="<%=cp%>/image/artboard-pixel-scalable-to-any-size-perfect-vector-image-use-web-shop-many-glyph-beautiful-football-ball-icon-121131289.jpg"
 										alt="족구" width="45px"
 									/>
 									<p>족구</p>
 								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%=request.getContextPath()%>/image/man-playing-badminton.png" alt="배드민턴" width="45x" />
+						<li class="category"><a>
+							<a href="<%=cp %>/gymCategory.do?category=badminton"><div class="category-icon">
+									<img src="<%=cp%>/image/man-playing-badminton.png" alt="배드민턴" width="45x" />
 									<p>배드민턴</p>
 								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%=request.getContextPath()%>/image/basketball-player-scoring.png" alt="농구" width="45px" />
+						<li class="category"><a>
+							<a href="<%=cp %>/gymCategory.do?category=basketball"><div class="category-icon">
+									<img src="<%=cp%>/image/basketball-player-scoring.png" alt="농구" width="45px" />
 									<p>농구</p>
 								</div></a></li>
-						<li class="category"><a><div class="category-icon">
-									<img src="<%=request.getContextPath()%>/image/more (1).png" alt="기타" width="45px" />
+						<li class="category"><a>
+							<a href="<%=cp %>/gymCategory.do?category=etc"><div class="category-icon">
+									<img src="<%=cp%>/image/more (1).png" alt="기타" width="45px" />
 									<p>기타</p>
 								</div></a></li>
 					</ul>
