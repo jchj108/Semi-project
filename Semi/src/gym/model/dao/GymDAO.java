@@ -62,17 +62,18 @@ public class GymDAO {
 		return list;
 	}
 	
-	public ArrayList<Gym> searchGym(Connection conn, String gName) {
+	public ArrayList<Gym> searchGym(Connection conn, String keyword) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
 		
 		String query = prop.getProperty("searchGym");
+		String containKeyword = "%" + keyword + "%";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, gName);
+			pstmt.setString(1, containKeyword);
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -94,6 +95,7 @@ public class GymDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
 		return list;

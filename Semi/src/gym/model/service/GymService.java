@@ -21,11 +21,11 @@ public class GymService {
 		return list;
 	}
 	
-	public ArrayList<Gym> searchGym(String gName) {
+	public ArrayList<Gym> searchGym(String keyword) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Gym> list = new GymDAO().searchGym(conn, gName);
+		ArrayList<Gym> list = new GymDAO().searchGym(conn, keyword);
 		close(conn);
 		
 		return list;

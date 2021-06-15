@@ -397,8 +397,22 @@ h3 {
 								<script>
 						        $(function() {  
 						            $("#search_service").keyup(function() {
-						            	$("#suggestion_box").html('hi');
-						            })
+						            	$.ajax({
+						            		url: 'search.do',
+						            		data: {keyword : $('#search_service').val()},
+						            		success: function(data) {
+						            			console.log(data);
+						            			
+						    					var result = '';
+						    					$('#suggestion_box').html('');
+						    					for(var i in data) {
+						    						result += "(" + data[i].G_TYPE_NM + ") "
+						    							   + data[i].G_NAME + "<br>"
+						    					}
+						    					$('#suggestion_box').html(result);
+						            		}
+						            	});
+						            });
 						        });								
 								</script>
 							</form>
@@ -632,10 +646,6 @@ h3 {
 	<!-- Footer-->
 	<%@ include file="footer.jsp" %>
 	<script>
-		$('#search_service').change(function() {
-			console.log('hi');
-		})
-	
         $(function () {
             $('.tab_type1 ul li a').click(function () {
                 const num = $('.tab_type1 ul li a').index($(this))
