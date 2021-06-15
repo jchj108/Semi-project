@@ -22,7 +22,7 @@
 </head>
 <body>
 		<div class="modal-dialog" role="document">
-			<div class="modal-content" id="signUpForm">
+			<div class="modal-content" id="signUpDiv">
 				<div class="modal-header">
 					<div class="modal-title text-center" id="exampleModalLabel" >
 						<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 100px; margin-left: 150px;">
@@ -33,17 +33,11 @@
 				</div>
 				<h3 class="my-4 text-center">회원가입</h3>
 				<div class="login-form-background mx-auto row">
-					<form class="validation-form" name="signUpForm" action="<%= request.getContextPath() %>/signUp.me" encType="multipart/form-data" method="post">
-						
+					<form class="validation-form" name="signUpForm" id="signUpForm" action="<%= request.getContextPath() %>/signUp.me" encType="multipart/form-data" method="post">
 						<div class="mb-4">
-							<div class="row align-items-end mb-1">
-								<div class="col-md-9">
-									<label for="email">이메일</label> 
-									<input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
-								</div>
-								<div class="col-md-3">
-									<button type="button" class="btn" id="checkEmailBtn" style="background-color: #00B1D2; color: white;">중복확인</button>
-								</div>
+							<div class="mb-1">
+								<label for="email">이메일</label> 
+								<input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
 							</div>
 							<div id="emailResult"></div>
 						</div>
@@ -130,30 +124,42 @@
 		
 	<script>
 		$(function(){
-			var isEmail, isEmailCheck, isPwd, isPwd2 = false;
-
-			$('#checkEmailBtn').on('click', function(){
-				var popupX = (window.screen.width/2) - (450/2) - 15;
-				var popupY = (window.screen.height/2) - (350/2);
-							
-				window.open('checkEmailForm.me', 'checkEmail', 'width=450, height=350, left=' + popupX + ', top='+ popupY);
-				
-				isEmailCheck = true;
-			});
+			var isEmail, isPwd, isPwd2 = false;
 			
-			$('#email').change(function(){
-				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			$('#email').blur(function(){
+// 				var regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 				
-				if(!regExp.test($(this).val())){
-					$("#emailResult").text("올바른 이메일 형식이 아니에요").css("color","#dc3545");
-					$(this).focus();
+// 				if(!regExp.test($(this).val())){
+// 					$("#emailResult1").text("올바른 이메일 형식이 아니에요").css("color","#dc3545");
+// 					$(this).focus();
 					
-					isEmail = false;
-				} else {
-					$("#emailResult").remove();
+// 					isEmail = false;
+// 				} else {
+// 					$("#emailResult1").remove();
 					
-					isEmail = true;
-				}
+// 					isEmail = true;
+// 				}
+				
+				var email = $(this).val();
+				
+				$.ajax({
+					url: 'checkEmail.me',
+					type: 'get',
+					data: {inputEmail: email},
+					success: function(data){
+						if(data > 0){
+							$("#emailResult").text('이미 가입된 이메일 입니다.').css("color","#dc3545");
+							
+							isEmail = false;
+						} else {
+							$("#emailResult").text('사용가능한 이메일 입니다.').css('color', '#28a745');	
+							
+							isEmail = true;
+						}
+					}
+				});
+					
+			
 			});
 			
 			$('#pwd').change(function(){
@@ -181,22 +187,30 @@
 					
 					isPwd2 = false;
 				} else {
-					$('#pwd2Result').text('비밀번호가 일치합니다.').css("color","green");
+					$('#pwd2Result').text('비밀번호가 일치합니다.').css('color','#28a745');
 					
 					isPwd2 = true;
 				}
 			});
-			
-			$('.signUpForm').submit(function(){
-				if(isEmail && isEmailCheck && isPwd && isPwd2 == true){
+						
+			$('#signUpForm').submit(function(){
+				console.log('회원가입 submit');
+				
+				if(isEmail && isPwd && isPwd2 == true){
 				 	alert('반갑습니다');
 				 	
 					return true;
 				} else {
-					if(!isEmail) $('#email').focus();
-					else if(!isEmailCheck) alert('이메일 중복확인을 해주세요.');
-					else if(!isPwd) $('#pwd').focus();
-					else if(!isPwd2) $('#pwd2').focus();
+					if(!isEmail){
+						alert('이메일을 확인해주세요');
+						$('#email').focus();
+					}
+					else if(!isPwd){
+						$('#pwd').focus();
+					}
+					else if(!isPwd2){
+						$('#pwd2').focus();
+					}
 					
 					return false;
 				}

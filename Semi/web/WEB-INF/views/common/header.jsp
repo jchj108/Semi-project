@@ -45,7 +45,7 @@
 		color: #00B1D2;
 	}
 	
-	#loginForm, #signUpForm{
+	#loginForm, #signUpDiv{
 		max-width: 680px;
 		margin-top: 80px;
 		padding: 20px;
