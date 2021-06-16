@@ -9,7 +9,7 @@
         <title>마이페이지</title>
         
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css" rel="stylesheet" />
+<!--         <link href="css/styles.css" rel="stylesheet" /> -->
 		<style>
 			*{font-family: 'Noto Sans KR';}
 			
@@ -84,7 +84,7 @@
                         <div class="list-group-item side" id="myComment">댓글 관리</div>
                     </div>
                 </div>
-            	<div class="col-lg-9" id="loadContent"  style="height: 600px; padding-top: 50px;">
+            	<div class="col-lg-9" id="loadContent"  style="height: 700px; padding-top: 50px;">
             	            	
             	</div>
 		</div>
@@ -95,7 +95,19 @@
 	<script>
 		$(document).ready(function(){
 			$('#memberUpdateForm').click(function(){
-				$('#loadContent').load("memberUpdateForm.me").css({'height':'1000px'});			
+				$('#loadContent').load("memberUpdateForm.me").css('height', '1000px');
+			});
+			
+			$('#myBoard').click(function(){
+				location.href="myBoardList.me";
+			});
+									
+			$('#myReview').click(function(){
+				location.href="myReviewList.me";
+			});
+			
+			$('#myComment').click(function(){
+				location.href="myCommentList.me";
 			});
 			
 		});

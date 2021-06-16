@@ -69,7 +69,9 @@
 	<% if(loginUser == null) { %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
+
 				<a href="<%= request.getContextPath() %>/home.do"><img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;"></a>
+
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -87,6 +89,7 @@
 	<% } else if(loginUser.getM_auth() == 0){ %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
+
 				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -117,6 +120,7 @@
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
 				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
+
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -175,7 +179,9 @@
 	</script>
 
 <!-- Bootstrap core JS-->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
+
 </body>
 </html>

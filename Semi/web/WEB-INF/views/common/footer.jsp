@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>footer</title>
+
 <style>
 	*{font-family: 'Noto Sans KR';}
 	
@@ -77,13 +79,19 @@
 					<span>위치정보이용약관</span>
 				</div>
 				<div class="f2-col">
-					<span>고객센터</span>
+					<span id="boardList">고객센터</span>
 				</div>
 			</div>
 
 			<span class="copyright">Copyright ⓒ Kkakjava Co., Ltd. All rights reserved.</span>
 		</div>
 	</footer>
+	
+	<script>
+		$('#boardList').click(function(){
+			location.href="/fList.do";
+		});
+	</script>
 
 </body>
 </html>
