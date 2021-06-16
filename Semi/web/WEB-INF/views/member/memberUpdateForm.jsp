@@ -98,7 +98,7 @@
 				</div>
 				
 				<div class="text-right">
-				<span style="font-size: 15px;">탈퇴를 원하시면 회원 탈퇴 버튼을 눌러주세요.</span>;
+				<span style="font-size: 15px;">탈퇴를 원하시면 회원 탈퇴 버튼을 눌러주세요.</span>
 				<button class="btn btn-sm" type="button" style="background-color: #00B1D2; color: white;" id="deleteMemberBtn">회원 탈퇴</button>
 				</div>
 			</form>

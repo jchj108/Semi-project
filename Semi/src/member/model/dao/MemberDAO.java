@@ -140,4 +140,29 @@ public class MemberDAO {
 		
 		return list;
 	}
+
+	public int countMyBoard(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("countMyBaord");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
 }

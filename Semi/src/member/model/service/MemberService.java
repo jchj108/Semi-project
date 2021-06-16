@@ -58,5 +58,15 @@ public class MemberService {
 		return list;
 	}
 
+	public int countMyBoard(int mNo) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDAO().countMyBoard(conn, mNo);
+		
+		close(conn);
+		
+		return count;
+	}
+
 
 }

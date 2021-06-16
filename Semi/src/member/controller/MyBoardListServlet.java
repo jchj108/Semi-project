@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.vo.Board;
 import member.model.service.MemberService;
 import member.model.vo.Member;
+import page.model.vo.Page;
 
 /**
  * Servlet implementation class MyBoardListServlet
@@ -33,13 +34,35 @@ public class MyBoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mNo = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
-		ArrayList<Board> list = new MemberService().selectMyBoard(mNo);
+		MemberService mService = new MemberService();
+		
+		int listCount = mService.countMyBoard(mNo);	// 총 게시물 수
+		
+		int currentPage = 1;	// 현재 페이지
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		int pageLimit = 5;	// 한 페이지 안에 페이징 되는 수
+		int boardLimit = 10;	// 한 페이지 안에 들어갈 게시물 수
+		
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	// 최대 페이지
+		int startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;	// 페이징 내 시작 숫자
+		int endPage = (startPage + pageLimit) - 1;	// 페이징 내 끝 숫자
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		Page pageInfo = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+			
+		ArrayList<Board> list = mService.selectMyBoard(mNo);
 		
 		String page = null;
 		
 		if(list != null) {
 			page = "WEB-INF/views/member/myBoardList.jsp";
 			request.setAttribute("list", list);
+			request.setAttribute("pageInfo", pageInfo);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "게시물 조회에 실패하였습니다.");

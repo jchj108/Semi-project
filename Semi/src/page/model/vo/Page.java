@@ -1,8 +1,6 @@
-package board.model.vo;
+package page.model.vo;
 
-import board.model.service.BoardService;
-
-public class Paging {
+public class Page {
 	private int listCount;
 	private int startPage;
 	private int endPage;
@@ -11,11 +9,11 @@ public class Paging {
 	private int boardLimit;
 	private int currentPage;
 	
-	public Paging() {
+	public Page() {
 	
 	}
-	
-	public Paging(int listCount, int startPage, int endPage, int maxPage, int pageLimit, int boardLimit,
+
+	public Page(int listCount, int startPage, int endPage, int maxPage, int pageLimit, int boardLimit,
 			int currentPage) {
 		super();
 		this.listCount = listCount;
@@ -25,8 +23,8 @@ public class Paging {
 		this.pageLimit = pageLimit;
 		this.boardLimit = boardLimit;
 		this.currentPage = currentPage;
-	}	
-	
+	}
+
 	public int getListCount() {
 		return listCount;
 	}
@@ -85,7 +83,7 @@ public class Paging {
 
 	@Override
 	public String toString() {
-		return "Paging [listCount=" + listCount + ", startPage=" + startPage + ", endPage=" + endPage + ", maxPage="
+		return "Page [listCount=" + listCount + ", startPage=" + startPage + ", endPage=" + endPage + ", maxPage="
 				+ maxPage + ", pageLimit=" + pageLimit + ", boardLimit=" + boardLimit + ", currentPage=" + currentPage
 				+ "]";
 	}

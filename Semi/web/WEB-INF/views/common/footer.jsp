@@ -89,7 +89,7 @@
 	
 	<script>
 		$('#boardList').click(function(){
-			location.href="/faqList.bo";
+			location.href="/fList.do";
 		});
 	</script>
 

@@ -95,11 +95,19 @@
 	<script>
 		$(document).ready(function(){
 			$('#memberUpdateForm').click(function(){
-				$('#loadContent').load("memberUpdateForm.me").css({'height':'1000px'});			
+				$('#loadContent').load("memberUpdateForm.me").css('height', '1000px');
 			});
 			
 			$('#myBoard').click(function(){
-				$('#loadContent').load("myBoardList.me")
+				location.href="myBoardList.me";
+			});
+									
+			$('#myReview').click(function(){
+				location.href="myReviewList.me";
+			});
+			
+			$('#myComment').click(function(){
+				location.href="myCommentList.me";
 			});
 			
 		});
