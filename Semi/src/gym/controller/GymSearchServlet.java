@@ -1,6 +1,7 @@
-package member.controller;
+package gym.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,19 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import member.model.service.MemberService;
+import com.google.gson.Gson;
+
+import gym.model.service.GymService;
+import gym.model.vo.Gym;
 
 /**
- * Servlet implementation class CheckEmailServlet
+ * Servlet implementation class GymSearchServlet
  */
-@WebServlet("/checkEmail.me")
-public class CheckEmailServlet extends HttpServlet {
+@WebServlet("/search.do")
+public class GymSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckEmailServlet() {
+    public GymSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,15 +33,18 @@ public class CheckEmailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputEmail = request.getParameter("inputEmail");
+		response.setCharacterEncoding("UTF-8");
 		
-		int result = new MemberService().checkEmail(inputEmail);
 		
-		response.getWriter().println(result);
+		String keyword = request.getParameter("keyword");
+		System.out.println(keyword);
+		ArrayList<Gym> list = new GymService().searchGym(keyword);
 		
-//		request.setAttribute("result", result);
-//		request.setAttribute("checkedEmail", inputEmail);
-//		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
+		Gson gson = new Gson();
+		gson.toJson(list, response.getWriter());
+		
+		response.setContentType("application/json; charset=UTF-8");
+		
 	}
 
 	/**

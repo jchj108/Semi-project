@@ -12,7 +12,7 @@
 			<div class="modal-content" id="loginForm">
 				<div class="modal-header">
 					<div class="modal-title text-center" id="exampleModalLabel" >
-						<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 100px;">
+						<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 100px; margin-left: 150px;">
 					</div>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -35,7 +35,7 @@
 						</div>
 		
 						<div class="form-group">
-							<button type="submit" class="btn btn-lg btn-block" id="login" style="background-color: #00B1D2; color: white; width: 405px;">로그인</button>
+							<button type="submit" class="btn btn-lg btn-block" style="background-color: #00B1D2; color: white; width: 405px;">로그인</button>
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-lg btn-block" style="background-color: #FEE500">

@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>메인페이지</title>
-<script type="text/javascript"
-	src="<%=request.getContextPath()%>/tools/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+location.href =  "<%= request.getContextPath() %>/home.do";
+</script>
 </head>
 <body>
-	<%@ include file="WEB-INF/views/common/mainPage.jsp" %>
 </body>
 </html>
