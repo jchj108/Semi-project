@@ -30,4 +30,24 @@ public class GymService {
 		
 		return list;
 	}
+
+	public ArrayList<Gym> selectCovidList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().selectCovidList(conn);
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList<Gym> selectPopularList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().selectPopularList(conn);
+		close(conn);
+		
+		return list;
+	}
 }

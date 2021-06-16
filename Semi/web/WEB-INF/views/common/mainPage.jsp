@@ -1,5 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="member.model.vo.Member"%>
-<% String cp = request.getContextPath(); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="member.model.vo.Member, gym.model.vo.*, java.util.ArrayList"%>
+<% 
+String cp = request.getContextPath(); 
+ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
+ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
+
+for(Gym gym : covidList) {
+	System.out.println(gym);
+}
+for(Gym gym : popularList) {
+	System.out.println(gym);
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>

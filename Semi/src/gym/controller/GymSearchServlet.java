@@ -35,16 +35,13 @@ public class GymSearchServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF-8");
 		
-		
 		String keyword = request.getParameter("keyword");
-		System.out.println(keyword);
 		ArrayList<Gym> list = new GymService().searchGym(keyword);
 		
 		Gson gson = new Gson();
 		gson.toJson(list, response.getWriter());
 		
 		response.setContentType("application/json; charset=UTF-8");
-		
 	}
 
 	/**

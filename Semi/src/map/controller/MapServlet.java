@@ -12,24 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 import map.model.service.MapService;
 import map.model.vo.Map;
 
-/**
- * Servlet implementation class MapServlet
- */
 @WebServlet("/map.do")
 public class MapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public MapServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		ArrayList<Map> list = new MapService().selectMap();
@@ -70,7 +61,7 @@ public class MapServlet extends HttpServlet {
 		}
 		
 		if(request.getParameter("type") != null && request.getParameter("type").equals("living")) {
-			list = livingList;
+			list = livingList; // 서비스에 다녀와야 하나? 아니면 복사해서 써도 되나?
 		}
 		else if(request.getParameter("type") != null && request.getParameter("type").equals("pool")) {
 			list = poolList;
@@ -105,9 +96,6 @@ public class MapServlet extends HttpServlet {
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
