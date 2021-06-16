@@ -246,7 +246,7 @@ input#search_service {
 }
 
 .mainImage {
-	width: 580px;
+	max-width: 30vw;
 	position: absolute;
 	bottom: 0%;
 }
@@ -373,9 +373,9 @@ h3 {
 .ui-autocomplete {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 0; 
     z-index: 1000;
-    float: left;
+/*  float: left; */
     display: none;
     padding: 0;
     margin: 0;
@@ -421,6 +421,7 @@ h3 {
 .ui-widget.ui-widget-content {
     border: 2px solid #c5c5c5;
     border-radius: 4px;
+    width: 433px; !important;
 }
 
 .ui-menu-item .ui-menu-item-wrapper.ui-state-active {
@@ -428,14 +429,6 @@ h3 {
     background: #00b1d2 !important;
     font-weight: bold !important;
     color: #ffffff !important;
-} 
-<!-- chrome autocomplete 초기화 -->
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus, 
-input:-webkit-autofill:active
-{
- -webkit-box-shadow: 0 0 0 30px white inset !important;
 } 
 
 </style>
@@ -524,7 +517,7 @@ input:-webkit-autofill:active
 						                    location.href=url; 
 						                    
 						                },
-						                focus : function(event, ui) {    //포커스 가면
+						                focus : function(event, ui) {    
 						                    return false;//한글 에러 잡기용도로 사용됨
 						                },
 						                minLength: 1,// 최소 글자수
@@ -533,13 +526,13 @@ input:-webkit-autofill:active
 						                    "ui-autocomplete": "highlight"
 						                },
 //						                delay: 300,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
-						                open: function(event, ui) {
+/*						                open: function(event, ui) {
 						                	$(this).autocomplete("widget").css({
 						                		"width" : 433
 						                	});
-						                }, 
+						                }, */
 //						                disabled: true, //자동완성 기능 끄기
-						                position: { my : "right top", at: "right bottom" },    //잘 모르겠음
+/*						                position: { my : "right top", at: "right bottom" },    //잘 모르겠음 */
 						                close : function(event){    //자동완성창 닫아질때 호출
 						                    console.log(event);
 						                }
