@@ -306,11 +306,22 @@ input#search_service {
 	object-fit: cover;
 }
 
-.swiper-button-next, .swiper-button-prev {
-	color: #00b1d2;
+
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+	bottom: unset;
 }
 
-/* swipper */
+:root {
+	--swiper-theme-color: #00b1d2;
+}
+
+.swiper-button-prev {
+}
+
+.swiper-button-next {
+}
+
+/* swipper end */
 .body2 {
 	width: 1000px;
 	margin-left: auto;
@@ -648,40 +659,30 @@ h3 {
 	<div class="exceptWrapper">
 		<div class="body2">
 			<h2 class="mini-title">인기 서비스</h2>
-			<div class="swiper-container mySwiper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<img src="image/flower1.PNG" />slide1
+			<div class="popular" style="position: relative">
+				<div class="swiper-container mySwiper" style="position:static">
+					<div class="swiper-wrapper">
+						<% for(int i = 0; i<popularList.size(); i++) { %>
+						<div class="swiper-slide"><img src="image/f&g.jpg"><%= popularList.get(i).getG_NAME() %></div>
+						<% } %>
 					</div>
-					<div class="swiper-slide">Slide 2</div>
-					<div class="swiper-slide">Slide 3</div>
-					<div class="swiper-slide">Slide 4</div>
-					<div class="swiper-slide">Slide 5</div>
-					<div class="swiper-slide">Slide 6</div>
-					<div class="swiper-slide">Slide 7</div>
-					<div class="swiper-slide">Slide 8</div>
-					<div class="swiper-slide">Slide 9</div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-pagination"></div> 
 				</div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
-				<!-- <div class="swiper-pagination"></div> -->
 			</div>
 			<h2 class="mini-title">방역 우수 센터</h2>
-			<div class="swiper-container mySwiper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">Slide 1</div>
-					<div class="swiper-slide">Slide 2</div>
-					<div class="swiper-slide">Slide 3</div>
-					<div class="swiper-slide">Slide 4</div>
-					<div class="swiper-slide">Slide 5</div>
-					<div class="swiper-slide">Slide 6</div>
-					<div class="swiper-slide">Slide 7</div>
-					<div class="swiper-slide">Slide 8</div>
-					<div class="swiper-slide">Slide 9</div>
+			<div class="covid" style="position: relative">
+				<div class="swiper-container mySwiper" style="position:static">
+					<div class="swiper-wrapper">
+						<% for(int i = 0; i<covidList.size(); i++) { %>
+						<div class="swiper-slide"><img src="image/f&g.jpg"><%= covidList.get(i).getG_NAME() %></div>
+						<% } %>
+					</div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-pagination"></div> 
 				</div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
-				<!-- <div class="swiper-pagination"></div> -->
 			</div>
 			<h2 class="mini-title">주변 시설</h2>
 			<div class="local-images">
