@@ -1,5 +1,16 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="member.model.vo.Member"%>
-<% String cp = request.getContextPath(); %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="member.model.vo.Member, gym.model.vo.*, java.util.ArrayList"%>
+<% 
+String cp = request.getContextPath(); 
+ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
+ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
+
+for(Gym gym : covidList) {
+	System.out.println(gym);
+}
+for(Gym gym : popularList) {
+	System.out.println(gym);
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -256,14 +267,12 @@ input#search_service {
 .swiper-container {
 	width: 100%;
 	height: 100%;
-	background-color: #f5f8fd;
 }
 
 .mySwiper {
 	margin-top: 80px;
 	width: 1000px;
-	background: #f5f8fd;
-	box-shadow: 0 0px 3px 0 rgb(0 0 0/ 50%);
+	background: #fff;
 }
 
 .swiper-slide {
@@ -272,7 +281,6 @@ input#search_service {
 	background: #fff;
 	width: 250px;
 	height: 250px;
-	box-shadow: 0 1px 3px 0 rgb(0 0 0/ 50%);
 	flex-direction: column;
 	/* Center slide text vertically */
 	display: -webkit-box;
@@ -286,7 +294,10 @@ input#search_service {
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	-webkit-align-items: center;
-	align-items: center;
+	font-weight: 500;
+	font-size: 16px;
+	test-decoration: none;
+	color : #323232;
 }
 
 .swiper-slide img {
@@ -294,13 +305,58 @@ input#search_service {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	border-radius: 10px;
+	margin-bottom: 5px;
 }
 
-.swiper-button-next, .swiper-button-prev {
+.swiper-slide:hover {
 	color: #00b1d2;
 }
 
-/* swipper */
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
+	top: -30px;
+	text-align: right;
+}
+
+:root {
+	--swiper-theme-color: #00b1d2;
+}
+
+.swiper-button-prev {
+	left : -17px
+}
+
+.swiper-button-next {
+	right : -17px;
+}
+
+.swiper-button-next, .swiper-button-prev {
+	height:auto;
+	width: 40px;
+	height: 40px;
+	background: white;
+	border-radius: 50%;
+	box-shadow: 0 1px 3px 0 #323232;
+	top: 45%;
+}
+
+.swiper-button-next:hover, .swiper-button-prev:hover {
+	opacity: 0.8;
+}
+
+.swiper-button-next:after, .swiper-container-rtl .swiper-button-prev:after {
+	font-size: 20px;
+	font-weight: 900;
+	color: #323232;
+}
+
+.swiper-button-prev:after, .swiper-container-rtl .swiper-button-next:after {
+	font-size: 20px;
+	font-weight: 900;
+	color: #323232;
+}
+
+/* swipper end */
 .body2 {
 	width: 1000px;
 	margin-left: auto;
@@ -431,6 +487,8 @@ h3 {
     font-weight: bold !important;
     color: #ffffff !important;
 } 
+
+a { text-decoration:none !important } a:hover { text-decoration:none !important }
 
 </style>
 </head>
@@ -638,40 +696,39 @@ h3 {
 	<div class="exceptWrapper">
 		<div class="body2">
 			<h2 class="mini-title">인기 서비스</h2>
-			<div class="swiper-container mySwiper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<img src="image/flower1.PNG" />slide1
+			<div class="popular" style="position: relative">
+				<div class="swiper-container mySwiper" style="position:static">
+					<div class="swiper-pagination"></div> 
+					<div class="swiper-wrapper">
+						<% for(int i = 0; i<popularList.size(); i++) { %>
+							<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=popularList.get(i).getG_NO()%>"><img src="image/f&g.jpg"><%= popularList.get(i).getG_NAME() %></a>
+						<% } %>
 					</div>
-					<div class="swiper-slide">Slide 2</div>
-					<div class="swiper-slide">Slide 3</div>
-					<div class="swiper-slide">Slide 4</div>
-					<div class="swiper-slide">Slide 5</div>
-					<div class="swiper-slide">Slide 6</div>
-					<div class="swiper-slide">Slide 7</div>
-					<div class="swiper-slide">Slide 8</div>
-					<div class="swiper-slide">Slide 9</div>
+					
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
 				</div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
-				<!-- <div class="swiper-pagination"></div> -->
 			</div>
 			<h2 class="mini-title">방역 우수 센터</h2>
-			<div class="swiper-container mySwiper">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide">Slide 1</div>
-					<div class="swiper-slide">Slide 2</div>
-					<div class="swiper-slide">Slide 3</div>
-					<div class="swiper-slide">Slide 4</div>
-					<div class="swiper-slide">Slide 5</div>
-					<div class="swiper-slide">Slide 6</div>
-					<div class="swiper-slide">Slide 7</div>
-					<div class="swiper-slide">Slide 8</div>
-					<div class="swiper-slide">Slide 9</div>
+			<div class="covid" style="position: relative">
+				<div class="swiper-container mySwiper" style="position:static">
+					<div class="swiper-pagination"></div> 
+					<div class="swiper-wrapper">
+						<% for(int i = 0; i<covidList.size(); i++) { %>
+ 						<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=covidList.get(i).getG_NO()%>"><img src="image/f&g.jpg"><%= covidList.get(i).getG_NAME() %></a>
+						<% } %>
+					</div>
+					
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
 				</div>
-				<div class="swiper-button-next"></div>
-				<div class="swiper-button-prev"></div>
-				<!-- <div class="swiper-pagination"></div> -->
+				
+				<script>
+					$('#popularGym7').on('click', function() {
+						location.href="<%=cp%>/detail.do?bId=1"
+					});
+				</script>
+				
 			</div>
 			<h2 class="mini-title">주변 시설</h2>
 			<div class="local-images">
@@ -828,6 +885,7 @@ h3 {
                 nextEl : '.swiper-button-next',
                 prevEl : '.swiper-button-prev',
             },
+            url : "",
         })
     </script>
 	<script>

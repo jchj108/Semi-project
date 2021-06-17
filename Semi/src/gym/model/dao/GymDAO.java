@@ -42,7 +42,6 @@ public class GymDAO {
 		try {
 			stmt = conn.createStatement();
 			rset = stmt.executeQuery(query);
-			
 			while(rset.next()) {
 				Gym g = new Gym(rset.getInt("g_NO"),
 							rset.getString("g_TYPE_NM"),
@@ -50,7 +49,13 @@ public class GymDAO {
 							rset.getString("g_NAME"),
 							rset.getString("g_ADDRESS"),
 							rset.getDouble("g_YCODE"),
-							rset.getDouble("g_XCODE"));
+							rset.getDouble("g_XCODE"),
+							rset.getString("g_TEL"),
+							rset.getString("g_EDU_YN"),
+							rset.getString("g_IN_OUT"),
+							rset.getString("G_STATUS").charAt(0),
+							rset.getInt("g_COUNT"),
+							rset.getInt("g_COVID"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -100,5 +105,74 @@ public class GymDAO {
 		}
 		return list;
 	}
-	
+
+
+	public ArrayList<Gym> selectCovidList(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectCovidList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_NO"),
+							rset.getString("g_TYPE_NM"),
+							rset.getString("g_GU_NM"),
+							rset.getString("g_NAME"),
+							rset.getString("g_ADDRESS"),
+							rset.getDouble("g_YCODE"),
+							rset.getDouble("g_XCODE"),
+							rset.getString("g_TEL"),
+							rset.getString("g_EDU_YN"),
+							rset.getString("g_IN_OUT"),
+							rset.getString("G_STATUS").charAt(0),
+							rset.getInt("g_COUNT"),
+							rset.getInt("g_COVID"));
+				list.add(g);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+
+	public ArrayList<Gym> selectPopularList(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectPopularList");
+
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_NO"),
+							rset.getString("g_TYPE_NM"),
+							rset.getString("g_GU_NM"),
+							rset.getString("g_NAME"),
+							rset.getString("g_ADDRESS"),
+							rset.getDouble("g_YCODE"),
+							rset.getDouble("g_XCODE"),
+							rset.getString("g_TEL"),
+							rset.getString("g_EDU_YN"),
+							rset.getString("g_IN_OUT"),
+							rset.getString("G_STATUS").charAt(0),
+							rset.getInt("g_COUNT"),
+							rset.getInt("g_COVID"));
+				list.add(g);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
