@@ -1,7 +1,6 @@
-package gym.controller;
+package board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,22 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
-
-import gym.model.service.GymService;
-import gym.model.vo.Gym;
+import board.model.service.BoardService;
 
 /**
- * Servlet implementation class GymSearchServlet
+ * Servlet implementation class FAQListServlet
  */
-@WebServlet("/search.do")
-public class GymSearchServlet extends HttpServlet {
+@WebServlet("/faq.do")
+public class FAQListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GymSearchServlet() {
+    public FAQListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +29,27 @@ public class GymSearchServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("UTF-8");
+		BoardService bService = new BoardService();
 		
-		String keyword = request.getParameter("keyword");
-		ArrayList<Gym> list = new GymService().searchGym(keyword);
+		int listCount = bService.bListCount("F");
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
 		
-		Gson gson = new Gson();
-		gson.toJson(list, response.getWriter());
+		int boardLimit = 10;
+		int pageLimit = 5;
 		
-		response.setContentType("application/json; charset=UTF-8");
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		
+		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+		int endPage = (startPage + pageLimit) - 1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		
+		
 	}
 
 	/**
