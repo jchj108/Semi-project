@@ -7,7 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>마이페이지</title>
-        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- Core theme CSS (includes Bootstrap)-->
 <!--         <link href="css/styles.css" rel="stylesheet" /> -->
 		<style>

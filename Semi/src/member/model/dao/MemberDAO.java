@@ -12,7 +12,10 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
+import comments.model.vo.Comments;
 import member.model.vo.Member;
+import page.model.vo.Page;
+import review.model.vo.Review;
 
 public class MemberDAO {
 	
@@ -148,16 +151,21 @@ public class MemberDAO {
 		return result;
 	}
 
-	public ArrayList<Board> selectMyBoard(Connection conn, int mNo) {
+	public ArrayList<Board> selectMyBoard(Connection conn, int mNo, Page pageInfo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = new ArrayList<Board>();
 		
 		String query = prop.getProperty("selectMyBoard");
+		int start = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit() + 1;
+		int end = start + pageInfo.getBoardLimit() - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, mNo);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			pstmt.setInt(3, mNo);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -184,7 +192,7 @@ public class MemberDAO {
 		ResultSet rset = null;
 		int count = 0;
 		
-		String query = prop.getProperty("countMyBaord");
+		String query = prop.getProperty("countMyBoard");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -202,5 +210,117 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return count;
+	}
+
+	public int countMyReview(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("countMyReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	public ArrayList<Review> selectMyReview(Connection conn, int mNo, Page pageInfo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Review> list = new ArrayList<Review>();
+		
+		String query = prop.getProperty("selectMyReview");
+		
+		int start = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit() + 1;
+		int end = start + pageInfo.getBoardLimit() - 1;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			pstmt.setInt(3, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Review r = new Review(rset.getInt("r_no"),
+									rset.getString("r_body"),
+									rset.getDate("r_date"));
+				r.setGymNo(rset.getInt("g_no"));
+				
+				list.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public int countMyComment(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("countMyComment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+	public ArrayList<Comments> selectMyComment(Connection conn, int mNo, Page pageInfo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Comments> list = new ArrayList<Comments>();
+		
+		String query = prop.getProperty("selectMyComment");
+		
+		int start = (pageInfo.getCurrentPage() - 1) * pageInfo.getBoardLimit() + 1;
+		int end = start + pageInfo.getBoardLimit() - 1;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			pstmt.setInt(3, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Comments c = new Comments(rset.getInt("c_no"),
+										rset.getString("c_body"),
+										rset.getDate("c_date"),
+										rset.getInt("q_no"));
+				
+				list.add(c);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
 	}
 }

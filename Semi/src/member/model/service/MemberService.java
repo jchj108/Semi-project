@@ -9,8 +9,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.vo.Board;
+import comments.model.vo.Comments;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
+import page.model.vo.Page;
+import review.model.vo.Review;
 
 
 public class MemberService {
@@ -65,10 +68,10 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<Board> selectMyBoard(int mNo) {
+	public ArrayList<Board> selectMyBoard(int mNo, Page pageInfo) {
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new MemberDAO().selectMyBoard(conn, mNo);
+		ArrayList<Board> list = new MemberDAO().selectMyBoard(conn, mNo, pageInfo);
 		
 		close(conn);
 		
@@ -83,6 +86,47 @@ public class MemberService {
 		close(conn);
 		
 		return count;
+	}
+
+	public int countMyReview(int mNo) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDAO().countMyReview(conn, mNo);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Review> selectMyReview(int mNo, Page pageInfo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Review> list = new MemberDAO().selectMyReview(conn, mNo, pageInfo);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int countMyComment(int mNo) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDAO().countMyComment(conn, mNo);
+		
+		close(conn);
+		
+		return count;
+		
+	}
+
+	public ArrayList<Comments> selectMyComment(int mNo, Page pageInfo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Comments> list = new MemberDAO().selectMyComment(conn, mNo, pageInfo);
+		
+		close(conn);
+		
+		return list;
 	}
 
 
