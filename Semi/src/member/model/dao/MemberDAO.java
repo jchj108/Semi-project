@@ -93,7 +93,7 @@ public class MemberDAO {
 		int result = 0;
 		
 		String query = null;
-		if(mem.getM_profile() != "") {
+		if(mem.getM_profile() != null) {
 			query = prop.getProperty("insertMember");
 		} else {
 			query = prop.getProperty("insertMember2");			
@@ -108,9 +108,9 @@ public class MemberDAO {
 			pstmt.setString(5, mem.getM_address());
 			pstmt.setString(6, mem.getM_etc());
 			
-			if(mem.getM_profile() != "") {
-				pstmt.setString(8, mem.getM_like());
+			if(mem.getM_profile() != null) {
 				pstmt.setString(7, mem.getM_profile());
+				pstmt.setString(8, mem.getM_like());
 			} else {
 				pstmt.setString(7, mem.getM_like());
 			} 

@@ -246,7 +246,7 @@ input#search_service {
 }
 
 .mainImage {
-	width: 580px;
+	max-width: 30vw;
 	position: absolute;
 	bottom: 0%;
 }

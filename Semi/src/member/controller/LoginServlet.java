@@ -1,5 +1,7 @@
 package member.controller;
 
+import static common.Encrypt.getEncryptPwd;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -31,10 +33,12 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+//		request.setCharacterEncoding("UTF-8");
 		
 		String email = request.getParameter("userEmail");
-		String pwd = request.getParameter("userPwd");
+		String pwd = getEncryptPwd(request.getParameter("userPwd"));
+		
+		System.out.println(pwd);
 		
 		Member mem = new Member(email, pwd);
 		

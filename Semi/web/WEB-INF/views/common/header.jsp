@@ -151,7 +151,7 @@
 	</div>
 	
 	<!-- signUp -->
-	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 		<%@include file="../member/signUp.jsp" %>
 	</div>
 	
@@ -169,7 +169,7 @@
 		});
 		
 		$('.homeLogo').on('click', function(){
-			location.href = "<%= request.getContextPath() %>";
+			location.href = "<%= request.getContextPath() %>/home.do";
 		});
 		
 	</script>

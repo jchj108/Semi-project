@@ -21,12 +21,12 @@
 				<div class="login-form-background mx-auto row">
 					<form action="<%= request.getContextPath() %>/login.me" method="post">
 						<div class="form-group mt-4 mb-3">
-							<label for="email">이메일</label> <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="you@example.com" required>
+							<label for="userEmail">이메일</label> <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="you@example.com" required>
 							<div class="invalid-feedback">이메일을 입력해주세요.</div>
 						</div>
 		
 						<div class="form-group mb-2">
-							<label for="password">비밀번호</label> <input type="password" class="form-control" name="userPwd" id="userPwd" placeholder="비밀번호를 입력해주세요." required>
+							<label for="userPwd">비밀번호</label> <input type="password" class="form-control" name="userPwd" id="userPwd" placeholder="비밀번호를 입력해주세요." required>
 							<div class="invalid-feedback">비밀번호를 입력해주세요.</div>
 						</div>
 		
@@ -49,5 +49,12 @@
 				</div>
 			</div>
 		</div>
+		
+	<script>
+		$('#signUpLogin').on('click', function(){
+			$('#loginModal').modal("hide");
+			$('#signUpModal').modal("show");
+		});
+	</script>
 </body>
 </html>
