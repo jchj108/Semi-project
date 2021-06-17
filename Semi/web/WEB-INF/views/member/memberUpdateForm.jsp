@@ -28,10 +28,10 @@
 	<div class="input-form-backgroud row">
 		<div class="input-form mx-auto">
 			<h4 class="mb-3 text-center">회원정보 수정</h4>
-			<form class="validation-form" name="updateMemberForm" id="updateMemberForm" action="<%= request.getContextPath() %>/update.me" method="post">
+			<form class="validation-form" name="updateMemberForm" id="updateMemberForm" action="<%= request.getContextPath() %>/update.me" method="post"+>
 				<div class="mb-3">
 					<label for="gender">대표사진 변경</label><br>
-						<img src="<%= request.getContextPath() %>/image/default_profile.png" class="img-fluid" style="height: 100px;">
+						<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= mem.getM_profile() %>" class="img-fluid" style="height: 100px;">
 					<div class="custom-file d-inline-block align-bottom" style="width:200px;">
 						<input type="file" class="custom-file-input" id="customFile">
 						<label class="custom-file-label" for="customFile">파일선택</label>
@@ -40,7 +40,7 @@
 				
 				<div class="mb-3">
 					<label for="email">이메일</label> 
-					<input type="email" class="form-control" id="email" name="email" readonly>
+					<input type="email" class="form-control" id="email" name="email" value="<%= email %>" readonly>
 				</div>
 
 				<div class="mb-3">
@@ -56,7 +56,7 @@
 				<div class="row mb-3">
 					<div class="col-md-6">
 						<label for="name">이름</label>
-						<input type="text" class="form-control" id="name" name="name" readonly>
+						<input type="text" class="form-control" id="name" name="name" value="<%= name %>" readonly>
 					</div>
 					<div class="col-md-6">
 						<label for="gender">성별</label>
@@ -72,7 +72,7 @@
 
 				<div class="mb-3">
 					<label for="address">주소 변경을 위해 새로운 주소를 입력해주세요</label>
-					<input type="text" class="form-control" id="address" name="address" placeholder="서울특별시 강남구 역삼동 (동까지 기재)" required>
+					<input type="text" class="form-control" id="address" name="address" placeholder="서울특별시 강남구 역삼동 (동까지 기재)" value="<%= address %>"required>
 				</div>
 
 				<div class="row mb-3">

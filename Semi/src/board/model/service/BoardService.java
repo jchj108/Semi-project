@@ -7,4 +7,9 @@ import static common.JDBCTemplate.rollback;
 
 public class BoardService {
 
+	public int bListCount(String string) {
+		
+		return 0;
+	}
+
 }

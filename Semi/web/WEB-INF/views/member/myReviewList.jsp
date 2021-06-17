@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.Board, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, review.model.vo.Review, page.model.vo.Page"%>
 <%
-	ArrayList<Board> list = (ArrayList)request.getAttribute("list");
+	ArrayList<Review> list = (ArrayList)request.getAttribute("list");
+	int gNo = 0;
+	
 	Page pageInfo = (Page)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
@@ -16,14 +18,14 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<title>마이페이지 - 게시물관리</title>
+<title>마이페이지 - 리뷰관리</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
 <!-- <link href="css/styles.css" rel="stylesheet" /> -->
 <style>
 	*{font-family: 'Noto Sans KR';}
-	.side:hover, #boardTitle:hover{cursor: pointer; color: #00B1D2;}	
+	.side:hover, #reviewBody:hover{cursor: pointer; color: #00B1D2;}	
 
 	.page {margin-bottom: 50px;}
 		 		
@@ -102,28 +104,29 @@
             	            	
            	</div>
             <div class="col-lg-9" style="height: 650px;">
-            	<div class="title"><h4>게시물 관리</h4></div>
-                	<form action="boardUpdateForm.do" method="post" id="boardListForm">
-	                	<table class="boardList">
+            	<div class="title"><h4>리뷰 관리</h4></div>
+                	<form action="reviewUpdateForm.do" method="post" id="reviewListForm">
+	                	<table class="reviewList">
 							<tr>
 								<th width="50px;"><input type="checkbox" id="allSelect"></th>
-								<th width="80px;">글 번호</th>
-								<th>제목</th>						
+								<th width="80px;">리뷰 번호</th>
+								<th>내용</th>						
 								<th width="100px;">작성일</th>
 								<th width="100px;"></th>
 							</tr>
 							
 							<% if(list.isEmpty()) { %>
 							<tr>
-								<td colspan="5">작성한 게시물이 없습니다.</td>
+								<td colspan="5">작성한 리뷰가 없습니다.</td>
 							</tr>
 							<% } else { %>
-								<% for(Board b : list) { %>
+								<% for(Review r : list) { %>
+								<% gNo = r.getGymNo(); %>
 							<tr>
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
-								<td><%= b.getQ_no()%></td>
-								<td id="boardTitle"><%= b.getQ_title() %></td>							
-								<td><%= b.getQ_date() %></td>
+								<td><%= r.getR_no() %></td>
+								<td id="reviewBody"><%= r.getR_body() %></td>							
+								<td><%= r.getR_date() %></td>
 								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
 							</tr>
 								<% } %>					
@@ -140,7 +143,7 @@
 	<div class="page">
 		<ul class="pagination">
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=1'">&laquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=1'">&laquo;</div>
 			</li>
 			
 			<% for(int p = startPage; p <= endPage; p++) { %>
@@ -150,12 +153,12 @@
 				</li>
 				<% } else { %>
 				<li class="page-item">
-					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=<%= p %>'"><%= p %></div>
+					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= p %>'"><%= p %></div>
 				</li>						
 				<% } %>
 			<% } %>
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myBoardList.me?currentPage=<%= maxPage %>'">&raquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
 		</ul>
 	</div>
@@ -189,17 +192,17 @@
 			
 		});
 		
-		// 삭제 (여러 개 선택 시 qNo를 어떻게 가져올지?)
+		// 삭제 (여러 개 선택 시 no를 어떻게 가져올지?)
 		$('#delete').on('click', function(){
 			if($('.select').prop('checked')) {
 				var check = window.confirm("정말 삭제하시겠습니까?");
-				
+			
 				if(check) {
-					$('#boardListForm').attr('action', 'boardDelete.do');
-					$('#boardListForm').submit();
+					$('#reviewListForm').attr('action', 'reviewDelete.do');
+					$('#reviewListForm').submit();
 				}
 			} else {
-				alert("삭제할 게시글을 선택해 주세요.");
+				alert("삭제할 리뷰를 선택해 주세요.");
 			}
 		});
 		
@@ -231,10 +234,9 @@
 			
 		};
 		
-		// 제목 누르면 게시글 상세 조회 페이지 이동
-		$('#boardTitle').on('click', function(){
-			var qNo = $('.boardList td').parent().children().eq(1).text();
-			location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + qNo;
+		// 제목 누르면 리뷰 쓴 시설 상세 조회 페이지 이동
+		$('#reviewBody').on('click', function(){
+			location.href='<%= request.getContextPath() %>/detail.do?gNo=' + <%=gNo%>;
 		});
 		
 		

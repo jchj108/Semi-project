@@ -89,7 +89,7 @@
 	
 	<script>
 		$('#boardList').click(function(){
-			location.href="/fList.do";
+			location.href="<%=request.getContextPath()%>/faq.do";			
 		});
 	</script>
 
