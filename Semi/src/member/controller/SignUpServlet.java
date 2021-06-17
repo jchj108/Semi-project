@@ -1,5 +1,7 @@
 package member.controller;
 
+import static common.Encrypt.getEncryptPwd;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -36,8 +38,7 @@ public class SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");		
-		
+//		request.setCharacterEncoding("UTF-8");		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			
 			int maxSize = 1024 * 1024 * 10;
@@ -51,15 +52,15 @@ public class SignUpServlet extends HttpServlet {
 			
 			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
-			String email = multipartRequest.getParameter("email");
-			String pwd = multipartRequest.getParameter("pwd");
-			String name = multipartRequest.getParameter("name");
-			char gender = multipartRequest.getParameter("gender").charAt(0);
-			String address = multipartRequest.getParameter("address");
-			String etc = multipartRequest.getParameter("etc");
-			String profile = multipartRequest.getFilesystemName("profile");
-			String like = multipartRequest.getParameter("like");
-				
+			String email = multipartRequest.getParameter("signUpEmail");
+			String pwd = getEncryptPwd(multipartRequest.getParameter("signUpPwd"));
+			String name = multipartRequest.getParameter("signUpName");
+			char gender = multipartRequest.getParameter("signUpGender").charAt(0);
+			String address = multipartRequest.getParameter("signUpAddress");
+			String etc = multipartRequest.getParameter("signUpEtc");
+			String profile = multipartRequest.getFilesystemName("signUpProfile");
+			String like = multipartRequest.getParameter("signUpLike");
+			
 			Member mem = new Member(email, pwd, name, gender, address, etc, profile, like);
 				
 			int result = new MemberService().insertMember(mem);
@@ -70,9 +71,7 @@ public class SignUpServlet extends HttpServlet {
 				request.setAttribute("msg", "회원가입에 실패하였습니다.");
 				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
 			}
-			
 		}
-		
 	}
 
 	/**
