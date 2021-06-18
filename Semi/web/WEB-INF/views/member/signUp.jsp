@@ -126,11 +126,7 @@
 			var isPwd = false;
 			var isPwd2 = false;
 			
-			$('#signUpEmail').on('change paste keyup', function(){
-				isEmail = false;
-			});
-			
-			$('#signUpEmail').on('change' ,function(){
+			$('#signUpEmail').change(function(){
 					
 				var email = $('#signUpEmail').val();
 				
@@ -168,22 +164,20 @@
 				});
 			});
 			
-			$('#signUpPwd').on('changge', function(){
+			$('#signUpPwd').change(function(){
 				var regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 				
 				if(!regExp.test($(this).val())) {
 					$("#pwdResult").text("올바른 비밀번호 형식이 아니에요.").css("color","#dc3545");
-					$(this).focus();
+					$('#signUpPwd').focus();
 					
 					isPwd = false;
 				} else {
-					$("#pwdResult").remove();
-					
 					isPwd = true;
 				}
 			});
 			
-			$('#signUpPwd2').on('change', function(){
+			$('#signUpPwd2').change(function(){
 				var pwd = $('#signUpPwd').val();
 				var pwd2 = $('#signUpPwd2').val();
 				
