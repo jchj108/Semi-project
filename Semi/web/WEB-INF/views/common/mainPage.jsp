@@ -4,12 +4,14 @@ String cp = request.getContextPath();
 ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
 
+
 for(Gym gym : covidList) {
 	
 }
 for(Gym gym : popularList) {
 	
 }
+
 %>
 <!DOCTYPE html>
 <html>
@@ -310,12 +312,14 @@ input#search_service {
 }
 
 .swiper-slide:hover {
-	color: #00b1d2;
+	opacity: 0.8;
+	color: unset;
 }
 
 .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
 	top: -30px;
 	text-align: right;
+	bottom: unset;
 }
 
 :root {
@@ -323,11 +327,11 @@ input#search_service {
 }
 
 .swiper-button-prev {
-	left : -17px
+	left : -20px
 }
 
 .swiper-button-next {
-	right : -17px;
+	right : -20px;
 }
 
 .swiper-button-next, .swiper-button-prev {
@@ -489,6 +493,14 @@ h3 {
 } 
 
 a { text-decoration:none !important } a:hover { text-decoration:none !important }
+
+.swiper-slide .subtext {
+	position: absolute;
+	font-size: 20px;
+	color: white;
+	opacity: 1;
+	display: none;
+}
 
 </style>
 </head>
@@ -701,7 +713,11 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					<div class="swiper-pagination"></div> 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<popularList.size(); i++) { %>
-							<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=popularList.get(i).getG_NO()%>"><img src="image/f&g.jpg"><%= popularList.get(i).getG_NAME() %></a>
+ 							<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=popularList.get(i).getG_NO()%>">
+ 							<img src="<%= cp %>/image/gym/<%=popularList.get(i).getG_FILE()%>">
+ 								<span class="subtext">조회수 : <%=popularList.get(i).getG_COUNT() %></span>
+ 								<%= popularList.get(i).getG_NAME() %>
+							</a>
 						<% } %>
 					</div>
 					
@@ -715,7 +731,11 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					<div class="swiper-pagination"></div> 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<covidList.size(); i++) { %>
- 						<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=covidList.get(i).getG_NO()%>"><img src="image/f&g.jpg"><%= covidList.get(i).getG_NAME() %></a>
+ 						<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=covidList.get(i).getG_NO()%>">
+ 							<img src="<%= cp %>/image/gym/<%=covidList.get(i).getG_FILE()%>">
+ 								<span class="subtext">방역도 : <%=covidList.get(i).getG_COVID() %></span>
+ 								<%= covidList.get(i).getG_NAME() %>
+ 						</a>
 						<% } %>
 					</div>
 					
@@ -724,9 +744,14 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				</div>
 				
 				<script>
-					$('#popularGym7').on('click', function() {
-						location.href="<%=cp%>/detail.do?bId=1"
-					});
+					$(document).ready(function() {
+						$('.swiper-slide').mouseover(function() {
+							$(this).children('.subtext').attr('style', "display:inline-block");
+						})
+						$('.swiper-slide').mouseout(function() {
+							$(this).children('.subtext').attr('style', "display:none");
+						})
+					});			
 				</script>
 				
 			</div>

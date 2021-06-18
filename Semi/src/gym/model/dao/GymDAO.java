@@ -132,7 +132,8 @@ public class GymDAO {
 							rset.getString("g_IN_OUT"),
 							rset.getString("G_STATUS").charAt(0),
 							rset.getInt("g_COUNT"),
-							rset.getInt("g_COVID"));
+							rset.getInt("g_COVID"),
+							rset.getString("g_FILE"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -167,7 +168,8 @@ public class GymDAO {
 							rset.getString("g_IN_OUT"),
 							rset.getString("G_STATUS").charAt(0),
 							rset.getInt("g_COUNT"),
-							rset.getInt("g_COVID"));
+							rset.getInt("g_COVID"),
+							rset.getString("g_FILE"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
