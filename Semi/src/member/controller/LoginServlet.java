@@ -38,8 +38,6 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("userEmail");
 		String pwd = getEncryptPwd(request.getParameter("userPwd"));
 		
-		System.out.println(pwd);
-		
 		Member mem = new Member(email, pwd);
 		
 		Member loginUser = new MemberService().loginMember(mem);
