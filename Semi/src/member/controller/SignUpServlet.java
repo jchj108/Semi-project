@@ -66,10 +66,18 @@ public class SignUpServlet extends HttpServlet {
 			int result = new MemberService().insertMember(mem);
 			
 			if(result > 0) {
-				response.sendRedirect(request.getContextPath());
+				Member loginUser = new MemberService().loginMember(mem);
+				
+				if(loginUser != null) {
+					request.getSession().setAttribute("loginUser", loginUser);
+					response.sendRedirect(request.getContextPath());
+				} else {
+					request.setAttribute("msg", "로그인 실패");
+					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+				}
 			} else {
 				request.setAttribute("msg", "회원가입에 실패하였습니다.");
-				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);;
+				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 			}
 		}
 	}
