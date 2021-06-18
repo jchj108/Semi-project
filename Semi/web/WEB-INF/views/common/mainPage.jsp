@@ -5,10 +5,10 @@ ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
 
 for(Gym gym : covidList) {
-	System.out.println(gym);
+	
 }
 for(Gym gym : popularList) {
-	System.out.println(gym);
+	
 }
 %>
 <!DOCTYPE html>

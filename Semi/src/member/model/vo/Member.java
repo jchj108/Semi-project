@@ -23,6 +23,17 @@ public class Member {
 		this.m_email = m_email;
 		this.m_pwd = m_pwd;
 	}
+	public Member(int m_no, String m_pwd, char m_gender, String m_address, String m_etc, String m_profile,
+			String m_like) {
+		super();
+		this.m_no = m_no;
+		this.m_pwd = m_pwd;
+		this.m_gender = m_gender;
+		this.m_address = m_address;
+		this.m_etc = m_etc;
+		this.m_profile = m_profile;
+		this.m_like = m_like;
+	}
 
 	public Member(String m_email, String m_pwd, String m_name, char m_gender, String m_address, String m_etc,
 			String m_profile, String m_like) {
@@ -36,7 +47,8 @@ public class Member {
 		this.m_profile = m_profile;
 		this.m_like = m_like;
 	}
-
+		
+	
 	public Member(int m_no, String m_email, String m_pwd, String m_name, char m_gender, String m_address, Date m_date,
 			String m_etc, int m_auth, String m_status, String m_profile, String m_like) {
 		super();

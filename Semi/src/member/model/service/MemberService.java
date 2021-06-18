@@ -129,5 +129,31 @@ public class MemberService {
 		return list;
 	}
 
+	public int updateMember(Member m) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().updateMember(conn, m);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public Member selectMember(int mNo) {
+		Connection conn = getConnection();
+		
+		Member m = new MemberDAO().selectMember(conn, mNo);
+		
+		close(conn);
+		
+		return m;
+	}
+
 
 }

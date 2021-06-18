@@ -169,10 +169,12 @@ public class MemberDAO {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				Board b = new Board(rset.getInt("q_no"),
-									rset.getString("q_title"),
-									rset.getDate("q_date"),
-									rset.getInt("m_num"));
+				Board b = new Board();
+									
+				b.setQ_no(rset.getInt("q_no"));
+				b.setQ_title(rset.getString("q_title"));
+				b.setQ_date(rset.getDate("q_date"));
+				b.setwriterNo(rset.getInt("m_num"));
 				
 				list.add(b);
 						
@@ -322,5 +324,69 @@ public class MemberDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+
+	public int updateMember(Connection conn, Member m) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, m.getM_pwd());
+			pstmt.setString(2, m.getM_gender() + "");
+			pstmt.setString(3, m.getM_address());
+			pstmt.setString(4, m.getM_etc());
+			pstmt.setString(5, m.getM_profile());
+			pstmt.setString(6, m.getM_like());
+			pstmt.setInt(7, m.getM_no());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public Member selectMember(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String querty = prop.getProperty("selectMember");
+		
+		try {
+			pstmt = conn.prepareStatement(querty);
+			pstmt.setInt(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("m_no"),
+								rset.getString("m_email"),
+								rset.getString("m_pwd"),
+								rset.getString("m_name"),
+								rset.getString("m_gender").charAt(0),
+								rset.getString("m_address"),
+								rset.getDate("m_date"),
+								rset.getString("m_etc"),
+								rset.getInt("m_auth"),
+								rset.getString("m_status"),
+								rset.getString("m_profile"),
+								rset.getString("m_like"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
 	}
 }
