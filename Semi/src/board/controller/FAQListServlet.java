@@ -1,6 +1,7 @@
 package board.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
+import board.model.vo.Board;
+import page.model.vo.Page;
 
 /**
  * Servlet implementation class FAQListServlet
@@ -30,8 +33,9 @@ public class FAQListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService bService = new BoardService();
+		String bDiv = "F";
 		
-		int listCount = bService.bListCount("F");
+		int listCount = bService.bListCount(bDiv);
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -48,7 +52,22 @@ public class FAQListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
+		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
 		
+		ArrayList<Board> fList = bService.selectList(pi, bDiv);
+		
+		String page = null;
+		
+		if(fList != null) {
+			page = "WEB-INF/views/board/faqList.jsp";
+			request.setAttribute("fList", fList);
+			request.setAttribute("pi", pi);
+		} else {
+			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("msg","게시판 조회에 실패하였습니다.");
+		}
+		
+		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 
