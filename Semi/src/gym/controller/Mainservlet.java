@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import gym.model.service.GymService;
 import gym.model.vo.Gym;
+import member.model.vo.Member;
 
 @WebServlet("/home.do")
 public class Mainservlet extends HttpServlet {
@@ -23,13 +25,19 @@ public class Mainservlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		// setAttribute를 여러 개
+		GymService service = new GymService();
+		HttpSession session = request.getSession();
 		
-		ArrayList<Gym> covidList = new GymService().selectCovidList();
-		ArrayList<Gym> popularList = new GymService().selectPopularList();
+		ArrayList<Gym> covidList = service.selectCovidList();
+		ArrayList<Gym> popularList = service.selectPopularList();
+		
+		String like = ((Member)session.getAttribute("loginUser")).getM_like();
+		if(like != null) {
+			ArrayList<Gym> recommendList = service.selectRecomendList(like);
+		}
 		
 		String page = null;
-		if(covidList != null) {
+		if(covidList != null && popularList != null) {
 			page = "WEB-INF/views/common/mainPage.jsp";
 			request.setAttribute("covidList", covidList);
 			request.setAttribute("popularList", popularList);

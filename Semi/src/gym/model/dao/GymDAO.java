@@ -177,4 +177,23 @@ public class GymDAO {
 		}
 		return list;
 	}
+
+
+	public ArrayList<Gym> selectRecommendList(Connection conn, String like) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet Rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectRecommendList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, like);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
 }
