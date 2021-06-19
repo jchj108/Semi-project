@@ -44,7 +44,7 @@
 		color: #00B1D2;
 	}
 	
-	#loginForm, #signUpDiv{
+	#loginDiv, #signUpDiv{
 		max-width: 680px;
 		margin-top: 80px;
 		padding: 20px;
@@ -89,7 +89,6 @@
 	<% } else if(loginUser.getM_auth() == 0){ %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
-
 				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,7 +130,11 @@
 						<li class="nav-item dropdown">
 							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								style="font-size: 15px;">
+								<% if(!loginUser.getM_pwd().equals("kakao123")){%>
 								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
+								<% } else { %>
+								<img src="<%= loginUser.getM_profile() %>" style="height: 30px;">								
+								<% } %>
 								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">

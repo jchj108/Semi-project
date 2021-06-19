@@ -1,5 +1,6 @@
 package member.controller;
 
+
 import static common.Encrypt.getEncryptPwd;
 
 import java.io.File;
@@ -20,16 +21,16 @@ import member.model.service.MemberService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class SignUpServlet
+ * Servlet implementation class MemberUpdateServlet
  */
-@WebServlet("/signUp.me")
-public class SignUpServlet extends HttpServlet {
+@WebServlet("/update.me")
+public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SignUpServlet() {
+    public MemberUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,47 +39,49 @@ public class SignUpServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");		
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
-			
 			int maxSize = 1024 * 1024 * 10;
 			String root = request.getSession().getServletContext().getRealPath("/");
 			String savePath = root + "profile_uploadFiles/";
 			
-			File file = new File(savePath);
-			if(!file.exists()) {
-				file.mkdirs();
+			File f = new File(savePath);
+			if(!f.exists()) {
+				f.mkdirs();
 			}
 			
-			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+			MultipartRequest multi = new MultipartRequest(request, savePath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+			int mNo = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
 			
-			String email = multipartRequest.getParameter("signUpEmail");
-			String pwd = getEncryptPwd(multipartRequest.getParameter("signUpPwd"));
-			String name = multipartRequest.getParameter("signUpName");
-			char gender = multipartRequest.getParameter("signUpGender").charAt(0);
-			String address = multipartRequest.getParameter("signUpAddress");
-			String etc = multipartRequest.getParameter("signUpEtc");
-			String profile = multipartRequest.getFilesystemName("signUpProfile");
-			String like = multipartRequest.getParameter("signUpLike");
+			String profile = multi.getFilesystemName("updateProfile");
+			if(profile == null) {
+				profile = ((Member)request.getSession().getAttribute("loginUser")).getM_profile();
+			}
 			
-			Member mem = new Member(email, pwd, name, gender, address, etc, profile, like);
-				
-			int result = new MemberService().insertMember(mem);
+			String pwd = null;
+			String updatePwd = multi.getParameter("pwd2");
+			if(updatePwd.equals("")) {
+				pwd = ((Member)request.getSession().getAttribute("loginUser")).getM_pwd();
+			} else {
+				pwd = getEncryptPwd(updatePwd);
+			}
+			
+			char gender = multi.getParameter("gender").charAt(0);
+			String address = multi.getParameter("updateAddress");
+			String etc = multi.getParameter("updateEtc");
+			String like = multi.getParameter("updateLike");
+			
+			Member m = new Member(mNo, pwd, gender, address, etc, profile, like);
+			
+			int result = new MemberService().updateMember(m);
 			
 			if(result > 0) {
-				Member loginUser = new MemberService().loginMember(mem);
-				
-				if(loginUser != null) {
-					request.getSession().setAttribute("loginUser", loginUser);
-					response.sendRedirect(request.getContextPath());
-				} else {
-					request.setAttribute("msg", "로그인 실패");
-					request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-				}
+				response.sendRedirect("myPage.me");
 			} else {
-				request.setAttribute("msg", "회원가입에 실패하였습니다.");
+				request.setAttribute("msg", "회원 정보 수정에 실패하였습니다.");
 				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-			}
+			}	
+			
 		}
 	}
 
