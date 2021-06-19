@@ -60,4 +60,14 @@ public class GymService {
 		
 		return list;
 	}
+
+	public ArrayList selectRandomGymList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().selectRandomList(conn);
+		close(conn);
+		
+		return list;
+	}
 }

@@ -45,6 +45,14 @@ public class Gym {
 		G_FILE = g_FILE;
 	}
 
+	public Gym(int g_NO, String g_TYPE_NM, String g_NAME, String g_FILE) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_NAME = g_NAME;
+		G_FILE = g_FILE;
+	}
+
 	public void setG_FILE(String g_FILE) {
 		G_FILE = g_FILE;
 	}

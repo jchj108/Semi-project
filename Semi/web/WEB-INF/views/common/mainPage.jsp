@@ -3,14 +3,14 @@
 String cp = request.getContextPath(); 
 ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
+ArrayList<Gym> recommendList = (ArrayList)request.getAttribute("recommendList");
 
+if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) {
+	for(Gym g : recommendList) {
+		System.out.println(g);
+	}
+}
 
-for(Gym gym : covidList) {
-	
-}
-for(Gym gym : popularList) {
-	
-}
 
 %>
 <!DOCTYPE html>
@@ -756,6 +756,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				
 			</div>
 			<h2 class="mini-title">주변 시설</h2>
+			
 			<div class="local-images">
 				<div class="imageBox">
 					<div class="local-image">
@@ -807,6 +808,18 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				</div>
 			</div>
 			<h2 class="mini-title" style="margin-top: 0px">추천 시설</h2>
+			
+
+			<% if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) { %>
+			<% 		for(int i = 0; i<recommendList.size(); i++) { %>
+					<%= recommendList.get(i).getG_NAME() %>
+			<%		} 	%>
+			<% } else { %>
+			<% 		for(int i = 0; i<recommendList.size(); i++) { %>
+					<%= recommendList.get(i).getG_NAME() %>
+			<%		} 	%>
+			<% } %>
+			
 			<div class="local-images">
 				<div class="imageBox">
 					<div class="local-image">

@@ -24,23 +24,47 @@ public class Mainservlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
-		GymService service = new GymService();
 		HttpSession session = request.getSession();
+		GymService service = new GymService();
+		
+		String like = "";
+			
 		
 		ArrayList<Gym> covidList = service.selectCovidList();
 		ArrayList<Gym> popularList = service.selectPopularList();
-		
-		String like = ((Member)session.getAttribute("loginUser")).getM_like();
-		if(like != null) {
-			ArrayList<Gym> recommendList = service.selectRecomendList(like);
+		ArrayList recommendList = null;
+				
+		if(((Member)session.getAttribute("loginUser")) != null && ((Member)session.getAttribute("loginUser")).getM_like() != null) {
+		Member user = (Member)(session.getAttribute("loginUser"));
+			switch(user.getM_like()) {
+				case "수영" :
+					like = "수영장"; break;
+				case "축구" :
+					like = "축구장"; break;
+				case "테니스" :
+					like = "테니스장"; break;
+				case "골프" :
+					like = "골프연습장"; break;
+				case "족구" :
+					like = "족구연습장"; break;
+				case "배드민턴" :
+					like = "배드민턴장"; break;
+				case "농구" : 
+					like = "농구장"; break;
+				case "풋살" :
+					like = "풋살장"; break;
+			}
+			recommendList = service.selectRecomendList(like);
+		} else {
+			recommendList = service.selectRandomGymList(); // 랜덤 리스트
 		}
 		
 		String page = null;
-		if(covidList != null && popularList != null) {
+		if(covidList != null && popularList != null && recommendList != null) {
 			page = "WEB-INF/views/common/mainPage.jsp";
 			request.setAttribute("covidList", covidList);
 			request.setAttribute("popularList", popularList);
+			request.setAttribute("recommendList", recommendList);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "시설 정보 조회에 실패했습니다.");

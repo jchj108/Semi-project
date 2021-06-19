@@ -182,7 +182,7 @@ public class GymDAO {
 	public ArrayList<Gym> selectRecommendList(Connection conn, String like) {
 		
 		PreparedStatement pstmt = null;
-		ResultSet Rset = null;
+		ResultSet rset = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
 		
 		String query = prop.getProperty("selectRecommendList");
@@ -190,10 +190,46 @@ public class GymDAO {
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, like);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_No"),
+								rset.getString("g_type_nm"),
+								rset.getString("g_name"),
+								rset.getString("g_file"));
+				list.add(g);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return list;
+	}
+
+
+	public ArrayList<Gym> selectRandomList(Connection conn) {
+	
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
 		
-		return null;
+		String query = prop.getProperty("selectRandomList");
+		
+			try {
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				
+				while(rset.next()) {
+					Gym g = new Gym(rset.getInt("g_No"),
+							rset.getString("g_type_nm"),
+							rset.getString("g_name"),
+							rset.getString("g_file"));
+					list.add(g);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return list;
 	}
 }
