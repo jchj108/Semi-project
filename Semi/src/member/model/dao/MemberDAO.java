@@ -69,6 +69,7 @@ public class MemberDAO {
 	}
 
 	public int checkEmail(Connection conn, String inputEmail) {
+		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int result = 0;
