@@ -73,7 +73,7 @@ body {
 	size: 100%;
 	font-family: 'Noto Sans KR';
 	font-size: 1rem;
-	color: #323232;
+	color: #323232; !important;
 	text-align: left;
 	background-color: #fff;
 	min-height: 100%;
@@ -178,7 +178,6 @@ img {
 	vertical-align: middle;
 	margin: auto;
 	position: relative;
-	/* max-width: 100%; */
 }
 
 ul {
@@ -272,7 +271,6 @@ input#search_service {
 }
 
 .mySwiper {
-	margin-top: 80px;
 	width: 1000px;
 	background: #fff;
 }
@@ -317,7 +315,7 @@ input#search_service {
 }
 
 .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
-	top: -30px;
+	top: 10px;
 	text-align: right;
 	bottom: unset;
 }
@@ -363,30 +361,30 @@ input#search_service {
 /* swipper end */
 .body2 {
 	width: 1000px;
+	height: 2400px;
 	margin-left: auto;
 	margin-right: auto;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
 }
 
 .mini-title {
 	position: relative;
-	top: 70px;
 	font-size: 24px;
 	font-weight: 700;
+	margin-bottom: 10px;
 }
 
 .exceptWrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 	min-height: 100vh;
 }
 
 .local-images {
-	margin-top: 90px;
 	display: flex;
 	align-content: center;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	vertical-align: middle;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -394,15 +392,14 @@ input#search_service {
 
 .local-image {
 	width: 232px;
-	height: 232px;
+	height: 200px;
 	overflow: hidden;
 	justify-content: center;
 	align-self: center;
 }
 
-.banner {
-	margin-top: 50px;
-	margin-bottom: 100px;
+.local-image img {
+	
 }
 
 h3 {
@@ -412,11 +409,35 @@ h3 {
 }
 
 .imageBox {
-	width: 250px;
-	height: 300px;
+	width: 232px;
+	height: 250px;
 	/* text-align: center; */
 	justify-content: center;
 	align-items: center;
+	color: #323232;
+	text-align: center;
+}
+
+.imageBox:hover a {
+	color: #323232;
+}
+
+.imageBox:hover {
+	opacity: 0.8;
+}
+
+.imageBox a {
+	color: #323232;
+}
+
+.imageBox img {
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+}
+
+.imageBox .imgtitle {
+	margin-top: 5px;
 }
 
 #tab2 {
@@ -707,13 +728,13 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 	<!-- main firstpage wrapper -->
 	<div class="exceptWrapper">
 		<div class="body2">
-			<h2 class="mini-title">인기 서비스</h2>
 			<div class="popular" style="position: relative">
+			<h2 class="mini-title">인기 서비스</h2>
 				<div class="swiper-container mySwiper" style="position:static">
 					<div class="swiper-pagination"></div> 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<popularList.size(); i++) { %>
- 							<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=popularList.get(i).getG_NO()%>">
+ 							<a class="swiper-slide" href="<%= cp %>/detail.do?gNo=<%=popularList.get(i).getG_NO()%>">
  							<img src="<%= cp %>/image/gym/<%=popularList.get(i).getG_FILE()%>">
  								<span class="subtext">조회수 : <%=popularList.get(i).getG_COUNT() %></span>
  								<%= popularList.get(i).getG_NAME() %>
@@ -725,13 +746,13 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					<div class="swiper-button-prev"></div>
 				</div>
 			</div>
-			<h2 class="mini-title">방역 우수 센터</h2>
 			<div class="covid" style="position: relative">
+			<h2 class="mini-title">방역 우수 센터</h2>
 				<div class="swiper-container mySwiper" style="position:static">
 					<div class="swiper-pagination"></div> 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<covidList.size(); i++) { %>
- 						<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=covidList.get(i).getG_NO()%>">
+ 						<a class="swiper-slide" href="<%= cp %>/detail.do?gNo=<%=covidList.get(i).getG_NO()%>">
  							<img src="<%= cp %>/image/gym/<%=covidList.get(i).getG_FILE()%>">
  								<span class="subtext">방역도 : <%=covidList.get(i).getG_COVID() %></span>
  								<%= covidList.get(i).getG_NAME() %>
@@ -755,8 +776,8 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				</script>
 				
 			</div>
+			<div>
 			<h2 class="mini-title">주변 시설</h2>
-			
 			<div class="local-images">
 				<div class="imageBox">
 					<div class="local-image">
@@ -807,10 +828,10 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					<h3>title</h3>
 				</div>
 			</div>
-			<h2 class="mini-title" style="margin-top: 0px">추천 시설</h2>
-			
-
-			<% if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) { %>
+			</div>
+			<div>
+			<h2 class="mini-title">추천 시설</h2>
+<%-- 			<% if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) { %>
 			<% 		for(int i = 0; i<recommendList.size(); i++) { %>
 					<%= recommendList.get(i).getG_NAME() %>
 			<%		} 	%>
@@ -818,57 +839,33 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 			<% 		for(int i = 0; i<recommendList.size(); i++) { %>
 					<%= recommendList.get(i).getG_NAME() %>
 			<%		} 	%>
-			<% } %>
+			<% } %> --%>
 			
 			<div class="local-images">
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
+				<% if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) { %>
+					<% for(int i = 0; i<recommendList.size(); i++) { %>
+						<div class="imageBox">
+							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+								</div>
+							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
+							</a>
+						</div>
+					<% } %>
+				<%} else { %>
+									<% for(int i = 0; i<recommendList.size(); i++) { %>
+						<div class="imageBox">
+							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+								</div>
+							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
+							</a>
+						</div>
+					<% } %>
+				<% } %>
+			</div>
 			</div>
 			<div class="banner">
 				<img src="image/Myprotein-low (1).jpg" width="100%" />
