@@ -5,11 +5,9 @@ ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
 ArrayList<Gym> recommendList = (ArrayList)request.getAttribute("recommendList");
 
-if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) {
 	for(Gym g : recommendList) {
 		System.out.println(g);
 	}
-}
 
 
 %>
@@ -842,7 +840,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 			<% } %> --%>
 			
 			<div class="local-images">
-				<% if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) { %>
+				<% if(request.getSession().getAttribute("loginUser") != null) { %>
 					<% for(int i = 0; i<recommendList.size(); i++) { %>
 						<div class="imageBox">
 							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
@@ -854,7 +852,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 						</div>
 					<% } %>
 				<%} else { %>
-									<% for(int i = 0; i<recommendList.size(); i++) { %>
+					<% for(int i = 0; i<recommendList.size(); i++) { %>
 						<div class="imageBox">
 							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
 								<div class="local-image">

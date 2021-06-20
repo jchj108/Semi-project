@@ -34,7 +34,7 @@ public class Mainservlet extends HttpServlet {
 		ArrayList<Gym> popularList = service.selectPopularList();
 		ArrayList recommendList = null;
 				
-		if(((Member)session.getAttribute("loginUser")) != null && ((Member)session.getAttribute("loginUser")).getM_like() != null) {
+		if(((Member)session.getAttribute("loginUser")) != null && !(((Member)session.getAttribute("loginUser")).getM_like().equals("없음"))) {
 		Member user = (Member)(session.getAttribute("loginUser"));
 			switch(user.getM_like()) {
 				case "수영" :
@@ -53,6 +53,8 @@ public class Mainservlet extends HttpServlet {
 					like = "농구장"; break;
 				case "풋살" :
 					like = "풋살장"; break;
+				default :
+					recommendList = service.selectRandomGymList();
 			}
 			recommendList = service.selectRecomendList(like);
 		} else {
