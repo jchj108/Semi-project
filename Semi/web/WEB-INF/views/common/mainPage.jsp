@@ -93,6 +93,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
+	margin-bottom: 40px;
 }
 
 .box {
@@ -359,7 +360,7 @@ input#search_service {
 /* swipper end */
 .body2 {
 	width: 1000px;
-	height: 2400px;
+	height: 2600px;
 	margin-left: auto;
 	margin-right: auto;
 	display: flex;
@@ -371,7 +372,7 @@ input#search_service {
 	position: relative;
 	font-size: 24px;
 	font-weight: 700;
-	margin-bottom: 10px;
+	margin-bottom: 16px;
 }
 
 .exceptWrapper {
@@ -519,6 +520,26 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 	color: white;
 	opacity: 1;
 	display: none;
+}
+
+.location-list {
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+.location-list li {
+	width: 161.66px;
+	margin-top: 16px;
+	font-weight: 400;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+.banner {
+	margin-top: 50px;
 }
 
 </style>
@@ -865,11 +886,51 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				<% } %>
 			</div>
 			</div>
+			<div>
+				<h2 class="mini-title">자치구별로 찾기</h2>
+				<div style="position:relative">
+				<img src="<%=cp %>/image/mapbg.PNG" style="width:100%; height: 56px; border-radius:10px;">
+				<div style="position:absolute; top:30%; margin-left:25px">📍 서울시 공공 체육 시설을 자치구별로 확인하세요</div></div>
+				<ul class="location-list">
+					<li>종로구</li>
+					<li>중구</li>
+					<li>용산구</li>
+					<li>성동구</li>
+					<li>광진구</li>
+					<li>동대문구</li>
+					<li>중랑구</li>
+					<li>성북구</li>
+					<li>강북구</li>
+					<li>도봉구</li>
+					<li>노원구</li>
+					<li>은평구</li>
+					<li>서대문구</li>
+					<li>마포구</li>
+					<li>양천구</li>
+					<li>강서구</li>
+					<li>구로구</li>
+					<li>금천구</li>
+					<li>영등포구</li>
+					<li>동작구</li>
+					<li>관악구</li>
+					<li>서초구</li>
+					<li>강남구</li>
+					<li>송파구</li>
+					<li>강동구</li>
+				</ul>
+			</div>
 			<div class="banner">
 				<img src="image/Myprotein-low (1).jpg" width="100%" />
 			</div>
 		</div>
-	</div>
+		<script>
+	        $(function () {
+				$('.location-list li').click(function() {
+						var location = $(this).text();
+						window.location.href = "<%=cp%>/category.do?category="+location;
+					});
+				});
+		</script>
 	<!-- Footer-->
 	<%@ include file="footer.jsp" %>
 	<script>
