@@ -387,6 +387,7 @@ input#search_service {
 	vertical-align: middle;
 	flex-direction: row;
 	flex-wrap: wrap;
+	cursor: pointer;
 }
 
 .local-image {
@@ -726,7 +727,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					>맞춤형 운동을 제안해드려요</p>
 					<button
 						style="width: 215px; height: 50px; color: #fff; background-color: #00b1d2; border-color: #00b1d2; margin-top: 10px; border-radius: 0.375rem;"
-						type="button" class="btn"
+						type="button" class="btn" id="recommend"
 					>운동 추천받기</button>
 				</div>
 				<div id="pannel3" class="tab-content">
@@ -889,13 +890,13 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				<%} else { %>
 					<% for(int i = 0; i<recommendList.size(); i++) { %>
 						<div class="imageBox">
-							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
+<!-- 					<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">  -->			
 								<div class="local-image">
 									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
 									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
 								</div>
 							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
-							</a>
+<!-- 					</a>  -->		
 						</div>
 					<% } %>
 				<% } %>
@@ -947,15 +948,33 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 			<div class="banner">
 				<img src="image/Myprotein-low (1).jpg" width="100%" />
 			</div>
+			
+		<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<%@include file="../common/loginAlert.jsp" %>
+		</div>
 		</div>
 		<script>
 	        $(function () {
 				$('.location-list li').click(function() {
-						var location = $(this).text();
-						window.location.href = "<%=cp%>/category.do?category="+location;
+						var $location = $(this).text();
+						window.location.href = "<%=cp%>/category.do?category="+$location;
 					});
 				});
 		</script>
+		
+
+		
+		<script>
+			<% if(loginUser == null) { %>
+			$('.local-images').on('click', function() {
+				$('#alertModal').modal("show");
+			});
+			$('#recommend').on('click', function() {
+				$('#alertModal').modal("show");
+			});
+			<% } %>
+		</script>
+		
 	<!-- Footer-->
 	<%@ include file="footer.jsp" %>
 	<script>
