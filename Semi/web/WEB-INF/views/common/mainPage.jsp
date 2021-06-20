@@ -395,6 +395,18 @@ input#search_service {
 	overflow: hidden;
 	justify-content: center;
 	align-self: center;
+	position: relative;
+	text-align: center;
+}
+
+.local-image span {
+	top:53%;
+	left:50%;
+	color: white;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	display: none;
+	white-space: nowrap;
 }
 
 .local-image img {
@@ -531,7 +543,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 }
 
 .location-list li {
-	width: 161.66px;
+	width: 166.66px;
 	margin-top: 16px;
 	font-weight: 400;
 	padding-left: 5px;
@@ -867,6 +879,8 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
 								<div class="local-image">
 									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
+									
 								</div>
 							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
 							</a>
@@ -878,6 +892,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
 								<div class="local-image">
 									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
 								</div>
 							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
 							</a>
@@ -886,6 +901,16 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				<% } %>
 			</div>
 			</div>
+				<script>
+					$(function() {
+						$('.local-image').mouseover(function() {
+							$(this).children('span').attr('style', 'display:block');
+						})
+						$('.local-image').mouseout(function() {
+							$(this).children('span').attr('style', 'display:none');
+						})
+					});
+				</script>
 			<div>
 				<h2 class="mini-title">자치구별로 찾기</h2>
 				<div style="position:relative">
