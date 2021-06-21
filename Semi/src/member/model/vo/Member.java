@@ -23,6 +23,15 @@ public class Member {
 		this.m_email = m_email;
 		this.m_pwd = m_pwd;
 	}
+	
+	public Member(int m_no, String m_email, String m_name, Date m_date) {
+		super();
+		this.m_no = m_no;
+		this.m_email = m_email;
+		this.m_name = m_name;
+		this.m_date = m_date;
+	}
+	
 	public Member(int m_no, String m_pwd, char m_gender, String m_address, String m_etc, String m_profile,
 			String m_like) {
 		super();
