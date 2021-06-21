@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
+import board.model.vo.PageInfo;
 import page.model.vo.Page;
 
 import static common.JDBCTemplate.close;

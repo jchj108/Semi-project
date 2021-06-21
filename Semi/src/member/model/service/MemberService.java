@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.vo.Board;
+import board.model.vo.PageInfo;
 import comments.model.vo.Comments;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;

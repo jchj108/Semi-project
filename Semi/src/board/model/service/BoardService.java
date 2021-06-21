@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import board.model.dao.BoardDAO;
 import board.model.vo.Board;
+import board.model.vo.PageInfo;
 import page.model.vo.Page;
 
 public class BoardService {
