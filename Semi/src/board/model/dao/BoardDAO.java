@@ -90,4 +90,62 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	
+	public int getListCount(Connection conn, String q) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("getListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, q);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		String query = prop.getProperty("selectBoardList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Board b = new Board(rset.getInt("q_no"),
+									rset.getString("q_title"),
+									rset.getDate("q_date"),
+									rset.getString("m_email"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
 }
