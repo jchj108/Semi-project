@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
@@ -34,6 +33,10 @@
 		color: #00B1D2;
 	}
 	
+	.homeLogo:hover{
+		cursor: pointer;
+	}
+	
 	/* login */
 	#signUpLogin:hover, #findPwd:hover{
 		cursor: pointer;
@@ -41,7 +44,7 @@
 		color: #00B1D2;
 	}
 	
-	#loginForm, #signUpForm{
+	#loginForm, #signUpDiv{
 		max-width: 680px;
 		margin-top: 80px;
 		padding: 20px;
@@ -66,7 +69,9 @@
 	<% if(loginUser == null) { %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
+
 				<a href="<%= request.getContextPath() %>/home.do"><img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;"></a>
+
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -81,11 +86,41 @@
 				</div>
 			</div>
 		</nav>
-	<% } else { %>
+	<% } else if(loginUser.getM_auth() == 0){ %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
-				<img src="<%= request.getContextPath() %>/image/logo.png" style="height: 72px;">
-				<img src="<%= request.getContextPath() %><%=loginUser.getM_profile()%>" style="height: 50px;">
+
+				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse">
+					<ul class="nav ml-auto">
+						<li class="nav-item dropdown">
+							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								style="font-size: 15px;">
+								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
+								&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자
+							</p>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
+								<button class="dropdown-item" type="button" onclick="location.href='userList.li'">회원정보관리</button>
+								<button class="dropdown-item" type="button" onclick="location.href='facilityList.li'">시설관리</button>
+								<button class="dropdown-item" type="button" onclick="location.href='qnaBoardList.li'">게시글관리</button>
+								<button class="dropdown-item" type="button">통계조회</button>
+								<div class="dropdown-divider"></div>
+								<button class="dropdown-item text-right" type="button" id="logout">로그아웃</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	<% } else {%>
+		<nav class="navbar navbar-expand-lg navbar-light">
+			<div class="container">
+				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
+
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarResponsive" aria-controls="navbarResponsive"
 					aria-expanded="false" aria-label="Toggle navigation">
@@ -94,8 +129,10 @@
 				<div class="collapse navbar-collapse">
 					<ul class="nav ml-auto">
 						<li class="nav-item dropdown">
-							<p class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-								<%= loginUser.getM_name() %>&nbsp;고객님
+							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								style="font-size: 15px;">
+								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
+								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<button class="dropdown-item" style="font-weight: bold; color: black; pointer-events: none;">
@@ -123,22 +160,26 @@
 	</div>
 	
 	<script>
-		$('#login').click(function(){
+		$('#login').on('click', function(){
 			$('#loginModal').modal("show");
 		});
 		
-		$('#logout').click(function(){
+		$('#logout').on('click', function(){
 			location.href = "<%= request.getContextPath() %>/logout.me";						
 		});
 		
-		$('#signUp').click(function() {
+		$('#signUp').on('click', function() {
 			$('#signUpModal').modal("show");		
+		});
+		
+		$('.homeLogo').on('click', function(){
+			location.href = "<%= request.getContextPath() %>";
 		});
 		
 	</script>
 
 <!-- Bootstrap core JS-->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 

@@ -31,6 +31,14 @@ public class Member {
 		this.m_pwd = m_pwd;
 	}
 
+	public Member(int m_no, String m_email, String m_name, Date m_date) {
+		super();
+		this.m_no = m_no;
+		this.m_email = m_email;
+		this.m_name = m_name;
+		this.m_date = m_date;
+	}
+
 	public Member(int m_no, String m_email, String m_pwd, String m_name, char m_gender, String m_address, Date m_date,
 			String m_etc, int m_auth, String m_status, String m_profile) {
 		super();
