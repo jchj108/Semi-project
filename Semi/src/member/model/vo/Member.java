@@ -23,6 +23,15 @@ public class Member {
 		this.m_email = m_email;
 		this.m_pwd = m_pwd;
 	}
+	
+	public Member(int m_no, String m_email, String m_name, Date m_date) {
+		super();
+		this.m_no = m_no;
+		this.m_email = m_email;
+		this.m_name = m_name;
+		this.m_date = m_date;
+	}
+	
 	public Member(int m_no, String m_pwd, char m_gender, String m_address, String m_etc, String m_profile,
 			String m_like) {
 		super();
@@ -35,6 +44,16 @@ public class Member {
 		this.m_like = m_like;
 	}
 
+<<<<<<< HEAD
+	public Member(int m_no, String m_email, String m_name, Date m_date) {
+		super();
+		this.m_no = m_no;
+		this.m_email = m_email;
+		this.m_name = m_name;
+		this.m_date = m_date;
+	}
+
+=======
 	public Member(String m_email, String m_pwd, String m_name, char m_gender, String m_address, String m_etc,
 			String m_profile, String m_like) {
 		super();
@@ -49,6 +68,7 @@ public class Member {
 	}
 		
 	
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 	public Member(int m_no, String m_email, String m_pwd, String m_name, char m_gender, String m_address, Date m_date,
 			String m_etc, int m_auth, String m_status, String m_profile, String m_like) {
 		super();

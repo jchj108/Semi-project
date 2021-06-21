@@ -8,13 +8,24 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.sql.Statement;
+=======
+<<<<<<< HEAD
+import java.sql.Statement;
+=======
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
+>>>>>>> new
 import java.util.ArrayList;
 import java.util.Properties;
 
+<<<<<<< HEAD
+import board.model.vo.PageInfo;
+=======
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import comments.model.vo.Comments;
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 import member.model.vo.Member;
 import page.model.vo.Page;
 import review.model.vo.Review;
@@ -153,6 +164,84 @@ public class MemberDAO {
 		
 		return result;
 	}
+<<<<<<< HEAD
+	
+	public int getUserCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int userCount = 0;
+		
+		String query = prop.getProperty("getUserCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if(rset.next()) {
+				userCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return userCount;
+	}
+
+	public ArrayList<Member> selectUserList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		String query = prop.getProperty("selectUserList");
+				
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member(rset.getInt("m_no"),
+									  rset.getString("m_email"),
+									  rset.getString("m_name"),
+									  rset.getDate("m_date"));
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+=======
 
 	public ArrayList<Board> selectMyBoard(Connection conn, int mNo, Page pageInfo) {
 		PreparedStatement pstmt = null;
@@ -392,6 +481,7 @@ public class MemberDAO {
 		}
 		return m;
 	}
+<<<<<<< HEAD
 	
 	public int getUserCount(Connection conn) {
 		Statement stmt = null;
@@ -449,4 +539,7 @@ public class MemberDAO {
 	}
 	
 	
+=======
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
+>>>>>>> new
 }

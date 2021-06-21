@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+=======
+import org.apache.catalina.filters.SetCharacterEncodingFilter;
+
+>>>>>>> new
 import board.model.vo.PageInfo;
 import member.model.service.MemberService;
 import member.model.vo.Member;

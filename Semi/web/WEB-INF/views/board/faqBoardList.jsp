@@ -1,14 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="board.model.vo.Board, java.util.ArrayList, board.model.vo.PageInfo"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="board.model.vo.Board"%>
 <!DOCTYPE html>
 <%
-	ArrayList<Board> list = (ArrayList)request.getAttribute("list"); 
-	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
-	int listCount = pi.getListCount();
-	int currentPage = pi.getCurrentPage();
-	int maxPage = pi.getMaxPage();
-	int startPage = pi.getStartPage();
-	int endPage = pi.getEndPage();
 %>
 <html>
   <head>
@@ -17,7 +10,7 @@
     <meta http-equiv="content-script-type" content="text/javascript" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Q&A 목록</title>
+    <title>Document</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
@@ -71,7 +64,9 @@
         }
         
         .row{margin-top: 50px;}
+        	
         .notice{width: 1100px; height: 600px;}
+        
         .col-lg-9{height: 750px;}
         
         #searchKeyword {
@@ -79,7 +74,9 @@
  			width: 200px;
  		}
         
-        .search{width: 1100px;}
+        .search{
+        	width: 1100px;
+        }
         
          .page-div{ 
          	width: 100%;
@@ -90,7 +87,7 @@
          
 		 .delete-button{margin-left: 50%;}
       
-      	 .page-div{position: absolute;}
+      	 .page-div{margin-left: 43%;}
       	
       	 #noneLink{
      	 	color : lightgray;
@@ -110,8 +107,8 @@
         	<div class="col-lg-9">
 				<div class="notice">
                 	<div class="buttonbox">
-						<button type="button" id="qnaListBtn" class="titleBtn">Q&A 관리</button>
-						<button type="button" id="faqListBtn" class="titleBtn"  onclick="location.href='faqBoardList.li'">FAQ 관리</button>
+						<button type="button" id="qnaListBtn" class="titleBtn" onclick="location.href='qnaBoardList.li'">Q&A 관리</button>
+						<button type="button" id="faqListBtn" class="titleBtn">FAQ 관리</button>
 					    <button type="button" id="userListBtn" class="titleBtn" onclick="location.href='userList.li'">회원 관리</button>
 	    			</div>
                 <table class="notice-table" id="listTable">
@@ -125,21 +122,13 @@
 					    </tr>
 					</thead>
 					<tbody>
-						<% if(list.isEmpty()) {%>
-						<tr>
-							<td colspan="5">작성된 게시글이 없습니다.</td>
-						</tr>
-						<% } else { %>
-						<% 		for(Board b : list) { %>
 					    <tr>
 							<td><input type="checkbox" name="check" onclick="selectOne();"></td>
-							<td><%= b.getQ_no() %></td>
-							<td><%= b.getWriterName()%></td>
-							<td><%= b.getQ_title() %></td>
-							<td><%= b.getQ_date()%></td>
+							<td>1</td>
+							<td>user01</td>
+							<td>오류나요</td>
+							<td>2021/05/20</td>
 						</tr>
-						<% 		} %>
-						<% } %>
 					</tbody>
                 </table>
 				</div>
@@ -157,50 +146,17 @@
 				</div>
 					
 				<!-- 페이지 넘기기 -->
+<!-- 				<div class="page-div"> -->
+<!-- 					<ul class="pagination"> -->
+<!-- 						<li class="page-item"> -->
+<!-- 							<a class="page-link" href="#">&laquo;</a> -->
+<!-- 						</li>	     -->
+<!-- 					</ul> -->
+<!-- 				</div> -->
 				<div class="page-div">
-					<ul class="pagination">
-						<!-- 처음으로 -->
-						<li class="page-item">
-							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=1'">&laquo;</a>
-						</li>
-						<!-- 이전 페이지 -->
-						<% if(currentPage <= 1){%>
-							<li class="page-item">
-								<a class="page-link" id="noneLink">&lt;</a>
-							</li>
-						<% } else {%>
-							<li class="page-item">
-								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=<%= currentPage - 1 %>'">&lt;</a>
-							</li>
-						<% } %>
-						<!-- 숫자 버튼 -->
-						<% for(int p = startPage; p <= endPage; p++){ %>
-						<%		if(p == currentPage){ %>
-									<li class="page-item">
-										<a class="page-link"><%=p %></a>
-									</li>
-						<%		} else { %>
-									<li class="page-item">
-										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=<%= p %>'"><%=p%></a>
-									</li>
-						<%		} %>
-						<%	} %>
-						<!-- 다음 페이지 -->
-						<% if(currentPage >= maxPage){%>
-							<li class="page-item">
-								<a class="page-link" id="noneLink">&gt;</a>
-							</li>
-						<% } else {%>
-							<li class="page-item">
-								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=<%= currentPage + 1 %>'">&gt;</a>
-							</li>
-						<% } %>
-						<!-- 끝으로  -->
-						<li class="page-item">
-							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=<%= maxPage %>'">&raquo;</a>
-						</li>	
-					</ul>
+				
 				</div>
+
             </div>
         </div>
     </div>   
@@ -209,7 +165,7 @@
 	
     <script>
 	(window.onload = function() {
-    	$('#qnaListBtn').css({'background':'#00B1D2','color':'white'});
+    	$('#faqListBtn').css({'background':'#00B1D2','color':'white'});
 	});
         
 	// 체크박스
@@ -237,7 +193,7 @@
 			}
 		}
 		
-		if(count != check.length){
+		if(count != 10){
 			$('#checkAll').prop('checked', false);
 		} else{
 			$('#checkAll').prop('checked', true);
@@ -262,8 +218,4 @@
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> new
