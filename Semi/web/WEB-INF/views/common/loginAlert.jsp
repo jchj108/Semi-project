@@ -65,11 +65,11 @@
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-					<h3 class="my-4 text-center" style="font-size: 22px">추천 서비스를 이용하기 위해 로그인 해주세요!</h3>
+					<h3 class="my-4 text-center" style="font-size: 20px">추천 서비스를 이용하기 위해 로그인 해주세요!</h3>
 					
                     <div class="modal-body" style="text-align:center">
 						<p>로그인 하시면 회원 정보를 기반으로 <br>
-						보다 정확한 서비스를 제공해드립니다.</p>
+						보다 정확한 서비스를 제공해드려요.</p>
 					
                     </div>
                     <div class="modal-footer">
