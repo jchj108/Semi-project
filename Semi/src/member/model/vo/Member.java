@@ -14,14 +14,7 @@ public class Member {
 	private int m_auth;
 	private String m_status;
 	private String m_profile;
-	
-	public String getM_profile() {
-		return m_profile;
-	}
-
-	public void setM_profile(String m_profile) {
-		this.m_profile = m_profile;
-	}
+	private String m_like;
 
 	public Member() {}
 	
@@ -30,7 +23,28 @@ public class Member {
 		this.m_email = m_email;
 		this.m_pwd = m_pwd;
 	}
+	
+	public Member(int m_no, String m_email, String m_name, Date m_date) {
+		super();
+		this.m_no = m_no;
+		this.m_email = m_email;
+		this.m_name = m_name;
+		this.m_date = m_date;
+	}
+	
+	public Member(int m_no, String m_pwd, char m_gender, String m_address, String m_etc, String m_profile,
+			String m_like) {
+		super();
+		this.m_no = m_no;
+		this.m_pwd = m_pwd;
+		this.m_gender = m_gender;
+		this.m_address = m_address;
+		this.m_etc = m_etc;
+		this.m_profile = m_profile;
+		this.m_like = m_like;
+	}
 
+<<<<<<< HEAD
 	public Member(int m_no, String m_email, String m_name, Date m_date) {
 		super();
 		this.m_no = m_no;
@@ -39,8 +53,24 @@ public class Member {
 		this.m_date = m_date;
 	}
 
+=======
+	public Member(String m_email, String m_pwd, String m_name, char m_gender, String m_address, String m_etc,
+			String m_profile, String m_like) {
+		super();
+		this.m_email = m_email;
+		this.m_pwd = m_pwd;
+		this.m_name = m_name;
+		this.m_gender = m_gender;
+		this.m_address = m_address;
+		this.m_etc = m_etc;
+		this.m_profile = m_profile;
+		this.m_like = m_like;
+	}
+		
+	
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 	public Member(int m_no, String m_email, String m_pwd, String m_name, char m_gender, String m_address, Date m_date,
-			String m_etc, int m_auth, String m_status, String m_profile) {
+			String m_etc, int m_auth, String m_status, String m_profile, String m_like) {
 		super();
 		this.m_no = m_no;
 		this.m_email = m_email;
@@ -53,6 +83,7 @@ public class Member {
 		this.m_auth = m_auth;
 		this.m_status = m_status;
 		this.m_profile = m_profile;
+		this.m_like = m_like;
 	}
 
 	public int getM_no() {
@@ -134,14 +165,29 @@ public class Member {
 	public void setM_status(String m_status) {
 		this.m_status = m_status;
 	}
+	
+	public String getM_profile() {
+		return m_profile;
+	}
+
+	public void setM_profile(String m_profile) {
+		this.m_profile = m_profile;
+	}
+
+	public String getM_like() {
+		return m_like;
+	}
+
+	public void setM_like(String m_like) {
+		this.m_like = m_like;
+	}
 
 	@Override
 	public String toString() {
 		return "Member [m_no=" + m_no + ", m_email=" + m_email + ", m_pwd=" + m_pwd + ", m_name=" + m_name
 				+ ", m_gender=" + m_gender + ", m_address=" + m_address + ", m_date=" + m_date + ", m_etc=" + m_etc
-				+ ", m_auth=" + m_auth + ", m_status=" + m_status + ", m_profile=" + m_profile + "]";
+				+ ", m_auth=" + m_auth + ", m_status=" + m_status + ", m_profile=" + m_profile + ", m_like=" + m_like
+				+ "]";
 	}
-
-
 	
 }

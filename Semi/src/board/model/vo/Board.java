@@ -11,7 +11,7 @@ public class Board {
 	private String q_secret;
 	private String q_status;
 	private String q_board_div;
-	private int wirterNo;	// 작성자 m_no
+	private int writerNo;	// 작성자 m_no
 	private String writerName;	// 작성자에 m_no 통해 이름 받아오기
 	
 	public Board() {
@@ -19,7 +19,7 @@ public class Board {
 	}
 
 	public Board(int q_no, String q_title, String q_body, Date q_date, int q_count, String q_secret, String q_status,
-			String q_board_div, int wirterNo, String writerName) {
+			String q_board_div, int writerNo, String writerName) {
 		super();
 		this.q_no = q_no;
 		this.q_title = q_title;
@@ -29,12 +29,12 @@ public class Board {
 		this.q_secret = q_secret;
 		this.q_status = q_status;
 		this.q_board_div = q_board_div;
-		this.wirterNo = wirterNo;
+		this.writerNo = writerNo;
 		this.writerName = writerName;
 	}
 
 	public Board(int q_no, String q_title, String q_body, Date q_date, int q_count, String q_secret, String q_board_div,
-			int wirterNo, String writerName) {
+			int writerNo, String writerName) {
 		super();
 		this.q_no = q_no;
 		this.q_title = q_title;
@@ -43,25 +43,37 @@ public class Board {
 		this.q_count = q_count;
 		this.q_secret = q_secret;
 		this.q_board_div = q_board_div;
-		this.wirterNo = wirterNo;
+		this.writerNo = writerNo;
 		this.writerName = writerName;
 	}	
-
-	public Board(String q_title, String q_body, Date q_date, int q_count, int wirterNo) {
-		super();
-		this.q_title = q_title;
-		this.q_body = q_body;
-		this.q_date = q_date;
-		this.q_count = q_count;
-		this.wirterNo = wirterNo;
-	}
-
-	public Board(int q_no, String q_title, Date q_date, int wirterNo) {
+	
+	
+	
+	public Board(int q_no, String q_title, Date q_date, String q_secret, int writerNo, String writerName) {
 		super();
 		this.q_no = q_no;
 		this.q_title = q_title;
 		this.q_date = q_date;
-		this.wirterNo = wirterNo;
+		this.q_secret = q_secret;
+		this.writerNo = writerNo;
+		this.writerName = writerName;
+	}
+
+	public Board(int q_no, String q_title, Date q_date, int writerNo, String writerName) {
+		super();
+		this.q_no = q_no;
+		this.q_title = q_title;
+		this.q_date = q_date;
+		this.writerNo = writerNo;
+		this.writerName = writerName;
+	}
+	
+	public Board(int q_no, String q_title, Date q_date, String writerName) {
+		super();
+		this.q_no = q_no;
+		this.q_title = q_title;
+		this.q_date = q_date;
+		this.writerName = writerName;
 	}
 
 	public Board(int q_no, String q_title, Date q_date, String writerName) {
@@ -136,12 +148,12 @@ public class Board {
 		this.q_board_div = q_board_div;
 	}
 
-	public int getWirterNo() {
-		return wirterNo;
+	public int getwriterNo() {
+		return writerNo;
 	}
 
-	public void setWirterNo(int wirterNo) {
-		this.wirterNo = wirterNo;
+	public void setwriterNo(int writerNo) {
+		this.writerNo = writerNo;
 	}
 
 	public String getWriterName() {
@@ -156,7 +168,7 @@ public class Board {
 	public String toString() {
 		return "Board [q_no=" + q_no + ", q_title=" + q_title + ", q_body=" + q_body + ", q_date=" + q_date
 				+ ", q_count=" + q_count + ", q_secret=" + q_secret + ", q_status=" + q_status + ", q_board_div="
-				+ q_board_div + ", wirterNo=" + wirterNo + ", m_name=" + writerName + "]";
+				+ q_board_div + ", writerNo=" + writerNo + ", m_name=" + writerName + "]";
 	}	
 	
 }

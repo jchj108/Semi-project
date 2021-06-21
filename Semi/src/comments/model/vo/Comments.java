@@ -43,13 +43,14 @@ public class Comments {
 		this.c_date = c_date;
 		this.bNo = bNo;
 		this.cWriterNo = cWriterNo;
-	}
+	}	
 
-	public Comments(int c_no, String c_body, Date c_date) {
+	public Comments(int c_no, String c_body, Date c_date, int bNo) {
 		super();
 		this.c_no = c_no;
 		this.c_body = c_body;
 		this.c_date = c_date;
+		this.bNo = bNo;
 	}
 
 	public int getC_no() {

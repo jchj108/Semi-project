@@ -1,4 +1,4 @@
-package member.controller;
+package gym.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CheckEmailServlet
+ * Servlet implementation class GymCategoryServlet
  */
-@WebServlet("/checkEmailForm.me")
-public class CheckEmailFormServlet extends HttpServlet {
+@WebServlet("/gymCategory.do")
+public class GymCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckEmailFormServlet() {
+    public GymCategoryServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +26,10 @@ public class CheckEmailFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		
-		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
+		System.out.println(request.getParameter("category"));
+		
 	}
 
 	/**

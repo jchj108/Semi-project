@@ -44,7 +44,11 @@
 		color: #00B1D2;
 	}
 	
+<<<<<<< HEAD
 	#loginForm, #signUpDiv{
+=======
+	#loginDiv, #signUpDiv{
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 		max-width: 680px;
 		margin-top: 80px;
 		padding: 20px;
@@ -89,6 +93,7 @@
 	<% } else if(loginUser.getM_auth() == 0){ %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
+<<<<<<< HEAD
 
 				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -106,6 +111,24 @@
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
 								<button class="dropdown-item" type="button" onclick="location.href='userList.li'">회원정보관리</button>
 								<button class="dropdown-item" type="button" onclick="location.href='facilityList.li'">시설관리</button>
+=======
+				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse">
+					<ul class="nav ml-auto">
+						<li class="nav-item dropdown">
+							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+								style="font-size: 15px;">
+								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
+								&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자
+							</p>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
+								<button class="dropdown-item" type="button" onclick="location.href='userList.li'">회원정보관리</button>
+								<button class="dropdown-item" type="button">시설관리</button>
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 								<button class="dropdown-item" type="button" onclick="location.href='qnaBoardList.li'">게시글관리</button>
 								<button class="dropdown-item" type="button">통계조회</button>
 								<div class="dropdown-divider"></div>
@@ -131,7 +154,15 @@
 						<li class="nav-item dropdown">
 							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								style="font-size: 15px;">
+<<<<<<< HEAD
 								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
+=======
+								<% if(!loginUser.getM_pwd().equals("kakao123")){%>
+								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
+								<% } else { %>
+								<img src="<%= loginUser.getM_profile() %>" style="height: 30px;">								
+								<% } %>
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -155,7 +186,7 @@
 	</div>
 	
 	<!-- signUp -->
-	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
 		<%@include file="../member/signUp.jsp" %>
 	</div>
 	
@@ -173,13 +204,20 @@
 		});
 		
 		$('.homeLogo').on('click', function(){
+<<<<<<< HEAD
 			location.href = "<%= request.getContextPath() %>";
+=======
+			location.href = "<%= request.getContextPath() %>/home.do";
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 		});
 		
 	</script>
 
 <!-- Bootstrap core JS-->
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 
