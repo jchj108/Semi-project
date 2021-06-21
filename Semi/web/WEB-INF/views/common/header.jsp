@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="member.model.vo.Member"%>
-<% Member loginUser = (Member)session.getAttribute("loginUser"); %>
+<% Member loginUser = (Member)session.getAttribute("loginUser");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,7 +115,7 @@
 				</div>
 			</div>
 		</nav>
-	<% } else {%>
+	<% } else { %>
 		<nav class="navbar navbar-expand-lg navbar-light">
 			<div class="container">
 				<img src="<%= request.getContextPath() %>/image/logo.png" class="homeLogo" style="height: 72px;">
@@ -164,12 +164,23 @@
 	
 	<script>
 		$('#login').on('click', function(){
+			console.log('로그인 모달');
 			$('#loginModal').modal("show");
 		});
 		
 		$('#logout').on('click', function(){
-			location.href = "<%= request.getContextPath() %>/logout.me";						
-		});
+			if(<%= loginUser != null && loginUser.getM_pwd().equals("kakao123")%>){
+				if (!Kakao.Auth.getAccessToken()) {
+					console.log('Not logged in.');
+					return;
+				}
+				Kakao.Auth.logout(function() {
+					console.log(Kakao.Auth.getAccessToken());
+				});
+			}
+			
+			location.href = "<%= request.getContextPath() %>/logout.me";
+		});		
 		
 		$('#signUp').on('click', function() {
 			$('#signUpModal').modal("show");		
@@ -178,6 +189,8 @@
 		$('.homeLogo').on('click', function(){
 			location.href = "<%= request.getContextPath() %>/home.do";
 		});
+		
+		
 		
 	</script>
 

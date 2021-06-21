@@ -16,9 +16,7 @@ public class Review {
 	private String reviewerName; // 작성자 이름
 	private int gymNo; // 시설 g_no
 	
-	public Review() {
-		
-	}
+	public Review() {}
 
 	public Review(int r_no, String r_body, Date r_date, int r_total, int r_teacher, int r_service, int r_gym,
 			String r_keyword, String r_status, int reviewerNo, String reviewerName, int gymNo) {
@@ -36,8 +34,6 @@ public class Review {
 		this.reviewerName = reviewerName;
 		this.gymNo = gymNo;
 	}
-	
-	
 		
 	public Review(int r_no, String r_body, Date r_date, int r_total) {
 		super();

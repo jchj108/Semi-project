@@ -493,7 +493,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 </style>
 </head>
 <body>
-	<%@include file="header.jsp"%>
+	<%@ include file="header.jsp" %>
 	<!-- Page Content-->
 	<section class="tabArea">
 		<div id="main_wrapper">

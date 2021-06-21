@@ -53,12 +53,6 @@
 			</div>
 		</div>
 		
-		<form action="<%= request.getContextPath() %>/checkEmail.me" id="kakaoLoginForm" method="post">
-			<input type="hidden" id="kakaoEmail" name="email">
-			<input type="hidden" id="kakaoPwd" name="pwd">
-			<input type="hidden" id="kakaoGender" name="gender">
-		</form>
-		
 	<script>
 		$('#signUpLogin').on('click', function(){
 			$('#loginModal').modal("hide");
