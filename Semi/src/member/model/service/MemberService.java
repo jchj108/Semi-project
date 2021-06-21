@@ -154,6 +154,26 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public int getUserCount() {
+		Connection conn = getConnection();
+		
+		int userCount = new MemberDAO().getUserCount(conn);
+		
+		close(conn);
+		
+		return userCount;
+	}
+	
+	public ArrayList<Member> selectUserList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDAO().selectUserList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
 
 
 }
