@@ -851,7 +851,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 			<% } %> --%>
 			
 			<div class="local-images">
-				<% if(request.getSession().getAttribute("loginUser") != null) { %>
+				<% if(loginUser != null) { %>
 					<% for(int i = 0; i<recommendList.size(); i++) { %>
 						<div class="imageBox">
 							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">

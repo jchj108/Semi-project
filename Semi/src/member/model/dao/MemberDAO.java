@@ -8,10 +8,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
+import board.model.vo.PageInfo;
 import comments.model.vo.Comments;
 import member.model.vo.Member;
 import page.model.vo.Page;
@@ -390,4 +392,61 @@ public class MemberDAO {
 		}
 		return m;
 	}
+	
+	public int getUserCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int userCount = 0;
+		
+		String query = prop.getProperty("getUserCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			if(rset.next()) {
+				userCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return userCount;
+	}
+
+	public ArrayList<Member> selectUserList(Connection conn, PageInfo pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Member> list = new ArrayList<Member>();
+		
+		String query = prop.getProperty("selectUserList");
+				
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Member m = new Member(rset.getInt("m_no"),
+									  rset.getString("m_email"),
+									  rset.getString("m_name"),
+									  rset.getDate("m_date"));
+				list.add(m);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+	
+	
 }
