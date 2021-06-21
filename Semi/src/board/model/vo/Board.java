@@ -67,6 +67,14 @@ public class Board {
 		this.writerNo = writerNo;
 		this.writerName = writerName;
 	}
+	
+	public Board(int q_no, String q_title, Date q_date, String writerName) {
+		super();
+		this.q_no = q_no;
+		this.q_title = q_title;
+		this.q_date = q_date;
+		this.writerName = writerName;
+	}
 
 	public int getQ_no() {
 		return q_no;
