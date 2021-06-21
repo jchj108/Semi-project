@@ -1,5 +1,7 @@
 package board.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -12,8 +14,6 @@ import java.util.Properties;
 
 import board.model.vo.Board;
 import page.model.vo.Page;
-
-import static common.JDBCTemplate.close;
 
 public class BoardDAO {
 	private Properties prop = new Properties();

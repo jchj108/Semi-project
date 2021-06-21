@@ -25,7 +25,7 @@
 <!-- <link href="css/styles.css" rel="stylesheet" /> -->
 <style>
 	*{font-family: 'Noto Sans KR';}
-	.side:hover, #commentsBody:hover{cursor: pointer; color: #00B1D2;}	
+	.side:hover, .commentsBody:hover{cursor: pointer; color: #00B1D2;}	
 
 	.page {margin-bottom: 50px;}
 		 		
@@ -121,9 +121,10 @@
 								<% for(Comments c : list) { %>
 								<% qNo = c.getbNo(); %>
 							<tr>
+								<input type="hidden" name="qNo" id="qNo" value="<%=qNo%>">	
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
 								<td><%= c.getC_no() %></td>
-								<td id="commentsBody"><%= c.getC_body() %></td>							
+								<td class="commentsBody"><%= c.getC_body() %></td>							
 								<td><%= c.getC_date() %></td>
 								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
 							</tr>
@@ -193,7 +194,7 @@
 			if($('.select').prop('checked')) {
 				var check = window.confirm("정말 삭제하시겠습니까?");
 			
-				if(check) {
+				if(check) {					
 					$('#commentListForm').attr('action', 'commentDelete.do');
 					$('#commentListForm').submit();
 				}
@@ -231,8 +232,9 @@
 		};
 		
 		// 제목 누르면 댓글 쓴 게시글 상세 조회 페이지 이동
-		$('#commentsBody').on('click', function(){
-			location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + <%=qNo%>;
+		$('.commentsBody').on('click', function(){
+			var qNoVal = $(this).parent().children('input').val();
+			location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + qNoVal;
 		});
 		
 		

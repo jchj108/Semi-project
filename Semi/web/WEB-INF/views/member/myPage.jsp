@@ -17,6 +17,17 @@
 	}
 	
 	String like = mem.getM_like();
+	String[] selectLike = new String[8];
+	switch(like) {
+	case "수영": selectLike[0] = "selected"; break;
+	case "축구": selectLike[1] = "selected"; break;
+	case "테니스": selectLike[2] = "selected"; break;
+	case "골프": selectLike[3] = "selected"; break;
+	case "족구": selectLike[4] = "selected"; break;
+	case "배드민턴": selectLike[5] = "selected"; break;
+	case "농구": selectLike[6] = "selected"; break;
+	case "풋살": selectLike[7] = "selected"; break;
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -167,9 +178,19 @@
 										</select>
 									</div>
 									<div class="col-md-8">
-										<label for="updateLike">선호하는 운동</label>
-										<input type="text" class="form-control" id="updateLike" name="updateLike" value="<%=like%>">
-									</div>
+								<label for="updateLike">선호하는 운동</label>	
+								<select class="custom-select d-block w-100" id="updateLike" name="updateLike">
+									<option value="없음" selected>없음</option>
+									<option value="수영" <%= selectLike[0] %>>수영</option>
+									<option value="축구" <%= selectLike[1] %>>축구</option>
+									<option value="테니스" <%= selectLike[2] %>>테니스</option>
+									<option value="골프" <%= selectLike[3] %>>골프</option>
+									<option value="족구" <%= selectLike[4] %>>족구</option>
+									<option value="배드민턴" <%= selectLike[5] %>>배드민턴</option>
+									<option value="농구"<%= selectLike[6] %>>농구</option>
+									<option value="풋살" <%= selectLike[7] %>>풋살</option>
+								</select>
+							</div>
 								</div>
 				
 								<hr class="mb-4">

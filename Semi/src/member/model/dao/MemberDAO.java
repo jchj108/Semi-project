@@ -262,7 +262,7 @@ public class MemberDAO {
 									rset.getString("r_body"),
 									rset.getDate("r_date"));
 				r.setGymNo(rset.getInt("g_no"));
-				
+												
 				list.add(r);
 			}
 		} catch (SQLException e) {

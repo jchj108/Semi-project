@@ -23,7 +23,7 @@
 <!-- <link href="css/styles.css" rel="stylesheet" /> -->
 <style>
 	*{font-family: 'Noto Sans KR';}
-	.side:hover, #boardTitle:hover{cursor: pointer; color: #00B1D2;}	
+	.side:hover, .boardTitle:hover{cursor: pointer; color: #00B1D2;}	
 
 	.page {margin-bottom: 50px;}
 		 		
@@ -116,14 +116,16 @@
 								<td colspan="5">작성한 게시물이 없습니다.</td>
 							</tr>
 							<% } else { %>
+								
 								<% for(Board b : list) { %>
 							<tr>
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
-								<td><%= b.getQ_no()%></td>
-								<td id="boardTitle"><%= b.getQ_title() %></td>							
+								<td><%= b.getQ_no()%><input type="hidden" name="value="<%= b.getQ_no()%>"></td>
+								<td class="boardTitle"><%= b.getQ_title() %></td>							
 								<td><%= b.getQ_date() %></td>
 								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
 							</tr>
+													
 								<% } %>					
 							<% } %>					
 											
@@ -228,8 +230,8 @@
 		};
 		
 		// 제목 누르면 게시글 상세 조회 페이지 이동
-		$('#boardTitle').on('click', function(){
-			var qNo = $('.boardList td').parent().children().eq(1).text();
+		$('.boardTitle').on('click', function(){
+			var qNo = $(this).parents().children().eq(1).text();
 			location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + qNo;
 		});
 		

@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-import static common.JDBCTemplate.close;
 
 public class CommentsDAO {
 	private Properties prop = new Properties();
@@ -18,7 +17,7 @@ public class CommentsDAO {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		} 
 	}
 
 }

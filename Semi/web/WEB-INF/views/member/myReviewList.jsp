@@ -25,7 +25,7 @@
 <!-- <link href="css/styles.css" rel="stylesheet" /> -->
 <style>
 	*{font-family: 'Noto Sans KR';}
-	.side:hover, #reviewBody:hover{cursor: pointer; color: #00B1D2;}	
+	.side:hover, .reviewBody:hover{cursor: pointer; color: #00B1D2;}	
 
 	.page {margin-bottom: 50px;}
 		 		
@@ -121,9 +121,10 @@
 								<% for(Review r : list) { %>
 								<% gNo = r.getGymNo(); %>
 							<tr>
+								<input type="hidden" name="gNo" id="gNo" value="<%=gNo%>">																
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
 								<td><%= r.getR_no() %></td>
-								<td id="reviewBody"><%= r.getR_body() %></td>							
+								<td class="reviewBody"><%= r.getR_body() %></td>							
 								<td><%= r.getR_date() %></td>
 								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
 							</tr>
@@ -231,8 +232,9 @@
 		};
 		
 		// 제목 누르면 리뷰 쓴 시설 상세 조회 페이지 이동
-		$('#reviewBody').on('click', function(){
-			location.href='<%= request.getContextPath() %>/detail.do?gNo=' + <%=gNo%>;
+		$('.reviewBody').on('click', function(){
+			var gNoVal = $(this).parent().children('input').val();
+			location.href='<%= request.getContextPath() %>/detail.do?gNo=' + gNoVal;
 		});
 		
 		
