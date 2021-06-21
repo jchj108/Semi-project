@@ -65,6 +65,14 @@ public class Member {
 		this.m_profile = m_profile;
 		this.m_like = m_like;
 	}
+	
+	public Member(int m_no, String m_email, String m_name, Date m_date) {
+		super();
+		this.m_no = m_no;
+		this.m_email = m_email;
+		this.m_name = m_name;
+		this.m_date = m_date;
+	}
 
 	public int getM_no() {
 		return m_no;
