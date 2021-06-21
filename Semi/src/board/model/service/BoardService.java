@@ -31,5 +31,27 @@ public class BoardService {
 		
 		return list;
 	}
+	
+	public int getListCount(String q) {
+		Connection conn = getConnection();
+		
+		BoardDAO bDAO = new BoardDAO();
+		
+		int listCount = bDAO.getListCount(conn, q);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> selectBoardList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectBoardList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
 
 }
