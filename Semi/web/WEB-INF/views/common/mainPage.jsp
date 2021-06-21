@@ -4,11 +4,11 @@ String cp = request.getContextPath();
 ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
 ArrayList<Gym> recommendList = (ArrayList)request.getAttribute("recommendList");
+ArrayList<Gym> localList = (ArrayList)request.getAttribute("localList");
 
-	for(Gym g : recommendList) {
-		System.out.println(g);
-	}
-
+for(Gym g : localList) {
+	System.out.println(g);
+}
 
 %>
 <!DOCTYPE html>
@@ -811,54 +811,31 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 			<div>
 			<h2 class="mini-title">주변 시설</h2>
 			<div class="local-images">
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
+				<% if(loginUser == null) { %>
+					<% for(int i = 0; i<localList.size(); i++) { %>
+						<div class="imageBox">
+<!-- 					<a href="<%=cp%>/detail.do?gNo=<%=localList.get(i).getG_NO() %>">  -->			
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+									<span><%=localList.get(i).getG_GU_NM() %></span>
+								</div>
+							<div class="imgtitle"><%= localList.get(i).getG_NAME() %></div>
+<!-- 					</a>  -->		
+						</div>
+					<% } %>
+				<% } else { %>
+					<% for(int i = 0; i<localList.size(); i++) { %>
+						<div class="imageBox">
+							<a href="<%=cp%>/detail.do?gNo=<%=localList.get(i).getG_NO() %>">
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+									<span><%=localList.get(i).getG_GU_NM() %></span>
+								</div>
+							<div class="imgtitle"><%= localList.get(i).getG_NAME() %></div>
+							</a>
+						</div>
+					<% } %>
+				<% } %>
 			</div>
 			</div>
 			<div>
@@ -881,7 +858,6 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 								<div class="local-image">
 									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
 									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
-									
 								</div>
 							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
 							</a>
@@ -957,7 +933,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 	        $(function () {
 				$('.location-list li').click(function() {
 						var $location = $(this).text();
-						window.location.href = "<%=cp%>/category.do?category="+$location;
+						window.location.href = "<%=cp%>/category.do?g_gu_nm="+$location;
 					});
 				});
 		</script>

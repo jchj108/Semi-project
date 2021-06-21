@@ -70,4 +70,14 @@ public class GymService {
 		
 		return list;
 	}
+
+	public ArrayList selectLocalList(String gu_nm) {
+
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().selectLocalList(conn, gu_nm);
+		close(conn);
+		
+		return list;
+	}
 }

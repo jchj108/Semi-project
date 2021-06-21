@@ -25,6 +25,15 @@ public class Gym {
 		return G_FILE;
 	}
 
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_FILE) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_NAME = g_NAME;
+		G_FILE = g_FILE;
+	}
+
 	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
 			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT, char g_STATUS, int g_COUNT, int g_COVID,
 			String g_FILE) {

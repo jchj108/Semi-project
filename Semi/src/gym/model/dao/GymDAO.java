@@ -138,6 +138,9 @@ public class GymDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
 		}
 		return list;
 	}
@@ -174,6 +177,9 @@ public class GymDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
 		}
 		return list;
 	}
@@ -202,6 +208,9 @@ public class GymDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
 		return list;
 	}
@@ -222,6 +231,7 @@ public class GymDAO {
 				while(rset.next()) {
 					Gym g = new Gym(rset.getInt("g_No"),
 							rset.getString("g_type_nm"),
+							rset.getString("g_gu_nm"),
 							rset.getString("g_name"),
 							rset.getString("g_file"));
 					list.add(g);
@@ -229,7 +239,40 @@ public class GymDAO {
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(stmt);
 			}
 			return list;
+	}
+
+
+	public ArrayList<Gym> selectLocalList(Connection conn, String gu_nm) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectLocalList");
+		
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, gu_nm);
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					Gym g = new Gym(rset.getInt("g_No"),
+									rset.getString("g_type_nm"),
+									rset.getString("G_GU_NM"),
+									rset.getString("g_name"),
+									rset.getString("g_file"));
+					list.add(g);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+		return list;
 	}
 }
