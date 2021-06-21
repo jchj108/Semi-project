@@ -3,13 +3,13 @@
 String cp = request.getContextPath(); 
 ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
+ArrayList<Gym> recommendList = (ArrayList)request.getAttribute("recommendList");
+ArrayList<Gym> localList = (ArrayList)request.getAttribute("localList");
 
-for(Gym gym : covidList) {
-	System.out.println(gym);
+for(Gym g : localList) {
+	System.out.println(g);
 }
-for(Gym gym : popularList) {
-	System.out.println(gym);
-}
+
 %>
 <!DOCTYPE html>
 <html>
@@ -71,7 +71,7 @@ body {
 	size: 100%;
 	font-family: 'Noto Sans KR';
 	font-size: 1rem;
-	color: #323232;
+	color: #323232; !important;
 	text-align: left;
 	background-color: #fff;
 	min-height: 100%;
@@ -93,6 +93,7 @@ body {
 	display: flex;
 	flex-direction: row;
 	align-items: flex-end;
+	margin-bottom: 40px;
 }
 
 .box {
@@ -176,7 +177,6 @@ img {
 	vertical-align: middle;
 	margin: auto;
 	position: relative;
-	/* max-width: 100%; */
 }
 
 ul {
@@ -270,7 +270,6 @@ input#search_service {
 }
 
 .mySwiper {
-	margin-top: 80px;
 	width: 1000px;
 	background: #fff;
 }
@@ -310,12 +309,14 @@ input#search_service {
 }
 
 .swiper-slide:hover {
-	color: #00b1d2;
+	opacity: 0.8;
+	color: unset;
 }
 
 .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction {
-	top: -30px;
+	top: 10px;
 	text-align: right;
+	bottom: unset;
 }
 
 :root {
@@ -323,11 +324,11 @@ input#search_service {
 }
 
 .swiper-button-prev {
-	left : -17px
+	left : -20px
 }
 
 .swiper-button-next {
-	right : -17px;
+	right : -20px;
 }
 
 .swiper-button-next, .swiper-button-prev {
@@ -359,46 +360,58 @@ input#search_service {
 /* swipper end */
 .body2 {
 	width: 1000px;
+	height: 2600px;
 	margin-left: auto;
 	margin-right: auto;
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
 }
 
 .mini-title {
 	position: relative;
-	top: 70px;
 	font-size: 24px;
 	font-weight: 700;
+	margin-bottom: 16px;
 }
 
 .exceptWrapper {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 	min-height: 100vh;
 }
 
 .local-images {
-	margin-top: 90px;
 	display: flex;
 	align-content: center;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	vertical-align: middle;
 	flex-direction: row;
 	flex-wrap: wrap;
+	cursor: pointer;
 }
 
 .local-image {
 	width: 232px;
-	height: 232px;
+	height: 200px;
 	overflow: hidden;
 	justify-content: center;
 	align-self: center;
+	position: relative;
+	text-align: center;
 }
 
-.banner {
-	margin-top: 50px;
-	margin-bottom: 100px;
+.local-image span {
+	top:53%;
+	left:50%;
+	color: white;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	display: none;
+	white-space: nowrap;
+}
+
+.local-image img {
+	
 }
 
 h3 {
@@ -408,11 +421,35 @@ h3 {
 }
 
 .imageBox {
-	width: 250px;
-	height: 300px;
+	width: 232px;
+	height: 250px;
 	/* text-align: center; */
 	justify-content: center;
 	align-items: center;
+	color: #323232;
+	text-align: center;
+}
+
+.imageBox:hover a {
+	color: #323232;
+}
+
+.imageBox:hover {
+	opacity: 0.8;
+}
+
+.imageBox a {
+	color: #323232;
+}
+
+.imageBox img {
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+}
+
+.imageBox .imgtitle {
+	margin-top: 5px;
 }
 
 #tab2 {
@@ -489,6 +526,34 @@ h3 {
 } 
 
 a { text-decoration:none !important } a:hover { text-decoration:none !important }
+
+.swiper-slide .subtext {
+	position: absolute;
+	font-size: 20px;
+	color: white;
+	opacity: 1;
+	display: none;
+}
+
+.location-list {
+	margin: 0px;
+	padding: 0px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
+}
+
+.location-list li {
+	width: 166.66px;
+	margin-top: 16px;
+	font-weight: 400;
+	padding-left: 5px;
+	cursor: pointer;
+}
+
+.banner {
+	margin-top: 50px;
+}
 
 </style>
 </head>
@@ -662,7 +727,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					>맞춤형 운동을 제안해드려요</p>
 					<button
 						style="width: 215px; height: 50px; color: #fff; background-color: #00b1d2; border-color: #00b1d2; margin-top: 10px; border-radius: 0.375rem;"
-						type="button" class="btn"
+						type="button" class="btn" id="recommend"
 					>운동 추천받기</button>
 				</div>
 				<div id="pannel3" class="tab-content">
@@ -695,13 +760,17 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 	<!-- main firstpage wrapper -->
 	<div class="exceptWrapper">
 		<div class="body2">
-			<h2 class="mini-title">인기 서비스</h2>
 			<div class="popular" style="position: relative">
+			<h2 class="mini-title">인기 서비스</h2>
 				<div class="swiper-container mySwiper" style="position:static">
 					<div class="swiper-pagination"></div> 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<popularList.size(); i++) { %>
-							<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=popularList.get(i).getG_NO()%>"><img src="image/f&g.jpg"><%= popularList.get(i).getG_NAME() %></a>
+ 							<a class="swiper-slide" href="<%= cp %>/detail.do?gNo=<%=popularList.get(i).getG_NO()%>">
+ 							<img src="<%= cp %>/image/gym/<%=popularList.get(i).getG_FILE()%>">
+ 								<span class="subtext">조회수 : <%=popularList.get(i).getG_COUNT() %></span>
+ 								<%= popularList.get(i).getG_NAME() %>
+							</a>
 						<% } %>
 					</div>
 					
@@ -709,13 +778,17 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					<div class="swiper-button-prev"></div>
 				</div>
 			</div>
-			<h2 class="mini-title">방역 우수 센터</h2>
 			<div class="covid" style="position: relative">
+			<h2 class="mini-title">방역 우수 센터</h2>
 				<div class="swiper-container mySwiper" style="position:static">
 					<div class="swiper-pagination"></div> 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<covidList.size(); i++) { %>
- 						<a class="swiper-slide" href="<%= cp %>/detail.bo?gNo=<%=covidList.get(i).getG_NO()%>"><img src="image/f&g.jpg"><%= covidList.get(i).getG_NAME() %></a>
+ 						<a class="swiper-slide" href="<%= cp %>/detail.do?gNo=<%=covidList.get(i).getG_NO()%>">
+ 							<img src="<%= cp %>/image/gym/<%=covidList.get(i).getG_FILE()%>">
+ 								<span class="subtext">방역도 : <%=covidList.get(i).getG_COVID() %></span>
+ 								<%= covidList.get(i).getG_NAME() %>
+ 						</a>
 						<% } %>
 					</div>
 					
@@ -724,119 +797,160 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				</div>
 				
 				<script>
-					$('#popularGym7').on('click', function() {
-						location.href="<%=cp%>/detail.do?bId=1"
-					});
+					$(document).ready(function() {
+						$('.swiper-slide').mouseover(function() {
+							$(this).children('.subtext').attr('style', "display:inline-block");
+						})
+						$('.swiper-slide').mouseout(function() {
+							$(this).children('.subtext').attr('style', "display:none");
+						})
+					});			
 				</script>
 				
 			</div>
+			<div>
 			<h2 class="mini-title">주변 시설</h2>
 			<div class="local-images">
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
+				<% if(loginUser == null) { %>
+					<% for(int i = 0; i<localList.size(); i++) { %>
+						<div class="imageBox">
+<!-- 					<a href="<%=cp%>/detail.do?gNo=<%=localList.get(i).getG_NO() %>">  -->			
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+									<span><%=localList.get(i).getG_GU_NM() %></span>
+								</div>
+							<div class="imgtitle"><%= localList.get(i).getG_NAME() %></div>
+<!-- 					</a>  -->		
+						</div>
+					<% } %>
+				<% } else { %>
+					<% for(int i = 0; i<localList.size(); i++) { %>
+						<div class="imageBox">
+							<a href="<%=cp%>/detail.do?gNo=<%=localList.get(i).getG_NO() %>">
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+									<span><%=localList.get(i).getG_GU_NM() %></span>
+								</div>
+							<div class="imgtitle"><%= localList.get(i).getG_NAME() %></div>
+							</a>
+						</div>
+					<% } %>
+				<% } %>
 			</div>
-			<h2 class="mini-title" style="margin-top: 0px">추천 시설</h2>
+			</div>
+			<div>
+			<h2 class="mini-title">추천 시설</h2>
+<%-- 			<% if(request.getSession().getAttribute("loginUser") != null && ((Member)request.getSession().getAttribute("loginUser")).getM_like() != null) { %>
+			<% 		for(int i = 0; i<recommendList.size(); i++) { %>
+					<%= recommendList.get(i).getG_NAME() %>
+			<%		} 	%>
+			<% } else { %>
+			<% 		for(int i = 0; i<recommendList.size(); i++) { %>
+					<%= recommendList.get(i).getG_NAME() %>
+			<%		} 	%>
+			<% } %> --%>
+			
 			<div class="local-images">
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
-				<div class="imageBox">
-					<div class="local-image">
-						<img src="image/flower1.PNG" width="100%" height="100%" />
-					</div>
-					<h3>title</h3>
-				</div>
+				<% if(request.getSession().getAttribute("loginUser") != null) { %>
+					<% for(int i = 0; i<recommendList.size(); i++) { %>
+						<div class="imageBox">
+							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
+								</div>
+							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
+							</a>
+						</div>
+					<% } %>
+				<%} else { %>
+					<% for(int i = 0; i<recommendList.size(); i++) { %>
+						<div class="imageBox">
+<!-- 					<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">  -->			
+								<div class="local-image">
+									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
+								</div>
+							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
+<!-- 					</a>  -->		
+						</div>
+					<% } %>
+				<% } %>
+			</div>
+			</div>
+				<script>
+					$(function() {
+						$('.local-image').mouseover(function() {
+							$(this).children('span').attr('style', 'display:block');
+						})
+						$('.local-image').mouseout(function() {
+							$(this).children('span').attr('style', 'display:none');
+						})
+					});
+				</script>
+			<div>
+				<h2 class="mini-title">자치구별로 찾기</h2>
+				<div style="position:relative">
+				<img src="<%=cp %>/image/mapbg.PNG" style="width:100%; height: 56px; border-radius:10px;">
+				<div style="position:absolute; top:30%; margin-left:25px">📍 서울시 공공 체육 시설을 자치구별로 확인하세요</div></div>
+				<ul class="location-list">
+					<li>종로구</li>
+					<li>중구</li>
+					<li>용산구</li>
+					<li>성동구</li>
+					<li>광진구</li>
+					<li>동대문구</li>
+					<li>중랑구</li>
+					<li>성북구</li>
+					<li>강북구</li>
+					<li>도봉구</li>
+					<li>노원구</li>
+					<li>은평구</li>
+					<li>서대문구</li>
+					<li>마포구</li>
+					<li>양천구</li>
+					<li>강서구</li>
+					<li>구로구</li>
+					<li>금천구</li>
+					<li>영등포구</li>
+					<li>동작구</li>
+					<li>관악구</li>
+					<li>서초구</li>
+					<li>강남구</li>
+					<li>송파구</li>
+					<li>강동구</li>
+				</ul>
 			</div>
 			<div class="banner">
 				<img src="image/Myprotein-low (1).jpg" width="100%" />
 			</div>
+			
+		<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<%@include file="../common/loginAlert.jsp" %>
 		</div>
-	</div>
+		</div>
+		<script>
+	        $(function () {
+				$('.location-list li').click(function() {
+						var $location = $(this).text();
+						window.location.href = "<%=cp%>/category.do?g_gu_nm="+$location;
+					});
+				});
+		</script>
+		
+
+		
+		<script>
+			<% if(loginUser == null) { %>
+			$('.local-images').on('click', function() {
+				$('#alertModal').modal("show");
+			});
+			$('#recommend').on('click', function() {
+				$('#alertModal').modal("show");
+			});
+			<% } %>
+		</script>
+		
 	<!-- Footer-->
 	<%@ include file="footer.jsp" %>
 	<script>

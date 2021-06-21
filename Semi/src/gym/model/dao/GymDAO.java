@@ -132,11 +132,15 @@ public class GymDAO {
 							rset.getString("g_IN_OUT"),
 							rset.getString("G_STATUS").charAt(0),
 							rset.getInt("g_COUNT"),
-							rset.getInt("g_COVID"));
+							rset.getInt("g_COVID"),
+							rset.getString("g_FILE"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
 		}
 		return list;
 	}
@@ -167,12 +171,108 @@ public class GymDAO {
 							rset.getString("g_IN_OUT"),
 							rset.getString("G_STATUS").charAt(0),
 							rset.getInt("g_COUNT"),
-							rset.getInt("g_COVID"));
+							rset.getInt("g_COVID"),
+							rset.getString("g_FILE"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
 		}
+		return list;
+	}
+
+
+	public ArrayList<Gym> selectRecommendList(Connection conn, String like) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectRecommendList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, like);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_No"),
+								rset.getString("g_type_nm"),
+								rset.getString("g_name"),
+								rset.getString("g_file"));
+				list.add(g);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public ArrayList<Gym> selectRandomList(Connection conn) {
+	
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectRandomList");
+		
+			try {
+				stmt = conn.createStatement();
+				rset = stmt.executeQuery(query);
+				
+				while(rset.next()) {
+					Gym g = new Gym(rset.getInt("g_No"),
+							rset.getString("g_type_nm"),
+							rset.getString("g_gu_nm"),
+							rset.getString("g_name"),
+							rset.getString("g_file"));
+					list.add(g);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(stmt);
+			}
+			return list;
+	}
+
+
+	public ArrayList<Gym> selectLocalList(Connection conn, String gu_nm) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectLocalList");
+		
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, gu_nm);
+				rset = pstmt.executeQuery();
+				while(rset.next()) {
+					Gym g = new Gym(rset.getInt("g_No"),
+									rset.getString("g_type_nm"),
+									rset.getString("G_GU_NM"),
+									rset.getString("g_name"),
+									rset.getString("g_file"));
+					list.add(g);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
 		return list;
 	}
 }

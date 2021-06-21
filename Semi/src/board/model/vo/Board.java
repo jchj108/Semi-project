@@ -46,22 +46,26 @@ public class Board {
 		this.writerNo = writerNo;
 		this.writerName = writerName;
 	}	
-
-	public Board(String q_title, String q_body, Date q_date, int q_count, int writerNo) {
+	
+	
+	
+	public Board(int q_no, String q_title, Date q_date, String q_secret, int writerNo, String writerName) {
 		super();
+		this.q_no = q_no;
 		this.q_title = q_title;
-		this.q_body = q_body;
 		this.q_date = q_date;
-		this.q_count = q_count;
+		this.q_secret = q_secret;
 		this.writerNo = writerNo;
+		this.writerName = writerName;
 	}
 
-	public Board(int q_no, String q_title, Date q_date, int writerNo) {
+	public Board(int q_no, String q_title, Date q_date, int writerNo, String writerName) {
 		super();
 		this.q_no = q_no;
 		this.q_title = q_title;
 		this.q_date = q_date;
 		this.writerNo = writerNo;
+		this.writerName = writerName;
 	}
 
 	public int getQ_no() {

@@ -50,4 +50,34 @@ public class GymService {
 		
 		return list;
 	}
+
+	public ArrayList<Gym> selectRecomendList(String like) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().selectRecommendList(conn, like);
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList selectRandomGymList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().selectRandomList(conn);
+		close(conn);
+		
+		return list;
+	}
+
+	public ArrayList selectLocalList(String gu_nm) {
+
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().selectLocalList(conn, gu_nm);
+		close(conn);
+		
+		return list;
+	}
 }

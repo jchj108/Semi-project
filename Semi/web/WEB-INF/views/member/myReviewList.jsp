@@ -100,9 +100,7 @@
                         <div class="list-group-item side" id="myComment">댓글 관리</div>
                     </div>
                 </div>
-            <div id="loadContent">
-            	            	
-           	</div>
+           
             <div class="col-lg-9" style="height: 650px;">
             	<div class="title"><h4>리뷰 관리</h4></div>
                 	<form action="reviewUpdateForm.do" method="post" id="reviewListForm">
@@ -169,9 +167,7 @@
 		// 사이드바
 		$(document).ready(function(){
 			$('#memberUpdateForm').click(function(){
-				$('.col-lg-9').hide();
-				$('.page').hide();				
-				$('#loadContent').load("memberUpdateForm.me").css({'height':'1000px', 'padding-top':'50px', 'margin':'auto'});
+				location.href="myPage.me";
 			});
 			
 			$('#myBoard').click(function(){
