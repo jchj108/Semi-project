@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import board.model.dao.BoardDAO;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
+import gym.model.vo.Gym;
 import page.model.vo.Page;
 
 
@@ -54,6 +55,51 @@ public class BoardService {
 		close(conn);
 		
 		return list;
+	}
+
+	public int getGymListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDAO().getGymListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Gym> selectGymList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new BoardDAO().selectGymList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+
+	public ArrayList<Gym> searchGym(String keyword, String category, PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new BoardDAO().searchGym(conn, keyword, category, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int getSearchGymListCount(String keyword, String category) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDAO().getSearchGymListCount(conn, keyword, category);
+		
+		close(conn);
+		
+		return listCount;
 	}
 
 }
