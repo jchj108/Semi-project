@@ -218,28 +218,32 @@ public class BoardDAO {
 		return list;
 	}
 
-	public ArrayList<Gym> searchGymList(Connection conn, String category, String keyword, PageInfo pi) {
-		
+	public ArrayList<Gym> searchGym(Connection conn, String keyword, String category, PageInfo pi) {
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
+		String query = null;
+
+		switch(category) {
 		
-		String query = prop.getProperty("searchGym");
+		case "시설번호" :
+			query = prop.getProperty("searchByNo"); break;
+		case "이름" :
+			query = prop.getProperty("searchByName"); break;
+		case "타입" :
+			query = prop.getProperty("searchByType"); break;
+		case "군/구" :
+			query = prop.getProperty("searchByGu"); break;
+		}
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
-		
-		System.out.println("startRow : " + startRow);
-		System.out.println("endRow : " + endRow);
-		System.out.println("category : " + category);
-		System.out.println("keyword : " + keyword);
-		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, category);
-			pstmt.setString(2, keyword);
-			pstmt.setInt(3, startRow);
-			pstmt.setInt(4, endRow);
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
 			rset = pstmt.executeQuery();
 			while(rset.next()) {
 				Gym g = new Gym(rset.getInt("g_NO"),
@@ -265,8 +269,47 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}
-		
 		return list;
 	}
 
+	public int getSearchGymListCount(Connection conn, String keyword, String category) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String query = null;
+		
+		switch(category) {
+	
+		case "이름" : 
+			query = prop.getProperty("getSearchGymListCountByName"); 
+			break;
+		case "시설번호" :
+			query = prop.getProperty("getSearchGymListCountByNo"); 
+			break;
+		case "군/구" :
+			query = prop.getProperty("getSearchGymListCountByGu"); 
+			break;
+		case "타입" :
+			query = prop.getProperty("getSearchGymListCountByType"); 
+			break;
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("dao listCount : " + listCount);
+		return listCount;
+	}
 }

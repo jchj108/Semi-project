@@ -12,6 +12,15 @@ int currentPage = pi.getCurrentPage();
 int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
+
+
+String searchCategory = (String)request.getAttribute("category");
+String searchKeyword = (String)request.getAttribute("keyword");
+
+System.out.println("jsp searchCategory = " + searchCategory);
+System.out.println("jsp searchKeyword = " + searchKeyword);
+
+System.out.println("pi = " + pi);
 %>
 <html>
 <head>
@@ -199,10 +208,10 @@ tr, td {
 					<form id="search-user" method="post" action="<%=cp%>/gymManage.do">
 						<span class="sortLeft"> 
 							<select name="searchList">
-								<option value="시설번호">시설번호</option>
 								<option value="이름">이름</option>
 								<option value="타입">타입</option>
 								<option value="군/구">군/구</option>
+								<option value="시설번호">시설번호</option>
 							</select> 
 							<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword'>
 							<input type="submit" name="searchSubmit" value="검색">
@@ -217,8 +226,57 @@ tr, td {
 				<div class="page-div text-center">
 					<ul class="pagination">
 						<!-- 처음으로 -->
-						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=1'">&laquo;</a></li>
+						<% 
+							if (searchKeyword != null && searchCategory != null) {
+						%>
+							<%
+								if(currentPage <=1 ) {
+							%>
+								<li class="page-item"><a class="page-link" id="noneLink">&laquo;</a></li>
+							<%
+								} else {
+							%>
+								<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=1&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'">&laquo;</a></li>
+							<%
+								}
+							%>
+						<%
+							} else {
+						%>
+							<%
+								if(currentPage <=1 ) {
+							%>
+								<li class="page-item"><a class="page-link" id="noneLink">&laquo;</a></li>
+							<%
+								} else {
+							%>
+								<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=1'">&laquo;</a></li>
+							<%
+								}
+							%>
+						<% 
+							}
+						%>
 						<!-- 이전 페이지 -->
+						<%
+							if (searchKeyword != null && searchCategory != null) {
+						%>
+						<%
+							if (currentPage <= 1) {
+						%>
+						<li class="page-item"><a class="page-link" id="noneLink">&lt;</a></li>
+						<%
+							} else {
+						%>
+						<li class="page-item"><a class="page-link"
+							onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=currentPage - 1%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'"
+						>&lt;</a></li>
+						<%
+							}
+						%>
+						<%
+							} else {
+						%>
 						<%
 							if (currentPage <= 1) {
 						%>
@@ -231,6 +289,9 @@ tr, td {
 						>&lt;</a></li>
 						<%
 							}
+						%>						
+						<%
+							}
 						%>
 						<!-- 숫자 버튼 -->
 						<%
@@ -241,10 +302,14 @@ tr, td {
 						%>
 						<li class="page-item"><a class="page-link activePage"><%=p%></a></li>
 						<%
-							} else {
+							} else if (searchCategory == null && searchKeyword == null) {
 						%>
 						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=p%>'"><%=p%></a>
 						</li>
+						<%
+							} else {
+						%>
+						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=p%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'"><%=p%></a>
 						<%
 							}
 						%>
@@ -252,6 +317,25 @@ tr, td {
 							}
 						%>
 						<!-- 다음 페이지 -->
+						<%
+							if (searchKeyword != null && searchCategory != null) {
+						%>
+						<%
+							if (currentPage >= maxPage) {
+						%>
+						<li class="page-item"><a class="page-link" id="noneLink">&gt;</a></li>
+						<%
+							} else {
+						%>
+						<li class="page-item"><a class="page-link"
+							onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=currentPage + 1%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'"
+						>&gt;</a></li>
+						<%
+							}
+						%>
+						<%
+							} else {
+						%>
 						<%
 							if (currentPage >= maxPage) {
 						%>
@@ -264,11 +348,42 @@ tr, td {
 						>&gt;</a></li>
 						<%
 							}
+						%>						
+						<%
+							}
 						%>
 						<!-- 끝으로  -->
-						<li class="page-item"><a class="page-link"
-							onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=maxPage%>'"
-						>&raquo;</a></li>
+						<% 
+							if (searchKeyword != null && searchCategory != null) {
+						%>
+							<%
+								if(currentPage >= maxPage) {
+							%>
+								<li class="page-item"><a class="page-link" id="noneLink">&raquo;</a></li>
+							<%
+								} else {
+							%>
+								<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=maxPage%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'">&raquo;</a></li>
+							<%
+								}
+							%>
+						<%
+							} else {
+						%>
+							<%
+								if(currentPage >= maxPage) {
+							%>
+								<li class="page-item"><a class="page-link" id="noneLink">&raquo;</a></li>
+							<%
+								} else {
+							%>
+								<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=maxPage%>'">&raquo;</a></li>
+							<%
+								}
+							%>
+						<% 
+							}
+						%>
 					</ul>
 				</div>
 			</div>
