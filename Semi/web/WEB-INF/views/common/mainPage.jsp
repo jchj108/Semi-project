@@ -5,11 +5,6 @@ ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
 ArrayList<Gym> recommendList = (ArrayList)request.getAttribute("recommendList");
 ArrayList<Gym> localList = (ArrayList)request.getAttribute("localList");
-
-for(Gym g : localList) {
-	System.out.println(g);
-}
-
 %>
 <!DOCTYPE html>
 <html>

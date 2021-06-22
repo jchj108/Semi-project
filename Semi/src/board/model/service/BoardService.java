@@ -1,7 +1,7 @@
 package board.model.service;
 
-import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import board.model.dao.BoardDAO;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
+import gym.model.vo.Gym;
 import page.model.vo.Page;
 
 public class BoardService {
@@ -49,6 +50,40 @@ public class BoardService {
 		Connection conn = getConnection();
 		
 		ArrayList<Board> list = new BoardDAO().selectBoardList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int getGymListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDAO().getGymListCount(conn);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Gym> selectGymList(PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new BoardDAO().selectGymList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+
+	public ArrayList<Gym> searchGymbyNo(PageInfo pi, String keyword) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new BoardDAO().searchGymbyNo(conn, pi);
 		
 		close(conn);
 		

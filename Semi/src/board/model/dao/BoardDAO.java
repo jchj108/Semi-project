@@ -1,5 +1,7 @@
 package board.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,14 +9,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
+import gym.model.vo.Gym;
 import page.model.vo.Page;
-
-import static common.JDBCTemplate.close;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -147,5 +149,83 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
+	public int getGymListCount(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("gymListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Gym> selectGymList(Connection conn, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectGymList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_NO"),
+						rset.getString("g_TYPE_NM"),
+						rset.getString("g_GU_NM"),
+						rset.getString("g_NAME"),
+						rset.getString("g_ADDRESS"),
+						rset.getDouble("g_YCODE"),
+						rset.getDouble("g_XCODE"),
+						rset.getString("g_TEL"),
+						rset.getString("g_EDU_YN"),
+						rset.getString("g_IN_OUT"),
+						rset.getString("G_STATUS").charAt(0),
+						rset.getInt("g_COUNT"),
+						rset.getInt("g_COVID"),
+						rset.getString("g_FILE"));
+				list.add(g);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Gym> searchGymbyNo(Connection conn, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = null;
+		
+		String query = prop.getProperty(key)
+		
+		
+		return list;
+	}
 }
