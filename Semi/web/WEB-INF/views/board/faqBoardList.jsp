@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="member.model.vo.Member, java.util.ArrayList, board.model.vo.PageInfo"%>
-<% 
-	ArrayList<Member> list = (ArrayList)request.getAttribute("list"); 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="board.model.vo.Board, java.util.ArrayList, board.model.vo.PageInfo"%>
+<!DOCTYPE html>
+<%
+	ArrayList<Board> list = (ArrayList)request.getAttribute("list"); 
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
 	int listCount = pi.getListCount();
@@ -9,8 +10,6 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 %>
-
-<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +17,7 @@
     <meta http-equiv="content-script-type" content="text/javascript" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>회원 목록</title>
+    <title>FAQ 목록</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
@@ -73,7 +72,9 @@
         }
         
         .row{margin-top: 50px;}
+        	
         .notice{width: 1100px; height: 600px;}
+        
         .col-lg-9{height: 750px;}
         
         #searchKeyword {
@@ -81,7 +82,9 @@
  			width: 200px;
  		}
         
-        .search{width: 1100px;}
+        .search{
+        	width: 1100px;
+        }
         
          .page-div{ 
          	width: 100%;
@@ -92,9 +95,9 @@
          
 		 .delete-button{margin-left: 50%;}
       
-     	 .page-div{position: absolute;}
-     	 
-     	 #noneLink{
+      	 .page-div{position: absolute;}
+      	
+      	 #noneLink{
      	 	color : lightgray;
      	 	pointer-events: none;
      	 	cursor: default;
@@ -113,32 +116,32 @@
 				<div class="notice">
                 	<div class="buttonbox">
 						<button type="button" id="qnaListBtn" class="titleBtn" onclick="location.href='qnaBoardList.li'">Q&A 관리</button>
-					    <button type="button" id="faqListBtn" class="titleBtn" onclick="location.href='faqBoardList.li'">FAQ 관리</button>
-					    <button type="button" id="userListBtn" class="titleBtn">회원 관리</button>
+						<button type="button" id="faqListBtn" class="titleBtn">FAQ 관리</button>
+					    <button type="button" id="userListBtn" class="titleBtn" onclick="location.href='userList.li'">회원 관리</button>
 	    			</div>
                 <table class="notice-table" id="listTable">
 					<thead>
 						<tr>
 							<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
-							<th>회원번호</th>
+							<th>글번호</th>
 					        <th>이메일</th>
-					   		<th>이름</th>
-					        <th>가입일</th>
+					   		<th>제목</th>
+					        <th>작성일</th>
 					    </tr>
 					</thead>
 					<tbody>
-						<% if(list.isEmpty()){ %>
+					    <% if(list.isEmpty()) {%>
 						<tr>
-							<td colspan="5">가입한 회원이 없습니다.</td>
+							<td colspan="5">작성된 게시글이 없습니다.</td>
 						</tr>
 						<% } else { %>
-						<%		for(Member m : list){  %>
-						<tr>
+						<% 		for(Board b : list) { %>
+					    <tr>
 							<td><input type="checkbox" name="check" onclick="selectOne();"></td>
-							<td><%= m.getM_no() %></td>
-							<td><%= m.getM_email() %></td>
-							<td><%= m.getM_name() %></td>
-							<td><%= m.getM_date() %></td>
+							<td><%= b.getQ_no() %></td>
+							<td><%= b.getWriterName()%></td>
+							<td><%= b.getQ_title() %></td>
+							<td><%= b.getQ_date()%></td>
 						</tr>
 						<% 		} %>
 						<% } %>
@@ -148,22 +151,22 @@
                 <div class="search">
 					<form id="search-user">
 						<select name="searchList">
-							<option value="이메일">이메일</option>
-							<option value="이름">이름</option>					
+							<option value="이메일">이메일</option>			
+							<option value="제목">제목</option>			
 						</select>
 						<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword'>
 						<input type="submit" name="searchSubmit" value="검색">
-						<input type="button" class="delete-button" value="회원 삭제" id="delete-user">
+						<input type="button" class="delete-button" value="게시물 삭제" id="delete-user">
 						<input type="button" value="돌아가기" onClick="history.go(-1);">
 					</form>
 				</div>
 					
 				<!-- 페이지 넘기기 -->
 				<div class="page-div">
-					<ul class="pagination">
+ 					<ul class="pagination">
 						<!-- 처음으로 -->
 						<li class="page-item">
-							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/userList.li?currentPage=1'">&laquo;</a>
+							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=1'">&laquo;</a>
 						</li>
 						<!-- 이전 페이지 -->
 						<% if(currentPage <= 1){%>
@@ -172,7 +175,7 @@
 							</li>
 						<% } else {%>
 							<li class="page-item">
-								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/userList.li?currentPage=<%= currentPage - 1 %>'">&lt;</a>
+								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= currentPage - 1 %>'">&lt;</a>
 							</li>
 						<% } %>
 						<!-- 숫자 버튼 -->
@@ -183,7 +186,7 @@
 									</li>
 						<%		} else { %>
 									<li class="page-item">
-										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/userList.li?currentPage=<%= p %>'"><%=p%></a>
+										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= p %>'"><%=p%></a>
 									</li>
 						<%		} %>
 						<%	} %>
@@ -194,75 +197,78 @@
 							</li>
 						<% } else {%>
 							<li class="page-item">
-								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/userList.li?currentPage=<%= currentPage + 1 %>'">&gt;</a>
+								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= currentPage + 1 %>'">&gt;</a>
 							</li>
 						<% } %>
 						<!-- 끝으로  -->
 						<li class="page-item">
-							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/userList.li?currentPage=<%= maxPage %>'">&raquo;</a>
+							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= maxPage %>'">&raquo;</a>
 						</li>	
 					</ul>
 				</div>
+				<div class="page-div">
+				
+				</div>
+
             </div>
         </div>
-    </div>
-    
-    <!-- Footer-->
-	<%@include file="../common/footer.jsp" %>
-    
+    </div>   
+	<!-- Footer-->
+	<%@ include file="../common/footer.jsp" %>
+	
     <script>
-    	(window.onload = function() {
-        	$('#userListBtn').css({'background':'#00B1D2','color':'white'});
-		});
-	        
-		// 체크박스
-		var check = document.getElementsByName('check');
+	(window.onload = function() {
+    	$('#faqListBtn').css({'background':'#00B1D2','color':'white'});
+	});
+        
+	// 체크박스
+	var check = document.getElementsByName('check');
 
-		function checkAll(){
-			
-			if($('#checkAll').is(":checked")){
-				for(var i = 0; i < check.length; i++){
-					check[i].checked = true;
-				}
-			} else{
-				for(var i = 0; i < check.length; i++){
-					check[i].checked = false;
-				}
+	function checkAll(){
+		
+		if($('#checkAll').is(":checked")){
+			for(var i = 0; i < check.length; i++){
+				check[i].checked = true;
+			}
+		} else{
+			for(var i = 0; i < check.length; i++){
+				check[i].checked = false;
 			}
 		}
+	}
 
-		function selectOne(){
-			var count = 0;
-			
-			for(var i = 0; i < check.length; i++){
-				if(check[i].checked){
-					count++;
-				}
+	function selectOne(){
+		var count = 0;
+		
+		for(var i = 0; i < check.length; i++){
+			if(check[i].checked){
+				count++;
 			}
-			
-			if(count != check.length){
-				$('#checkAll').prop('checked', false);
-			} else{
-				$('#checkAll').prop('checked', true);
-			}
-			
 		}
 		
-		$(function(){
-			$('#listTable td').mouseenter(function(){
-				$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
-			}).mouseout(function(){
-				$(this).parent().css('background', 'none');
-			}).click(function(){ // 리스트 클릭했을 때 동작
-//	 			var bId = $(this).parent().children().eq(0).text();
-				
-	<%-- 			location.href='<%= request.getContextPath() %>/detail.bo?bId=' + bId; --%>
-				
-			});
+		if(count != check.length){
+			$('#checkAll').prop('checked', false);
+		} else{
+			$('#checkAll').prop('checked', true);
+		}
+		
+	}
+	
+	$(function(){
+		$('#listTable td').mouseenter(function(){
+			$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
+		}).mouseout(function(){
+			$(this).parent().css('background', 'none');
+		}).click(function(){
+// 			var bId = $(this).parent().children().eq(0).text();
+			
+<%-- 			location.href='<%= request.getContextPath() %>/detail.bo?bId=' + bId; --%>
+			
 		});
-	</script>
+	});
+	
+    </script>
 	<!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
 </html>
