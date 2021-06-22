@@ -79,15 +79,14 @@ public class BoardService {
 		
 	}
 
-	public ArrayList<Gym> searchGymbyNo(PageInfo pi, String keyword) {
+	public ArrayList<Gym> searchGymList(String category, String keyword, PageInfo pi) {
 		
 		Connection conn = getConnection();
 		
-		ArrayList<Gym> list = new BoardDAO().searchGymbyNo(conn, pi);
+		ArrayList<Gym> list = new BoardDAO().searchGymList(conn, category, keyword, pi);
 		
 		close(conn);
 		
 		return list;
 	}
-
 }

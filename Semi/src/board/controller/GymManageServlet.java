@@ -32,10 +32,13 @@ public class GymManageServlet extends HttpServlet {
 		int startPage;
 		int endPage;
 		
+		ArrayList<Gym> gymList = null;
+		String likeKeyword;
+		
 		String keyword = request.getParameter("searchKeyword");
-		String type = request.getParameter("searchList");
+		String category = request.getParameter("searchList");
 		System.out.println("keyword = " + keyword);
-		System.out.println("type = " + type);
+		System.out.println("category = " + category);
 		
 		BoardService bService = new BoardService();
 		listCount = bService.getGymListCount();
@@ -57,16 +60,30 @@ public class GymManageServlet extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Gym> gymList = bService.selectGymList(pi);
 		
-		if(keyword != null && type != null) {
-			switch (type) {
+		
+		if(keyword != null && category != null) {
+			
+			switch(category) {
 				
-				case "시설번호" : 
-					gymList = bService.searchGymbyNo(pi, keyword);
-				
+				case "이름" : 
+					System.out.println("이름에 들어옴");
+					category = "G_NAME"; 
+					likeKeyword = "%" + keyword + "%";
+					gymList = bService.searchGymList(category, likeKeyword, pi);
 					
+					for(Gym g : gymList) {
+						System.out.println(g);
+					}
+					
+					break;
+				case "타입" :
+					category = "G_TYPE_NM"; break;
+				case "군/구" :
+					category = "G_GU_NM"; break;
 			}
+		} else {
+			gymList = bService.selectGymList(pi);
 		}
 		
 		

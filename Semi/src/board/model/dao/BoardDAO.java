@@ -206,6 +206,7 @@ public class BoardDAO {
 						rset.getInt("g_COUNT"),
 						rset.getInt("g_COVID"),
 						rset.getString("g_FILE"));
+				
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -217,15 +218,55 @@ public class BoardDAO {
 		return list;
 	}
 
-	public ArrayList<Gym> searchGymbyNo(Connection conn, PageInfo pi) {
+	public ArrayList<Gym> searchGymList(Connection conn, String category, String keyword, PageInfo pi) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<Gym> list = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
 		
-		String query = prop.getProperty(key)
+		String query = prop.getProperty("searchGym");
 		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		System.out.println("startRow : " + startRow);
+		System.out.println("endRow : " + endRow);
+		System.out.println("category : " + category);
+		System.out.println("keyword : " + keyword);
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, category);
+			pstmt.setString(2, keyword);
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_NO"),
+						rset.getString("g_TYPE_NM"),
+						rset.getString("g_GU_NM"),
+						rset.getString("g_NAME"),
+						rset.getString("g_ADDRESS"),
+						rset.getDouble("g_YCODE"),
+						rset.getDouble("g_XCODE"),
+						rset.getString("g_TEL"),
+						rset.getString("g_EDU_YN"),
+						rset.getString("g_IN_OUT"),
+						rset.getString("G_STATUS").charAt(0),
+						rset.getInt("g_COUNT"),
+						rset.getInt("g_COVID"),
+						rset.getString("g_FILE"));
+				System.out.println(g);
+				list.add(g);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		
 		return list;
 	}
+
 }
