@@ -33,50 +33,52 @@ public class faqBoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		int listCount;
-//		int currentPage;
-//		int pageLimit;
-//		int boardLimit;
-//		int maxPage;
-//		int startPage;
-//		int endPage;
-//		
-//		String str = "F";
-//		
-//		BoardService bService = new BoardService();
-//		listCount = bService.getListCount(/* str */);
-//		
-//		currentPage = 1;
-//		if(request.getParameter("currentPage") != null) {
-//			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-//		}
-//		
-//		pageLimit = 10;
-//		boardLimit = 10;
-//		
-//		maxPage = (int)Math.ceil((double)listCount / boardLimit);
-//		
-//		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
-//		
-//		endPage = startPage + pageLimit - 1;
-//		if(endPage > maxPage) {
-//			endPage = maxPage; 
-//		}
-//		
-//		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-//		
-//		ArrayList<Board> list = bService.selectBoardList(pi, str);
-//		
-//		String page = null;
-//		if(list != null) {
-//			page = "WEB-INF/views/board/faqBoardList.jsp";
-//			request.setAttribute("list", list);
-//			request.setAttribute("pi", pi);
-//		} else {
-//			page = "WEB-INF/views/common/errorPage.jsp";
-//			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
-//		}
-//		request.getRequestDispatcher(page).forward(request, response);
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		String str = "F";
+		
+		BoardService bService = new BoardService();
+		listCount = bService.getListCount(str); // listCount가 안먹히고 있음
+		
+		currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		}
+		
+		pageLimit = 10;
+		boardLimit = 10;
+		
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		
+		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
+		
+		endPage = startPage + pageLimit - 1;
+		if(endPage > maxPage) {
+			endPage = maxPage; 
+		}
+		
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+		ArrayList<Board> list = bService.selectBoardList(pi, str);
+		
+		String page = null;
+		if(list != null) {
+			page = "WEB-INF/views/board/faqBoardList.jsp";
+			request.setAttribute("list", list);
+			request.setAttribute("pi", pi);
+		} else {
+			page = "WEB-INF/views/common/errorPage.jsp";
+			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
+		}
+		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+
 	}
 
 	/**

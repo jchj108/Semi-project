@@ -1,7 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="board.model.vo.Board"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="board.model.vo.Board, java.util.ArrayList, board.model.vo.PageInfo"%>
 <!DOCTYPE html>
 <%
+	ArrayList<Board> list = (ArrayList)request.getAttribute("list"); 
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	
+	int listCount = pi.getListCount();
+	int currentPage = pi.getCurrentPage();
+	int maxPage = pi.getMaxPage();
+	int startPage = pi.getStartPage();
+	int endPage = pi.getEndPage();
 %>
 <html>
   <head>
@@ -10,7 +17,7 @@
     <meta http-equiv="content-script-type" content="text/javascript" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>FAQ 목록</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
@@ -21,6 +28,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       * {
       	font-family: 'NotoSansKR';
@@ -87,7 +95,7 @@
          
 		 .delete-button{margin-left: 50%;}
       
-      	 .page-div{margin-left: 43%;}
+      	 .page-div{position: absolute;}
       	
       	 #noneLink{
      	 	color : lightgray;
@@ -122,13 +130,21 @@
 					    </tr>
 					</thead>
 					<tbody>
+					    <% if(list.isEmpty()) {%>
+						<tr>
+							<td colspan="5">작성된 게시글이 없습니다.</td>
+						</tr>
+						<% } else { %>
+						<% 		for(Board b : list) { %>
 					    <tr>
 							<td><input type="checkbox" name="check" onclick="selectOne();"></td>
-							<td>1</td>
-							<td>user01</td>
-							<td>오류나요</td>
-							<td>2021/05/20</td>
+							<td><%= b.getQ_no() %></td>
+							<td><%= b.getWriterName()%></td>
+							<td><%= b.getQ_title() %></td>
+							<td><%= b.getQ_date()%></td>
 						</tr>
+						<% 		} %>
+						<% } %>
 					</tbody>
                 </table>
 				</div>
@@ -146,13 +162,50 @@
 				</div>
 					
 				<!-- 페이지 넘기기 -->
-<!-- 				<div class="page-div"> -->
-<!-- 					<ul class="pagination"> -->
-<!-- 						<li class="page-item"> -->
-<!-- 							<a class="page-link" href="#">&laquo;</a> -->
-<!-- 						</li>	     -->
-<!-- 					</ul> -->
-<!-- 				</div> -->
+				<div class="page-div">
+ 					<ul class="pagination">
+						<!-- 처음으로 -->
+						<li class="page-item">
+							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=1'">&laquo;</a>
+						</li>
+						<!-- 이전 페이지 -->
+						<% if(currentPage <= 1){%>
+							<li class="page-item">
+								<a class="page-link" id="noneLink">&lt;</a>
+							</li>
+						<% } else {%>
+							<li class="page-item">
+								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= currentPage - 1 %>'">&lt;</a>
+							</li>
+						<% } %>
+						<!-- 숫자 버튼 -->
+						<% for(int p = startPage; p <= endPage; p++){ %>
+						<%		if(p == currentPage){ %>
+									<li class="page-item">
+										<a class="page-link" id="noneLink"><%=p %></a>
+									</li>
+						<%		} else { %>
+									<li class="page-item">
+										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= p %>'"><%=p%></a>
+									</li>
+						<%		} %>
+						<%	} %>
+						<!-- 다음 페이지 -->
+						<% if(currentPage >= maxPage){%>
+							<li class="page-item">
+								<a class="page-link" id="noneLink">&gt;</a>
+							</li>
+						<% } else {%>
+							<li class="page-item">
+								<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= currentPage + 1 %>'">&gt;</a>
+							</li>
+						<% } %>
+						<!-- 끝으로  -->
+						<li class="page-item">
+							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= maxPage %>'">&raquo;</a>
+						</li>	
+					</ul>
+				</div>
 				<div class="page-div">
 				
 				</div>
@@ -193,7 +246,7 @@
 			}
 		}
 		
-		if(count != 10){
+		if(count != check.length){
 			$('#checkAll').prop('checked', false);
 		} else{
 			$('#checkAll').prop('checked', true);

@@ -1,7 +1,6 @@
 package board.model.service;
 
 import static common.JDBCTemplate.close;
-<<<<<<< HEAD
 import static common.JDBCTemplate.getConnection;
 
 import java.sql.Connection;
@@ -10,44 +9,33 @@ import java.util.ArrayList;
 import board.model.dao.BoardDAO;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
-import member.model.vo.Member;
-=======
-
-import java.sql.Connection;
-import java.util.ArrayList;
-
-import board.model.dao.BoardDAO;
-import board.model.vo.Board;
-import board.model.vo.PageInfo;
 import page.model.vo.Page;
->>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
+
 
 public class BoardService {
 
-<<<<<<< HEAD
-	public int getListCount(String q) {
+	public int getListCount(String str) {
 		Connection conn = getConnection();
 		
 		BoardDAO bDAO = new BoardDAO();
 		
-		int listCount = bDAO.getListCount(conn, q);
+		int listCount = bDAO.getListCount(conn, str);
 		
 		close(conn);
 		
 		return listCount;
 	}
 
-	public ArrayList<Board> selectBoardList(PageInfo pi) {
+	public ArrayList<Board> selectBoardList(PageInfo pi, String str) {
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new BoardDAO().selectBoardList(conn, pi);
+		ArrayList<Board> list = new BoardDAO().selectBoardList(conn, pi, str);
 		
 		close(conn);
 		
 		return list;
 	}
 
-=======
 	public int bListCount(String bDiv) {
 		Connection conn = getConnection();
 		
@@ -67,32 +55,5 @@ public class BoardService {
 		
 		return list;
 	}
-	
-	public int getListCount(String q) {
-		Connection conn = getConnection();
-		
-		BoardDAO bDAO = new BoardDAO();
-		
-		int listCount = bDAO.getListCount(conn, q);
-		
-		close(conn);
-		
-		return listCount;
-	}
-
-	public ArrayList<Board> selectBoardList(PageInfo pi) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> list = new BoardDAO().selectBoardList(conn, pi);
-		
-		close(conn);
-		
-		return list;
-	}
-<<<<<<< HEAD
-=======
->>>>>>> branch 'new' of https://github.com/AHNJUNGYUNG/Semi-project.git
-
->>>>>>> new
 
 }
