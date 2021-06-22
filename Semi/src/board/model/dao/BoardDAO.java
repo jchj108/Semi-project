@@ -1,5 +1,7 @@
 package board.model.dao;
 
+import static common.JDBCTemplate.close;
+
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -7,14 +9,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import page.model.vo.Page;
-
-import static common.JDBCTemplate.close;
 
 public class BoardDAO {
 	private Properties prop = new Properties();
@@ -92,17 +93,21 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public int getListCount(Connection conn, String q) {
-		PreparedStatement pstmt = null;
+	public int getListCount(Connection conn, String str) {
+		Statement stmt = null;
 		ResultSet rset = null;
 		int listCount = 0;
 		
-		String query = prop.getProperty("getListCount");
+		String query = null;
+		if(str.equals("Q")) {
+			query = prop.getProperty("getQListCount");
+		} else {
+			query = prop.getProperty("getFListCount");
+		}
 		
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, q);
-			rset = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
 				listCount = rset.getInt(1);
@@ -111,24 +116,30 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
 		
 		return listCount;
 	}
 
-	public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi) {
+	public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi, String str) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = new ArrayList<Board>();
 		
-		String query = prop.getProperty("selectBoardList");
+		String query = null;
+		if(str.equals("Q")) {
+			query = prop.getProperty("selectBoardQList");
+		} else {
+			query = prop.getProperty("selectBoardFList");
+		}
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
@@ -147,5 +158,5 @@ public class BoardDAO {
 		}
 		return list;
 	}
-	
+
 }

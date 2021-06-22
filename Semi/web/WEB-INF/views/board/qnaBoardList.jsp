@@ -28,6 +28,7 @@
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
       * {
       	font-family: 'NotoSansKR';
@@ -177,11 +178,11 @@
 						<% for(int p = startPage; p <= endPage; p++){ %>
 						<%		if(p == currentPage){ %>
 									<li class="page-item">
-										<a class="page-link"><%=p %></a>
+										<a class="page-link" id="noneLink"><%=p %></a>
 									</li>
 						<%		} else { %>
 									<li class="page-item">
-										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=<%= p %>'"><%=p%></a>
+										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= p %>'"><%=p%></a>
 									</li>
 						<%		} %>
 						<%	} %>

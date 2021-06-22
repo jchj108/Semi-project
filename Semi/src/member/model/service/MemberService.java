@@ -8,6 +8,9 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.model.dao.BoardDAO;
+import board.model.vo.PageInfo;
+
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
 import comments.model.vo.Comments;
@@ -175,6 +178,6 @@ public class MemberService {
 		
 		return list;
 	}
-
-
+	
+	
 }
