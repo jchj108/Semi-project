@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
 
 <!DOCTYPE html>
 <html>
@@ -89,7 +89,7 @@
 	
 	<script>
 		$('#boardList').click(function(){
-			location.href="<%=request.getContextPath()%>/faq.do";			
+			location.href="<%=request.getContextPath()%>/faq.do";					
 		});
 	</script>
 

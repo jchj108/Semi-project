@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="board.model.vo.Board, page.model.vo.Page, java.util.ArrayList"%>
 <%
-	ArrayList<Board> fList = (ArrayList)request.getAttribute("fList");
+	ArrayList<Board> qList = (ArrayList)request.getAttribute("qList");
 	Page pi = (Page)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -24,6 +24,8 @@
         <style>
         
         *{font-family: 'Noto Sans KR';}        		
+		
+		.boardTitle:hover{cursor: pointer; color: #00B1D2;}	
 		
 		.page {margin-bottom: 50px; margin-top: 50px;}
 		 		
@@ -70,7 +72,7 @@
 	 	 
 	 	.choice:hover{color:white; background:#00b1d2; cursor:pointer;}
 	 	
-	 	#faq{color:white; background:#00b1d2;}
+	 	#qna{color:white; background:#00b1d2;}
 	 	
 	 	.choicePack {
 			margin: 20px;
@@ -80,8 +82,6 @@
 	 	#faq {
 	 	 	margin-left: 20%;
 	 	 }
-	 	 
-	 	 .boardTitle:hover{cursor: pointer; color: #00B1D2;}	
 	 	 
 	 	 .boardWrite {
 	 		width: 100px;
@@ -126,7 +126,7 @@
         	
 	        	<div class="choicePack">
 					<span class="choice" id="faq" onclick="location.href='<%=request.getContextPath()%>/faq.do'">FAQ</span>
-					<span class="choice" id="qna" onclick="location.href='<%=request.getContextPath()%>/qna.do'">QNA</span>
+					<span class="choice" id="qna" onclick="location.href='<%= request.getContextPath() %>/qna.do'">QNA</span>
 				</div>
 			
 				<div class="content">
@@ -138,12 +138,12 @@
 							<th width="120px;">작성일</th>
 						</tr>
 						
-						<% if(fList.isEmpty()) { %>
+						<% if(qList.isEmpty()) { %>
 							<tr>
 								<td colspan="4">게시물이 없습니다.</td>
 							</tr>
 							<% } else { %>
-								<% for(Board b : fList) { %>
+								<% for(Board b : qList) { %>
 							<tr>								
 								<td><%= b.getQ_no()%><input type="hidden" name="qNo" value="<%= b.getQ_no()%>"></td>
 								<td class="boardTitle"><%= b.getQ_title() %></td>							
@@ -154,8 +154,8 @@
 							<% } %>					
 						
 					</table>
-				<% if(loginUser != null && loginUser.getM_auth() == 0) { %>
-					<div class="write"><button onclick="location.href='<%=request.getContextPath()%>/insertFaq.do" style="color:white" class="boardWrite">작성하기</button></div>
+				<% if(loginUser != null) { %>
+					<div class="write"><button onclick="location.href='<%=request.getContextPath()%>/insertQna.do" style="color:white" class="boardWrite">작성하기</button></div>
 				<% } %>
 				</div>
 			
@@ -176,10 +176,10 @@
 		<div class="page">
 		<ul class="pagination">
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=1'">&laquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=1'">&laquo;</div>
 			</li>
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
 				<script>
 					if(<%= currentPage %> <= 1) {
 						$('#beforeBtn').attr('disabled', 'true');
@@ -193,20 +193,22 @@
 				</li>
 				<% } else { %>
 				<li class="page-item">
-					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= p %>'"><%= p %></div>
+					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= p %>'"><%= p %></div>
 				</li>						
 				<% } %>
 			<% } %>
+			
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
 				<script>
 					if(<%= currentPage %> >= <%= maxPage %>) {
 						$('#afterBtn').prop('disabled', true);
 					}
 				</script>
 			</li>
+			
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= maxPage %>'">&raquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
 		</ul>
 	</div>
@@ -220,7 +222,7 @@
 				location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + qNo;
 			});
 	        
-	        
+	      
         </script>
     </body>
 </html>

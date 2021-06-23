@@ -25,9 +25,9 @@
 <!-- <link href="css/styles.css" rel="stylesheet" /> -->
 <style>
 	*{font-family: 'Noto Sans KR';}
-	.side:hover, #reviewBody:hover{cursor: pointer; color: #00B1D2;}	
+	.side:hover, .reviewBody:hover{cursor: pointer; color: #00B1D2;}	
 
-	.page {margin-bottom: 50px;}
+	 .page {margin-bottom: 50px; margin-top: 50px;}
 		 		
 	.pagination {
 	list-style-type: none;
@@ -121,9 +121,10 @@
 								<% for(Review r : list) { %>
 								<% gNo = r.getGymNo(); %>
 							<tr>
+								<input type="hidden" name="gNo" id="gNo" value="<%=gNo%>">																
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
 								<td><%= r.getR_no() %></td>
-								<td id="reviewBody"><%= r.getR_body() %></td>							
+								<td class="reviewBody"><%= r.getR_body() %></td>							
 								<td><%= r.getR_date() %></td>
 								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
 							</tr>
@@ -144,6 +145,15 @@
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=1'">&laquo;</div>
 			</li>
 			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
+				<script>
+					if(<%= currentPage %> <= 1) {
+						$('#beforeBtn').attr('disabled', 'true');
+					}
+				</script>
+			</li>
+			
 			<% for(int p = startPage; p <= endPage; p++) { %>
 				<% if(p == currentPage) { %>
 				<li class="page-item">
@@ -155,6 +165,16 @@
 				</li>						
 				<% } %>
 			<% } %>
+			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
+				<script>
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$('#afterBtn').prop('disabled', true);
+					}
+				</script>
+			</li>
+			
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
@@ -231,8 +251,9 @@
 		};
 		
 		// 제목 누르면 리뷰 쓴 시설 상세 조회 페이지 이동
-		$('#reviewBody').on('click', function(){
-			location.href='<%= request.getContextPath() %>/detail.do?gNo=' + <%=gNo%>;
+		$('.reviewBody').on('click', function(){
+			var gNoVal = $(this).parent().children('input').val();
+			location.href='<%= request.getContextPath() %>/detail.do?gNo=' + gNoVal;
 		});
 		
 		

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import gym.model.vo.Gym;
+import page.model.vo.Page;
 
 public class GymDAO {
 	
@@ -274,5 +275,151 @@ public class GymDAO {
 				close(pstmt);
 			}
 		return list;
+	}
+
+
+	public int gEListCount(Connection conn) {
+		Statement stmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("gEListCount");
+		
+		try {
+			stmt = conn.createStatement();
+						
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return count;
+	}
+
+
+	public int gListCount(Connection conn, String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("gListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, category);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return count;
+	}
+
+
+	public ArrayList<Gym> selectGList(Connection conn, Page pi, String category) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> gList = new ArrayList<Gym>();
+
+		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int end = start + pi.getBoardLimit() - 1;
+		String query = prop.getProperty("selectGList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, category);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				gList.add(new Gym(rset.getInt("g_NO"),
+							rset.getString("g_TYPE_NM"),
+							rset.getString("g_GU_NM"),
+							rset.getString("g_NAME"),
+							rset.getString("g_ADDRESS"),
+							rset.getDouble("g_YCODE"),
+							rset.getDouble("g_XCODE"),
+							rset.getString("g_TEL"),
+							rset.getString("g_EDU_YN"),
+							rset.getString("g_IN_OUT"),
+							rset.getString("G_STATUS").charAt(0),
+							rset.getInt("g_COUNT"),
+							rset.getInt("g_COVID"),
+							rset.getString("g_FILE")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return gList;
+	}
+
+
+	public ArrayList<Gym> selectGEList(Connection conn, Page pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> gList = new ArrayList<Gym>();
+
+		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int end = start + pi.getBoardLimit() - 1;
+		
+		String query = prop.getProperty("selectGEList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+				
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				gList.add(new Gym(rset.getInt("g_NO"),
+						rset.getString("g_TYPE_NM"),
+						rset.getString("g_GU_NM"),
+						rset.getString("g_NAME"),
+						rset.getString("g_ADDRESS"),
+						rset.getDouble("g_YCODE"),
+						rset.getDouble("g_XCODE"),
+						rset.getString("g_TEL"),
+						rset.getString("g_EDU_YN"),
+						rset.getString("g_IN_OUT"),
+						rset.getString("G_STATUS").charAt(0),
+						rset.getInt("g_COUNT"),
+						rset.getInt("g_COVID"),
+						rset.getString("g_FILE")));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		
+		return gList;
 	}
 }

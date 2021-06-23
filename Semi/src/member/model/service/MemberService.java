@@ -12,8 +12,8 @@ import board.model.dao.BoardDAO;
 import board.model.vo.PageInfo;
 
 import board.model.vo.Board;
+import board.model.vo.Comments;
 import board.model.vo.PageInfo;
-import comments.model.vo.Comments;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
 import page.model.vo.Page;

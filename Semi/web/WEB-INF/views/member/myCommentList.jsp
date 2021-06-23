@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, comments.model.vo.Comments, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.Comments, page.model.vo.Page"%>
 <%
 	ArrayList<Comments> list = (ArrayList)request.getAttribute("list");
 	int qNo = 0;
@@ -25,9 +25,9 @@
 <!-- <link href="css/styles.css" rel="stylesheet" /> -->
 <style>
 	*{font-family: 'Noto Sans KR';}
-	.side:hover, #commentsBody:hover{cursor: pointer; color: #00B1D2;}	
+	.side:hover, .commentsBody:hover{cursor: pointer; color: #00B1D2;}	
 
-	.page {margin-bottom: 50px;}
+	 .page {margin-bottom: 50px; margin-top: 50px;}
 		 		
 	.pagination {
 	list-style-type: none;
@@ -121,9 +121,10 @@
 								<% for(Comments c : list) { %>
 								<% qNo = c.getbNo(); %>
 							<tr>
+								<input type="hidden" name="qNo" id="qNo" value="<%=qNo%>">	
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
 								<td><%= c.getC_no() %></td>
-								<td id="commentsBody"><%= c.getC_body() %></td>							
+								<td class="commentsBody"><%= c.getC_body() %></td>							
 								<td><%= c.getC_date() %></td>
 								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
 							</tr>
@@ -143,7 +144,14 @@
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=1'">&laquo;</div>
 			</li>
-			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
+				<script>
+					if(<%= currentPage %> <= 1) {
+						$('#beforeBtn').attr('disabled', 'true');
+					}
+				</script>
+			</li>
 			<% for(int p = startPage; p <= endPage; p++) { %>
 				<% if(p == currentPage) { %>
 				<li class="page-item">
@@ -155,6 +163,14 @@
 				</li>						
 				<% } %>
 			<% } %>
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
+				<script>
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$('#afterBtn').prop('disabled', true);
+					}
+				</script>
+			</li>
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
@@ -193,7 +209,7 @@
 			if($('.select').prop('checked')) {
 				var check = window.confirm("정말 삭제하시겠습니까?");
 			
-				if(check) {
+				if(check) {					
 					$('#commentListForm').attr('action', 'commentDelete.do');
 					$('#commentListForm').submit();
 				}
@@ -231,8 +247,9 @@
 		};
 		
 		// 제목 누르면 댓글 쓴 게시글 상세 조회 페이지 이동
-		$('#commentsBody').on('click', function(){
-			location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + <%=qNo%>;
+		$('.commentsBody').on('click', function(){
+			var qNoVal = $(this).parent().children('input').val();
+			location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + qNoVal;
 		});
 		
 		
