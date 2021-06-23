@@ -1,7 +1,5 @@
 package member.controller;
 
-import static common.Encrypt.getEncryptPwd;
-
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -9,22 +7,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import member.model.service.MemberService;
-import member.model.vo.Member;
 
 /**
- * Servlet implementation class LogIn
+ * Servlet implementation class UserDeleteServlet
  */
-@WebServlet("/login.me")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/userDelete.ad")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public UserDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,30 +29,28 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		request.setCharacterEncoding("UTF-8");
+		String irr[] = request.getParameterValues("check");
+		String check = "";
 		
-		String email = request.getParameter("userEmail");
-		String pwd = getEncryptPwd(request.getParameter("userPwd"));
+		if(irr != null) {
+			for(int i = 0; i < irr.length; i++) {
+				if(i == irr.length - 1) {
+					check += irr[i];
+				} else {
+					check += irr[i] + ",";
+				}
+			}
+		}
 		
-		Member mem = new Member(email, pwd);
+		int result = new MemberService().deleteUser(check);
 		
-		Member loginUser = new MemberService().loginMember(mem);
-		
-		if(loginUser != null) {
-			HttpSession session = request.getSession();
-			session.setAttribute("loginUser", loginUser);
-			
-//			if(loginUser.getM_auth() == 0) {
-//				request.getRequestDispatcher("WEB-INF/views/common/adminMain.jsp").forward(request, response);
-//			} else {
-//				response.sendRedirect(request.getContextPath());
-//			}
-			response.sendRedirect(request.getContextPath());
-			
+		if(result > 0) {
+			response.sendRedirect("userList.li");
 		} else {
-			request.setAttribute("msg", "로그인 실패");
+			request.setAttribute("msg", "회원 삭제에 실패하였습니다");
 			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 		}
+		
 	}
 
 	/**

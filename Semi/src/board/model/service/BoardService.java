@@ -1,10 +1,10 @@
 package board.model.service;
 
+
+import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.rollback;
-
-import static common.JDBCTemplate.close;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -13,12 +13,38 @@ import board.model.dao.BoardDAO;
 import board.model.vo.Board;
 import board.model.vo.Comments;
 import board.model.vo.PageInfo;
+
 import board.model.vo.QnaFile;
+import gym.model.vo.Gym;
 import page.model.vo.Page;
+
 
 public class BoardService {
 
-	public int fListCount() {
+	public int getListCount(String str) {
+		Connection conn = getConnection();
+		
+		BoardDAO bDAO = new BoardDAO();
+		
+		int listCount = bDAO.getListCount(conn, str);
+		
+		close(conn);
+		
+		return listCount;
+	}
+
+	public ArrayList<Board> selectBoardList(PageInfo pi, String str) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectBoardList(conn, pi, str);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int bListCount(String bDiv) {
+
 		Connection conn = getConnection();
 		
 		int count = new BoardDAO().fListCount(conn);
@@ -37,28 +63,63 @@ public class BoardService {
 		
 		return list;
 	}
-	
-	public int getListCount(String q) {
+
+	public int deleteBoard(String check) {
 		Connection conn = getConnection();
 		
+		int result = 0;
 		BoardDAO bDAO = new BoardDAO();
 		
-		int listCount = bDAO.getListCount(conn, q);
+		String arr[] = check.split(",");
+		String q_no = null;
+		for(int i = 0; i < arr.length; i++) {
+			q_no = arr[i];
+			result = bDAO.deleteBoard(conn, q_no);
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+		
+		close(conn);
+		return result;
+  }
+    public int getGymListCount() {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDAO().getGymListCount(conn);
 		
 		close(conn);
 		
 		return listCount;
 	}
 
-	public ArrayList<Board> selectBoardList(PageInfo pi) {
+	public ArrayList<Gym> selectGymList(PageInfo pi) {
+		
 		Connection conn = getConnection();
 		
-		ArrayList<Board> list = new BoardDAO().selectBoardList(conn, pi);
+		ArrayList<Gym> list = new BoardDAO().selectGymList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+		
+	}
+
+	public ArrayList<Gym> searchGym(String keyword, String category, PageInfo pi) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new BoardDAO().searchGym(conn, keyword, category, pi);
 		
 		close(conn);
 		
 		return list;
 	}
+
 
 	public int qListCount() {
 		Connection conn = getConnection();
@@ -124,21 +185,6 @@ public class BoardService {
 		return cList;
 	}
 
-//	public int deleteBoard(int qNo) {
-//		Connection conn = getConnection();
-//		
-//		int result = new BoardDAO().deleteBoard(conn, qNo);
-//		
-//		if(result > 0) {
-//			commit(conn);
-//		} else {
-//			rollback(conn);
-//		}
-//		
-//		close(conn);
-//		
-//		return result;
-//	}
 
 	public ArrayList<Comments> insertComment(Comments c) {
 		Connection conn = getConnection();
@@ -159,4 +205,18 @@ public class BoardService {
 		return list;
 	}
 	
+
+	public int getSearchGymListCount(String keyword, String category) {
+		
+		Connection conn = getConnection();
+		
+		int listCount = new BoardDAO().getSearchGymListCount(conn, keyword, category);
+		
+		close(conn);
+		
+		return listCount;
+
+	}
+
+
 }

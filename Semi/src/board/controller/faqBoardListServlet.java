@@ -14,16 +14,16 @@ import board.model.vo.Board;
 import board.model.vo.PageInfo;
 
 /**
- * Servlet implementation class AdminBoardListFormServlet
+ * Servlet implementation class faqBoardListServlet
  */
-@WebServlet("/qnaBoardList.li")
-public class qnaBoardListServlet extends HttpServlet {
+@WebServlet("/faqBoardList.li")
+public class faqBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public qnaBoardListServlet() {
+    public faqBoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,10 +41,10 @@ public class qnaBoardListServlet extends HttpServlet {
 		int startPage;
 		int endPage;
 		
-		String str = "Q";
+		String str = "F";
 		
 		BoardService bService = new BoardService();
-		listCount = bService.getListCount(str);
+		listCount = bService.getListCount(str); // listCount가 안먹히고 있음
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
@@ -64,12 +64,11 @@ public class qnaBoardListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
 		ArrayList<Board> list = bService.selectBoardList(pi, str);
 		
 		String page = null;
 		if(list != null) {
-			page = "WEB-INF/views/board/qnaBoardList.jsp";
+			page = "WEB-INF/views/board/faqBoardList.jsp";
 			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
@@ -77,6 +76,9 @@ public class qnaBoardListServlet extends HttpServlet {
 			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		
+
 	}
 
 	/**

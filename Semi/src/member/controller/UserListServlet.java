@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.catalina.filters.SetCharacterEncodingFilter;
+
 import board.model.vo.PageInfo;
 import member.model.service.MemberService;
 import member.model.vo.Member;
@@ -62,7 +64,7 @@ public class UserListServlet extends HttpServlet {
 		}
 		
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-		
+
 		ArrayList<Member> list = mService.selectUserList(pi);
 		String page = null;
 		

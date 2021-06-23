@@ -17,6 +17,7 @@ import board.model.vo.Board;
 import board.model.vo.Comments;
 import board.model.vo.PageInfo;
 import board.model.vo.QnaFile;
+import gym.model.vo.Gym;
 import page.model.vo.Page;
 
 public class BoardDAO {
@@ -96,17 +97,21 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public int getListCount(Connection conn, String q) {
-		PreparedStatement pstmt = null;
+	public int getListCount(Connection conn, String str) {
+		Statement stmt = null;
 		ResultSet rset = null;
 		int listCount = 0;
 		
-		String query = prop.getProperty("getListCount");
+		String query = null;
+		if(str.equals("Q")) {
+			query = prop.getProperty("getQListCount");
+		} else {
+			query = prop.getProperty("getFListCount");
+		}
 		
 		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, q);
-			rset = pstmt.executeQuery();
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
 			
 			while(rset.next()) {
 				listCount = rset.getInt(1);
@@ -115,24 +120,30 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(rset);
-			close(pstmt);
+			close(stmt);
 		}
 		
 		return listCount;
 	}
 
-	public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi) {
+	public ArrayList<Board> selectBoardList(Connection conn, PageInfo pi, String str) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = new ArrayList<Board>();
 		
-		String query = prop.getProperty("selectBoardList");
+		String query = null;
+		if(str.equals("Q")) {
+			query = prop.getProperty("selectBoardQList");
+		} else {
+			query = prop.getProperty("selectBoardFList");
+		}
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
+			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rset = pstmt.executeQuery();
@@ -142,67 +153,6 @@ public class BoardDAO {
 									rset.getDate("q_date"),
 									rset.getString("m_email"));
 				list.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-
-	public int qListCount(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int count = 0;
-		
-		String query = prop.getProperty("qListCount");	
-		
-		try {
-					
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				count = rset.getInt(1);	
-			
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return count;
-	}
-
-	public ArrayList<Board> selectQList(Connection conn, Page pi) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = new ArrayList<Board>();
-		
-		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int end = start + pi.getBoardLimit() - 1;
-		String query = prop.getProperty("selectQList");
-		
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Board b = new Board(rset.getInt("q_no"),
-									rset.getString("q_title"),
-									rset.getDate("q_date"),
-									rset.getInt("m_num"),
-									rset.getString("m_name"));
-				list.add(b);			
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -227,6 +177,19 @@ public class BoardDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+
+	public int deleteBoard(Connection conn, String q_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(q_no));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -293,12 +256,77 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+		
+		return result;
+	}
+
+	public int getGymListCount(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		
+		String query = prop.getProperty("gymListCount");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return listCount;
+	}
+
+	public ArrayList<Gym> selectGymList(Connection conn, PageInfo pi) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		String query = prop.getProperty("selectGymList");
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_NO"),
+						rset.getString("g_TYPE_NM"),
+						rset.getString("g_GU_NM"),
+						rset.getString("g_NAME"),
+						rset.getString("g_ADDRESS"),
+						rset.getDouble("g_YCODE"),
+						rset.getDouble("g_XCODE"),
+						rset.getString("g_TEL"),
+						rset.getString("g_EDU_YN"),
+						rset.getString("g_IN_OUT"),
+						rset.getString("G_STATUS").charAt(0),
+						rset.getInt("g_COUNT"),
+						rset.getInt("g_COVID"),
+						rset.getString("g_FILE"));
+				
+				list.add(g);
+			}
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return fileList;
 	}
 
@@ -328,36 +356,66 @@ public class BoardDAO {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+
+		return list;
+	}
+
+	public ArrayList<Gym> searchGym(Connection conn, String keyword, String category, PageInfo pi) {
+
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		String query = null;
+
+		switch(category) {
+		
+		case "시설번호" :
+			query = prop.getProperty("searchByNo"); break;
+		case "이름" :
+			query = prop.getProperty("searchByName"); break;
+		case "타입" :
+			query = prop.getProperty("searchByType"); break;
+		case "군/구" :
+			query = prop.getProperty("searchByGu"); break;
+		}
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keyword);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_NO"),
+						rset.getString("g_TYPE_NM"),
+						rset.getString("g_GU_NM"),
+						rset.getString("g_NAME"),
+						rset.getString("g_ADDRESS"),
+						rset.getDouble("g_YCODE"),
+						rset.getDouble("g_XCODE"),
+						rset.getString("g_TEL"),
+						rset.getString("g_EDU_YN"),
+						rset.getString("g_IN_OUT"),
+						rset.getString("G_STATUS").charAt(0),
+						rset.getInt("g_COUNT"),
+						rset.getInt("g_COVID"),
+						rset.getString("g_FILE"));
+				System.out.println(g);
+				list.add(g);
+			}
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
+
 		
 		return cList;
 	}
-
-//	public int deleteBoard(Connection conn, int qNo) {
-//		PreparedStatement pstmt = null;
-//		int result = 0;
-//		
-//		String query = prop.getProperty("deleteBoard");
-//		
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setInt(1, qNo);
-//			
-//			result = pstmt.executeUpdate();
-//			
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			close(pstmt);
-//		}
-//		
-//		return result;
-//	}
 
 	public int insertComment(Connection conn, Comments c) {
 		PreparedStatement pstmt = null;
@@ -381,5 +439,49 @@ public class BoardDAO {
 		
 		return result;
 	}
+
+		return list;
+	}
+
+	public int getSearchGymListCount(Connection conn, String keyword, String category) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int listCount = 0;
+		String query = null;
+		
+		switch(category) {
+
 	
+		case "이름" : 
+			query = prop.getProperty("getSearchGymListCountByName"); 
+			break;
+		case "시설번호" :
+			query = prop.getProperty("getSearchGymListCountByNo"); 
+			break;
+		case "군/구" :
+			query = prop.getProperty("getSearchGymListCountByGu"); 
+			break;
+		case "타입" :
+			query = prop.getProperty("getSearchGymListCountByType"); 
+			break;
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, keyword);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println("dao listCount : " + listCount);
+		return listCount;
+	}
 }
