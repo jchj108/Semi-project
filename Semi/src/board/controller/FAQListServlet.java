@@ -32,42 +32,42 @@ public class FAQListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BoardService bService = new BoardService();
-	
-		
-		int listCount = bService.fListCount();
-		int currentPage = 1;
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
-		
-		int boardLimit = 10;
-		int pageLimit = 5;
-		
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		
-		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
-		int endPage = (startPage + pageLimit) - 1;
-		if(endPage > maxPage) {
-			endPage = maxPage;
-		}
-		
-		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
-		
-		ArrayList<Board> fList = bService.selectFList(pi);
-		
-		String page = null;
-		
-		if(fList != null) {
-			page = "WEB-INF/views/board/faqList.jsp";
-			request.setAttribute("fList", fList);
-			request.setAttribute("pi", pi);
-		} else {
-			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg","게시판 조회에 실패하였습니다.");
-		}
-		
-		request.getRequestDispatcher(page).forward(request, response);
+//		BoardService bService = new BoardService();
+//	
+//		
+//		int listCount = bService.fListCount();
+//		int currentPage = 1;
+//		if(request.getParameter("currentPage") != null) {
+//			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//		}
+//		
+//		int boardLimit = 10;
+//		int pageLimit = 5;
+//		
+//		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+//		
+//		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+//		int endPage = (startPage + pageLimit) - 1;
+//		if(endPage > maxPage) {
+//			endPage = maxPage;
+//		}
+//		
+//		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+//		
+//		ArrayList<Board> fList = bService.selectFList(pi);
+//		
+//		String page = null;
+//		
+//		if(fList != null) {
+//			page = "WEB-INF/views/board/faqList.jsp";
+//			request.setAttribute("fList", fList);
+//			request.setAttribute("pi", pi);
+//		} else {
+//			page = "WEB-INF/views/common/errorPage.jsp";
+//			request.setAttribute("msg","게시판 조회에 실패하였습니다.");
+//		}
+//		
+//		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
 

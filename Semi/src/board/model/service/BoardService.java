@@ -42,28 +42,7 @@ public class BoardService {
 		
 		return list;
 	}
-
-	public int bListCount(String bDiv) {
-
-		Connection conn = getConnection();
-		
-		int count = new BoardDAO().fListCount(conn);
-		
-		close(conn);
-		
-		return count;
-	}
-
-	public ArrayList<Board> selectFList(Page pi) {
-		Connection conn = getConnection();
 	
-		ArrayList<Board> list = new BoardDAO().selectFList(conn, pi);
-	
-		close(conn);
-		
-		return list;
-	}
-
 	public int deleteBoard(String check) {
 		Connection conn = getConnection();
 		
@@ -86,6 +65,7 @@ public class BoardService {
 		close(conn);
 		return result;
   }
+	
     public int getGymListCount() {
 		
 		Connection conn = getConnection();
@@ -120,27 +100,6 @@ public class BoardService {
 		return list;
 	}
 
-
-	public int qListCount() {
-		Connection conn = getConnection();
-		
-		int count = new BoardDAO().qListCount(conn);
-		
-		close(conn);
-		
-		return count;
-	}
-
-	public ArrayList<Board> selectQList(Page pi) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> list = new BoardDAO().selectQList(conn, pi);
-	
-		close(conn);
-		
-		return list;
-
-	}
 
 	public Board detailBoard(int qNo) {
 		Connection conn = getConnection();
