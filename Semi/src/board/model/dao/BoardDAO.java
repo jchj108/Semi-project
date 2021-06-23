@@ -160,6 +160,25 @@ public class BoardDAO {
 		return list;
 	}
 
+	public int deleteBoard(Connection conn, String q_no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(q_no));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
 	public int getGymListCount(Connection conn) {
 		
 		Statement stmt = null;
