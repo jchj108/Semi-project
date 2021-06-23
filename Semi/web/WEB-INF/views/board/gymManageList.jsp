@@ -3,7 +3,7 @@
 %>
 <!DOCTYPE html>
 <%
-	ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
+ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 String cp = request.getContextPath();
 
@@ -13,14 +13,9 @@ int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
 
-
 String searchCategory = (String)request.getAttribute("category");
 String searchKeyword = (String)request.getAttribute("keyword");
 
-System.out.println("jsp searchCategory = " + searchCategory);
-System.out.println("jsp searchKeyword = " + searchKeyword);
-
-System.out.println("pi = " + pi);
 %>
 <html>
 <head>
@@ -28,7 +23,7 @@ System.out.println("pi = " + pi);
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta http-equiv="content-script-type" content="text/javascript" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Q&A 목록</title>
+<title>시설 관리</title>
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"
@@ -205,19 +200,19 @@ tr, td {
 					</table>
 				</div>
 				<div class="search">
-					<form id="search-user" method="post" action="<%=cp%>/gymManage.do">
+					<form id="search-user" method="get" action="<%=cp%>/gymManage.do">
 						<span class="sortLeft"> 
-							<select name="searchList">
-								<option value="이름">이름</option>
-								<option value="타입">타입</option>
-								<option value="군/구">군/구</option>
-								<option value="시설번호">시설번호</option>
+							<select name="searchList" >
+								<option ${(param.searchList == "이름") ? "selected" : ""} value="이름">이름</option>
+								<option ${(param.searchList == "타입") ? "selected" : ""} value="타입">타입</option>
+								<option ${(param.searchList == "군/구") ? "selected" : ""} value="군/구">군/구</option>
+								<option ${(param.searchList == "시설번호") ? "selected" : ""} value="시설번호">시설번호</option>
 							</select> 
-							<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword'>
+							<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword' value="${param.searchKeyword }">
 							<input type="submit" name="searchSubmit" value="검색">
 						</span> 
 						<span class="sortRight">  
-							<input type="button" class="delete-button" value="게시물 삭제" id="delete-user">
+							<input type="button" class="delete-button" value="시설 삭제" id="delete-user">
 							<input type="button" class="button right" value="돌아가기" onClick="history.go(-1);">
 						</span>
 					</form>
