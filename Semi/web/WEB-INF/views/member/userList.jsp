@@ -110,41 +110,43 @@
 	<div class="container">
 		<div class="row">
         	<div class="col-lg-9">
-				<div class="notice">
-                	<div class="buttonbox">
-						<button type="button" id="qnaListBtn" class="titleBtn" onclick="location.href='qnaBoardList.li'">Q&A 관리</button>
-					    <button type="button" id="faqListBtn" class="titleBtn" onclick="location.href='faqBoardList.li'">FAQ 관리</button>
-					    <button type="button" id="userListBtn" class="titleBtn">회원 관리</button>
-	    			</div>
-                <table class="notice-table" id="listTable">
-					<thead>
-						<tr>
-							<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
-							<th>회원번호</th>
-					        <th>이메일</th>
-					   		<th>이름</th>
-					        <th>가입일</th>
-					    </tr>
-					</thead>
-					<tbody>
-						<% if(list.isEmpty()){ %>
-						<tr>
-							<td colspan="5">가입한 회원이 없습니다.</td>
-						</tr>
-						<% } else { %>
-						<%		for(Member m : list){  %>
-						<tr>
-							<td><input type="checkbox" name="check" onclick="selectOne();"></td>
-							<td><%= m.getM_no() %></td>
-							<td><%= m.getM_email() %></td>
-							<td><%= m.getM_name() %></td>
-							<td><%= m.getM_date() %></td>
-						</tr>
-						<% 		} %>
-						<% } %>
-					</tbody>
-                </table>
-				</div>
+	        	<form action="<%= request.getContextPath()%>/userDetail.ad" id="detailForm" method="post">
+					<div class="notice">
+	                	<div class="buttonbox">
+							<button type="button" id="qnaListBtn" class="titleBtn" onclick="location.href='qnaBoardList.li'">Q&A 관리</button>
+						    <button type="button" id="faqListBtn" class="titleBtn" onclick="location.href='faqBoardList.li'">FAQ 관리</button>
+						    <button type="button" id="userListBtn" class="titleBtn">회원 관리</button>
+		    			</div>
+	                <table class="notice-table" id="listTable">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="checkAll"></th>
+								<th>회원번호</th>
+						        <th>이메일</th>
+						   		<th>이름</th>
+						        <th>가입일</th>
+						    </tr>
+						</thead>
+						<tbody>
+							<% if(list.isEmpty()){ %>
+							<tr>
+								<td colspan="5">가입한 회원이 없습니다.</td>
+							</tr>
+							<% } else { %>
+							<%		for(Member m : list){  %>
+							<tr>
+								<td><input type="checkbox" name="check" onclick="selectOne();" value="<%= m.getM_email() %>"></td>
+								<td><%= m.getM_no() %></td>
+								<td><%= m.getM_email() %></td>
+								<td><%= m.getM_name() %></td>
+								<td><%= m.getM_date() %></td>
+							</tr>
+							<% 		} %>
+							<% } %>
+						</tbody>
+	                </table>
+					</div>
+				</form>
                 <div class="search">
 					<form id="search-user">
 						<select name="searchList">
@@ -153,8 +155,7 @@
 						</select>
 						<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword'>
 						<input type="submit" name="searchSubmit" value="검색">
-						<input type="button" class="delete-button" value="회원 삭제" id="delete-user">
-						<input type="button" value="돌아가기" onClick="history.go(-1);">
+						<input type="button" class="delete-button" value="회원 삭제" id="deleteBtn" onclick="deleteUser();">
 					</form>
 				</div>
 					
@@ -217,19 +218,18 @@
 	        
 		// 체크박스
 		var check = document.getElementsByName('check');
-
-		function checkAll(){
-			
-			if($('#checkAll').is(":checked")){
-				for(var i = 0; i < check.length; i++){
-					check[i].checked = true;
-				}
-			} else{
+		
+		$('#checkAll').on('click', function(){
+			if($('#checkAll').prop('checked') == false){
 				for(var i = 0; i < check.length; i++){
 					check[i].checked = false;
 				}
+			} else {
+				for(var i = 0; i < check.length; i++){
+					check[i].checked = true;
+				}
 			}
-		}
+		});
 
 		function selectOne(){
 			var count = 0;
@@ -245,8 +245,29 @@
 			} else{
 				$('#checkAll').prop('checked', true);
 			}
-			
 		}
+		
+		function deleteUser(){
+			var count = 0;
+			
+			for(i = 0; i < check.length; i++){ // 체크박스 체크 여부 확인
+				if(check[i].checked){
+					count++;
+				}
+			}
+			
+			if(count == 0){
+				alert("선택된 회원이 없습니다.");
+			} else {
+				var bool = confirm("정말 삭제하시겠습니까?");
+				if(bool){
+					$('#detailForm').attr('action', 'userDelete.ad');
+					$('#detailForm').submit();
+				}
+			}
+		};
+		
+		
 		
 		$(function(){
 			$('#listTable td').mouseenter(function(){

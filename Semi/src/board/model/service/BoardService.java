@@ -2,6 +2,8 @@ package board.model.service;
 
 import static common.JDBCTemplate.close;
 import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -54,6 +56,29 @@ public class BoardService {
 		close(conn);
 		
 		return list;
+	}
+
+	public int deleteBoard(String check) {
+		Connection conn = getConnection();
+		
+		int result = 0;
+		BoardDAO bDAO = new BoardDAO();
+		
+		String arr[] = check.split(",");
+		String q_no = null;
+		for(int i = 0; i < arr.length; i++) {
+			q_no = arr[i];
+			result = bDAO.deleteBoard(conn, q_no);
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+		
+		close(conn);
+		return result;
 	}
 
 }

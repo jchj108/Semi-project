@@ -178,6 +178,31 @@ public class MemberService {
 		
 		return list;
 	}
+
+	public int deleteUser(String check) {
+		Connection conn = getConnection();
+		
+		int result = 0;
+		MemberDAO mDAO = new MemberDAO();
+		
+		String arr[] = check.split(",");
+		String email = null;
+		for(int i = 0; i < arr.length; i++) {
+			email = arr[i];
+			result = mDAO.deleteUser(conn, email);
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+				break;
+			}
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	
 	
 }

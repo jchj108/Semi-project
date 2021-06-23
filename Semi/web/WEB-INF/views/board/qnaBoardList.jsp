@@ -89,7 +89,7 @@
          	margin-left: 50%;
          }
          
-		 .delete-button{margin-left: 50%;}
+		 .delete-button{margin-left: 50%; }
       
       	 .page-div{position: absolute;}
       	
@@ -109,41 +109,43 @@
 	<div class="container">
 		<div class="row">
         	<div class="col-lg-9">
-				<div class="notice">
-                	<div class="buttonbox">
-						<button type="button" id="qnaListBtn" class="titleBtn">Q&A 관리</button>
-						<button type="button" id="faqListBtn" class="titleBtn"  onclick="location.href='faqBoardList.li'">FAQ 관리</button>
-					    <button type="button" id="userListBtn" class="titleBtn" onclick="location.href='userList.li'">회원 관리</button>
-	    			</div>
-                <table class="notice-table" id="listTable">
-					<thead>
-						<tr>
-							<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
-							<th>글번호</th>
-					        <th>이메일</th>
-					   		<th>제목</th>
-					        <th>작성일</th>
-					    </tr>
-					</thead>
-					<tbody>
-						<% if(list.isEmpty()) {%>
-						<tr>
-							<td colspan="5">작성된 게시글이 없습니다.</td>
-						</tr>
-						<% } else { %>
-						<% 		for(Board b : list) { %>
-					    <tr>
-							<td><input type="checkbox" name="check" onclick="selectOne();"></td>
-							<td><%= b.getQ_no() %></td>
-							<td><%= b.getWriterName()%></td>
-							<td><%= b.getQ_title() %></td>
-							<td><%= b.getQ_date()%></td>
-						</tr>
-						<% 		} %>
-						<% } %>
-					</tbody>
-                </table>
-				</div>
+        		<form action="<%= request.getContextPath()%>/qnaDetail.ad" id="detailForm" method="post">
+					<div class="notice">
+	                	<div class="buttonbox">
+							<button type="button" id="qnaListBtn" class="titleBtn">Q&A 관리</button>
+							<button type="button" id="faqListBtn" class="titleBtn"  onclick="location.href='faqBoardList.li'">FAQ 관리</button>
+						    <button type="button" id="userListBtn" class="titleBtn" onclick="location.href='userList.li'">회원 관리</button>
+		    			</div>
+	                <table class="notice-table" id="listTable">
+						<thead>
+							<tr>
+								<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
+								<th>글번호</th>
+						        <th>이메일</th>
+						   		<th>제목</th>
+						        <th>작성일</th>
+						    </tr>
+						</thead>
+						<tbody>
+							<% if(list.isEmpty()) {%>
+							<tr>
+								<td colspan="5">작성된 게시글이 없습니다.</td>
+							</tr>
+							<% } else { %>
+							<% 		for(Board b : list) { %>
+						    <tr>
+								<td><input type="checkbox" name="check" onclick="selectOne();" value="<%= b.getQ_no()%>"></td>
+								<td><%= b.getQ_no() %></td>
+								<td><%= b.getWriterName()%></td>
+								<td><%= b.getQ_title() %></td>
+								<td><%= b.getQ_date()%></td>
+							</tr>
+							<% 		} %>
+							<% } %>
+						</tbody>
+	                </table>
+					</div>
+				</form>
                 <div class="search">
 					<form id="search-user">
 						<select name="searchList">
@@ -152,8 +154,7 @@
 						</select>
 						<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword'>
 						<input type="submit" name="searchSubmit" value="검색">
-						<input type="button" class="delete-button" value="게시물 삭제" id="delete-user">
-						<input type="button" value="돌아가기" onClick="history.go(-1);">
+						<input type="button" class="delete-button" value="게시물 삭제" id="deleteBtn" onclick="deleteQnA();">
 					</form>
 				</div>
 					
@@ -216,18 +217,18 @@
 	// 체크박스
 	var check = document.getElementsByName('check');
 
-	function checkAll(){
-		
-		if($('#checkAll').is(":checked")){
-			for(var i = 0; i < check.length; i++){
-				check[i].checked = true;
-			}
-		} else{
+	$('#checkAll').on('click', function(){
+		if($('#checkAll').prop('checked') == false){
 			for(var i = 0; i < check.length; i++){
 				check[i].checked = false;
 			}
+		} else {
+			for(var i = 0; i < check.length; i++){
+				check[i].checked = true;
+			}
 		}
-	}
+	});
+
 
 	function selectOne(){
 		var count = 0;
@@ -246,6 +247,26 @@
 		
 	}
 	
+	function deleteQnA(){
+		var count = 0;
+		
+		for(i = 0; i < check.length; i++){ // 체크박스 체크 여부 확인
+			if(check[i].checked){
+				count++;
+			}
+		}
+		
+		if(count == 0){
+			alert("선택된 항목이 없습니다.");
+		} else {
+			var bool = confirm("정말 삭제하시겠습니까?");
+			if(bool){
+				$('#detailForm').attr('action', 'qnaDelete.ad');
+				$('#detailForm').submit();
+			}
+		}
+	};
+	
 	$(function(){
 		$('#listTable td').mouseenter(function(){
 			$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
@@ -253,7 +274,7 @@
 			$(this).parent().css('background', 'none');
 		}).click(function(){
 // 			var bId = $(this).parent().children().eq(0).text();
-			
+
 <%-- 			location.href='<%= request.getContextPath() %>/detail.bo?bId=' + bId; --%>
 			
 		});
