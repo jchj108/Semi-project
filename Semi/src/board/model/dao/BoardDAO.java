@@ -36,67 +36,7 @@ public class BoardDAO {
 	
 	}
 
-	public int fListCount(Connection conn) {
-		Statement stmt = null;
-		ResultSet rset = null;
-		int count = 0;
 		
-		String query = prop.getProperty("fListCount");	
-		
-		try {
-					
-			stmt = conn.createStatement();
-			rset = stmt.executeQuery(query);
-			
-			if(rset.next()) {
-				count = rset.getInt(1);	
-				
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(stmt);
-		}
-		
-		return count;
-	}
-
-	public ArrayList<Board> selectFList(Connection conn, Page pi) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = new ArrayList<Board>();
-		
-		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int end = start + pi.getBoardLimit() - 1;
-		String query = prop.getProperty("selectFList");
-		
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Board b = new Board(rset.getInt("q_no"),
-									rset.getString("q_title"),
-									rset.getDate("q_date"),
-									rset.getInt("m_num"),
-									rset.getString("m_name"));
-				list.add(b);			
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-	
 	public int getListCount(Connection conn, String str) {
 		Statement stmt = null;
 		ResultSet rset = null;
@@ -177,7 +117,13 @@ public class BoardDAO {
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
 	public int deleteBoard(Connection conn, String q_no) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -256,9 +202,14 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-		
-		return result;
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return fileList;
 	}
+		
 
 	public int getGymListCount(Connection conn) {
 		
@@ -320,14 +271,13 @@ public class BoardDAO {
 				list.add(g);
 			}
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
 
-		return fileList;
+		return list;
 	}
 
 	public ArrayList<Comments> selectComments(Connection conn, int qNo) {
@@ -356,8 +306,13 @@ public class BoardDAO {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-
-		return list;
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+			}
+				
+		return cList;
 	}
 
 	public ArrayList<Gym> searchGym(Connection conn, String keyword, String category, PageInfo pi) {
@@ -412,10 +367,10 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}
-
 		
-		return cList;
-	}
+		return list;
+	}	
+	
 
 	public int insertComment(Connection conn, Comments c) {
 		PreparedStatement pstmt = null;
@@ -440,8 +395,7 @@ public class BoardDAO {
 		return result;
 	}
 
-		return list;
-	}
+		
 
 	public int getSearchGymListCount(Connection conn, String keyword, String category) {
 		
@@ -482,6 +436,9 @@ public class BoardDAO {
 			close(pstmt);
 		}
 		System.out.println("dao listCount : " + listCount);
+		
 		return listCount;
 	}
+
+	
 }
