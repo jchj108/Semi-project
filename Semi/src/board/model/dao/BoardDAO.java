@@ -337,27 +337,27 @@ public class BoardDAO {
 		return cList;
 	}
 
-	public int deleteBoard(Connection conn, int qNo) {
-		PreparedStatement pstmt = null;
-		int result = 0;
-		
-		String query = prop.getProperty("deleteBoard");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, qNo);
-			
-			result = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(pstmt);
-		}
-		
-		return result;
-	}
+//	public int deleteBoard(Connection conn, int qNo) {
+//		PreparedStatement pstmt = null;
+//		int result = 0;
+//		
+//		String query = prop.getProperty("deleteBoard");
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setInt(1, qNo);
+//			
+//			result = pstmt.executeUpdate();
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(pstmt);
+//		}
+//		
+//		return result;
+//	}
 
 	public int insertComment(Connection conn, Comments c) {
 		PreparedStatement pstmt = null;

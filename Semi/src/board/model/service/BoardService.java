@@ -124,21 +124,21 @@ public class BoardService {
 		return cList;
 	}
 
-	public int deleteBoard(int qNo) {
-		Connection conn = getConnection();
-		
-		int result = new BoardDAO().deleteBoard(conn, qNo);
-		
-		if(result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
-		
-		close(conn);
-		
-		return result;
-	}
+//	public int deleteBoard(int qNo) {
+//		Connection conn = getConnection();
+//		
+//		int result = new BoardDAO().deleteBoard(conn, qNo);
+//		
+//		if(result > 0) {
+//			commit(conn);
+//		} else {
+//			rollback(conn);
+//		}
+//		
+//		close(conn);
+//		
+//		return result;
+//	}
 
 	public ArrayList<Comments> insertComment(Comments c) {
 		Connection conn = getConnection();
