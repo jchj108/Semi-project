@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import board.model.vo.Board;
+import board.model.vo.Comments;
 import board.model.vo.PageInfo;
-import comments.model.vo.Comments;
 import member.model.vo.Member;
 import page.model.vo.Page;
 import review.model.vo.Review;

@@ -25,6 +25,8 @@
         
         *{font-family: 'Noto Sans KR';}        		
 		
+		.boardTitle:hover{cursor: pointer; color: #00B1D2;}	
+		
 		.page {margin-bottom: 50px; margin-top: 50px;}
 		 		
 		.pagination {
@@ -143,7 +145,7 @@
 							<% } else { %>
 								<% for(Board b : qList) { %>
 							<tr>								
-								<td><%= b.getQ_no()%></td>
+								<td><%= b.getQ_no()%><input type="hidden" name="qNo" value="<%= b.getQ_no()%>"></td>
 								<td class="boardTitle"><%= b.getQ_title() %></td>							
 								<td><%= b.getWriterName() %></td>
 								<td><%= b.getQ_date() %></td>
@@ -176,7 +178,14 @@
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=1'">&laquo;</div>
 			</li>
-			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
+				<script>
+					if(<%= currentPage %> <= 1) {
+						$('#beforeBtn').attr('disabled', 'true');
+					}
+				</script>
+			</li>
 			<% for(int p = startPage; p <= endPage; p++) { %>
 				<% if(p == currentPage) { %>
 				<li class="page-item">
@@ -188,6 +197,16 @@
 				</li>						
 				<% } %>
 			<% } %>
+			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
+				<script>
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$('#afterBtn').prop('disabled', true);
+					}
+				</script>
+			</li>
+			
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
@@ -199,7 +218,7 @@
         <script>	        
 	        
 	        $('.boardTitle').on('click', function(){
-				var qNo = $('.boardList td').parent().children().eq(0).text();
+	        	var qNo = $(this).parents().children().eq(0).text();
 				location.href='<%= request.getContextPath() %>/detailBoard.do?qNo=' + qNo;
 			});
 	        

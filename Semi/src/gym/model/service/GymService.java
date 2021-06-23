@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import gym.model.dao.GymDAO;
 import gym.model.vo.Gym;
+import page.model.vo.Page;
 
 public class GymService {
 
@@ -79,5 +80,45 @@ public class GymService {
 		close(conn);
 		
 		return list;
+	}
+
+	public int gEListCount() {
+		
+		Connection conn = getConnection();
+		
+		int count = new GymDAO().gEListCount(conn);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public int gListCount(String category) {
+		Connection conn = getConnection();
+		
+		int count = new GymDAO().gListCount(conn, category);
+		
+		close(conn);
+		return count;
+	}
+
+	public ArrayList<Gym> selectGList(String category, Page pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> gList = new GymDAO().selectGList(conn, pi, category);
+		
+		close(conn);
+		
+		return gList;
+	}
+
+	public ArrayList<Gym> selectGEList(Page pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> gList = new GymDAO().selectGEList(conn, pi);
+		
+		close(conn);
+		
+		return gList;
 	}
 }

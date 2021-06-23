@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
-import page.model.vo.Page;
+import board.model.vo.Comments;
+import board.model.vo.QnaFile;
 
 /**
- * Servlet implementation class FAQListServlet
+ * Servlet implementation class boardDetailServlet
  */
-@WebServlet("/qna.do")
-public class QNAListServlet extends HttpServlet {
+@WebServlet("/detailBoard.do")
+public class BoardDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QNAListServlet() {
+    public BoardDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,42 +33,28 @@ public class QNAListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int qNo = Integer.parseInt(request.getParameter("qNo"));
+		
 		BoardService bService = new BoardService();
-	
-		int listCount = bService.qListCount();
-		int currentPage = 1;
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
-		}
 		
-		int boardLimit = 10;
-		int pageLimit = 5;
+		Board b = bService.detailBoard(qNo);
 		
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		ArrayList<QnaFile> fileList = bService.selectFile(qNo);
 		
-		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
-		int endPage = (startPage + pageLimit) - 1;
-		if(endPage > maxPage) {
-			endPage = maxPage;
-		}
-		
-		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
-		
-		ArrayList<Board> qList = bService.selectQList(pi);
+		ArrayList<Comments> cList = bService.selectComment(qNo);
 		
 		String page = null;
-		
-		if(qList != null) {
-			page = "WEB-INF/views/board/qnaList.jsp";
-			request.setAttribute("qList", qList);
-			request.setAttribute("pi", pi);
+		if(b != null) {
+			request.setAttribute("b", b);
+			request.setAttribute("fileList", fileList);
+			request.setAttribute("cList", cList);
+			page = "WEB-INF/views/board/boardDetail.jsp";
 		} else {
+			request.setAttribute("msg", "게시글 조회에 실패하였습니다.");
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg","게시판 조회에 실패하였습니다.");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
-		
 	}
 
 	/**

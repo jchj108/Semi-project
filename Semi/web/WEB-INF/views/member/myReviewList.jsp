@@ -27,7 +27,7 @@
 	*{font-family: 'Noto Sans KR';}
 	.side:hover, .reviewBody:hover{cursor: pointer; color: #00B1D2;}	
 
-	.page {margin-bottom: 50px;}
+	 .page {margin-bottom: 50px; margin-top: 50px;}
 		 		
 	.pagination {
 	list-style-type: none;
@@ -145,6 +145,15 @@
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=1'">&laquo;</div>
 			</li>
 			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
+				<script>
+					if(<%= currentPage %> <= 1) {
+						$('#beforeBtn').attr('disabled', 'true');
+					}
+				</script>
+			</li>
+			
 			<% for(int p = startPage; p <= endPage; p++) { %>
 				<% if(p == currentPage) { %>
 				<li class="page-item">
@@ -156,6 +165,16 @@
 				</li>						
 				<% } %>
 			<% } %>
+			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
+				<script>
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$('#afterBtn').prop('disabled', true);
+					}
+				</script>
+			</li>
+			
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    

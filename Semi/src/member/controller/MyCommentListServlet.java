@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import comments.model.vo.Comments;
+import board.model.vo.Comments;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 import page.model.vo.Page;

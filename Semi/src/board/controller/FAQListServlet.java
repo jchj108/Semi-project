@@ -33,9 +33,9 @@ public class FAQListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BoardService bService = new BoardService();
-		String bDiv = "F";
+	
 		
-		int listCount = bService.bListCount(bDiv);
+		int listCount = bService.fListCount();
 		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
@@ -54,7 +54,7 @@ public class FAQListServlet extends HttpServlet {
 		
 		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
 		
-		ArrayList<Board> fList = bService.selectList(pi, bDiv);
+		ArrayList<Board> fList = bService.selectFList(pi);
 		
 		String page = null;
 		

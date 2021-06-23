@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, comments.model.vo.Comments, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.Comments, page.model.vo.Page"%>
 <%
 	ArrayList<Comments> list = (ArrayList)request.getAttribute("list");
 	int qNo = 0;
@@ -27,7 +27,7 @@
 	*{font-family: 'Noto Sans KR';}
 	.side:hover, .commentsBody:hover{cursor: pointer; color: #00B1D2;}	
 
-	.page {margin-bottom: 50px;}
+	 .page {margin-bottom: 50px; margin-top: 50px;}
 		 		
 	.pagination {
 	list-style-type: none;
@@ -144,7 +144,14 @@
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=1'">&laquo;</div>
 			</li>
-			
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
+				<script>
+					if(<%= currentPage %> <= 1) {
+						$('#beforeBtn').attr('disabled', 'true');
+					}
+				</script>
+			</li>
 			<% for(int p = startPage; p <= endPage; p++) { %>
 				<% if(p == currentPage) { %>
 				<li class="page-item">
@@ -156,6 +163,14 @@
 				</li>						
 				<% } %>
 			<% } %>
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
+				<script>
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$('#afterBtn').prop('disabled', true);
+					}
+				</script>
+			</li>
 			<li class="page-item">
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myCommentList.me?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
