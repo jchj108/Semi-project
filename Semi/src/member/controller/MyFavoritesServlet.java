@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.vo.Comments;
+import gym.model.vo.Gym;
 import member.model.service.MemberService;
 import member.model.vo.Member;
 import page.model.vo.Page;
 
 /**
- * Servlet implementation class MyCommentListServlet
+ * Servlet implementation class MyFavoritesServlet
  */
-@WebServlet("/myCommentList.me")
-public class MyCommentListServlet extends HttpServlet {
+@WebServlet("/myFavoritesList.me")
+public class MyFavoritesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyCommentListServlet() {
+    public MyFavoritesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -36,7 +36,7 @@ public class MyCommentListServlet extends HttpServlet {
 		int mNo = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
 		MemberService mService = new MemberService();
 		
-		int listCount = mService.countMyComment(mNo);
+		int listCount = mService.countMyFav(mNo);
 		
 		int currentPage = 1;	
 		if(request.getParameter("currentPage") != null) {
@@ -44,7 +44,7 @@ public class MyCommentListServlet extends HttpServlet {
 		}
 		
 		int pageLimit = 5;	
-		int boardLimit = 10;	
+		int boardLimit = 6;	
 		
 		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
 		int startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;	
@@ -53,19 +53,19 @@ public class MyCommentListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		Page pageInfo = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
-			
-		ArrayList<Comments> list = mService.selectMyComment(mNo, pageInfo);
+		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+		
+		ArrayList<Gym> list = mService.selectMyFav(mNo, pi);
 		
 		String page = null;
 		
 		if(list != null) {
-			page = "WEB-INF/views/member/myCommentList.jsp";
+			page = "WEB-INF/views/member/myFavoritesList.jsp";
 			request.setAttribute("list", list);
-			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("pageInfo", pi);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "댓글 조회에 실패하였습니다.");
+			request.setAttribute("msg", "즐겨찾기 조회에 실패하였습니다.");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);

@@ -8,8 +8,11 @@ import static common.JDBCTemplate.rollback;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.model.dao.BoardDAO;
 import board.model.vo.Board;
-import comments.model.vo.Comments;
+import board.model.vo.Comments;
+import board.model.vo.PageInfo;
+import gym.model.vo.Gym;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
 import page.model.vo.Page;
@@ -154,6 +157,69 @@ public class MemberService {
 		
 		return m;
 	}
+	
+	public int getUserCount() {
+		Connection conn = getConnection();
+		
+		int userCount = new MemberDAO().getUserCount(conn);
+		
+		close(conn);
+		
+		return userCount;
+	}
+	
+	public ArrayList<Member> selectUserList(PageInfo pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Member> list = new MemberDAO().selectUserList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
 
+	public int deleteUser(String check) {
+		Connection conn = getConnection();
+		
+		int result = 0;
+		MemberDAO mDAO = new MemberDAO();
+		
+		String arr[] = check.split(",");
+		String email = null;
+		for(int i = 0; i < arr.length; i++) {
+			email = arr[i];
+			result = mDAO.deleteUser(conn, email);
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+				break;
+			}
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 
+	public int countMyFav(int mNo) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDAO().countMyFav(conn, mNo);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Gym> selectMyFav(int mNo, Page pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new MemberDAO().selectMyFav(conn, pi, mNo);
+		
+		return list;
+	}
+	
+	
 }

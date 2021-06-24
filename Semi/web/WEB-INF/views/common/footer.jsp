@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+    pageEncoding="UTF-8" import="member.model.vo.Member"%>
+<% Member login = (Member)session.getAttribute("loginUser"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -89,7 +89,11 @@
 	
 	<script>
 		$('#boardList').click(function(){
-			location.href="<%=request.getContextPath()%>/faq.do";			
+			if('<%=login%>' != 'null') {
+				location.href="<%=request.getContextPath()%>/faq.do";
+			} else {
+				alert('회원만 이용 가능합니다 :)');
+			}
 		});
 	</script>
 

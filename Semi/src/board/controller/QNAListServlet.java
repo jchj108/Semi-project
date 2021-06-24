@@ -1,4 +1,4 @@
-package member.controller;
+package board.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.vo.Comments;
-import member.model.service.MemberService;
+import board.model.service.BoardService;
+import board.model.vo.Board;
 import member.model.vo.Member;
 import page.model.vo.Page;
 
 /**
- * Servlet implementation class MyCommentListServlet
+ * Servlet implementation class FAQListServlet
  */
-@WebServlet("/myCommentList.me")
-public class MyCommentListServlet extends HttpServlet {
+@WebServlet("/qna.do")
+public class QNAListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyCommentListServlet() {
+    public QNAListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,41 +34,42 @@ public class MyCommentListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int mNo = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
-		MemberService mService = new MemberService();
-		
-		int listCount = mService.countMyComment(mNo);
-		
-		int currentPage = 1;	
+		BoardService bService = new BoardService();
+//	
+		int listCount = bService.getQListCount(mNo);
+		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int pageLimit = 5;	
-		int boardLimit = 10;	
+		int boardLimit = 10;
+		int pageLimit = 5;
 		
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
-		int startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;	
-		int endPage = (startPage + pageLimit) - 1;	
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		
+		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+		int endPage = (startPage + pageLimit) - 1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
-		Page pageInfo = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
-			
-		ArrayList<Comments> list = mService.selectMyComment(mNo, pageInfo);
-		
+		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+//		
+		ArrayList<Board> qList = bService.selectQList(pi, mNo);
+//		
 		String page = null;
 		
-		if(list != null) {
-			page = "WEB-INF/views/member/myCommentList.jsp";
-			request.setAttribute("list", list);
-			request.setAttribute("pageInfo", pageInfo);
+		if(qList != null) {
+			page = "WEB-INF/views/board/qnaList.jsp";
+			request.setAttribute("qList", qList);
+			request.setAttribute("pi", pi);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "댓글 조회에 실패하였습니다.");
+			request.setAttribute("msg","게시판 조회에 실패하였습니다.");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		
 	}
 
 	/**

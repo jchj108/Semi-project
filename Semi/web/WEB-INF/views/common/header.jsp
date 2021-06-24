@@ -103,9 +103,9 @@
 								&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
-								<button class="dropdown-item" type="button">회원정보관리</button>
-								<button class="dropdown-item" type="button">시설관리</button>
-								<button class="dropdown-item" type="button">게시글관리</button>
+								<button class="dropdown-item" type="button" onclick="location.href='userList.li'">회원정보관리</button>
+								<button class="dropdown-item" type="button" onclick="location.href='gymManage.do'">시설관리</button>
+								<button class="dropdown-item" type="button" onclick="location.href='qnaBoardList.li'">게시글관리</button>
 								<button class="dropdown-item" type="button">통계조회</button>
 								<div class="dropdown-divider"></div>
 								<button class="dropdown-item text-right" type="button" id="logout">로그아웃</button>

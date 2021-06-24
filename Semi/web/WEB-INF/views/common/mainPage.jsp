@@ -5,11 +5,6 @@ ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
 ArrayList<Gym> recommendList = (ArrayList)request.getAttribute("recommendList");
 ArrayList<Gym> localList = (ArrayList)request.getAttribute("localList");
-
-for(Gym g : localList) {
-	System.out.println(g);
-}
-
 %>
 <!DOCTYPE html>
 <html>
@@ -676,22 +671,22 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 								<img src="<%=cp%>/image/free-icon-swimming-50004.png" width="45px" alt="수영" />
 									<p>수영</p>
 								</div></a></li>
-						<li class="category"><a>
+						<li class="category">
 							<a href="<%=cp %>/gymCategory.do?category=soccer"><div class="category-icon">
 									<img src="<%=cp%>/image/free-icon-football-players-on-game-263102.png" width="45px" alt="축구" />
 									<p>축구</p>
 								</div></a></li>
-						<li class="category"><a>
+						<li class="category">
 							<a href="<%=cp %>/gymCategory.do?category=tennis"><div class="category-icon">
 									<img src="<%=cp%>/image/free-icon-tennis-3332598.png" width="45px" alt="테니스" />
 									<p>테니스</p>
 								</div></a></li>
-						<li class="category"><a>
+						<li class="category">
 							<a href="<%=cp %>/gymCategory.do?category=golf"><div class="category-icon">
 									<img src="<%=cp%>/image/golfer.png" alt="골프" width="45x" />
 									<p>골프</p>
 								</div></a></li>
-						<li class="category"><a>
+						<li class="category">
 							<a href="<%=cp %>/gymCategory.do?category=footVolley"><div class="category-icon">
 									<img
 										src="<%=cp%>/image/artboard-pixel-scalable-to-any-size-perfect-vector-image-use-web-shop-many-glyph-beautiful-football-ball-icon-121131289.jpg"
@@ -699,20 +694,20 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 									/>
 									<p>족구</p>
 								</div></a></li>
-						<li class="category"><a>
+						<li class="category">
 							<a href="<%=cp %>/gymCategory.do?category=badminton"><div class="category-icon">
 									<img src="<%=cp%>/image/man-playing-badminton.png" alt="배드민턴" width="45x" />
 									<p>배드민턴</p>
 								</div></a></li>
-						<li class="category"><a>
+						<li class="category">
 							<a href="<%=cp %>/gymCategory.do?category=basketball"><div class="category-icon">
 									<img src="<%=cp%>/image/basketball-player-scoring.png" alt="농구" width="45px" />
 									<p>농구</p>
 								</div></a></li>
-						<li class="category"><a>
-							<a href="<%=cp %>/gymCategory.do?category=etc"><div class="category-icon">
-									<img src="<%=cp%>/image/more (1).png" alt="기타" width="45px" />
-									<p>기타</p>
+						<li class="category">
+							<a href="<%=cp %>/gymCategory.do?category=all"><div class="category-icon">
+									<img src="<%=cp%>/image/more (1).png" alt="전체" width="45px" />
+									<p>전체보기</p>
 								</div></a></li>
 					</ul>
 				</div>
@@ -851,7 +846,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 			<% } %> --%>
 			
 			<div class="local-images">
-				<% if(request.getSession().getAttribute("loginUser") != null) { %>
+				<% if(loginUser != null) { %>
 					<% for(int i = 0; i<recommendList.size(); i++) { %>
 						<div class="imageBox">
 							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">

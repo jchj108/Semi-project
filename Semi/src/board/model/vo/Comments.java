@@ -1,4 +1,4 @@
-package comments.model.vo;
+package board.model.vo;
 
 import java.sql.Date;
 

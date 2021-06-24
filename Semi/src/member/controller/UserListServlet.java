@@ -9,22 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.vo.Comments;
+import org.apache.catalina.filters.SetCharacterEncodingFilter;
+
+import board.model.vo.PageInfo;
 import member.model.service.MemberService;
 import member.model.vo.Member;
-import page.model.vo.Page;
 
 /**
- * Servlet implementation class MyCommentListServlet
+ * Servlet implementation class AdminUserListFormServlet
  */
-@WebServlet("/myCommentList.me")
-public class MyCommentListServlet extends HttpServlet {
+@WebServlet("/userList.li")
+public class UserListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyCommentListServlet() {
+    public UserListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,39 +34,47 @@ public class MyCommentListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mNo = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
+		
+		int listCount;		
+		int currentPage;	
+		int pageLimit;		
+		int boardLimit;		
+		int maxPage;		
+		int startPage;		
+		int endPage;	
+		
 		MemberService mService = new MemberService();
+		listCount = mService.getUserCount();
 		
-		int listCount = mService.countMyComment(mNo);
-		
-		int currentPage = 1;	
+		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int pageLimit = 5;	
-		int boardLimit = 10;	
+		pageLimit = 10;
+		boardLimit = 10;
 		
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
-		int startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;	
-		int endPage = (startPage + pageLimit) - 1;	
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		
+		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
+		
+		endPage = startPage + pageLimit - 1;
 		if(endPage > maxPage) {
 			endPage = maxPage;
 		}
 		
-		Page pageInfo = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
-			
-		ArrayList<Comments> list = mService.selectMyComment(mNo, pageInfo);
-		
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+
+		ArrayList<Member> list = mService.selectUserList(pi);
 		String page = null;
 		
 		if(list != null) {
-			page = "WEB-INF/views/member/myCommentList.jsp";
+			page = "WEB-INF/views/member/userList.jsp";
 			request.setAttribute("list", list);
-			request.setAttribute("pageInfo", pageInfo);
+			request.setAttribute("pi", pi);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "댓글 조회에 실패하였습니다.");
+			request.setAttribute("msg", "사용자 조회에 실패하였습니다.");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
