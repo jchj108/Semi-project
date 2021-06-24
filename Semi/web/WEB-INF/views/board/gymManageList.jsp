@@ -38,8 +38,6 @@ String searchKeyword = (String)request.getAttribute("keyword");
 	font-weight: 500;
 }
 
-
-
 .titleBtn {
 	background-color: white;
 	padding: 8px 30px !important;
@@ -143,6 +141,24 @@ tr, td {
 	font-weight : 700;
 	color : black;
 }
+
+.titleBtn {
+	cursor: pointer;
+}
+
+.sortLeft {
+	margin-top: 5px;
+    display: flex;
+    padding-top: 4px;
+    width: 335px;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+#search-user {
+	align-items: center;
+}
+
 </style>
 </head>
 <body>
@@ -153,9 +169,7 @@ tr, td {
 		<div class="row">
 			<div class="col-lg-9">
 				<div class="notice">
-					<div class="buttonbox">
 						<button type="button" id="qnaListBtn" class="titleBtn">시설 관리</button>
-					</div>
 					<table class="notice-table" id="listTable">
 						<thead>
 							<tr>
@@ -209,10 +223,11 @@ tr, td {
 								<option ${(param.searchList == "시설번호") ? "selected" : ""} value="시설번호">시설번호</option>
 							</select> 
 							<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword' value="${param.searchKeyword }">
-							<input type="submit" name="searchSubmit" value="검색">
+							<input type="submit" name="searchSubmit" class="btn btn-primary btn-sm" value="검색">
 						</span> 
 						<span class="sortRight">  
-							<input type="button" class="delete-button" value="시설 삭제" id="delete-user">
+							<input type="button" class="insert-button" value="시설 등록" id="insert-gym">
+							<input type="button" class="delete-button" value="시설 삭제" id="delete-gym">
 							<input type="button" class="button right" value="돌아가기" onClick="history.go(-1);">
 						</span>
 					</form>
@@ -384,16 +399,28 @@ tr, td {
 			</div>
 		</div>
 	</div>
+	
+	<!-- 시설 등록 -->
+	<div class="modal fade" id="gyminsertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<%@include file="../gym/gymInsertModal.jsp" %>
+	</div>	
+	
 	<!-- Footer-->
 	<%@ include file="../common/footer.jsp"%>
 	<script>
 	(window.onload = function() {
     	$('#qnaListBtn').css({'background':'#00B1D2','color':'white'});
+    	
+    	$('#insert-gym').on('click', function() {
+    		$('#gyminsertModal').modal("show");
+    	});
 	});
+	
+	
         
 	// 체크박스
 	var check = document.getElementsByName('check');
-
+	
 	function checkAll(){
 		
 		if($('#checkAll').is(":checked")){
