@@ -145,6 +145,20 @@ tr, td {
 .titleBtn {
 	cursor: pointer;
 }
+
+.sortLeft {
+	margin-top: 5px;
+    display: flex;
+    padding-top: 4px;
+    width: 335px;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+#search-user {
+	align-items: center;
+}
+
 </style>
 </head>
 <body>
@@ -209,7 +223,7 @@ tr, td {
 								<option ${(param.searchList == "시설번호") ? "selected" : ""} value="시설번호">시설번호</option>
 							</select> 
 							<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword' value="${param.searchKeyword }">
-							<input type="submit" name="searchSubmit" value="검색">
+							<input type="submit" name="searchSubmit" class="btn btn-primary btn-sm" value="검색">
 						</span> 
 						<span class="sortRight">  
 							<input type="button" class="insert-button" value="시설 등록" id="insert-gym">

@@ -61,7 +61,7 @@ public class MapServlet extends HttpServlet {
 		}
 		
 		if(request.getParameter("type") != null && request.getParameter("type").equals("living")) {
-			list = livingList; // 서비스에 다녀와야 하나? 아니면 복사해서 써도 되나?
+			list = livingList; 
 		}
 		else if(request.getParameter("type") != null && request.getParameter("type").equals("pool")) {
 			list = poolList;

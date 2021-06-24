@@ -70,14 +70,31 @@
 	margin-left: 30px;
 	margin-top: 10px;
 	font-weight: 400;
+	margin-bottom: 10px;
 }
 
 label {
 	margin-bottom: 0px;
 }
 
-btn btn-light {
-	float: right;
+.gymTime {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	color: dimgray;
+	font-size: 15px;
+}
+
+.form-check-label {
+	color: dimgray;
+	font-size: 15px;
+}
+
+.imgArea {
+	border: 1px solid gray;
+	width: 150px;
+	height: 100px;
+	display: inline-block;
 }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.css" rel="stylesheet" />
@@ -96,9 +113,9 @@ btn btn-light {
 			</div>
 			<div class="modal-body">
 				<form class="contents-inside" action="<%=request.getContextPath()%>/insert.fc" method="post" encType="multipart/form-data">
-					<label for="gymName">시설 이름</label>
+					<label for="gymName">이름</label>
 					<input type="text" class="form-control" name="gymName" id="gymName" placeholder="이름을 입력하세요" required>
-					<label for="gymAddr">상세 주소</label><br>
+					<label for="gymAddr">주소</label><br>
 					<input type="text" class="form-control" name="gymAddr" id="gymAddr" placeholder="주소를 입력하세요" style="width: 580px; display: inline-block" required>
 					<button type="button" class="btn btn-primary" style="float: right">주소 검색</button>
 					<label for="gymTel">전화번호</label><br>
@@ -107,78 +124,76 @@ btn btn-light {
 					<input type="text" class="form-control" name="gymHomepage" id="gymHomepage" placeholder="홈페이지를 입력하세요">
 					<label for="gymParking">주차 정보</label><br>
 					<input type="text" class="form-control" name="gymParking" id="gymParking" placeholder="주차 정보를 입력하세요">
-					<label for="gymParking">강습 여부</label><br>
+					<label for="gymBigo">비고</label><br>
+					<input type="text" class="form-control" name="gymBigo" id="gymBigo" placeholder="비고를 입력하세요">
+					<label for="signUpProfile" style="margin-bottom:10px;">대표 사진</label><br>
+					<div class="imgArea"></div>
+					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
+						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<label class="custom-file-label" for="signUpProfile">파일선택</label>
+					</div>
+					<br> <label for="signUpProfile" style="display: block; margin-bottom: 10px;">일반 사진</label>
+					<div class="imgArea"></div>
+					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
+						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<label class="custom-file-label" for="signUpProfile">파일선택</label>
+					</div>
+					<br>
+					<div class="imgArea"></div>
+					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
+						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<label class="custom-file-label" for="signUpProfile">파일선택</label>
+					</div>
+					<br>
+					<div class="imgArea"></div>
+					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
+						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<label class="custom-file-label" for="signUpProfile">파일선택</label>
+					</div>
+					<br> <br> <label for="weekdayOpen">운영 시간</label><br>
+					<div class="gymTime">
+						<label for="weekdayOpen">평일 open</label>
+						<input type="time" style="display: inline-block; width: 250px;" class="form-control" name="weekdayOpen" id="weekdayOpen"
+							placeholder="주차 정보를 입력하세요"
+						>
+						<label for="weekdayClose">평일 close</label>
+						<input type="time" style="display: inline-block; width: 250px;" class="form-control" name="weekdayClose" id="weekdayClose"
+							placeholder="주차 정보를 입력하세요"
+						>
+					</div>
+					<div class="gymTime">
+						<label for="weekendOpen">주말 open</label>
+						<input type="time" style="display: inline-block; width: 250px;" class="form-control" name="weekendOpen" id="weekendOpen"
+							placeholder="주차 정보를 입력하세요"
+						>
+						<label for="weekendClose">주말 close</label>
+						<input type="time" style="display: inline-block; width: 250px;" class="form-control" name="weekendClose" id="weekendClose"
+							placeholder="주차 정보를 입력하세요"
+						>
+					</div>
+					<label for="inlineRadio1">강습</label><br>
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-						<label class="form-check-label" for="inlineRadio1">Y</label>
+						<label class="form-check-label" for="inlineRadio1">Y </label>
 					</div>
-					<div class="form-check form-check-inline">
+					<div class="form-check form-check-inline" style="margin-left: 20px;">
 						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
 						<label class="form-check-label" for="inlineRadio2">N</label>
 					</div>
-					<div id="emailResult"></div>
-					<label>시설 명 :</label>
-					<input type="text" placeholder="시설 명을 입력하세요">
-					<br> <label>상세주소 :</label>
-					<input type="text" placeholder="우편번호">
-					<input type="button" value="우편번호찾기" src="#">
-					<br>
-					<input type="text" placeholder="도로명 주소" id="roadNameAddress">
-					<br>
-					<input type="text" placeholder="상세주소" id="detailedAddress">
-					<br> <label>전화번호 : </label>
-					<input type="text" class="phone" id="num1">
-					-
-					<input type="text" class="phone" id="num2">
-					-
-					<input type="text" class="phone" id="num3">
-					<br> <label>위도 / 경도 :</label>
-					<input type="text" id="xCode" name="xCode">
-					/
-					<input type="text" id="yCode" name="yCode">
-					<br> <label>강습 : </label> 유
-					<input type="radio" id="lYes" name="learning">
-					무
-					<input type="radio" id="lNo" name="learning" checked>
-					<br> <label>공간 : </label> 실내
-					<input type="radio" id="inside" name="place">
-					실외
-					<input type="radio" id="outside" name="place" checked>
-					<br> <label>홈페이지 : </label>
-					<input type="text" id="homepage" name="homepage">
-					<br> <label>주차장 : </label>
-					<input type="text" id="parkingLot" name="parkingLot">
-					<br> <label>운영시간</label><br> 평일 open
-					<input type="time" id="weekdayOpen" name="weekdayOpen">
-					close
-					<input type="time" id="weekdayClose" name="weekdayClose">
-					<br> 주말 open
-					<input type="time" id="weekendOpen" name="weekendOpen">
-					close
-					<input type="time" id="weekendClose" name="weekendClose">
-					<br> 휴관일 :
-					<input type="text" id="closed" name="closed">
-					<br> <br>
-					<table>
-						<tr>
-							<td>메인 사진 :</td>
-							<!-- 	            					<td><img src="../no _image.jpg"></td>  -->
-						</tr>
-						<tr>
-							<td>시설 사진 :</td>
-							<!-- 	            					<td><img src="#"></td> -->
-						</tr>
-					</table>
-					<!-- 	            			<label>메인 사진 :</label> <input type="file" id="mainImg" name="mainImg"><br> -->
-					<!-- 	            			<label>시설 사진 :</label> <input type="file" id="facImg" name="facImg"><br> -->
-					<div class="input-cancel">
-						<input type="submit" class="input-btn" value="입력">
-						<input type="button" class="input-btn" value="취소" onClick="history.go(-1);">
+					<br> <label for="inlineRadio3">장소</label><br>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option1">
+						<label class="form-check-label" for="inlineRadio3">실내</label>
 					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
+						<label class="form-check-label" for="inlineRadio4">실외</label>
+					</div>
+					<br>
 				</form>
 			</div>
 			<div class="modal-footer">
-				<button class="btn btn-lg btn-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">가입 완료</button>
+				<button class="btn btn-lg btn-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">등록 완료</button>
 			</div>
 		</div>
 	</div>
