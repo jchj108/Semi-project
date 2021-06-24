@@ -1,4 +1,4 @@
-package board.controller;
+package member.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.service.BoardService;
-import board.model.vo.Board;
-import board.model.vo.PageInfo;
+import gym.model.vo.Gym;
+import member.model.service.MemberService;
+import member.model.vo.Member;
+import page.model.vo.Page;
 
 /**
- * Servlet implementation class AdminBoardListFormServlet
+ * Servlet implementation class MyFavoritesServlet
  */
-@WebServlet("/qnaBoardList.li")
-public class qnaBoardListServlet extends HttpServlet {
+@WebServlet("/myFavoritesList.me")
+public class MyFavoritesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public qnaBoardListServlet() {
+    public MyFavoritesServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,50 +33,41 @@ public class qnaBoardListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int mNo = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
+		MemberService mService = new MemberService();
 		
-		int listCount;
-		int currentPage;
-		int pageLimit;
-		int boardLimit;
-		int maxPage;
-		int startPage;
-		int endPage;
+		int listCount = mService.countMyFav(mNo);
 		
-		String str = "Q";
-		
-		BoardService bService = new BoardService();
-		listCount = bService.getListCount(str);
-		
-		currentPage = 1;
+		int currentPage = 1;	
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		pageLimit = 10;
-		boardLimit = 10;
+		int pageLimit = 5;	
+		int boardLimit = 6;	
 		
-		maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		
-		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
-		
-		endPage = startPage + pageLimit - 1;
+		int maxPage = (int)Math.ceil((double)listCount / boardLimit);	
+		int startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;	
+		int endPage = (startPage + pageLimit) - 1;	
 		if(endPage > maxPage) {
-			endPage = maxPage; 
+			endPage = maxPage;
 		}
 		
-		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
 		
-		ArrayList<Board> list = bService.selectBoardList(pi, str);
+		ArrayList<Gym> list = mService.selectMyFav(mNo, pi);
 		
 		String page = null;
+		
 		if(list != null) {
-			page = "WEB-INF/views/board/qnaBoardList.jsp";
+			page = "WEB-INF/views/member/myFavoritesList.jsp";
 			request.setAttribute("list", list);
-			request.setAttribute("pi", pi);
+			request.setAttribute("pageInfo", pi);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
+			request.setAttribute("msg", "즐겨찾기 조회에 실패하였습니다.");
 		}
+		
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 

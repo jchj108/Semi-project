@@ -9,11 +9,10 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import board.model.dao.BoardDAO;
-import board.model.vo.PageInfo;
-
 import board.model.vo.Board;
 import board.model.vo.Comments;
 import board.model.vo.PageInfo;
+import gym.model.vo.Gym;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
 import page.model.vo.Page;
@@ -202,6 +201,24 @@ public class MemberService {
 		close(conn);
 		
 		return result;
+	}
+
+	public int countMyFav(int mNo) {
+		Connection conn = getConnection();
+		
+		int count = new MemberDAO().countMyFav(conn, mNo);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Gym> selectMyFav(int mNo, Page pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new MemberDAO().selectMyFav(conn, pi, mNo);
+		
+		return list;
 	}
 	
 	

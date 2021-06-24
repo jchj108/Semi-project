@@ -17,12 +17,18 @@ public class Gym {
 	private int G_COVID;
 	private String G_FILE;
 	
-	public int getG_NO() {
-		return G_NO;
-	}
 
-	public String getG_FILE() {
-		return G_FILE;
+	public Gym() {
+
+	}
+	
+	public Gym(int g_NO, String g_NAME, String g_ADDRESS, int g_COVID, String g_FILE) {
+		super();
+		G_NO = g_NO;
+		G_NAME = g_NAME;
+		G_ADDRESS = g_ADDRESS;
+		G_COVID = g_COVID;
+		G_FILE = g_FILE;
 	}
 
 	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_FILE) {
@@ -60,34 +66,56 @@ public class Gym {
 		G_TYPE_NM = g_TYPE_NM;
 		G_NAME = g_NAME;
 		G_FILE = g_FILE;
+	}	
+
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
+			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_NAME = g_NAME;
+		G_ADDRESS = g_ADDRESS;
+		G_YCODE = g_YCODE;
+		G_XCODE = g_XCODE;
+		G_TEL = g_TEL;
+		G_EDU_YN = g_EDU_YN;
+		G_IN_OUT = g_IN_OUT;
 	}
 
-	public void setG_FILE(String g_FILE) {
-		G_FILE = g_FILE;
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
+			double g_XCODE) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_NAME = g_NAME;
+		G_ADDRESS = g_ADDRESS;
+		G_YCODE = g_YCODE;
+		G_XCODE = g_XCODE;
 	}
 
-	public char getG_STATUS() {
-		return G_STATUS;
-	}
 
-	public void setG_STATUS(char g_STATUS) {
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
+			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT, char g_STATUS, int g_COUNT, int g_COVID) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_NAME = g_NAME;
+		G_ADDRESS = g_ADDRESS;
+		G_YCODE = g_YCODE;
+		G_XCODE = g_XCODE;
+		G_TEL = g_TEL;
+		G_EDU_YN = g_EDU_YN;
+		G_IN_OUT = g_IN_OUT;
 		G_STATUS = g_STATUS;
-	}
-
-	public int getG_COUNT() {
-		return G_COUNT;
-	}
-
-	public void setG_COUNT(int g_COUNT) {
 		G_COUNT = g_COUNT;
-	}
-
-	public int getG_COVID() {
-		return G_COVID;
-	}
-
-	public void setG_COVID(int g_COVID) {
 		G_COVID = g_COVID;
+	}
+
+	public int getG_NO() {
+		return G_NO;
 	}
 
 	public void setG_NO(int g_NO) {
@@ -166,54 +194,36 @@ public class Gym {
 		G_IN_OUT = g_IN_OUT;
 	}
 
-	public Gym() {
-
+	public char getG_STATUS() {
+		return G_STATUS;
 	}
 
-	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
-			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT) {
-		super();
-		G_NO = g_NO;
-		G_TYPE_NM = g_TYPE_NM;
-		G_GU_NM = g_GU_NM;
-		G_NAME = g_NAME;
-		G_ADDRESS = g_ADDRESS;
-		G_YCODE = g_YCODE;
-		G_XCODE = g_XCODE;
-		G_TEL = g_TEL;
-		G_EDU_YN = g_EDU_YN;
-		G_IN_OUT = g_IN_OUT;
-	}
-
-	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
-			double g_XCODE) {
-		super();
-		G_NO = g_NO;
-		G_TYPE_NM = g_TYPE_NM;
-		G_GU_NM = g_GU_NM;
-		G_NAME = g_NAME;
-		G_ADDRESS = g_ADDRESS;
-		G_YCODE = g_YCODE;
-		G_XCODE = g_XCODE;
-	}
-
-
-	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
-			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT, char g_STATUS, int g_COUNT, int g_COVID) {
-		super();
-		G_NO = g_NO;
-		G_TYPE_NM = g_TYPE_NM;
-		G_GU_NM = g_GU_NM;
-		G_NAME = g_NAME;
-		G_ADDRESS = g_ADDRESS;
-		G_YCODE = g_YCODE;
-		G_XCODE = g_XCODE;
-		G_TEL = g_TEL;
-		G_EDU_YN = g_EDU_YN;
-		G_IN_OUT = g_IN_OUT;
+	public void setG_STATUS(char g_STATUS) {
 		G_STATUS = g_STATUS;
+	}
+
+	public int getG_COUNT() {
+		return G_COUNT;
+	}
+
+	public void setG_COUNT(int g_COUNT) {
 		G_COUNT = g_COUNT;
+	}
+
+	public int getG_COVID() {
+		return G_COVID;
+	}
+
+	public void setG_COVID(int g_COVID) {
 		G_COVID = g_COVID;
+	}
+
+	public String getG_FILE() {
+		return G_FILE;
+	}
+
+	public void setG_FILE(String g_FILE) {
+		G_FILE = g_FILE;
 	}
 
 	@Override
@@ -223,5 +233,7 @@ public class Gym {
 				+ ", G_EDU_YN=" + G_EDU_YN + ", G_IN_OUT=" + G_IN_OUT + ", G_STATUS=" + G_STATUS + ", G_COUNT="
 				+ G_COUNT + ", G_COVID=" + G_COVID + ", G_FILE=" + G_FILE + "]";
 	}
+
+	
 	
 }

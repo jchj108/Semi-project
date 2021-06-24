@@ -11,20 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
-import member.model.vo.Member;
-import page.model.vo.Page;
+import board.model.vo.PageInfo;
 
 /**
- * Servlet implementation class FAQListServlet
+ * Servlet implementation class faqBoardListServlet
  */
-@WebServlet("/qna.do")
-public class QNAListServlet extends HttpServlet {
+@WebServlet("/faqBoardList.li")
+public class AdminFaqBoardListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QNAListServlet() {
+    public AdminFaqBoardListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,43 +32,53 @@ public class QNAListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mNo = ((Member)request.getSession().getAttribute("loginUser")).getM_no();
+		
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		String str = "F";
+		
 		BoardService bService = new BoardService();
-//	
-		int listCount = bService.getQListCount(mNo);
-		int currentPage = 1;
+		listCount = bService.getListCount(str); // listCount가 안먹히고 있음
+		
+		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int boardLimit = 10;
-		int pageLimit = 5;
+		pageLimit = 10;
+		boardLimit = 10;
 		
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		
-		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
-		int endPage = (startPage + pageLimit) - 1;
+		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
+		
+		endPage = startPage + pageLimit - 1;
 		if(endPage > maxPage) {
-			endPage = maxPage;
+			endPage = maxPage; 
 		}
 		
-		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
-//		
-		ArrayList<Board> qList = bService.selectQList(pi, mNo);
-//		
-		String page = null;
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+		ArrayList<Board> list = bService.selectBoardList(pi, str);
 		
-		if(qList != null) {
-			page = "WEB-INF/views/board/qnaList.jsp";
-			request.setAttribute("qList", qList);
+		String page = null;
+		if(list != null) {
+			page = "WEB-INF/views/board/adminFaqBoardList.jsp";
+			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg","게시판 조회에 실패하였습니다.");
+			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
 		}
-		
 		request.getRequestDispatcher(page).forward(request, response);
 		
+		
+
 	}
 
 	/**
