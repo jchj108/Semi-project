@@ -179,7 +179,7 @@
 				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=1'">&laquo;</div>
 			</li>
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </div>
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </button>
 				<script>
 					if(<%= currentPage %> <= 1) {
 						$('#beforeBtn').attr('disabled', 'true');
@@ -199,7 +199,7 @@
 			<% } %>
 			
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </div>
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/qna.do?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </button>
 				<script>
 					if(<%= currentPage %> >= <%= maxPage %>) {
 						$('#afterBtn').prop('disabled', true);

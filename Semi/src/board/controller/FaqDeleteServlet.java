@@ -13,13 +13,13 @@ import board.model.service.BoardService;
  * Servlet implementation class faqDeleteServlet
  */
 @WebServlet("/faqDelete.ad")
-public class faqDeleteServlet extends HttpServlet {
+public class FaqDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public faqDeleteServlet() {
+    public FaqDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

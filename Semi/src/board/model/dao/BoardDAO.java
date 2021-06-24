@@ -440,5 +440,109 @@ public class BoardDAO {
 		return listCount;
 	}
 
+
+	public ArrayList<Board> selectFaqList(Connection conn, Page pi) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int end = start + pi.getBoardLimit() - 1;
+		
+		String query = prop.getProperty("selectFaqList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board(rset.getInt("q_no"),
+									rset.getString("q_title"),
+									rset.getDate("q_date"),
+									rset.getInt("m_num"),
+									rset.getString("m_name"));
+				
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public int getQListCount(Connection conn, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("getQListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+
+	public ArrayList<Board> selectQList(Connection conn, Page pi, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int end = start + pi.getBoardLimit() - 1;
+		
+		String query = prop.getProperty("selectQList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board(rset.getInt("q_no"),
+									rset.getString("q_title"),
+									rset.getDate("q_date"),
+									rset.getInt("m_num"),
+									rset.getString("m_name"));
+				
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	
+
 	
 }

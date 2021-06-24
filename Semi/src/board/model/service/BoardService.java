@@ -177,5 +177,35 @@ public class BoardService {
 
 	}
 
+	public ArrayList<Board> selectFaqList(Page pi) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectFaqList(conn, pi);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int getQListCount(int mNo) {
+		Connection conn = getConnection();
+		
+		int count = new BoardDAO().getQListCount(conn, mNo);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Board> selectQList(Page pi, int mNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectQList(conn, pi, mNo);
+		
+		close(conn);
+		
+		return list;
+	}
+
 
 }

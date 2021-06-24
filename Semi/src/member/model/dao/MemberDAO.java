@@ -15,6 +15,7 @@ import java.util.Properties;
 import board.model.vo.Board;
 import board.model.vo.Comments;
 import board.model.vo.PageInfo;
+import gym.model.vo.Gym;
 import member.model.vo.Member;
 import page.model.vo.Page;
 import review.model.vo.Review;
@@ -467,7 +468,67 @@ public class MemberDAO {
 		return result;
 	}
 
+	public int countMyFav(Connection conn, int mNo) {		
+			PreparedStatement pstmt = null;
+			ResultSet rset = null;
+			int count = 0;
+			
+			String query = prop.getProperty("countMyFav");
+			
+			try {
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, mNo);
+				
+				rset = pstmt.executeQuery();
+				
+				if(rset.next()) {
+					count = rset.getInt(1);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				close(rset);
+				close(pstmt);
+			}
+	 		return count;
+		}
 
+	public ArrayList<Gym> selectMyFav(Connection conn, Page pi, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int end = start + pi.getBoardLimit() - 1;
+		
+		String query = prop.getProperty("selectMyFav");
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_no"),
+								rset.getString("g_name"),
+								rset.getString("g_address"),
+								rset.getInt("g_covid"),
+								rset.getString("g_file"));
+				list.add(g);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
-	
-}
+	}

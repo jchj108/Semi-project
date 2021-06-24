@@ -14,13 +14,13 @@ import board.model.service.BoardService;
  * Servlet implementation class qnaDeleteServlet
  */
 @WebServlet("/qnaDelete.ad")
-public class qnaDeleteServlet extends HttpServlet {
+public class QnaDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public qnaDeleteServlet() {
+    public QnaDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, review.model.vo.Review, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.Gym, page.model.vo.Page"%>
+    
 <%
-	ArrayList<Review> list = (ArrayList)request.getAttribute("list");
-	int gNo = 0;
+	ArrayList<Gym> list = (ArrayList)request.getAttribute("list");
 	
 	Page pageInfo = (Page)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
@@ -100,53 +100,53 @@
                         <div class="list-group-item side" id="myComment">댓글 관리</div>
                     </div>
                 </div>
-           
-            <div class="col-lg-9" style="height: 650px;">
-            	<div class="title"><h4>리뷰 관리</h4></div>
-                	<form action="reviewUpdateForm.do" method="post" id="reviewListForm">
-	                	<table class="reviewList">
-							<tr>
-								<th width="50px;"><input type="checkbox" id="allSelect"></th>
-								<th width="80px;">리뷰 번호</th>
-								<th>내용</th>						
-								<th width="100px;">작성일</th>
-								<th width="100px;"></th>
-							</tr>
-							
-							<% if(list.isEmpty()) { %>
-							<tr>
-								<td colspan="5">작성한 리뷰가 없습니다.</td>
-							</tr>
-							<% } else { %>
-								<% for(Review r : list) { %>
-								<% gNo = r.getGymNo(); %>
-							<tr>
-								<input type="hidden" name="gNo" id="gNo" value="<%=gNo%>">																
-								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
-								<td><%= r.getR_no() %></td>
-								<td class="reviewBody"><%= r.getR_body() %></td>							
-								<td><%= r.getR_date() %></td>
-								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
-							</tr>
-								<% } %>					
-							<% } %>					
-											
-						</table>
-					<input type="button" id="delete" value="삭제">
-					</form>              
-			</div>				
-                   
+          <div class="col-lg-9" style="height: 650px;">
+           <div class="title"><h4>리뷰 관리</h4></div>
+	           <div class="row">
+	         <% if(!list.isEmpty()) {%>
+		        <% for(Gym g : list) {%>	           
+	            <div class="col-lg-4 col-md-6 mb-4">
+	              <div class="card h-100">
+	                <a href="#!"
+	                  ><img
+	                    class="card-img-top"
+	                    src="<%=request.getContextPath()%>/image/gym/<%= g.getG_FILE() %>"
+	                    alt="..."
+	                /></a>
+	                <div class="card-body">
+	                  <h4 class="card-title">
+	                    <a href="#!" style="color: #00b1d2"><%= g.getG_NAME() %></a>
+	                  </h4>
+	
+	                  <p class="card-text"><%=g.getG_ADDRESS() %></p>
+	                </div>
+	                <div class="card-footer">
+	                  <small class="text-muted">
+	                  <% for(int i = 0; i < g.getG_COVID(); i++) { %>
+	                  	★ 
+	                  <% } %>
+	                  <% for(int i = 0; i < 5-g.getG_COVID(); i++) { %>
+	                  	☆
+	                  <% } %>
+	                  </small>
+	                </div>
+	              </div>
+	            </div>
+		        <% } %>                   
+	         <% } %>                   
+				</div>
+			</div>	
 		</div>
 	</div>
             
 	<div class="page">
 		<ul class="pagination">
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=1'">&laquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myFavoritesList.me?currentPage=1'">&laquo;</div>
 			</li>
 			
 			<li class="page-item">
-				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </button>
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/myFavoritesList.me?currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </button>
 				<script>
 					if(<%= currentPage %> <= 1) {
 						$('#beforeBtn').attr('disabled', 'true');
@@ -161,13 +161,13 @@
 				</li>
 				<% } else { %>
 				<li class="page-item">
-					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= p %>'"><%= p %></div>
+					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myFavoritesList.me?currentPage=<%= p %>'"><%= p %></div>
 				</li>						
 				<% } %>
 			<% } %>
 			
 			<li class="page-item">
-				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </button>
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/myFavoritesList.me?currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </button>
 				<script>
 					if(<%= currentPage %> >= <%= maxPage %>) {
 						$('#afterBtn').prop('disabled', true);
@@ -176,7 +176,7 @@
 			</li>
 			
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myReviewList.me?currentPage=<%= maxPage %>'">&raquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/myFavoritesList.me?currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
 		</ul>
 	</div>
@@ -207,54 +207,4 @@
 			});
 			
 		});
-		
-		// 삭제 (여러 개 선택 시 no를 어떻게 가져올지?)
-		$('#delete').on('click', function(){
-			if($('.select').prop('checked')) {
-				var check = window.confirm("정말 삭제하시겠습니까?");
-			
-				if(check) {
-					$('#reviewListForm').attr('action', 'reviewDelete.do');
-					$('#reviewListForm').submit();
-				}
-			} else {
-				alert("삭제할 리뷰를 선택해 주세요.");
-			}
-		});
-		
-		// 전체 선택 및 해제
-		$('#allSelect').on('click', function(){
-			if($(this).prop('checked')) {
-				$('.select').prop('checked', true);
-			} else {
-				$('.select').prop('checked', false);
-			}
-		});
-		
-		function selectOne() {					     
-			var select = document.getElementsByName('select');
-			var all = document.getElementById('allSelect');
-			var count = 0;
-			
-			for(var i = 0; i < select.length; i++) {
-				if(select[i].checked) {
-					count++;
-				}
-			}
-			
-			if(count == select.length) {
-				all.checked = true;
-			} else {
-				all.checked = false;
-			}
-			
-		};
-		
-		// 제목 누르면 리뷰 쓴 시설 상세 조회 페이지 이동
-		$('.reviewBody').on('click', function(){
-			var gNoVal = $(this).parent().children('input').val();
-			location.href='<%= request.getContextPath() %>/detail.do?gNo=' + gNoVal;
-		});
-		
-		
 	</script>

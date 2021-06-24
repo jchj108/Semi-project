@@ -350,20 +350,12 @@ public class GymDAO {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				gList.add(new Gym(rset.getInt("g_NO"),
-							rset.getString("g_TYPE_NM"),
-							rset.getString("g_GU_NM"),
-							rset.getString("g_NAME"),
-							rset.getString("g_ADDRESS"),
-							rset.getDouble("g_YCODE"),
-							rset.getDouble("g_XCODE"),
-							rset.getString("g_TEL"),
-							rset.getString("g_EDU_YN"),
-							rset.getString("g_IN_OUT"),
-							rset.getString("G_STATUS").charAt(0),
-							rset.getInt("g_COUNT"),
-							rset.getInt("g_COVID"),
-							rset.getString("g_FILE")));
+				Gym g = new Gym(rset.getInt("g_no"),
+						rset.getString("g_name"),
+						rset.getString("g_address"),
+						rset.getInt("g_covid"),
+						rset.getString("g_file"));
+				gList.add(g);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -396,20 +388,13 @@ public class GymDAO {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				gList.add(new Gym(rset.getInt("g_NO"),
-						rset.getString("g_TYPE_NM"),
-						rset.getString("g_GU_NM"),
-						rset.getString("g_NAME"),
-						rset.getString("g_ADDRESS"),
-						rset.getDouble("g_YCODE"),
-						rset.getDouble("g_XCODE"),
-						rset.getString("g_TEL"),
-						rset.getString("g_EDU_YN"),
-						rset.getString("g_IN_OUT"),
-						rset.getString("G_STATUS").charAt(0),
-						rset.getInt("g_COUNT"),
-						rset.getInt("g_COVID"),
-						rset.getString("g_FILE")));
+				Gym g = new Gym(rset.getInt("g_no"),
+						rset.getString("g_name"),
+						rset.getString("g_address"),
+						rset.getInt("g_covid"),
+						rset.getString("g_file"));
+				
+				gList.add(g);
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
