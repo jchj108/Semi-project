@@ -1,6 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% int gNo = (int)request.getAttribute("gNo"); %>
+    pageEncoding="UTF-8" import="review.model.vo.*, java.util.ArrayList"%>
+<% 
+	Review r = (Review)request.getAttribute("r"); 
+	ArrayList<ReviewAttachment> list = (ArrayList)request.getAttribute("list");
+	
+	int total = r.getR_total();
+	int gym = r.getR_gym();
+	int teacher = r.getR_teacher();
+	int service = r.getR_service();
+	int price = r.getR_price();
+	
+	String keyword = r.getR_keyword();
+	String review = r.getR_body();
+	
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -145,6 +159,15 @@
 	.image_swiper div label:hover{
 	  cursor: pointer;
  	}
+ 	
+ 	.reviewImgDiv{
+ 		display:inline-block;
+ 		margin-left: 1px;
+ 	}
+ 	
+ 	.reviewImg{
+ 		width: 105px; height: 105px;
+ 	}
 	
 </style>
 </head>
@@ -152,23 +175,9 @@
 
 	<%@ include file="../common/header.jsp" %>
 	
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="list-group list-group-flush text-center">
-					<div class="list-group-item" id="category-title">A 필라테스 평가하기</div>
-					<div class="list-group-item">
-						<img src="image/flower1.PNG">
-					</div>
-					<div class="list-group-item">
-						서울시 강남구 역삼동 <br> 070-1234-5678
-					</div>
-				</div>
-			</div>
 
 			<div class="col-lg-6">
 				<form class="review-box" id="reviewForm" action="<%= request.getContextPath() %>/reviewWrite.re" method="post" encType="multipart/form-data">
-					<input type="hidden" name="gNo" value="<%= gNo %>">
 					<div class="section">
 						<div class="title">
 							<strong>전체 평점</strong>
@@ -258,7 +267,7 @@
 						<div class="title">
 							<strong>이용 후기</strong>
 						</div>
-						<textarea name="reviewText" id="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."></textarea>
+						<textarea name="reviewText" id="reviewText" style="width: 95%; height: 150px; margin-top: 10px;"><%= review %></textarea>
 					</div>
 					<hr>
 					<div class="section">
@@ -270,115 +279,38 @@
 							<span class="description">시설 사진이나 운동 사진을 올려주세요. (최대 10개)</span>
 						</div>
 						<div class="image_top">
-						    <div class="image_swiper">
-						        <div class="image_div_0">
-						            <label for ="image_plus_0"></label>
-						            <input type="file" name="image_plus_0" id="image_plus_0">
-						        </div>
-						    </div>
+							<% for(ReviewAttachment ra : list){ %>
+								<div class="reviewImgDiv">
+									<img class="reviewImg" src="<%= request.getContextPath() %>/review_uploadFiles/<%= ra.getR_change_name() %>">								
+								</div>
+							<% } %>
 						</div>
 					</div>
-					<div class="button-register">
-						<button class="submit" type="button" id="cancle">취소하기</button>
-						<button class="submit" type="submit" id="enroll">등록하기</button>
-					</div>
 				</form>
+					<% if(r.getReviewerNo() == loginUser.getM_no()){ %>
+					<div class="button-register">
+						<button class="submit" type="button" id="reviewEditBtn">수정하기</button>
+						<button class="submit" type="button" id="reviewDelBtn">삭제하기</button>
+					</div>
+					<% } %>
 			</div>
-		</div>
-	</div>
 	
 	<%@ include file="../common/footer.jsp" %>
 	<script>
 		/* 별점  */
 		$('.fa-star').css({'color': 'lightgray'});
 		
-		var check = false;
-	    $('#totalStarDiv .fa-star, #facilityStarDiv .fa-star, #instructorStarDiv .fa-star, #serviceStarDiv .fa-star, #priceStarDiv .fa-star').on('click',function(){
-	    	if(!check){
-				$(this).parent().find('.fa-star').css({'color': 'lightgray'});
-				var targetNum = $(this).index()+1;
-				$(this).parent().find(':nth-child(-n+' + targetNum + ')').css({color:'#ffd700'});
-				
-				$(this).parent().prev('input').val(targetNum);
-				
-				check = true;
-	    	} else {
-	    		$(this).parent().find('.fa-star').css({'color': 'lightgray'});
-				var targetNum = $(this).index()+1;
-				$(this).parent().find(':nth-child(-n+' + targetNum + ')').css({color:'#ffd700'});
-				
-				$(this).parent().prev('input').val(targetNum);			
-	    		
-				check = false;
-	    	}	
+		$('#totalStarDiv').find(':nth-child(-n+<%= total %>)').css({color:'#ffd700'});
+		$('#facilityStarDiv').find(':nth-child(-n+<%= gym %>)').css({color:'#ffd700'});
+		$('#instructorStarDiv').find(':nth-child(-n+<%= teacher %>)').css({color:'#ffd700'});
+		$('#serviceStarDiv').find(':nth-child(-n+<%= service %>)').css({color:'#ffd700'});
+		$('#priceStarDiv').find(':nth-child(-n+<%= price %>)').css({color:'#ffd700'});
+		
+		$('#reviewEditBtn').on('click', function(){
+			location.href="<%= request.getContextPath() %>/reviewUpdateForm.re";
 		});
-	    
-	    /* 키워드 추가 */
-	    $('#button-keyword').on('click', function(){
-	    	var addKeyword = $('#addKeyword').val();
-	    	$('#div-addKeyword').append("&nbsp;").append('<input type="checkbox" checked name="keyword" id="keyword5" value=' + addKeyword + '/>')
-	    	.append('<label for="keyword5">' + addKeyword + '</lable>'); 
-	    });
-	    
-	    /* 사진첨부 */
-	    var index = 0;
- 
-	    //이미지 추가 버튼 클릭시
-	    $(document).on("change", '.image_top input[type=file]', function(event) {
-	 		
-	    	if(index > 9){
-	    		alert("파일은 최대 10개까지 업로드 할 수 있습니다.");
-	    		
-	    		return;
-	    	}
-	    	
-	        var target = $(this)[0];
-	        if(target != null){
-	            //------------------이미지 확장자 검사 시작--------------------------------//
-	            var fileNM = $(this).val();
-	            var ext = fileNM.slice(fileNM.lastIndexOf(".") + 1).toLowerCase();
-	 
-	            if (!(ext == "gif" || ext == "jpg" || ext == "png")) {
-	                alert("이미지파일 (.jpg, .png, .gif ) 만 업로드 가능합니다.");
-	                return false;
-	            }
-	            //------------------이미지 확장자 검사 종료--------------------------------//
-	            // 상위 요소
-	            var img_div = $(this).parent();
-	            var fileList = target.files;
-	        
-	            // 파일리더기 생성
-	            var reader = new FileReader();
-	            // 파일 위치 읽기
-	            reader.readAsDataURL(fileList[0]);
-	            //로드 한 후 이미지 요소 설정(스타일,url)
-	            reader.onload = function(e) {
-	                // 이미지 미리보기
-	                img_div.children('label').css('background','url('+ e.target.result +') center no-repeat').css('background-size','105px 105px').css('margin-left', '5px');
-	            };
-	 
-	            // 이미지 파일 첨부 버튼 추가 하기
-	            // 새로운 div 생성
-	            var div = document.createElement('div');
-	 
-	            index++;
-	 
-	            // 새로운 div의 className 지정
-	            div.className = 'image_div_'+index+'';
-	            div.innerHTML = '<label for ="image_plus_'+index+'"></label>\<input type="file" name="image_plus_'+index+'" id="image_plus_'+index+'">';
-	            
-	            // 추가
-	            $('.image_swiper').append(div);
-	 
-	            // 테스트
-	            //alert($(this).parent().attr('class'));
-	            //alert(index);
-	            //$(this).parent().attr('class')
-	        }else{
-	            alert("이미지 없음");
-	        }
-	    });
-
+		
+		
     </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
