@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>메인페이지</title>
 <script type="text/javascript">
-<%-- location.href =  "<%= request.getContextPath() %>/home.do"; --%>
-location.href =  "<%= request.getContextPath() %>/reviewDetail.re?rNo=4";
+location.href =  "<%= request.getContextPath() %>/home.do";
+<%-- location.href =  "<%= request.getContextPath() %>/reviewUpdateForm.re?rNo=4"; --%>
 </script>
 </head>
 <body>

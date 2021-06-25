@@ -12,8 +12,6 @@
 	
 	String keyword = r.getR_keyword();
 	String review = r.getR_body();
-	
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -162,7 +160,7 @@
  	
  	.reviewImgDiv{
  		display:inline-block;
- 		margin-left: 1px;
+ 		margin-right: 1px;
  	}
  	
  	.reviewImg{
@@ -247,19 +245,19 @@
 						<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
 						<div class="div-keyword" id="div-keyword">
 							<div id="div-addKeyword" class="form-check">
-								<input type="checkbox" name="keyword" id="keyword1" value="체지방 감소">
+								<input type="checkbox" name="keyword" value="체지방 감소">
 								<label for="keyword1">체지방 감소</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword2" value="근력 증가">
+								<input type="checkbox" name="keyword" value="근력 증가">
 								<label for="keyword2">근력 증가</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword3" value="재활">
+								<input type="checkbox" name="keyword" value="재활">
 								<label for="keyword3">재활</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword4" value="체형교정">
+								<input type="checkbox" name="keyword" value="체형교정">
 								<label for="keyword4">체형교정</label>&nbsp;
 							</div>
 						</div>
 						<div class="div-keyword">
-							<input type="text" id="addKeyword" placeholder="키워드 직접입력">
-							<button type="button" id="button-keyword">키워드 추가</button>
+							<input type="text" class="addKeyword" placeholder="키워드 직접입력">
+							<button type="button"class="button-keyword">키워드 추가</button>
 						</div>
 					</div>
 					<hr>
@@ -267,7 +265,7 @@
 						<div class="title">
 							<strong>이용 후기</strong>
 						</div>
-						<textarea name="reviewText" id="reviewText" style="width: 95%; height: 150px; margin-top: 10px;"><%= review %></textarea>
+						<textarea name="reviewText" style="width: 95%; height: 150px; margin-top: 10px;"><%= review %></textarea>
 					</div>
 					<hr>
 					<div class="section">
@@ -287,12 +285,12 @@
 						</div>
 					</div>
 				</form>
-					<% if(r.getReviewerNo() == loginUser.getM_no()){ %>
+<%-- 					<% if(r.getReviewerNo() == loginUser.getM_no()){ %> --%>
 					<div class="button-register">
 						<button class="submit" type="button" id="reviewEditBtn">수정하기</button>
 						<button class="submit" type="button" id="reviewDelBtn">삭제하기</button>
 					</div>
-					<% } %>
+<%-- 					<% } %> --%>
 			</div>
 	
 	<%@ include file="../common/footer.jsp" %>
@@ -307,7 +305,7 @@
 		$('#priceStarDiv').find(':nth-child(-n+<%= price %>)').css({color:'#ffd700'});
 		
 		$('#reviewEditBtn').on('click', function(){
-			location.href="<%= request.getContextPath() %>/reviewUpdateForm.re";
+			location.href="<%= request.getContextPath() %>/reviewUpdateForm.re?rNo="+<%= r.getR_no() %>;
 		});
 		
 		

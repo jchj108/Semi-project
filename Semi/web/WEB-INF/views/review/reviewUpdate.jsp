@@ -1,6 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% int gNo = (int)request.getAttribute("gNo"); %>
+    pageEncoding="UTF-8" import="review.model.vo.*, java.util.ArrayList"%>
+<% Review r = (Review)request.getAttribute("r"); 
+	ArrayList<ReviewAttachment> list = (ArrayList)request.getAttribute("list");
+	
+	int total = r.getR_total();
+	int gym = r.getR_gym();
+	int teacher = r.getR_teacher();
+	int service = r.getR_service();
+	int price = r.getR_price();
+	
+	String keyword = r.getR_keyword();
+	String review = r.getR_body();
+	
+	String[] checked = new String[6];
+	
+	if(!keyword.equals("null")){
+		String[] keywordArr = keyword.split(", ");
+		for(String str : keywordArr){
+			switch(str){
+			case "체지방 감소" : checked[0] = "checked"; break;
+			case "근력 증가" : checked[1] = "checked"; break;
+			case "재활" : checked[2] = "checked"; break;
+			case "체형교정" : checked[3] = "checked"; break;
+			}
+		}
+	}
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -87,7 +113,7 @@
 	.div-keyword>input[type=checkbox]{
 		margin: 0px 10px 0px 10px;
 	}
-
+	
 	.button-register{
 		text-align: center;
 		margin: 30px 30px 30px 30px;
@@ -100,7 +126,7 @@
 		border-radius: 5px;
 	}
 	
-	.enrollBtn{
+	.updateBtn{
 		padding: 5px 20px 5px 20px;
 		margin-left: 5px;
 		background-color: #00B1D2;
@@ -109,7 +135,7 @@
 		background-color: #00B1D2;
 	}
 	
-	.writeCancleBtn{
+	.updateCancleBtn{
 		padding: 5px 20px 5px 20px;
 		margin-right: 5px;
 		background-color: white;
@@ -130,7 +156,7 @@
 	
 	.image_swiper div label{
 	  display: inline-block;
-	  margin-left: 5px;
+	  margin: 0px 5px 0px 5px;
 	  width: 105px;
 	  height: 105px;
 	  background: url("<%= request.getContextPath() %>/image/add.png") no-repeat center;
@@ -164,8 +190,7 @@
 			</div>
 
 			<div class="col-lg-6">
-				<form class="review-box" id="reviewForm" action="<%= request.getContextPath() %>/reviewWrite.re" method="post" encType="multipart/form-data">
-					<input type="hidden" name="gNo" value="<%= gNo %>">
+				<form class="review-box" id="updateForm" action="<%= request.getContextPath() %>/reviewUpdate.re" method="post" encType="multipart/form-data">
 					<div class="section">
 						<div class="title">
 							<strong>전체 평점</strong>
@@ -173,8 +198,8 @@
 						<div class="score-box">
 							<div class="rating-box">
 								<div class="rating-box-name">평점</div>
-								<input type="hidden" name="totalStar" id="totalStar">
-								<div class="score_star" id="totalStarDiv">
+								<input type="hidden" name="totalStar" value="<%= total %>">
+								<div class="score_star" id="totalStarDiv1">
 									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i>
@@ -191,8 +216,8 @@
 						<div class="score-box">
 							<div class="rating-box">
 								<div class="rating-box-name">시설</div>
-								<input type="hidden" name="facilityStar">
-								<div class="score_star" id="facilityStarDiv">
+								<input type="hidden" name="facilityStar" value="<%= gym %>">
+								<div class="score_star" id="facilityStarDiv1">
 									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i>
@@ -200,8 +225,8 @@
 							</div>
 							<div class="rating-box">
 								<div class="rating-box-name">강사</div>
-								<input type="hidden" name="instructorStar">
-								<div class="score_star" id="instructorStarDiv">
+								<input type="hidden" name="instructorStar" value="<%= teacher %>">
+								<div class="score_star" id="instructorStarDiv1">
 									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i>
@@ -209,8 +234,8 @@
 							</div>
 							<div class="rating-box">
 								<div class="rating-box-name">서비스</div>
-								<input type="hidden" name="serviceStar">
-								<div class="score_star" id="serviceStarDiv">
+								<input type="hidden" name="serviceStar" value="<%= service %>">
+								<div class="score_star" id="serviceStarDiv1">
 									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i>
@@ -218,8 +243,8 @@
 							</div>
 							<div class="rating-box">
 								<div class="rating-box-name">가격</div>
-								<input type="hidden" name="priceStar">
-								<div class="score_star" id="priceStarDiv">
+								<input type="hidden" name="priceStar" value="<%= price %>">
+								<div class="score_star" id="priceStarDiv1">
 									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
 										class="fas fa-star"></i>
@@ -234,15 +259,15 @@
 						</div>
 						<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
 						<div class="div-keyword">
-							<div id="div-addKeyword" class="form-check">
-								<input type="checkbox" name="keyword" id="keyword1" value="체지방 감소">
-								<label for="keyword1">체지방 감소</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword2" value="근력 증가">
-								<label for="keyword2">근력 증가</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword2" value="재활">
-								<label for="keyword3">재활</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword4" value="체형교정">
-								<label for="keyword4">체형교정</label>&nbsp;
+							<div class="div-addKeyword" class="form-check">
+								<input type="checkbox" name="keyword" id="keyword11" value="체지방 감소" <%= checked[0] %>>
+								<label for="keyword11">체지방 감소</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword12" value="근력 증가" <%= checked[1] %>>
+								<label for="keyword12">근력 증가</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword13" value="재활" <%= checked[2] %>>
+								<label for="keyword13">재활</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword14" value="체형교정" <%= checked[3] %>>
+								<label for="keyword14">체형교정</label>&nbsp;
 							</div>
 						</div>
 						<div class="div-keyword">
@@ -255,7 +280,7 @@
 						<div class="title">
 							<strong>이용 후기</strong>
 						</div>
-						<textarea name="reviewText" id="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."></textarea>
+						<textarea name="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."><%= review %></textarea>
 					</div>
 					<hr>
 					<div class="section">
@@ -268,16 +293,32 @@
 						</div>
 						<div class="image_top">
 						    <div class="image_swiper">
-						        <div class="image_div_0">
+<%-- 						    	<% --%>
+<!-- // 						    		int index = 0; -->
+<!-- // 						    	 	for(ReviewAttachment ra : list){  -->
+<%-- 						    	%> --%>
+<%-- 						    		<div class="image_div_<%= index %>"> --%>
+<%-- 						    			<label for ="image_plus_<%= index %>" style="background: url('<%= request.getContextPath() %>/review_uploadFiles/<%= ra.getR_change_name() %>') center no-repeat; background-size: 105px 105px;"></label> --%>
+<%-- 						            	<input type="file" name="image_plus_<%= index %>" id="image_plus_<%= index %>"> --%>
+<!-- 						    		</div> -->
+<%-- 						    	<%  --%>
+<!-- // 						    	 		index++; -->
+<!-- // 						    	 	}  -->
+<%-- 						    	%> --%>
+<%-- 						        <div class="image_div_<%= index %>"> --%>
+<%-- 						            <label for ="image_plus_<%= index %>"></label> --%>
+<%-- 						            <input type="file" name="image_plus_<%= index %>" id="image_plus_<%= index %>"> --%>
+<!-- 						        </div> -->
+								<div class="image_div_0">
 						            <label for ="image_plus_0"></label>
 						            <input type="file" name="image_plus_0" id="image_plus_0">
-						        </div>
+					        	</div>
 						    </div>
 						</div>
 					</div>
 					<div class="button-register">
-						<button type="button" class="writeCancleBtn">취소하기</button>
-						<button type="submit" class="enrollBtn">등록하기</button>
+						<button type="button" class="updateCancleBtn">취소하기</button>
+						<button type="submit" class="updateBtn">수정하기</button>
 					</div>
 				</form>
 			</div>
@@ -289,8 +330,15 @@
 		/* 별점  */
 		$('.fa-star').css({'color': 'lightgray'});
 		
+		$('#totalStarDiv1').find(':nth-child(-n+<%= total %>)').css({color:'#ffd700'});
+		$('#facilityStarDiv1').find(':nth-child(-n+<%= gym %>)').css({color:'#ffd700'});
+		$('#instructorStarDiv1').find(':nth-child(-n+<%= teacher %>)').css({color:'#ffd700'});
+		$('#serviceStarDiv1').find(':nth-child(-n+<%= service %>)').css({color:'#ffd700'});
+		$('#priceStarDiv1').find(':nth-child(-n+<%= price %>)').css({color:'#ffd700'});
+		$('#fa-star1').css({'color': 'lightgray'});
+		
 		var check = false;
-	    $('#totalStarDiv .fa-star, #facilityStarDiv .fa-star, #instructorStarDiv .fa-star, #serviceStarDiv .fa-star, #priceStarDiv .fa-star').on('click',function(){
+	    $('#totalStarDiv1 .fa-star, #facilityStarDiv1 .fa-star, #instructorStarDiv1 .fa-star, #serviceStarDiv1 .fa-star, #priceStarDiv1 .fa-star').on('click',function(){
 	    	if(!check){
 				$(this).parent().find('.fa-star').css({'color': 'lightgray'});
 				var targetNum = $(this).index()+1;
@@ -304,8 +352,8 @@
 				var targetNum = $(this).index()+1;
 				$(this).parent().find(':nth-child(-n+' + targetNum + ')').css({color:'#ffd700'});
 				
-				$(this).parent().prev('input').val(targetNum);			
-	    		
+				$(this).parent().prev('input').val(targetNum);	
+	
 				check = false;
 	    	}	
 		});
@@ -313,12 +361,13 @@
 	    /* 키워드 추가 */
 	    $('.button-keyword').on('click', function(){
 	    	var addKeyword = $('.addKeyword').val();
-	    	$('.div-addKeyword').append("&nbsp;").append('<input type="checkbox" checked name="keyword" id="keyword5" value=' + addKeyword + '/>')
-	    	.append('<label for="keyword5">' + addKeyword + '</lable>'); 
+	    	$('.div-addKeyword').append("&nbsp;").append('<input type="checkbox" checked name="keyword" id="keyword15" value=' + addKeyword + '/>')
+	    	.append('<label for="keyword15">' + addKeyword + '</lable>'); 
 	    });
 	    
 	    /* 사진첨부 */
-	    var index = 0;
+<%-- 	    var index = <%= index %>; --%>
+		var index = 0;
  
 	    //이미지 추가 버튼 클릭시
 	    $(document).on("change", '.image_top input[type=file]', function(event) {
@@ -331,7 +380,6 @@
 	    	
 	        var target = $(this)[0];
 	        if(target != null){
-	            //------------------이미지 확장자 검사 시작--------------------------------//
 	            var fileNM = $(this).val();
 	            var ext = fileNM.slice(fileNM.lastIndexOf(".") + 1).toLowerCase();
 	 
@@ -339,7 +387,6 @@
 	                alert("이미지파일 (.jpg, .png, .gif ) 만 업로드 가능합니다.");
 	                return false;
 	            }
-	            //------------------이미지 확장자 검사 종료--------------------------------//
 	            // 상위 요소
 	            var img_div = $(this).parent();
 	            var fileList = target.files;
@@ -350,7 +397,6 @@
 	            reader.readAsDataURL(fileList[0]);
 	            //로드 한 후 이미지 요소 설정(스타일,url)
 	            reader.onload = function(e) {
-	                // 이미지 미리보기
 	                img_div.children('label').css('background','url('+ e.target.result +') center no-repeat').css('background-size','105px 105px').css('margin-left', '5px');
 	            };
 	 
@@ -364,14 +410,9 @@
 	            div.className = 'image_div_'+index+'';
 	            div.innerHTML = '<label for ="image_plus_'+index+'"></label>\<input type="file" name="image_plus_'+index+'" id="image_plus_'+index+'">';
 	            
-	            // 추가
 	            $('.image_swiper').append(div);
 	 
-	            // 테스트
-	            //alert($(this).parent().attr('class'));
-	            //alert(index);
-	            //$(this).parent().attr('class')
-	        }else{
+	        } else {
 	            alert("이미지 없음");
 	        }
 	    });

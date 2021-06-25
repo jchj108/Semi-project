@@ -42,14 +42,12 @@ public class ReviewDetailServlet extends HttpServlet {
 				
 		String page = null;
 		if(r != null) {
+			page="WEB-INF/views/review/reviewDetail.jsp";
 			request.setAttribute("r", r);
 			request.setAttribute("list", list);
-			
-			page="WEB-INF/views/review/reviewDetail.jsp";
 		} else {
-			request.setAttribute("msg", "작성된 리뷰가 없습니다");
-			
 			page="WEB-INF/common/errorPage.jsp";
+			request.setAttribute("msg", "작성된 리뷰가 없습니다");
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
