@@ -73,38 +73,37 @@ public class ReviewUpdateServlet extends HttpServlet {
 			ArrayList<ReviewAttachment> fileList = new ArrayList<ReviewAttachment>();
 			
 			int rNo = Integer.parseInt(mr.getParameter("rNo"));
-//			String upload_date = mr.getParameter("upload_date");
-//			System.out.println(upload_date + " : 업로드 날짜");
 			
-//			Date date = null;
-//	        try {
-//	        	String strDate = mr.getParameter("upload_date");
-//	        	SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
-//				date = (Date) sdf.parse(strDate);
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-			
-			for(int i = 1; i >= 0; i--) {
+			if(originFiles.size() == 1) {
 				ReviewAttachment ra = new ReviewAttachment();
 				ra.setR_file_path(savePath);
-				ra.setR_origin_name(originFiles.get(i));
-				ra.setR_change_name(saveFiles.get(i));
+				ra.setR_origin_name(originFiles.get(0));
+				ra.setR_change_name(saveFiles.get(0));
 				ra.setR_no(rNo);
-//				ra.setR_upload_date(date);
 				
 				fileList.add(ra);
 			}
 			
-			for(int i = originFiles.size()-1; i >= 2; i--) {
-				ReviewAttachment ra = new ReviewAttachment();
-				ra.setR_file_path(savePath);
-				ra.setR_origin_name(originFiles.get(i));
-				ra.setR_change_name(saveFiles.get(i));
-				ra.setR_no(rNo);
-//				ra.setR_upload_date(date);
+			if(originFiles.size() > 1) {
+				for(int i = 1; i >= 0; i--) {
+					ReviewAttachment ra = new ReviewAttachment();
+					ra.setR_file_path(savePath);
+					ra.setR_origin_name(originFiles.get(i));
+					ra.setR_change_name(saveFiles.get(i));
+					ra.setR_no(rNo);
+					
+					fileList.add(ra);
+				}
 				
-				fileList.add(ra);
+				for(int i = originFiles.size()-1; i >= 2; i--) {
+					ReviewAttachment ra = new ReviewAttachment();
+					ra.setR_file_path(savePath);
+					ra.setR_origin_name(originFiles.get(i));
+					ra.setR_change_name(saveFiles.get(i));
+					ra.setR_no(rNo);
+					
+					fileList.add(ra);
+				}
 			}
 			
 			Member loginUser = ((Member)request.getSession().getAttribute("loginUser"));

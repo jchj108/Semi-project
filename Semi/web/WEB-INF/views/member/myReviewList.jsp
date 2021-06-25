@@ -103,7 +103,7 @@
            
             <div class="col-lg-9" style="height: 650px;">
             	<div class="title"><h4>리뷰 관리</h4></div>
-                	<form action="reviewUpdateForm.do" method="post" id="reviewListForm">
+                	<form action="reviewUpdateForm.re" method="post" id="reviewListForm">
 	                	<table class="reviewList">
 							<tr>
 								<th width="50px;"><input type="checkbox" id="allSelect"></th>
@@ -121,7 +121,8 @@
 								<% for(Review r : list) { %>
 								<% gNo = r.getGymNo(); %>
 							<tr>
-								<input type="hidden" name="gNo" id="gNo" value="<%=gNo%>">																
+								<input type="hidden" name="gNo" id="gNo" value="<%=gNo%>">
+								<input type="hidden" name="rNo" value="<%= r.getR_no() %>">																
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
 								<td><%= r.getR_no() %></td>
 								<td class="reviewBody"><%= r.getR_body() %></td>							

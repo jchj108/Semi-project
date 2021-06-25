@@ -71,6 +71,15 @@ public class ReviewWriteServlet extends HttpServlet {
 			
 			ArrayList<ReviewAttachment> fileList = new ArrayList<ReviewAttachment>();
 			
+			if(originFiles.size() == 1) {
+				ReviewAttachment ra = new ReviewAttachment();
+				ra.setR_file_path(savePath);
+				ra.setR_origin_name(originFiles.get(0));
+				ra.setR_change_name(saveFiles.get(0));
+				
+				fileList.add(ra);
+			}
+			
 			for(int i = 1; i >= 0; i--) {
 //				System.out.println(originFiles.get(i));
 				ReviewAttachment ra = new ReviewAttachment();
