@@ -16,7 +16,33 @@ public class Gym {
 	private int G_COUNT;
 	private int G_COVID;
 	private String G_FILE;
-	
+	private String G_HOMEPAGE;
+	private String G_PARIKING_LOT;
+	private String G_BIGO;
+
+	public String getG_BIGO() {
+		return G_BIGO;
+	}
+
+	public void setG_BIGO(String g_BIGO) {
+		G_BIGO = g_BIGO;
+	}
+
+	public String getG_PARIKING_LOT() {
+		return G_PARIKING_LOT;
+	}
+
+	public void setG_PARIKING_LOT(String g_PARIKING_LOT) {
+		G_PARIKING_LOT = g_PARIKING_LOT;
+	}
+
+	public String getG_HOMEPAGE() {
+		return G_HOMEPAGE;
+	}
+
+	public void setG_HOMEPAGE(String g_HOMEPAGE) {
+		G_HOMEPAGE = g_HOMEPAGE;
+	}
 
 	public Gym() {
 
@@ -231,8 +257,10 @@ public class Gym {
 		return "Gym [G_NO=" + G_NO + ", G_TYPE_NM=" + G_TYPE_NM + ", G_GU_NM=" + G_GU_NM + ", G_NAME=" + G_NAME
 				+ ", G_ADDRESS=" + G_ADDRESS + ", G_YCODE=" + G_YCODE + ", G_XCODE=" + G_XCODE + ", G_TEL=" + G_TEL
 				+ ", G_EDU_YN=" + G_EDU_YN + ", G_IN_OUT=" + G_IN_OUT + ", G_STATUS=" + G_STATUS + ", G_COUNT="
-				+ G_COUNT + ", G_COVID=" + G_COVID + ", G_FILE=" + G_FILE + "]";
+				+ G_COUNT + ", G_COVID=" + G_COVID + ", G_FILE=" + G_FILE + ", G_HOMEPAGE=" + G_HOMEPAGE
+				+ ", G_PARIKING_LOT=" + G_PARIKING_LOT + ", G_BIGO=" + G_BIGO + "]";
 	}
+
 
 	
 	

@@ -15,6 +15,7 @@ import board.model.vo.Comments;
 import board.model.vo.PageInfo;
 
 import board.model.vo.QnaFile;
+import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 import page.model.vo.Page;
 
@@ -207,5 +208,21 @@ public class BoardService {
 		return list;
 	}
 
+	public int insertGym(Gym g, ArrayList<GFile> fileList) {
+		Connection conn = getConnection();
 
+		BoardDAO dao = new BoardDAO();
+		
+		int result1 = dao.insertGym(conn, g);
+		int result2 = dao.insertGFile(conn, fileList);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1;
+	}
 }

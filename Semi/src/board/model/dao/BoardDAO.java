@@ -542,6 +542,23 @@ public class BoardDAO {
 	}
 
 
+	public int insertGym(Connection conn, Gym g) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertGym");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+
+
 	
 
 	

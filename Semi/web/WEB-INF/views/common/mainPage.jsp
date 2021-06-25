@@ -150,6 +150,7 @@ body {
 	height: 56px;
 	caret-color: #00b1d2;
 	font-family: inherit;
+	margin-left: 0px;
 }
 
 input::placeholder {
@@ -333,7 +334,7 @@ input#search_service {
 	background: white;
 	border-radius: 50%;
 	box-shadow: 0 1px 3px 0 #323232;
-	top: 45%;
+	top: 53%;
 }
 
 .swiper-button-next:hover, .swiper-button-prev:hover {
