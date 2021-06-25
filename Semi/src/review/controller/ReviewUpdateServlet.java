@@ -2,6 +2,9 @@ package review.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
@@ -61,10 +64,6 @@ public class ReviewUpdateServlet extends HttpServlet {
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
-				System.out.println(name + ": names!");
-				
-				System.out.println(mr.getFilesystemName(name) + ": 시스템 이름");
-				
 				if(mr.getFilesystemName(name) != null) {
 					originFiles.add(mr.getOriginalFileName(name));
 					saveFiles.add(mr.getFilesystemName(name));
@@ -73,24 +72,37 @@ public class ReviewUpdateServlet extends HttpServlet {
 			
 			ArrayList<ReviewAttachment> fileList = new ArrayList<ReviewAttachment>();
 			
+			int rNo = Integer.parseInt(mr.getParameter("rNo"));
+//			String upload_date = mr.getParameter("upload_date");
+//			System.out.println(upload_date + " : 업로드 날짜");
+			
+//			Date date = null;
+//	        try {
+//	        	String strDate = mr.getParameter("upload_date");
+//	        	SimpleDateFormat sdf = new SimpleDateFormat("yy/MM/dd");
+//				date = (Date) sdf.parse(strDate);
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
+			
 			for(int i = 1; i >= 0; i--) {
-				System.out.println(originFiles.get(i) + " : 인덱스 0, 1원래");
-				
 				ReviewAttachment ra = new ReviewAttachment();
 				ra.setR_file_path(savePath);
 				ra.setR_origin_name(originFiles.get(i));
 				ra.setR_change_name(saveFiles.get(i));
+				ra.setR_no(rNo);
+//				ra.setR_upload_date(date);
 				
 				fileList.add(ra);
 			}
 			
 			for(int i = originFiles.size()-1; i >= 2; i--) {
-				System.out.println(originFiles.get(i) + " : 인덱스 거꾸로");
-				
 				ReviewAttachment ra = new ReviewAttachment();
 				ra.setR_file_path(savePath);
 				ra.setR_origin_name(originFiles.get(i));
 				ra.setR_change_name(saveFiles.get(i));
+				ra.setR_no(rNo);
+//				ra.setR_upload_date(date);
 				
 				fileList.add(ra);
 			}
@@ -117,13 +129,8 @@ public class ReviewUpdateServlet extends HttpServlet {
 				}
 			}
 			
-			System.out.println(totalStar + ": 총");
-			System.out.println(facilityStar + ": 시설");
-			System.out.println(instructorStar + ": 강사");
-			System.out.println(serviceStar + ": 서비스");
-			System.out.println(priceStar + ": 가격");
-			
 			Review r = new Review();
+			r.setR_no(rNo);
 			r.setR_body(reviewText);
 			r.setR_total(totalStar);
 			r.setR_teacher(instructorStar);
@@ -134,8 +141,25 @@ public class ReviewUpdateServlet extends HttpServlet {
 			r.setReviewerName(name);
 			r.setReviewerNo(no);
 			
-//			int result = new ReviewService().updateReview(fileList, r);
+			int result = new ReviewService().updateReview(fileList, r);
 			
+			//////////////////////////////////////////////
+			for(ReviewAttachment ra : fileList) {
+				System.out.println(ra + ": 수정 파일 리스트");
+			}
+			System.out.println(r + ": 수정 리뷰");
+			////////////////////////////////////////////
+			
+			if(result > 0) {
+				System.out.println("리뷰 수정 성공");
+			} else {
+				for(int i = 0; i < saveFiles.size(); i++) {
+					File fail = new File(savePath + saveFiles.get(i));
+					fail.delete();
+				}
+				request.setAttribute("msg", "리뷰 수정에 실패하였습니다.");
+				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			}
 			
 		}
 	}
