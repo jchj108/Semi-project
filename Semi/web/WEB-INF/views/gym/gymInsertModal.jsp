@@ -23,7 +23,8 @@
 
 .modal-body {
 	overflow-y: scroll; /* to get scrollbar only for y axis */
-	height: 730px;
+	height: 710px;
+	padding-bottom: 40px;
 }
 
 #intro {
@@ -70,7 +71,12 @@
 	margin-left: 30px;
 	margin-top: 10px;
 	font-weight: 400;
-	margin-bottom: 10px;
+}
+
+.modal-footer {
+	margin-top: 0px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
 }
 
 label {
@@ -92,9 +98,16 @@ label {
 
 .imgArea {
 	border: 1px solid gray;
-	width: 150px;
-	height: 100px;
+	width: 250px;
+	height: 200px;
 	display: inline-block;
+	padding-top: 0px !important;
+}
+
+.gymImage {
+	object-fit: cover;
+	width: 100%;
+	height: 100%;
 }
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.css" rel="stylesheet" />
@@ -111,8 +124,8 @@ label {
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<div class="modal-body">
-				<form class="contents-inside" action="<%=request.getContextPath()%>/insert.fc" method="post" encType="multipart/form-data">
+			<form class="contents-inside" action="<%=request.getContextPath()%>/insert.fc" method="post" encType="multipart/form-data">
+				<div class="modal-body">
 					<label for="gymName">이름</label>
 					<input type="text" class="form-control" name="gymName" id="gymName" placeholder="이름을 입력하세요" required>
 					<label for="gymAddr">주소</label><br>
@@ -126,28 +139,36 @@ label {
 					<input type="text" class="form-control" name="gymParking" id="gymParking" placeholder="주차 정보를 입력하세요">
 					<label for="gymBigo">비고</label><br>
 					<input type="text" class="form-control" name="gymBigo" id="gymBigo" placeholder="비고를 입력하세요">
-					<label for="signUpProfile" style="margin-bottom:10px;">대표 사진</label><br>
-					<div class="imgArea"></div>
+					<label for="signUpProfile" style="margin-bottom: 10px;">대표 사진</label><br>
+					<div class="imgArea">
+						<img class="gymImage" id="img1">
+					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<input type="file" class="custom-file-input" id="gymImg1" name="gymImg1" onchange="LoadImg(this, 1)">
 						<label class="custom-file-label" for="signUpProfile">파일선택</label>
 					</div>
 					<br> <label for="signUpProfile" style="display: block; margin-bottom: 10px;">일반 사진</label>
-					<div class="imgArea"></div>
+					<div class="imgArea">
+						<img class="gymImage" id="img2">
+					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<input type="file" class="custom-file-input" id="gymImg2" name="gymImg2" onchange="LoadImg(this, 2)">
 						<label class="custom-file-label" for="signUpProfile">파일선택</label>
 					</div>
 					<br>
-					<div class="imgArea"></div>
+					<div class="imgArea">
+						<img class="gymImage" id="img3">
+					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<input type="file" class="custom-file-input" id="gymImg3" name="gymImg3" onchange="LoadImg(this, 3)">
 						<label class="custom-file-label" for="signUpProfile">파일선택</label>
 					</div>
 					<br>
-					<div class="imgArea"></div>
+					<div class="imgArea">
+						<img class="gymImage" id="img4">
+					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="signUpProfile" name="signUpProfile" onchange="LoadImg(this)">
+						<input type="file" class="custom-file-input" id="gymImg4" name="gymImg4" onchange="LoadImg(this, 4)">
 						<label class="custom-file-label" for="signUpProfile">파일선택</label>
 					</div>
 					<br> <br> <label for="weekdayOpen">운영 시간</label><br>
@@ -190,26 +211,42 @@ label {
 						<label class="form-check-label" for="inlineRadio4">실외</label>
 					</div>
 					<br>
-				</form>
-			</div>
-			<div class="modal-footer">
-				<button class="btn btn-lg btn-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">등록 완료</button>
-			</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-lg btn-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">등록 완료</button>
+				</div>
+			</form>
 		</div>
 	</div>
 </body>
-</html>
 <script>
-	$('#parkingLot').keyup(function() {
-		var input = $(this).val();
-		$(this).val($(this).val().substring(0, 50));
-	});
-	$('#homepage').keyup(function() {
-		var input = $(this).val();
-		$(this).val($(this).val().substring(0, 100));
-	});
 	$('form').children().css({
 		'margin-top' : '5px',
 		'padding-top' : '4px'
 	});
+	function LoadImg(value, num) {
+		if (value.files && value.files[0]) {
+			var reader = new FileReader();
+
+			reader.onload = function(e) {
+				switch (num) {
+					case 1 :
+						$("#img1").attr("src", e.target.result);
+						console.log(e.target.result);
+						break;
+					case 2 :
+						$("#img2").attr("src", e.target.result);
+						break;
+					case 3 :
+						$("#img3").attr("src", e.target.result);
+						break;
+					case 4 :
+						$("#img4").attr("src", e.target.result);
+						break;
+				}
+			}
+			reader.readAsDataURL(value.files[0]); // 입력 중 0번째에 있는 것을 들어가게 하겠다.
+		}
+	}
 </script>
+</html>
