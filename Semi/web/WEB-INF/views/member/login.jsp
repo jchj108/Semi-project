@@ -53,12 +53,6 @@
 			</div>
 		</div>
 		
-		<form action="<%= request.getContextPath() %>/checkEmail.me" id="kakaoLoginForm" method="post">
-			<input type="hidden" id="kakaoEmail" name="email">
-			<input type="hidden" id="kakaoPwd" name="pwd">
-			<input type="hidden" id="kakaoGender" name="gender">
-		</form>
-		
 	<script>
 		$('#signUpLogin').on('click', function(){
 			$('#loginModal').modal("hide");
@@ -66,7 +60,7 @@
 		});
 		
 		window.Kakao.init("07a99d78f7b743ace5cbf5de3b116c13");
-		console.log(Kakao.isInitialized());
+// 		console.log(Kakao.isInitialized());
 		
 		function kakaoLogin(){
 			$('#loginModal').modal("hide");

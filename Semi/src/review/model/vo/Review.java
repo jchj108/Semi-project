@@ -10,14 +10,31 @@ public class Review {
 	private int r_teacher; // 강사 점수
 	private int r_service; // 서비스 점수
 	private int r_gym; // 시설 점수
+	private int r_price; // 가격 점수
 	private String r_keyword;
 	private String r_status;
 	private int reviewerNo; // 작성자 m_no
 	private String reviewerName; // 작성자 이름
 	private int gymNo; // 시설 g_no
 	
-	public Review() {
-		
+	public Review() {}
+
+	public Review(int r_no, String r_body, Date r_date, int r_total, int r_teacher, int r_service, int r_gym,
+			int r_price, String r_keyword, String r_status, int reviewerNo, String reviewerName, int gymNo) {
+		super();
+		this.r_no = r_no;
+		this.r_body = r_body;
+		this.r_date = r_date;
+		this.r_total = r_total;
+		this.r_teacher = r_teacher;
+		this.r_service = r_service;
+		this.r_gym = r_gym;
+		this.r_price = r_price;
+		this.r_keyword = r_keyword;
+		this.r_status = r_status;
+		this.reviewerNo = reviewerNo;
+		this.reviewerName = reviewerName;
+		this.gymNo = gymNo;
 	}
 
 	public Review(int r_no, String r_body, Date r_date, int r_total, int r_teacher, int r_service, int r_gym,
@@ -36,8 +53,6 @@ public class Review {
 		this.reviewerName = reviewerName;
 		this.gymNo = gymNo;
 	}
-	
-	
 		
 	public Review(int r_no, String r_body, Date r_date, int r_total) {
 		super();
@@ -149,14 +164,24 @@ public class Review {
 	public void setGymNo(int gymNo) {
 		this.gymNo = gymNo;
 	}
+	
+	public int getR_price() {
+		return r_price;
+	}
+
+	public void setR_price(int r_price) {
+		this.r_price = r_price;
+	}
 
 	@Override
 	public String toString() {
 		return "Review [r_no=" + r_no + ", r_body=" + r_body + ", r_date=" + r_date + ", r_total=" + r_total
-				+ ", r_teacher=" + r_teacher + ", r_service=" + r_service + ", r_gym=" + r_gym + ", r_keyword="
-				+ r_keyword + ", r_status=" + r_status + ", reviewerNo=" + reviewerNo + ", reviewerName=" + reviewerName
-				+ ", gymNo=" + gymNo + "]";
+				+ ", r_teacher=" + r_teacher + ", r_service=" + r_service + ", r_gym=" + r_gym + ", r_price=" + r_price
+				+ ", r_keyword=" + r_keyword + ", r_status=" + r_status + ", reviewerNo=" + reviewerNo
+				+ ", reviewerName=" + reviewerName + ", gymNo=" + gymNo + "]";
 	}
+
+	
 	
 	
 }
