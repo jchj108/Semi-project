@@ -822,7 +822,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 							<div class="local-image">
  							<% for(int j = 0; j < thumbList.size(); j++) { %>
  								<% if(localList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
-								<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+								<img src="<%=cp%>/gym_uploadFiles/<%=thumbList.get(j).getgChangeName() %>">
 								<%	} %>
 							<%	} %>
 								<span><%=localList.get(i).getG_GU_NM() %></span>
@@ -837,7 +837,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 								<div class="local-image">
 		 							<% for(int j = 0; j < thumbList.size(); j++) { %>
 		 								<% if(localList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
-										<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+										<img src="<%=cp%>/gym_uploadFiles/<%=thumbList.get(j).getgChangeName() %>">
 										<%	} %>
 									<%	} %>
 									<span><%=localList.get(i).getG_GU_NM() %></span>
@@ -869,7 +869,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 								<div class="local-image">
 		 							<% for(int j = 0; j < thumbList.size(); j++) { %>
 		 								<% if(recommendList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
-										<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+										<img src="<%=cp%>/gym_uploadFiles/<%=thumbList.get(j).getgChangeName() %>">
 										<%	} %>
 									<%	} %>								
 									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
@@ -884,7 +884,7 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 								<div class="local-image">
 		 							<% for(int j = 0; j < thumbList.size(); j++) { %>
 		 								<% if(recommendList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
-										<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+										<img src="<%=cp%>/gym_uploadFiles/<%=thumbList.get(j).getgChangeName() %>">
 										<%	} %>
 									<%	} %>									
 									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
