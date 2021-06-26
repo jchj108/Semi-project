@@ -5,6 +5,7 @@ ArrayList<Gym> covidList = (ArrayList)request.getAttribute("covidList");
 ArrayList<Gym> popularList = (ArrayList)request.getAttribute("popularList");
 ArrayList<Gym> recommendList = (ArrayList)request.getAttribute("recommendList");
 ArrayList<Gym> localList = (ArrayList)request.getAttribute("localList");
+ArrayList<GFile> thumbList = (ArrayList)request.getAttribute("thumbList");
 %>
 <!DOCTYPE html>
 <html>
@@ -763,9 +764,13 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<popularList.size(); i++) { %>
  							<a class="swiper-slide" href="<%= cp %>/detail.do?gNo=<%=popularList.get(i).getG_NO()%>">
- 							<img src="<%= cp %>/image/gym/<%=popularList.get(i).getG_FILE()%>">
- 								<span class="subtext">조회수 : <%=popularList.get(i).getG_COUNT() %></span>
- 								<%= popularList.get(i).getG_NAME() %>
+ 							<% for(int j = 0; j < thumbList.size(); j++) { %>
+ 								<% if(popularList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
+ 									<img src="<%= cp %>/gym_uploadFiles/<%= thumbList.get(j).getgChangeName() %>">
+ 								<% } %>
+							<%	} %> 							
+							<span class="subtext">조회수 : <%=popularList.get(i).getG_COUNT() %></span>
+							<%= popularList.get(i).getG_NAME() %>
 							</a>
 						<% } %>
 					</div>
@@ -780,11 +785,15 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 					<div class="swiper-pagination"></div> 
 					<div class="swiper-wrapper">
 						<% for(int i = 0; i<covidList.size(); i++) { %>
- 						<a class="swiper-slide" href="<%= cp %>/detail.do?gNo=<%=covidList.get(i).getG_NO()%>">
- 							<img src="<%= cp %>/image/gym/<%=covidList.get(i).getG_FILE()%>">
- 								<span class="subtext">방역도 : <%=covidList.get(i).getG_COVID() %></span>
- 								<%= covidList.get(i).getG_NAME() %>
- 						</a>
+ 							<a class="swiper-slide" href="<%= cp %>/detail.do?gNo=<%=covidList.get(i).getG_NO()%>">
+ 							<% for(int j = 0; j < thumbList.size(); j++) { %>
+ 								<% if(covidList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
+ 									<img src="<%= cp %>/gym_uploadFiles/<%= thumbList.get(j).getgChangeName() %>">
+ 								<% } %>
+							<%	} %> 							
+							<span class="subtext">방역도 : <%=covidList.get(i).getG_COVID() %></span>
+							<%= covidList.get(i).getG_NAME() %>
+							</a>
 						<% } %>
 					</div>
 					
@@ -810,13 +819,15 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				<% if(loginUser == null) { %>
 					<% for(int i = 0; i<localList.size(); i++) { %>
 						<div class="imageBox">
-<!-- 					<a href="<%=cp%>/detail.do?gNo=<%=localList.get(i).getG_NO() %>">  -->			
-								<div class="local-image">
-									<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
-									<span><%=localList.get(i).getG_GU_NM() %></span>
-								</div>
-							<div class="imgtitle"><%= localList.get(i).getG_NAME() %></div>
-<!-- 					</a>  -->		
+							<div class="local-image">
+ 							<% for(int j = 0; j < thumbList.size(); j++) { %>
+ 								<% if(localList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
+								<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+								<%	} %>
+							<%	} %>
+								<span><%=localList.get(i).getG_GU_NM() %></span>
+							</div>
+						<div class="imgtitle"><%= localList.get(i).getG_NAME() %></div>
 						</div>
 					<% } %>
 				<% } else { %>
@@ -824,7 +835,11 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 						<div class="imageBox">
 							<a href="<%=cp%>/detail.do?gNo=<%=localList.get(i).getG_NO() %>">
 								<div class="local-image">
-									<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+		 							<% for(int j = 0; j < thumbList.size(); j++) { %>
+		 								<% if(localList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
+										<img src="<%=cp%>/image/gym/<%=localList.get(i).getG_FILE() %>">
+										<%	} %>
+									<%	} %>
 									<span><%=localList.get(i).getG_GU_NM() %></span>
 								</div>
 							<div class="imgtitle"><%= localList.get(i).getG_NAME() %></div>
@@ -852,7 +867,11 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 						<div class="imageBox">
 							<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">
 								<div class="local-image">
-									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+		 							<% for(int j = 0; j < thumbList.size(); j++) { %>
+		 								<% if(recommendList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
+										<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+										<%	} %>
+									<%	} %>								
 									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
 								</div>
 							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
@@ -862,13 +881,15 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				<%} else { %>
 					<% for(int i = 0; i<recommendList.size(); i++) { %>
 						<div class="imageBox">
-<!-- 					<a href="<%=cp%>/detail.do?gNo=<%=recommendList.get(i).getG_NO() %>">  -->			
 								<div class="local-image">
-									<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+		 							<% for(int j = 0; j < thumbList.size(); j++) { %>
+		 								<% if(recommendList.get(i).getG_NO() == thumbList.get(j).getgNo()) { %>
+										<img src="<%=cp%>/image/gym/<%=recommendList.get(i).getG_FILE() %>">
+										<%	} %>
+									<%	} %>									
 									<span><%=recommendList.get(i).getG_TYPE_NM() %></span>
 								</div>
 							<div class="imgtitle"><%= recommendList.get(i).getG_NAME() %></div>
-<!-- 					</a>  -->		
 						</div>
 					<% } %>
 				<% } %>
