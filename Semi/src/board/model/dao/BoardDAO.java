@@ -276,8 +276,7 @@ public class BoardDAO {
 						rset.getString("g_IN_OUT"),
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
-						rset.getInt("g_COVID"),
-						rset.getString("g_CHANGE_NAME"));
+						rset.getInt("g_COVID"));
 				System.out.println(g);
 				list.add(g);
 			}
@@ -366,8 +365,7 @@ public class BoardDAO {
 						rset.getString("g_IN_OUT"),
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
-						rset.getInt("g_COVID"),
-						rset.getString("g_CHANGE_NAME"));
+						rset.getInt("g_COVID"));
 				System.out.println(g);
 				list.add(g);
 			}
