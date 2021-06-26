@@ -178,7 +178,7 @@ public class MemberDAO {
 				b.setQ_no(rset.getInt("q_no"));
 				b.setQ_title(rset.getString("q_title"));
 				b.setQ_date(rset.getDate("q_date"));
-				b.setwriterNo(rset.getInt("m_num"));
+				b.setWriterNo(rset.getInt("m_num"));
 				
 				list.add(b);
 						

@@ -93,6 +93,7 @@
 				location.href="<%=request.getContextPath()%>/faq.do";
 			} else {
 				alert('회원만 이용 가능합니다 :)');
+				$('html').scrollTop(0);
 			}
 		});
 	</script>

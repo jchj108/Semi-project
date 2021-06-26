@@ -136,7 +136,7 @@
 						    <tr>
 								<td><input type="checkbox" name="check" onclick="selectOne();" value="<%= b.getQ_no()%>"></td>
 								<td><%= b.getQ_no() %></td>
-								<td><%= b.getWriterName()%></td>
+								<td><%= b.getWriterEmail()%></td>
 								<td><%= b.getQ_title() %></td>
 								<td><%= b.getQ_date()%></td>
 							</tr>

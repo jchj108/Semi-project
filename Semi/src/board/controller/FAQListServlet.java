@@ -33,42 +33,48 @@ public class FAQListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int listCount;
+		int currentPage;
+		int pageLimit;
+		int boardLimit;
+		int maxPage;
+		int startPage;
+		int endPage;
+		
+		String str = "F";
+		
 		BoardService bService = new BoardService();
+		listCount = bService.getListCount(str); // listCount가 안먹히고 있음
 		
-		String bDiv = "F";
-		
-		int listCount = bService.getListCount(bDiv);
-		int currentPage = 1;
+		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		int boardLimit = 10;
-		int pageLimit = 5;
+		pageLimit = 5;
+		boardLimit = 10;
 		
-		int maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		maxPage = (int)Math.ceil((double)listCount / boardLimit);
 		
-		int startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
-		int endPage = (startPage + pageLimit) - 1;
+		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
+		
+		endPage = startPage + pageLimit - 1;
 		if(endPage > maxPage) {
-			endPage = maxPage;
+			endPage = maxPage; 
 		}
 		
-		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
-		
-		ArrayList<Board> fList = bService.selectFaqList(pi);
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+		ArrayList<Board> list = bService.selectBoardList(pi, str);
 		
 		String page = null;
-		
-		if(fList != null) {
+		if(list != null) {
 			page = "WEB-INF/views/board/faqList.jsp";
-			request.setAttribute("fList", fList);
+			request.setAttribute("list", list);
 			request.setAttribute("pi", pi);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg","게시판 조회에 실패하였습니다.");
+			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
 		}
-		
 		request.getRequestDispatcher(page).forward(request, response);
 		
 	}
