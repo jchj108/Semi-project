@@ -17,6 +17,7 @@ import board.model.vo.Board;
 import board.model.vo.Comments;
 import board.model.vo.PageInfo;
 import board.model.vo.QnaFile;
+import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 import page.model.vo.Page;
 
@@ -51,9 +52,10 @@ public class BoardDAO {
 		
 		try {
 			stmt = conn.createStatement();
+			
 			rset = stmt.executeQuery(query);
 			
-			while(rset.next()) {
+			if(rset.next()) {
 				listCount = rset.getInt(1);
 			}
 		} catch (SQLException e) {
@@ -90,7 +92,14 @@ public class BoardDAO {
 			while(rset.next()) {
 				Board b = new Board(rset.getInt("q_no"),
 									rset.getString("q_title"),
+									rset.getString("q_body"),
 									rset.getDate("q_date"),
+									rset.getInt("q_count"),
+									rset.getString("q_secret"),
+									rset.getString("q_status"),
+									rset.getString("q_board_div"),
+									rset.getInt("m_num"),
+									rset.getString("m_name"),
 									rset.getString("m_email"));
 				list.add(b);
 			}
@@ -196,7 +205,9 @@ public class BoardDAO {
 				QnaFile qFile = new QnaFile(rset.getInt("q_file_no"),
 											rset.getString("q_file"),
 											rset.getString("q_status"),
-											rset.getInt("q_no"));
+											rset.getInt("q_no"),
+											rset.getString("q_origin_name"),
+											rset.getString("q_change_name"));
 				
 				fileList.add(qFile);
 			}
@@ -265,9 +276,8 @@ public class BoardDAO {
 						rset.getString("g_IN_OUT"),
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
-						rset.getInt("g_COVID"),
-						rset.getString("g_FILE"));
-				
+						rset.getInt("g_COVID"));
+				System.out.println(g);
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -355,8 +365,7 @@ public class BoardDAO {
 						rset.getString("g_IN_OUT"),
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
-						rset.getInt("g_COVID"),
-						rset.getString("g_FILE"));
+						rset.getInt("g_COVID"));
 				System.out.println(g);
 				list.add(g);
 			}
@@ -440,50 +449,12 @@ public class BoardDAO {
 		return listCount;
 	}
 
-
-	public ArrayList<Board> selectFaqList(Connection conn, Page pi) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = new ArrayList<Board>();
-		
-		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int end = start + pi.getBoardLimit() - 1;
-		
-		String query = prop.getProperty("selectFaqList");
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Board b = new Board(rset.getInt("q_no"),
-									rset.getString("q_title"),
-									rset.getDate("q_date"),
-									rset.getInt("m_num"),
-									rset.getString("m_name"));
-				
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-
-
 	public int getQListCount(Connection conn, int mNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		int count = 0;
 		
-		String query = prop.getProperty("getQListCount");
+		String query = prop.getProperty("getQcount");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -505,10 +476,11 @@ public class BoardDAO {
 	}
 
 
-	public ArrayList<Board> selectQList(Connection conn, Page pi, int mNo) {
+	public ArrayList<Board> selectQList(Connection conn, PageInfo pi, int mNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = new ArrayList<Board>();
+		
 		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int end = start + pi.getBoardLimit() - 1;
 		
@@ -542,7 +514,113 @@ public class BoardDAO {
 	}
 
 
-	
+	public int insertBoard(Connection conn, Board b) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBoard");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, b.getQ_title());
+			pstmt.setString(2, b.getQ_body());
+			pstmt.setString(3, b.getQ_secret());
+			pstmt.setString(4, b.getQ_board_div());
+			pstmt.setInt(5, b.getWriterNo());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 
-	
+
+	public int insertBoardFile(Connection conn, ArrayList<QnaFile> fileList) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertBoardFile");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				QnaFile qf = fileList.get(i); 
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, qf.getQ_file());				
+				pstmt.setString(2, qf.getOriginName());
+				pstmt.setString(3, qf.getChangeName());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
+	public int insertGym(Connection conn, Gym g) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertGym");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, g.getG_TYPE_NM());
+			pstmt.setString(2, g.getG_GU_NM());
+			pstmt.setString(3, g.getG_NAME());
+			pstmt.setString(4, g.getG_ADDRESS());
+			pstmt.setString(5, g.getG_TEL());
+			pstmt.setString(6, g.getG_BIGO());
+			pstmt.setString(7, g.getG_HOMEPAGE());
+			pstmt.setString(8, g.getG_EDU_YN());
+			pstmt.setString(9, g.getG_IN_OUT());
+			pstmt.setString(10, g.getG_PARIKING_LOT());
+			pstmt.setInt(11, g.getG_COVID());
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public int insertGFile(Connection conn, ArrayList<GFile> fileList) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertGFile");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				GFile f = fileList.get(i);
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, f.getgOriginName());
+				pstmt.setString(2, f.getgChangeName());
+				pstmt.setString(3, f.getgFilePath());
+				pstmt.setInt(4, f.getgFileLv());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

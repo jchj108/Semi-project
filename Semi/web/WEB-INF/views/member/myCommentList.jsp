@@ -109,8 +109,7 @@
 								<th width="50px;"><input type="checkbox" id="allSelect"></th>
 								<th width="80px;">댓글 번호</th>
 								<th>내용</th>						
-								<th width="100px;">작성일</th>
-								<th width="100px;"></th>
+								<th width="100px;">작성일</th>								
 							</tr>
 							
 							<% if(list.isEmpty()) { %>
@@ -122,11 +121,10 @@
 								<% qNo = c.getbNo(); %>
 							<tr>
 								<input type="hidden" name="qNo" id="qNo" value="<%=qNo%>">	
-								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
+								<td><input type="checkbox" class="select" name="select" onclick="selectOne();" value="<%=c.getC_no()%>"></td>
 								<td><%= c.getC_no() %></td>
 								<td class="commentsBody"><%= c.getC_body() %></td>							
-								<td><%= c.getC_date() %></td>
-								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
+								<td><%= c.getC_date() %></td>								
 							</tr>
 								<% } %>					
 							<% } %>					

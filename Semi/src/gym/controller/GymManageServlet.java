@@ -1,4 +1,4 @@
-package board.controller;
+package gym.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,7 +82,7 @@ public class GymManageServlet extends HttpServlet {
 		String page = null;
 
 		if (gymList != null) {
-			page = "WEB-INF/views/board/gymManageList.jsp";
+			page = "WEB-INF/views/gym/gymManageList.jsp";
 			request.setAttribute("gymList", gymList);
 			request.setAttribute("pi", pi);
 		} else {

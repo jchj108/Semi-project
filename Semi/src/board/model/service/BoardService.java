@@ -2,8 +2,8 @@ package board.model.service;
 
 
 import static common.JDBCTemplate.close;
-import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.commit;
+import static common.JDBCTemplate.getConnection;
 import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
@@ -13,10 +13,9 @@ import board.model.dao.BoardDAO;
 import board.model.vo.Board;
 import board.model.vo.Comments;
 import board.model.vo.PageInfo;
-
 import board.model.vo.QnaFile;
+import gym.model.vo.GFile;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
 
 
 public class BoardService {
@@ -177,16 +176,7 @@ public class BoardService {
 
 	}
 
-	public ArrayList<Board> selectFaqList(Page pi) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> list = new BoardDAO().selectFaqList(conn, pi);
-		
-		close(conn);
-		
-		return list;
-	}
-
+	
 	public int getQListCount(int mNo) {
 		Connection conn = getConnection();
 		
@@ -197,7 +187,7 @@ public class BoardService {
 		return count;
 	}
 
-	public ArrayList<Board> selectQList(Page pi, int mNo) {
+	public ArrayList<Board> selectQList(PageInfo pi, int mNo) {
 		Connection conn = getConnection();
 		
 		ArrayList<Board> list = new BoardDAO().selectQList(conn, pi, mNo);
@@ -207,5 +197,69 @@ public class BoardService {
 		return list;
 	}
 
+	public int insertBoard(Board b, ArrayList<QnaFile> fileList) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result1 = dao.insertBoard(conn, b);
+		
+		if(result1 > 0) {
+			int result2 = dao.insertBoardFile(conn, fileList);
+			
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result1;
+	}
 
+	public int deleteOneboard(String qNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDAO().deleteBoard(conn, qNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
+
+	public int deleteMyComments(String string) {
+		System.out.println(string);
+		String cNo = null;
+		if(string != null) {
+			for(int i = 0; i > string.length(); i++) {
+				cNo = string.split(", ")[i];
+				System.out.println(cNo);
+				
+			}
+		}
+		return 0;
+	}
+
+	public int insertGym(Gym g, ArrayList<GFile> fileList) {
+		Connection conn = getConnection();
+
+		BoardDAO dao = new BoardDAO();
+		
+		int result1 = dao.insertGym(conn, g);
+		int result2 = dao.insertGFile(conn, fileList);
+		
+		if(result1 > 0 && result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1;
+	}
 }

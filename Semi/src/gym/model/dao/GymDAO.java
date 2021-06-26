@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 import page.model.vo.Page;
 
@@ -133,8 +134,7 @@ public class GymDAO {
 							rset.getString("g_IN_OUT"),
 							rset.getString("G_STATUS").charAt(0),
 							rset.getInt("g_COUNT"),
-							rset.getInt("g_COVID"),
-							rset.getString("g_FILE"));
+							rset.getInt("g_COVID"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -172,8 +172,7 @@ public class GymDAO {
 							rset.getString("g_IN_OUT"),
 							rset.getString("G_STATUS").charAt(0),
 							rset.getInt("g_COUNT"),
-							rset.getInt("g_COVID"),
-							rset.getString("g_FILE"));
+							rset.getInt("g_COVID"));
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -202,8 +201,7 @@ public class GymDAO {
 			while(rset.next()) {
 				Gym g = new Gym(rset.getInt("g_No"),
 								rset.getString("g_type_nm"),
-								rset.getString("g_name"),
-								rset.getString("g_file"));
+								rset.getString("g_name"));
 				list.add(g);
 			}
 			
@@ -233,8 +231,7 @@ public class GymDAO {
 					Gym g = new Gym(rset.getInt("g_No"),
 							rset.getString("g_type_nm"),
 							rset.getString("g_gu_nm"),
-							rset.getString("g_name"),
-							rset.getString("g_file"));
+							rset.getString("g_name"));
 					list.add(g);
 				}
 				
@@ -264,8 +261,7 @@ public class GymDAO {
 					Gym g = new Gym(rset.getInt("g_No"),
 									rset.getString("g_type_nm"),
 									rset.getString("G_GU_NM"),
-									rset.getString("g_name"),
-									rset.getString("g_file"));
+									rset.getString("g_name"));
 					list.add(g);
 				}
 			} catch (SQLException e) {
@@ -353,8 +349,7 @@ public class GymDAO {
 				Gym g = new Gym(rset.getInt("g_no"),
 						rset.getString("g_name"),
 						rset.getString("g_address"),
-						rset.getInt("g_covid"),
-						rset.getString("g_file"));
+						rset.getInt("g_covid"));
 				gList.add(g);
 			}
 		} catch (SQLException e) {
@@ -391,8 +386,7 @@ public class GymDAO {
 				Gym g = new Gym(rset.getInt("g_no"),
 						rset.getString("g_name"),
 						rset.getString("g_address"),
-						rset.getInt("g_covid"),
-						rset.getString("g_file"));
+						rset.getInt("g_covid"));
 				
 				gList.add(g);
 			}
@@ -407,7 +401,39 @@ public class GymDAO {
 		
 		return gList;
 	}
-
+	
+	public ArrayList<GFile> selectGymThumbList(Connection conn) {
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		ArrayList<GFile> thumbList = new ArrayList<GFile>();
+		
+		String query = prop.getProperty("selectGymThumbList");
+		
+		try {
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				GFile gf = new GFile(rset.getInt("g_file_no"),
+										 rset.getInt("g_no"),
+										 rset.getString("g_origin_name"),
+										 rset.getString("g_change_name"),
+										 rset.getString("g_file_path"),
+										 rset.getDate("g_upload_date"),
+										 rset.getInt("g_file_lv"),
+										 rset.getString("g_status").charAt(0));
+				thumbList.add(gf);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+		return thumbList;
+	}
+	
 
 	public ArrayList<Gym> recommendGym(Connection conn, Gym rGym) {
 		// g_type_nm=gymType, g_gu_nm=locationStr, g_tel=parking, g_edu_yn=lecture, g_in_out=inout

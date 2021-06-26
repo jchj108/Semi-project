@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import gym.model.dao.GymDAO;
+import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 import page.model.vo.Page;
 
@@ -122,6 +123,18 @@ public class GymService {
 		return gList;
 	}
 
+	public ArrayList<GFile> selectGymThumbList() {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<GFile> thumbList = new GymDAO().selectGymThumbList(conn);
+		
+		close(conn);
+		
+		return thumbList;
+	}
+	
+
 	public ArrayList<Gym> recommendGym(Gym rGym) {
 		Connection conn = getConnection();
 		
@@ -131,4 +144,5 @@ public class GymService {
 		
 		return list;
 	}
+
 }

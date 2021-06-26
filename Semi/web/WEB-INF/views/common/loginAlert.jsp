@@ -52,6 +52,39 @@
 	margin-top: 15px;
 }
 
+	* {font-family: 'Noto Sans KR';} 
+ 	a:hover {text-decoration: none; } 
+	.main{
+		margin-top: 30px;
+		display: inline-block;
+		width: 700px; 
+		height: 930px; 
+		margin-left: 25%;
+	}
+	.title{font-size: 30px; font-weight: bolder; text-align: center;}
+	.contents-inside{margin-left: 15%; height: 700px;}
+	input{margin-left: 10px; margin-right: 10px;}
+	#roadNameAddress, #detailedAddress{width: 350px; margin-left: 82px;}
+	.phone{width: 60px; text-align: center;}
+	#day-off{margin-left: 80px;}
+	#intro{border: 1px solid black;  width: 500px; height: 300px; resize: none;}
+	.input-cancel{margin-left: 30%;}
+	.input-btn{
+		width: 100px; height: 40px;
+		color: white;
+		background: #00b1d2;
+		border: none;
+ 	 	border-radius: 10px;
+ 	 	padding: 0.3rem;
+ 	 	padding-left: 0.7rem;
+ 	 	padding-right: 0.7rem;
+ 	 	font-size: 10pt;
+ 	 	font-weight: bold;
+	}
+ 	label{margin-top: 5px; font-weight: bold; padding-top: 10px;}
+ 	#homepage{width: 400px;}
+	#parkingLot{width: 400px;}
+
 </style>
 </head>
 <body>
