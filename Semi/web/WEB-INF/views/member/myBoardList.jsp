@@ -119,8 +119,8 @@
 								
 								<% for(Board b : list) { %>
 							<tr>
-								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
-								<td><%= b.getQ_no()%><input type="hidden" name="qNo" value="<%= b.getQ_no()%>"></td>
+								<td><input type="checkbox" class="select" name="check" value="<%= b.getQ_no()%>" onclick="selectOne();"></td>
+								<td><%= b.getQ_no()%></td>
 								<td class="boardTitle"><%= b.getQ_title() %></td>							
 								<td><%= b.getQ_date() %></td>
 								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
@@ -204,17 +204,25 @@
 			
 		});
 		
-		// 삭제 (여러 개 선택 시 qNo를 어떻게 가져올지?)
+		// 삭제 
 		$('#delete').on('click', function(){
-			if($('.select').prop('checked')) {
-				var check = window.confirm("정말 삭제하시겠습니까?");
-				
-				if(check) {
-					$('#boardListForm').attr('action', 'boardDelete.do');
+			var select = document.getElementsByName('check');
+			var count = 0;
+			
+			for(i = 0; i < select.length; i++){ // 체크박스 체크 여부 확인
+				if(select[i].checked){
+					count++;
+				}
+			}
+			
+			if(count == 0){
+				alert("삭제할 게시글이 없습니다.");
+			} else {
+				var bool = confirm("정말 삭제하시겠습니까?");
+				if(bool){
+					$('#boardListForm').attr('action', 'qnaDelete.ad');
 					$('#boardListForm').submit();
 				}
-			} else {
-				alert("삭제할 게시글을 선택해 주세요.");
 			}
 		});
 		
@@ -228,7 +236,7 @@
 		});
 		
 		function selectOne() {					     
-			var select = document.getElementsByName('select');
+			var select = document.getElementsByName('check');
 			var all = document.getElementById('allSelect');
 			var count = 0;
 			

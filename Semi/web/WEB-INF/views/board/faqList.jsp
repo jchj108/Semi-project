@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.Board, page.model.vo.Page, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="board.model.vo.Board, board.model.vo.PageInfo, java.util.ArrayList"%>
 <%
-	ArrayList<Board> fList = (ArrayList)request.getAttribute("fList");
-	Page pi = (Page)request.getAttribute("pi");
+	ArrayList<Board> list = (ArrayList)request.getAttribute("list");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -138,12 +138,12 @@
 							<th width="120px;">작성일</th>
 						</tr>
 						
-						<% if(fList.isEmpty()) { %>
+						<% if(list.isEmpty()) { %>
 							<tr>
 								<td colspan="4">게시물이 없습니다.</td>
 							</tr>
 							<% } else { %>
-								<% for(Board b : fList) { %>
+								<% for(Board b : list) { %>
 							<tr>								
 								<td><%= b.getQ_no()%><input type="hidden" name="qNo" value="<%= b.getQ_no()%>"></td>
 								<td class="boardTitle"><%= b.getQ_title() %></td>							
@@ -155,7 +155,9 @@
 						
 					</table>
 				<% if(loginUser != null && loginUser.getM_auth() == 0) { %>
-					<div class="write"><button onclick="location.href='<%=request.getContextPath()%>/insertFaq.do" style="color:white" class="boardWrite">작성하기</button></div>
+					<div class="write">
+						<button onclick="location.href='<%=request.getContextPath()%>/insertBoardForm.do?board=Faq'" style="color:white" class="boardWrite" name="bDiv" value="Faq">작성하기</button>
+					</div>
 				<% } %>
 				</div>
 			
