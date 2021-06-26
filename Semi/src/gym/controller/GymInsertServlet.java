@@ -47,11 +47,11 @@ public class GymInsertServlet extends HttpServlet {
 			int maxSize = 1024 * 1024 * 10; // 10Mbtye로 전송파일 용량 제한
 			String root = request.getSession().getServletContext().getRealPath("/"); // 웹 서버 컨테이너 경로 추출(webContent 쪽을
 																						// 이야기한다)
-			String savePath = root + "thumbnail_uploadFiles/";
+			String savePath = root + "gym_uploadFiles/";
 
 			File f = new File(savePath);
 			if (!f.exists()) {
-				f.mkdirs(); 
+				f.mkdirs();
 			}
 
 			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
@@ -62,9 +62,6 @@ public class GymInsertServlet extends HttpServlet {
 
 			// request와 흡사하게 MultipartRequest에도 getParameter가 존재한다.
 			Enumeration<String> files = multipartRequest.getFileNames(); // getFilenames() : 폼에서 전송된 파일 리스트들의
-																			// name(파라미터명)을 반환 // // thumbnailImg1,
-																			// thumbnailImg2, thumbnailImg3,
-																			// thumbnailImg4 //
 			// enumeration에 이미 거꾸로 담겨 있다.
 			// iterator의 이전버전이다. listIterator는 양방향, iterator는 단방향
 			while (files.hasMoreElements()) { // hasNext와 같다.
@@ -77,8 +74,8 @@ public class GymInsertServlet extends HttpServlet {
 				}
 			}
 			// multipartRequest를 사용. 인코딩 타입이 multipart이기 때문이다.
-			String gymName = multipartRequest.getParameter("gymName");
 			String gymType = multipartRequest.getParameter("gymType");
+			String gymName = multipartRequest.getParameter("gymName");
 			String gymHomepage = multipartRequest.getParameter("gymHomepage");
 			String gymParking = multipartRequest.getParameter("gymParking");
 			String gymBigo = multipartRequest.getParameter("gymBigo");
@@ -87,10 +84,12 @@ public class GymInsertServlet extends HttpServlet {
 			String gu = addrArray[0]; // 첫 번째 배열을 gu에 저장. 구, 동, 상세 주소로 입력받음
 			String edu_yn = multipartRequest.getParameter("edu_yn");
 			String in_out = multipartRequest.getParameter("in_out");
-			
+			int covid = Integer.parseInt(multipartRequest.getParameter("covid"));
+
 			Gym g = new Gym();
-			g.setG_NAME(gymName);
+			
 			g.setG_TYPE_NM(gymType);
+			g.setG_NAME(gymName);
 			g.setG_HOMEPAGE(gymHomepage);
 			g.setG_PARIKING_LOT(gymParking);
 			g.setG_BIGO(gymBigo);
@@ -98,8 +97,9 @@ public class GymInsertServlet extends HttpServlet {
 			g.setG_GU_NM(gu);
 			g.setG_EDU_YN(edu_yn);
 			g.setG_IN_OUT(in_out);
+			g.setG_COVID(covid);
 			
-			ArrayList<GFile> fileList = new ArrayList<GFile>(); 
+			ArrayList<GFile> fileList = new ArrayList<GFile>();
 			for (int i = originFiles.size() - 1; i >= 0; i--) {
 				GFile gFile = new GFile();
 				gFile.setgFilePath(savePath);
@@ -112,6 +112,7 @@ public class GymInsertServlet extends HttpServlet {
 				} else {
 					gFile.setgFileLv(1);
 				}
+				System.out.println(gFile);
 				fileList.add(gFile);
 			}
 
@@ -126,7 +127,7 @@ public class GymInsertServlet extends HttpServlet {
 				}
 				request.setAttribute("msg", "시설 등록에 실패하였습니다.");
 				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-			} 
+			}
 		}
 
 	}

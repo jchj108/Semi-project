@@ -132,6 +132,8 @@
 			</div>
 			<form class="contents-inside" action="<%=request.getContextPath()%>/insert.fc" method="post" encType="multipart/form-data">
 				<div class="modal-body">
+					<label for="gymType">타입</label>
+					<input type="text" class="form-control" name="gymType" id="gymType" placeholder="타입을 입력하세요" required>
 					<label for="gymName">이름</label>
 					<input type="text" class="form-control" name="gymName" id="gymName" placeholder="이름을 입력하세요" required>
 					<label for="gymAddr">주소</label><br>
@@ -218,6 +220,27 @@
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="in_out" id="inlineRadio4" value="실외">
 						<label class="form-check-label" for="inlineRadio4">실외</label>
+					</div>
+					<br> <label for="inlineRadio5">방역도</label><br>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio5" value="1">
+						<label class="form-check-label" for="inlineRadio3">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio6" value="2">
+						<label class="form-check-label" for="inlineRadio4">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio7" value="3">
+						<label class="form-check-label" for="inlineRadio4">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio8" value="4">
+						<label class="form-check-label" for="inlineRadio4">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio9" value="5">
+						<label class="form-check-label" for="inlineRadio4">5</label>
 					</div>
 					<br>
 				</div>
