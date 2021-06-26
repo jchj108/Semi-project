@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.Gym, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.*, page.model.vo.Page"%>
 <%
 	ArrayList<Gym> gList = (ArrayList)request.getAttribute("gList");	
 	String cate = request.getParameter("category");
