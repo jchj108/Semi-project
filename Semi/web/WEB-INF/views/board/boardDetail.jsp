@@ -93,7 +93,26 @@
 		    	border-radius: 10px;
 		    	border: none;
 		    	padding: 0.5rem;
-		    }    
+		    }
+		    
+		    .uploaeFileArea {
+		    	border-bottom: 1px solid grey;
+		    	border-top: 1px solid grey;
+		    	background: lightgrey;
+		    	padding: 10px;
+		    }
+		    
+		    .uploadFile {
+		    	display:inline-block;
+		    	font-weight:bold;
+		    	font-size: 11pt;		    	
+		    }
+		    
+		    a {
+		    	font-size: 11pt;
+		    	margin-left: 10px;
+		    	
+		    }
 		    
 			
         </style>
@@ -104,25 +123,33 @@
         <!-- Page Content-->
         <div class="container" style="height: auto;">
         	<div class="wrap">
-				<form class="content" name="updateBoardForm" id="updateBoardForm" method="post" action="<%= request.getContextPath() %>/boardUpdateForm.do">
+				<form class="content" name="updateBoardForm" id="updateBoardForm" method="post" action="<%= request.getContextPath() %>/boardUpdateForm.do" encType="multipart/form-data">
 					<input type="hidden" id="qNo" name="qNo" value="<%=b.getQ_no() %>">
 					<input type="hidden" id="bDiv" name="bDiv" value="<%=b.getQ_board_div() %>">
 					<div class="title"><h3><%= b.getQ_title() %><input type="hidden" name="title" value="<%= b.getQ_title() %>"></h3></div>
 					<hr>
 					<div class="info">날짜 <%= b.getQ_date()%> | 작성자 <%= b.getWriterName()%> | 조회수 <%= b.getQ_count()%></div>
 					<div class="content-body"><%= b.getQ_body() %><input type="hidden" name="body" value="<%= b.getQ_body() %>"></div>
-					<% if(!fileList.isEmpty()) {%>
-						<% for(QnaFile f : fileList) { %>
-						<div class="fileNameList"></div>
-						<% } %>					 
-					<% } %>					 
+					
+					
+					<% if(!fileList.isEmpty()) { %>
+					<div class="uploaeFileArea">
+						<% for(int i = 0; i < fileList.size(); i++) { %>						
+							<div class="uploadFile" id="uploadFile<%=i%>"> 첨부파일 <%=i + 1%></div>
+							<a href="<%= request.getContextPath() %>/board_uploadFiles/<%= fileList.get(i).getChangeName()%>" download="<%= fileList.get(i).getChangeName()%>">
+							<%= fileList.get(i).getChangeName() %>
+							</a><br>
+						<% } %>
+					</div>	
+					<% } %>
+									 
 				<div class="buttonPack">
-				<% if(loginUser != null && (loginUser.getM_no() == b.getwriterNo() || loginUser.getM_auth() == 0)) { %>
+				<% if(loginUser != null && (loginUser.getM_no() == b.getWriterNo() || loginUser.getM_auth() == 0)) { %>
 					<button type="submit" id="update">수정</button>
 					<button type="button" id="delete">삭제</button>
 				<% } %>
 				</div>
-				</form>
+			</form>
 				<hr style='clear:both;'>
 				<div class="comment">
 				

@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.service.BoardService;
 import member.model.vo.Member;
 
 /**
- * Servlet implementation class qnaDeleteServlet
+ * Servlet implementation class InsertBoardFormServlet
  */
-@WebServlet("/qnaDelete.ad")
-public class QnaDeleteServlet extends HttpServlet {
+@WebServlet("/insertBoardForm.do")
+public class BoardInsertFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public QnaDeleteServlet() {
+    public BoardInsertFormServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +29,14 @@ public class QnaDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String irr[] = request.getParameterValues("check");
-		String check = "";
 		
-		if(irr != null) {
-			for(int i = 0; i < irr.length; i++) {
-				if(i == irr.length - 1) {
-					check += irr[i];
-				} else {
-					check += irr[i] + ",";
-				}
-			}
-		}
+		String bDiv = request.getParameter("board");
 		
-		int result = new BoardService().deleteBoard(check);
+		request.setAttribute("bDiv", bDiv);
+		request.getRequestDispatcher("WEB-INF/views/board/boardInsertForm.jsp").forward(request, response);
 		
-		if(result > 0) {
-			if(((Member)request.getSession().getAttribute("loginUser")).getM_auth() == 0) {
-				response.sendRedirect("qnaBoardList.li");
-			} else {
-				response.sendRedirect("myBoardList.me");
-			}
-		} else {
-			request.setAttribute("msg", "게시글 삭제에 실패하였습니다");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-		}
+		
+
 		
 	}
 

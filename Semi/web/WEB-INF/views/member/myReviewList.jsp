@@ -122,7 +122,7 @@
 								<% gNo = r.getGymNo(); %>
 							<tr>
 								<input type="hidden" name="gNo" id="gNo" value="<%=gNo%>">																
-								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
+								<td><input type="checkbox" class="select" name="select" onclick="selectOne();" value="<%=gNo%>"></td>
 								<td><%= r.getR_no() %></td>
 								<td class="reviewBody"><%= r.getR_body() %></td>							
 								<td><%= r.getR_date() %></td>
@@ -208,7 +208,7 @@
 			
 		});
 		
-		// 삭제 (여러 개 선택 시 no를 어떻게 가져올지?)
+		// 삭제 
 		$('#delete').on('click', function(){
 			if($('.select').prop('checked')) {
 				var check = window.confirm("정말 삭제하시겠습니까?");

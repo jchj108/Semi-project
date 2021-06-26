@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="board.model.vo.Board, page.model.vo.Page, java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="board.model.vo.Board, board.model.vo.PageInfo, java.util.ArrayList"%>
 <%
 	ArrayList<Board> qList = (ArrayList)request.getAttribute("qList");
-	Page pi = (Page)request.getAttribute("pi");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -33,7 +33,7 @@
 		list-style-type: none;
 		display: block;
 		text-align: center;
-		margin-left: 50%;
+		margin-left: 45%;
 		}
 				 	
 		.page-item {
@@ -155,7 +155,9 @@
 						
 					</table>
 				<% if(loginUser != null) { %>
-					<div class="write"><button onclick="location.href='<%=request.getContextPath()%>/insertQna.do" style="color:white" class="boardWrite">작성하기</button></div>
+					<div class="write">
+						<button onclick="location.href='<%=request.getContextPath()%>/insertBoardForm.do?board=Qna'" style="color:white" class="boardWrite">작성하기</button>
+					</div>
 				<% } %>
 				</div>
 			
