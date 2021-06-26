@@ -22,6 +22,15 @@ public class Gym {
 
 	}
 	
+	public Gym(String g_TYPE_NM, String g_GU_NM, String g_TEL, String g_EDU_YN, String g_IN_OUT) {
+		super();
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_TEL = g_TEL;
+		G_EDU_YN = g_EDU_YN;
+		G_IN_OUT = g_IN_OUT;
+	}
+
 	public Gym(int g_NO, String g_NAME, String g_ADDRESS, int g_COVID, String g_FILE) {
 		super();
 		G_NO = g_NO;

@@ -142,13 +142,6 @@ public class ReviewUpdateServlet extends HttpServlet {
 			
 			int result = new ReviewService().updateReview(fileList, r);
 			
-			//////////////////////////////////////////////
-			for(ReviewAttachment ra : fileList) {
-				System.out.println(ra + ": 수정 파일 리스트");
-			}
-			System.out.println(r + ": 수정 리뷰");
-			////////////////////////////////////////////
-			
 			if(result > 0) {
 				System.out.println("리뷰 수정 성공");
 			} else {

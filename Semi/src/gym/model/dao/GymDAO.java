@@ -407,4 +407,23 @@ public class GymDAO {
 		
 		return gList;
 	}
+
+
+	public ArrayList<Gym> recommendGym(Connection conn, Gym rGym) {
+		// g_type_nm=gymType, g_gu_nm=locationStr, g_tel=parking, g_edu_yn=lecture, g_in_out=inout
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		rGym.getG_GU_NM();
+		
+		if(rGym.getG_TYPE_NM().equals("개인")) {
+			
+		}
+		
+		// gymType = "단체" => 축구, 족구, 테니스, 배트민턴, 농구 %
+		// 개인 => 골프, 수영
+		
+		return list;
+	}
 }

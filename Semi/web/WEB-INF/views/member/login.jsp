@@ -9,7 +9,7 @@
 </head>
 <body>
 
-	<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document">
 			<div class="modal-content" id="loginDiv">
 				<div class="modal-header">
 					<div class="modal-title text-center" id="exampleModalLabel" >

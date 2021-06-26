@@ -121,4 +121,14 @@ public class GymService {
 		
 		return gList;
 	}
+
+	public ArrayList<Gym> recommendGym(Gym rGym) {
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().recommendGym(conn, rGym);
+		
+		close(conn);
+		
+		return list;
+	}
 }
