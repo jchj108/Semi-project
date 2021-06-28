@@ -1,7 +1,9 @@
 package gym.model.service;
 
 import static common.JDBCTemplate.close;
+import static common.JDBCTemplate.commit;
 import static common.JDBCTemplate.getConnection;
+import static common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -9,6 +11,7 @@ import java.util.ArrayList;
 import gym.model.dao.GymDAO;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
+import member.model.dao.MemberDAO;
 import page.model.vo.Page;
 
 public class GymService {
@@ -134,4 +137,28 @@ public class GymService {
 		return thumbList;
 	}
 
+	public int deleteGym(String check) {
+		
+		Connection conn = getConnection();
+		
+		int result = 0;
+		GymDAO gymDAO = new GymDAO();
+		
+		String arr[] = check.split(",");
+		String gNo = null;
+		
+		for(int i = 0; i< arr.length; i++) {
+			gNo = arr[i];
+			result = gymDAO.deleteGym(conn, gNo);
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+				break;
+			}
+		}	
+		close(conn);
+		return result;
+	}
 }

@@ -3,7 +3,7 @@
 %>
 <!DOCTYPE html>
 <%
-ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
+	ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 String cp = request.getContextPath();
 
@@ -13,9 +13,8 @@ int maxPage = pi.getMaxPage();
 int startPage = pi.getStartPage();
 int endPage = pi.getEndPage();
 
-String searchCategory = (String)request.getAttribute("category");
-String searchKeyword = (String)request.getAttribute("keyword");
-
+String searchCategory = (String) request.getAttribute("category");
+String searchKeyword = (String) request.getAttribute("keyword");
 %>
 <html>
 <head>
@@ -64,7 +63,6 @@ th {
 	color: white;
 	font-size: 20px;
 }
-
 
 th:nth-child(2n) {
 	width: 200px;
@@ -134,12 +132,12 @@ tr, td {
 }
 
 .page-link {
-	font-weight : 300;
+	font-weight: 300;
 }
 
 .activePage {
-	font-weight : 700;
-	color : black;
+	font-weight: 700;
+	color: black;
 }
 
 .titleBtn {
@@ -148,17 +146,16 @@ tr, td {
 
 .sortLeft {
 	margin-top: 5px;
-    display: flex;
-    padding-top: 4px;
-    width: 335px;
-    align-content: space-between;
-    justify-content: space-between;
+	display: flex;
+	padding-top: 4px;
+	width: 335px;
+	align-content: space-between;
+	justify-content: space-between;
 }
 
 #search-user {
 	align-items: center;
 }
-
 </style>
 </head>
 <body>
@@ -169,66 +166,65 @@ tr, td {
 		<div class="row">
 			<div class="col-lg-9">
 				<div class="notice">
+					<form action="<%=cp%>/deleteGym.do" id="gymManage" method="post">
 						<button type="button" id="qnaListBtn" class="titleBtn">시설 관리</button>
-					<table class="notice-table" id="listTable">
-						<thead>
-							<tr>
-								<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
-								<th>시설 번호</th>
-								<th>이름</th>
-								<th>타입</th>
-								<th>군/구</th>
-								<th>조회수</th>
-							</tr>
-						</thead>
-						<tbody>
-							<%
-								if (list.isEmpty()) {
-							%>
-							<tr>
-								<td colspan="5">작성된 게시글이 없습니다.</td>
-							</tr>
-							<%
-								} else {
-							%>
-							<%
-								for (Gym g : list) {
-							%>
-							<tr>
-								<td>
-									<input type="checkbox" name="check" onclick="selectOne();">
-								</td>
-								<td><%=g.getG_NO()%></td>
-								<td><%=g.getG_NAME()%></td>
-								<td><%=g.getG_TYPE_NM()%></td>
-								<td><%=g.getG_GU_NM()%></td>
-								<td><%=g.getG_COUNT()%></td>
-							</tr>
-							<%
-								}
-							%>
-							<%
-								}
-							%>
-						</tbody>
-					</table>
+						<table class="notice-table" id="listTable">
+							<thead>
+								<tr>
+									<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
+									<th>시설 번호</th>
+									<th>이름</th>
+									<th>타입</th>
+									<th>군/구</th>
+									<th>조회수</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+									if (list.isEmpty()) {
+								%>
+								<tr>
+									<td colspan="5">작성된 게시글이 없습니다.</td>
+								</tr>
+								<%
+									} else {
+								%>
+								<%
+									for (Gym g : list) {
+								%>
+								<tr>
+									<td>
+										<input type="checkbox" name="check" onclick="selectOne();" value="<%= g.getG_NO()%>">
+									</td>
+									<td><%=g.getG_NO()%></td>
+									<td><%=g.getG_NAME()%></td>
+									<td><%=g.getG_TYPE_NM()%></td>
+									<td><%=g.getG_GU_NM()%></td>
+									<td><%=g.getG_COUNT()%></td>
+								</tr>
+								<%
+									}
+								%>
+								<%
+									}
+								%>
+							</tbody>
+						</table>
+					</form>
 				</div>
 				<div class="search">
 					<form id="search-user" method="get" action="<%=cp%>/gymManage.do">
-						<span class="sortLeft"> 
-							<select name="searchList" >
+						<span class="sortLeft"> <select name="searchList">
 								<option ${(param.searchList == "이름") ? "selected" : ""} value="이름">이름</option>
 								<option ${(param.searchList == "타입") ? "selected" : ""} value="타입">타입</option>
 								<option ${(param.searchList == "군/구") ? "selected" : ""} value="군/구">군/구</option>
 								<option ${(param.searchList == "시설번호") ? "selected" : ""} value="시설번호">시설번호</option>
-							</select> 
-							<input type="text" name="searchKeyword" maxlength="20" id='searchKeyword' value="${param.searchKeyword }">
-							<input type="submit" name="searchSubmit" class="btn btn-primary btn-sm" value="검색">
-						</span> 
-						<span class="sortRight">  
-							<input type="button" class="insert-button" value="시설 등록" id="insert-gym">
-							<input type="button" class="delete-button" value="시설 삭제" id="delete-gym">
-							<input type="button" class="button right" value="돌아가기" onClick="history.go(-1);">
+							</select> <input type="text" name="searchKeyword" maxlength="20" id='searchKeyword' value="${param.searchKeyword }"> <input type="submit"
+								name="searchSubmit" class="btn btn-primary btn-sm" value="검색"
+							>
+						</span> <span class="sortRight"> <input type="button" class="insert-button" value="시설 등록" id="insert-gym"> <input type="button"
+								class="delete-button" value="시설 삭제" id="delete-gym" onclick="deleteGym();"
+							> <input type="button" class="button right" value="돌아가기" onclick="history.go(-1);">
 						</span>
 					</form>
 				</div>
@@ -236,35 +232,37 @@ tr, td {
 				<div class="page-div text-center">
 					<ul class="pagination">
 						<!-- 처음으로 -->
-						<% 
+						<%
 							if (searchKeyword != null && searchCategory != null) {
 						%>
-							<%
-								if(currentPage <=1 ) {
-							%>
-								<li class="page-item"><a class="page-link" id="noneLink">&laquo;</a></li>
-							<%
-								} else {
-							%>
-								<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=1&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'">&laquo;</a></li>
-							<%
-								}
-							%>
+						<%
+							if (currentPage <= 1) {
+						%>
+						<li class="page-item"><a class="page-link" id="noneLink">&laquo;</a></li>
 						<%
 							} else {
 						%>
-							<%
-								if(currentPage <=1 ) {
-							%>
-								<li class="page-item"><a class="page-link" id="noneLink">&laquo;</a></li>
-							<%
-								} else {
-							%>
-								<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=1'">&laquo;</a></li>
-							<%
-								}
-							%>
-						<% 
+						<li class="page-item"><a class="page-link"
+							onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=1&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'"
+						>&laquo;</a></li>
+						<%
+							}
+						%>
+						<%
+							} else {
+						%>
+						<%
+							if (currentPage <= 1) {
+						%>
+						<li class="page-item"><a class="page-link" id="noneLink">&laquo;</a></li>
+						<%
+							} else {
+						%>
+						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=1'">&laquo;</a></li>
+						<%
+							}
+						%>
+						<%
 							}
 						%>
 						<!-- 이전 페이지 -->
@@ -299,7 +297,7 @@ tr, td {
 						>&lt;</a></li>
 						<%
 							}
-						%>						
+						%>
 						<%
 							}
 						%>
@@ -319,21 +317,17 @@ tr, td {
 						<%
 							} else {
 						%>
-						<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=p%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'"><%=p%></a>
-						<%
-							}
-						%>
-						<%
-							}
-						%>
-						<!-- 다음 페이지 -->
-						<%
-							if (searchKeyword != null && searchCategory != null) {
-						%>
-						<%
-							if (currentPage >= maxPage) {
-						%>
-						<li class="page-item"><a class="page-link" id="noneLink">&gt;</a></li>
+						<li class="page-item"><a class="page-link"
+							onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=p%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'"
+						><%=p%></a> <%
+ 	}
+ %> <%
+ 	}
+ %> <!-- 다음 페이지 --> <%
+ 	if (searchKeyword != null && searchCategory != null) {
+ %> <%
+ 	if (currentPage >= maxPage) {
+ %> <li class="page-item"><a class="page-link" id="noneLink">&gt;</a></li>
 						<%
 							} else {
 						%>
@@ -360,20 +354,22 @@ tr, td {
 							}
 						%>						
 						<%
-							}
-						%>
+													}
+												%>
 						<!-- 끝으로  -->
-						<% 
+						<%
 							if (searchKeyword != null && searchCategory != null) {
 						%>
 							<%
-								if(currentPage >= maxPage) {
+								if (currentPage >= maxPage) {
 							%>
 								<li class="page-item"><a class="page-link" id="noneLink">&raquo;</a></li>
 							<%
 								} else {
 							%>
-								<li class="page-item"><a class="page-link" onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=maxPage%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'">&raquo;</a></li>
+								<li class="page-item"><a class="page-link"
+							onclick="location.href='<%=request.getContextPath()%>/gymManage.do?currentPage=<%=maxPage%>&searchList=<%=searchCategory%>&searchKeyword=<%=searchKeyword%>'"
+						>&raquo;</a></li>
 							<%
 								}
 							%>
@@ -381,7 +377,7 @@ tr, td {
 							} else {
 						%>
 							<%
-								if(currentPage >= maxPage) {
+								if (currentPage >= maxPage) {
 							%>
 								<li class="page-item"><a class="page-link" id="noneLink">&raquo;</a></li>
 							<%
@@ -391,7 +387,7 @@ tr, td {
 							<%
 								}
 							%>
-						<% 
+						<%
 							}
 						%>
 					</ul>
@@ -402,7 +398,7 @@ tr, td {
 	
 	<!-- 시설 등록 -->
 	<div class="modal fade" id="gyminsertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<%@include file="../gym/gymInsertModal.jsp" %>
+		<%@include file="../gym/gymInsertModal.jsp"%>
 	</div>	
 	
 	<!-- Footer-->
@@ -464,8 +460,29 @@ tr, td {
 		});
 	});
 	
-    </script>
-	<!-- Bootstrap core JS-->
+	function deleteGym() {
+		
+		var count = 0;
+		
+		for(i = 0; i < check.length; i++){ // 체크박스 체크 여부 확인
+			if(check[i].checked){
+				count++;
+			}
+		}
+		if(count == 0){
+			alert("선택된 항목이 없습니다.");
+		} else {
+			var bool = confirm("정말 삭제하시겠습니까?");
+			if(bool){
+				$('#gymManage').attr('action', 'gymDelete.do');
+				$('#gymManage').submit();
+			}
+		}
+	};
+		
+    
+</script> <!-- Bootstrap core JS-->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+
+						</body>
 </html>
