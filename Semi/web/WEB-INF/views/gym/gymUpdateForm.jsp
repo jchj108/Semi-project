@@ -3,7 +3,7 @@
 %>
 <!DOCTYPE html>
 <%
-	ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
+ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 String cp = request.getContextPath();
 
@@ -468,20 +468,10 @@ tr, td {
 			
 			var gNo = $(this).parent().children().eq(1).text();
 			
-			$.ajax({
-				url: 'gymUpdate.do',
-				type: 'get',
-				data: {gNo : gNo},
-				success: function(data) {
-					console.log(data)
-					$('#gymUpdateModal').modal("show");
-					
-					
-				}
-			});
+			location.href="<%= cp%>/gymUpdate.do?gNo="+gNo
 		});
 	});
-
+	
 	
 	function deleteGym() {
 		

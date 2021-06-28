@@ -16,15 +16,17 @@ import page.model.vo.Page;
 
 public class GymService {
 
-	public ArrayList<Gym> selectGym() {
+	public ArrayList<Gym> selectGym(int gNo) {
 		
 		Connection conn = getConnection();
 
-		ArrayList<Gym> list = new GymDAO().selectGymList(conn);
+		ArrayList<Gym> list = new GymDAO().selectGym(conn, gNo);
 		close(conn);
 
 		return list;
 	}
+	
+	
 	
 	public ArrayList<Gym> searchGym(String keyword) {
 		
@@ -160,5 +162,16 @@ public class GymService {
 		}	
 		close(conn);
 		return result;
+	}
+
+	public ArrayList<GFile> selectGFile(int gNo) {
+		
+		Connection conn = getConnection();
+		
+		ArrayList<GFile> gFList = new GymDAO().selectGFile(conn, gNo);
+		
+		close(conn);
+		
+		return gFList;
 	}
 }

@@ -218,7 +218,7 @@ img src {
 						<label class="form-check-label" for="inlineRadio1">Y </label>
 					</div>
 					<div class="form-check form-check-inline" style="margin-left: 20px;">
-						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio2" value="N">
+						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio2" value="N" checked>
 						<label class="form-check-label" for="inlineRadio2">N</label>
 					</div>
 					<br> <label for="inlineRadio3">장소</label><br>
@@ -227,7 +227,7 @@ img src {
 						<label class="form-check-label" for="inlineRadio3">실내</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="in_out" id="inlineRadio4" value="실외">
+						<input class="form-check-input" type="radio" name="in_out" id="inlineRadio4" value="실외" checked>
 						<label class="form-check-label" for="inlineRadio4">실외</label>
 					</div>
 					<br> <label for="inlineRadio5">방역도</label><br>
@@ -248,14 +248,14 @@ img src {
 						<label class="form-check-label" for="inlineRadio8">4</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="covid" id="inlineRadio9" value="5">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio9" value="5" checked>
 						<label class="form-check-label" for="inlineRadio9">5</label>
 					</div>
 					<br>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-lg btn-inline-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">등록 완료</button>
-					<button class="btn btn-lg btn-block" type="reset" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">취소</button>
+					<button class="btn btn-lg btn-block btn-secondary" type="reset" style= "width: 250px; margin-top: 0px;">취소</button>
 				</div>
 			</form>
 		</div>
@@ -295,8 +295,6 @@ img src {
 	}
 
 	function deleteImg() {
-		console.log($('#img2').attr('src'));
-		console.log($('#gymImg2').val());
 		$('#gymImg2').val('');
 		$('#img2').hide();
 	}

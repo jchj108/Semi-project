@@ -61,7 +61,6 @@ public class GymManageServlet extends HttpServlet {
 		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 
 		if (keyword != null && category != null && keyword != "") {
-			System.out.println("HI" + "keyword : " + keyword);
 			
 			request.setAttribute("category", category);
 			request.setAttribute("keyword", keyword);
