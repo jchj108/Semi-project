@@ -565,6 +565,7 @@ public class BoardDAO {
 	}
 
 
+<<<<<<< HEAD
 	public int insertGym(Connection conn, Gym g) {
 		
 		PreparedStatement pstmt = null;
@@ -623,4 +624,9 @@ public class BoardDAO {
 		}
 		return result;
 	}
+=======
+	
+
+	
+>>>>>>> parent of 953984c (deleteComment)
 }

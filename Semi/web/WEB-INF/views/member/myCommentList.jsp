@@ -202,7 +202,7 @@
 			
 		});
 		
-		// 삭제 
+		// 삭제 (여러 개 선택 시 no를 어떻게 가져올지?)
 		$('#delete').on('click', function(){
 			if($('.select').prop('checked')) {
 				var check = window.confirm("정말 삭제하시겠습니까?");

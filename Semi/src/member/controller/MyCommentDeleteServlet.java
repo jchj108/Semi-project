@@ -32,13 +32,7 @@ public class MyCommentDeleteServlet extends HttpServlet {
 		String[] cNumbers = (request.getParameterValues("select"));
 		
 		int result = new BoardService().deleteMyComments((String.join(", ", cNumbers)));
-		
-		if(result > 0) {
-			response.sendRedirect("myCommentList.me");
-		} else {
-			request.setAttribute("msg", "댓글 삭제에 실패하였습니다.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-		}
+		System.out.println(String.join(", ", cNumbers));
 		
 	}
 

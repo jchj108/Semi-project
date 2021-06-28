@@ -233,31 +233,16 @@ public class BoardService {
 	}
 
 	public int deleteMyComments(String string) {
-		
-		Connection conn = getConnection();
-				
+		System.out.println(string);
 		String cNo = null;
-		int result = 0;
-		
 		if(string != null) {
-			for(int i = 0; i < string.split(", ").length; i++) {
+			for(int i = 0; i > string.length(); i++) {
 				cNo = string.split(", ")[i];
+				System.out.println(cNo);
 				
-				result += new BoardDAO().deleteMyComments(cNo, conn);
-									
 			}
-			
-			if(result > 0) {
-				commit(conn);
-			} else {
-				rollback(conn);
-			}		
-			
 		}
-		
-		close(conn);
-		
-		return result;
+		return 0;
 	}
 
 	public int insertGym(Gym g, ArrayList<GFile> fileList) {
