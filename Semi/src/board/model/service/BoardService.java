@@ -232,16 +232,31 @@ public class BoardService {
 	}
 
 	public int deleteMyComments(String string) {
-		System.out.println(string);
-		String cNo = null;
-		if(string != null) {
-			for(int i = 0; i > string.length(); i++) {
-				cNo = string.split(", ")[i];
-				System.out.println(cNo);
+		
+		Connection conn = getConnection();
 				
+		String cNo = null;
+		int result = 0;
+		
+		if(string != null) {
+			for(int i = 0; i < string.split(", ").length; i++) {
+				cNo = string.split(", ")[i];
+				
+				result += new BoardDAO().deleteMyComments(cNo, conn);
+									
 			}
+			
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}		
+			
 		}
-		return 0;
+		
+		close(conn);
+		
+		return result;
 	}
 
 

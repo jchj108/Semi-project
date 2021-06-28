@@ -1,26 +1,23 @@
-package member.controller;
+package board.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.service.BoardService;
-
 /**
- * Servlet implementation class MyCommentDeleteServlet
+ * Servlet implementation class CommentsDeleteServlet
  */
-@WebServlet("/commentDelete.do")
-public class MyCommentDeleteServlet extends HttpServlet {
+@WebServlet("/deleteOneComment.do")
+public class CommentsDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyCommentDeleteServlet() {
+    public CommentsDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,17 +26,8 @@ public class MyCommentDeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String[] cNumbers = (request.getParameterValues("select"));
-		
-		int result = new BoardService().deleteMyComments((String.join(", ", cNumbers)));
-		
-		if(result > 0) {
-			response.sendRedirect("myCommentList.me");
-		} else {
-			request.setAttribute("msg", "댓글 삭제에 실패하였습니다.");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
-		}
-		
+		int cNo = Integer.parseInt(request.getParameter("cNo"));
+		System.out.println(cNo);
 	}
 
 	/**
