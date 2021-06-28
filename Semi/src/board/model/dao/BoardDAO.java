@@ -17,6 +17,7 @@ import board.model.vo.Board;
 import board.model.vo.Comments;
 import board.model.vo.PageInfo;
 import board.model.vo.QnaFile;
+import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 import page.model.vo.Page;
 
@@ -275,9 +276,8 @@ public class BoardDAO {
 						rset.getString("g_IN_OUT"),
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
-						rset.getInt("g_COVID"),
-						rset.getString("g_FILE"));
-				
+						rset.getInt("g_COVID"));
+				System.out.println(g);
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -365,8 +365,7 @@ public class BoardDAO {
 						rset.getString("g_IN_OUT"),
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
-						rset.getInt("g_COVID"),
-						rset.getString("g_FILE"));
+						rset.getInt("g_COVID"));
 				System.out.println(g);
 				list.add(g);
 			}
@@ -566,20 +565,29 @@ public class BoardDAO {
 	}
 
 
-	public int deleteMyComments(String cNo, Connection conn) {
+	public int insertGym(Connection conn, Gym g) {
 		
 		PreparedStatement pstmt = null;
 		int result = 0;
 		
-		String query = prop.getProperty("deleteComments");
+		String query = prop.getProperty("insertGym");
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, Integer.parseInt(cNo));
+			pstmt.setString(1, g.getG_TYPE_NM());
+			pstmt.setString(2, g.getG_GU_NM());
+			pstmt.setString(3, g.getG_NAME());
+			pstmt.setString(4, g.getG_ADDRESS());
+			pstmt.setString(5, g.getG_TEL());
+			pstmt.setString(6, g.getG_BIGO());
+			pstmt.setString(7, g.getG_HOMEPAGE());
+			pstmt.setString(8, g.getG_EDU_YN());
+			pstmt.setString(9, g.getG_IN_OUT());
+			pstmt.setString(10, g.getG_PARIKING_LOT());
+			pstmt.setInt(11, g.getG_COVID());
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -589,7 +597,30 @@ public class BoardDAO {
 	}
 
 
-	
-
-	
+	public int insertGFile(Connection conn, ArrayList<GFile> fileList) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("insertGFile");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				GFile f = fileList.get(i);
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, f.getgOriginName());
+				pstmt.setString(2, f.getgChangeName());
+				pstmt.setString(3, f.getgFilePath());
+				pstmt.setInt(4, f.getgFileLv());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }

@@ -25,6 +25,7 @@
 	overflow-y: scroll; /* to get scrollbar only for y axis */
 	height: 710px;
 	padding-bottom: 40px;
+	font-weight: 400;
 }
 
 #intro {
@@ -79,8 +80,13 @@
 	padding-bottom: 0px !important;
 }
 
-label {
-	margin-bottom: 0px;
+.modal-body label {
+	margin-top: 15px;
+	font-weight: bold;
+}
+
+.custom-file-label {
+	margin-top: 0px !important;
 }
 
 .gymTime {
@@ -126,11 +132,16 @@ label {
 			</div>
 			<form class="contents-inside" action="<%=request.getContextPath()%>/insert.fc" method="post" encType="multipart/form-data">
 				<div class="modal-body">
+					<label for="gymType">타입</label>
+					<input type="text" class="form-control" name="gymType" id="gymType" placeholder="타입을 입력하세요" required>
 					<label for="gymName">이름</label>
 					<input type="text" class="form-control" name="gymName" id="gymName" placeholder="이름을 입력하세요" required>
 					<label for="gymAddr">주소</label><br>
 					<input type="text" class="form-control" name="gymAddr" id="gymAddr" placeholder="주소를 입력하세요" style="width: 580px; display: inline-block" required>
 					<button type="button" class="btn btn-primary" style="float: right">주소 검색</button>
+					<label for="gymAddrDetail">상세주소</label><br>
+					<input type="text" class="form-control" name="gymAddrDetail" id="gymAddrDetail" placeholder="상세주소">
+					
 					<label for="gymTel">전화번호</label><br>
 					<input type="text" class="form-control" name="gymTel" id="gymTel" placeholder="전화번호를 입력하세요">
 					<label for="gymHomepage">홈페이지</label><br>
@@ -194,21 +205,42 @@ label {
 					</div>
 					<label for="inlineRadio1">강습</label><br>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio1" value="Y">
 						<label class="form-check-label" for="inlineRadio1">Y </label>
 					</div>
 					<div class="form-check form-check-inline" style="margin-left: 20px;">
-						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio2" value="N">
 						<label class="form-check-label" for="inlineRadio2">N</label>
 					</div>
 					<br> <label for="inlineRadio3">장소</label><br>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option1">
+						<input class="form-check-input" type="radio" name="in_out" id="inlineRadio3" value="실내">
 						<label class="form-check-label" for="inlineRadio3">실내</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="option2">
+						<input class="form-check-input" type="radio" name="in_out" id="inlineRadio4" value="실외">
 						<label class="form-check-label" for="inlineRadio4">실외</label>
+					</div>
+					<br> <label for="inlineRadio5">방역도</label><br>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio5" value="1">
+						<label class="form-check-label" for="inlineRadio3">1</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio6" value="2">
+						<label class="form-check-label" for="inlineRadio4">2</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio7" value="3">
+						<label class="form-check-label" for="inlineRadio4">3</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio8" value="4">
+						<label class="form-check-label" for="inlineRadio4">4</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="covid" id="inlineRadio9" value="5">
+						<label class="form-check-label" for="inlineRadio4">5</label>
 					</div>
 					<br>
 				</div>
@@ -245,7 +277,7 @@ label {
 						break;
 				}
 			}
-			reader.readAsDataURL(value.files[0]); // 입력 중 0번째에 있는 것을 들어가게 하겠다.
+			reader.readAsDataURL(value.files[0]); // 입력 중 0번째에 있는 것을 들어가게 하겠다. (첨부 파일로 여러 개가 들어가도 1개만 들어가기 처리)
 		}
 	}
 </script>

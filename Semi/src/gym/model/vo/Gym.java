@@ -15,58 +15,38 @@ public class Gym {
 	private char G_STATUS; 
 	private int G_COUNT;
 	private int G_COVID;
-	private String G_FILE;
-	
+	private String G_HOMEPAGE;
+	private String G_PARIKING_LOT;
+	private String G_BIGO;
+
+	public String getG_BIGO() {
+		return G_BIGO;
+	}
+
+	public void setG_BIGO(String g_BIGO) {
+		G_BIGO = g_BIGO;
+	}
+
+	public String getG_PARIKING_LOT() {
+		return G_PARIKING_LOT;
+	}
+
+	public void setG_PARIKING_LOT(String g_PARIKING_LOT) {
+		G_PARIKING_LOT = g_PARIKING_LOT;
+	}
+
+	public String getG_HOMEPAGE() {
+		return G_HOMEPAGE;
+	}
+
+	public void setG_HOMEPAGE(String g_HOMEPAGE) {
+		G_HOMEPAGE = g_HOMEPAGE;
+	}
 
 	public Gym() {
 
 	}
 	
-	public Gym(int g_NO, String g_NAME, String g_ADDRESS, int g_COVID, String g_FILE) {
-		super();
-		G_NO = g_NO;
-		G_NAME = g_NAME;
-		G_ADDRESS = g_ADDRESS;
-		G_COVID = g_COVID;
-		G_FILE = g_FILE;
-	}
-
-	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_FILE) {
-		super();
-		G_NO = g_NO;
-		G_TYPE_NM = g_TYPE_NM;
-		G_GU_NM = g_GU_NM;
-		G_NAME = g_NAME;
-		G_FILE = g_FILE;
-	}
-
-	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
-			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT, char g_STATUS, int g_COUNT, int g_COVID,
-			String g_FILE) {
-		super();
-		G_NO = g_NO;
-		G_TYPE_NM = g_TYPE_NM;
-		G_GU_NM = g_GU_NM;
-		G_NAME = g_NAME;
-		G_ADDRESS = g_ADDRESS;
-		G_YCODE = g_YCODE;
-		G_XCODE = g_XCODE;
-		G_TEL = g_TEL;
-		G_EDU_YN = g_EDU_YN;
-		G_IN_OUT = g_IN_OUT;
-		G_STATUS = g_STATUS;
-		G_COUNT = g_COUNT;
-		G_COVID = g_COVID;
-		G_FILE = g_FILE;
-	}
-
-	public Gym(int g_NO, String g_TYPE_NM, String g_NAME, String g_FILE) {
-		super();
-		G_NO = g_NO;
-		G_TYPE_NM = g_TYPE_NM;
-		G_NAME = g_NAME;
-		G_FILE = g_FILE;
-	}	
 
 	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
 			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT) {
@@ -83,6 +63,14 @@ public class Gym {
 		G_IN_OUT = g_IN_OUT;
 	}
 
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_NAME = g_NAME;
+	}
+
 	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
 			double g_XCODE) {
 		super();
@@ -95,6 +83,13 @@ public class Gym {
 		G_XCODE = g_XCODE;
 	}
 
+
+	public Gym(int g_NO, String g_TYPE_NM, String g_NAME) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_NAME = g_NAME;
+	}
 
 	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
 			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT, char g_STATUS, int g_COUNT, int g_COVID) {
@@ -202,6 +197,14 @@ public class Gym {
 		G_STATUS = g_STATUS;
 	}
 
+	public Gym(int g_NO, String g_NAME, String g_ADDRESS, int g_COVID) {
+		super();
+		G_NO = g_NO;
+		G_NAME = g_NAME;
+		G_ADDRESS = g_ADDRESS;
+		G_COVID = g_COVID;
+	}
+
 	public int getG_COUNT() {
 		return G_COUNT;
 	}
@@ -218,21 +221,15 @@ public class Gym {
 		G_COVID = g_COVID;
 	}
 
-	public String getG_FILE() {
-		return G_FILE;
-	}
-
-	public void setG_FILE(String g_FILE) {
-		G_FILE = g_FILE;
-	}
-
 	@Override
 	public String toString() {
 		return "Gym [G_NO=" + G_NO + ", G_TYPE_NM=" + G_TYPE_NM + ", G_GU_NM=" + G_GU_NM + ", G_NAME=" + G_NAME
 				+ ", G_ADDRESS=" + G_ADDRESS + ", G_YCODE=" + G_YCODE + ", G_XCODE=" + G_XCODE + ", G_TEL=" + G_TEL
 				+ ", G_EDU_YN=" + G_EDU_YN + ", G_IN_OUT=" + G_IN_OUT + ", G_STATUS=" + G_STATUS + ", G_COUNT="
-				+ G_COUNT + ", G_COVID=" + G_COVID + ", G_FILE=" + G_FILE + "]";
+				+ G_COUNT + ", G_COVID=" + G_COVID + ", G_HOMEPAGE=" + G_HOMEPAGE + ", G_PARIKING_LOT=" + G_PARIKING_LOT
+				+ ", G_BIGO=" + G_BIGO + "]";
 	}
+
 
 	
 	
