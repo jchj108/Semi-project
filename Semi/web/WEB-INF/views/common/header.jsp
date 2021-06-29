@@ -190,8 +190,6 @@
 			location.href = "<%= request.getContextPath() %>/home.do";
 		});
 		
-		
-		
 	</script>
 
 <!-- Bootstrap core JS-->

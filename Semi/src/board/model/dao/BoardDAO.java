@@ -583,7 +583,7 @@ public class BoardDAO {
 			pstmt.setString(7, g.getG_HOMEPAGE());
 			pstmt.setString(8, g.getG_EDU_YN());
 			pstmt.setString(9, g.getG_IN_OUT());
-			pstmt.setString(10, g.getG_PARIKING_LOT());
+			pstmt.setString(10, g.getG_PARKING_LOT());
 			pstmt.setInt(11, g.getG_COVID());
 			
 			result = pstmt.executeUpdate();

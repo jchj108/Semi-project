@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import gym.model.service.GymService;
 import gym.model.vo.Gym;
 
@@ -31,30 +34,45 @@ public class RecommendServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String userName = request.getParameter("userName");
+		String userLike = request.getParameter("userLike");
 		String locationStr = request.getParameter("location");
 		String inout = request.getParameter("inout");
 		String gymType = request.getParameter("gymType");
 		String lecture = request.getParameter("lecture");
 		String parking = request.getParameter("parking");
 		
-		System.out.println(locationStr + " : 위치");
-		System.out.println(inout + " : 실내실외");
+		System.out.println(userName + " : 이름");
+		System.out.println(userLike + " : 선호운동");
 		System.out.println(gymType + " : 단체개인");
+		System.out.println(locationStr + " : 위치");
 		System.out.println(lecture + " : 강습");
+		System.out.println(inout + " : 실내실외");
 		System.out.println(parking + " : 주차");
 		
-		Gym rGym = new Gym(gymType, locationStr, lecture, parking, inout);
-		// g_type_nm=gymType, g_gu_nm=locationStr, g_tel=parking, g_edu_yn=lecture, g_in_out=inout
+		Gym rGym = new Gym(gymType, locationStr, lecture, inout, parking);
 		
 		ArrayList<Gym> list = new GymService().recommendGym(rGym);
 		
-		// -이면 주차불가
-		// 주차 불가
-		// 주차 가능
-		// like %불가 and -
-		// 관계없음이면 where에 조건 안넣으면 됨
-		// gymType = "단체" => 축구, 족구, 테니스, 배트민턴, 농구 %
-		// 개인 => 골프, 수영
+		for(Gym g : list) {
+			System.out.println(g + ": 결과");
+		}
+		
+		
+		JSONArray arr = new JSONArray();
+		JSONObject json = null;
+		for(Gym g : list) {
+			json = new JSONObject();
+			json.put("gNo", g.getG_NO());
+			json.put("gTypeName", g.getG_TYPE_NM());
+			json.put("gName", g.getG_NAME());
+			
+			arr.add(json);
+		}
+		
+		response.setContentType("application/json; charset=utf-8");
+		response.getWriter().println(arr);
 		
 	}
 

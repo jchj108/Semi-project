@@ -391,7 +391,6 @@ public class GymDAO {
 				gList.add(g);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -403,7 +402,6 @@ public class GymDAO {
 	}
 	
 	public ArrayList<GFile> selectGymThumbList(Connection conn) {
-		
 		Statement stmt = null;
 		ResultSet rset = null;
 		ArrayList<GFile> thumbList = new ArrayList<GFile>();
@@ -436,19 +434,216 @@ public class GymDAO {
 	
 
 	public ArrayList<Gym> recommendGym(Connection conn, Gym rGym) {
-		// g_type_nm=gymType, g_gu_nm=locationStr, g_tel=parking, g_edu_yn=lecture, g_in_out=inout
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		Gym gym = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
 		
-		rGym.getG_GU_NM();
+		String gymType = rGym.getG_TYPE_NM();
+		String locationStr = rGym.getG_GU_NM();
+		String[] locationArr = locationStr.split(",");
+		String lecture = rGym.getG_EDU_YN();
+		String inout = rGym.getG_IN_OUT();
+		String parking = rGym.getG_PARKING_LOT();
 		
-		if(rGym.getG_TYPE_NM().equals("개인")) {
+		try {
+			String query = null;
+			if(locationArr.length == 1) {
+				String location = locationArr[0];
+				if(gymType.equals("개인")) {
+					
+					if(parking.equals("유")) {
+						System.out.println("개인 / 주차가능 접근 성공");
+						query = prop.getProperty("re1AloneParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, location);
+						pstmt.setString(2, "%골프%");
+						pstmt.setString(3, "%수영%");
+						pstmt.setString(4, inout);
+						pstmt.setString(5, lecture);
+						pstmt.setString(6, "%불가%");
+					} else {
+						System.out.println("개인 / 주차불가능 접근 성공");
+						query = prop.getProperty("re1AloneNoParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, location);
+						pstmt.setString(2, "%골프%");
+						pstmt.setString(3, "%수영%");
+						pstmt.setString(4, inout);
+						pstmt.setString(5, lecture);
+					}
+					
+					
+				} else {
+					if(parking.equals("유")) {
+						System.out.println("단체 / 주차가능 접근성공");
+						query = prop.getProperty("re1TogetherParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, location);
+						pstmt.setString(2, "%축구%");
+						pstmt.setString(3, "%족구%");
+						pstmt.setString(4, "%테니스%");
+						pstmt.setString(5, "%배드민턴%");
+						pstmt.setString(6, "%농구%");
+						pstmt.setString(7, inout);
+						pstmt.setString(8, lecture);
+						pstmt.setString(9, "%불가%");
+					} else {
+						System.out.println("단체 / 주차불가능 접근성공");
+						query = prop.getProperty("re1TogetherNoParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, location);
+						pstmt.setString(2, "%축구%");
+						pstmt.setString(3, "%족구%");
+						pstmt.setString(4, "%테니스%");
+						pstmt.setString(5, "%배드민턴%");
+						pstmt.setString(6, "%농구%");
+						pstmt.setString(7, inout);
+						pstmt.setString(8, lecture);
+					}
+				}
+			} else if(locationArr.length == 2) {
+				if(gymType.equals("개인")) {
+					if(parking.equals("유")) {
+						System.out.println("2개/개인/주차가능 접근성공");
+						query = prop.getProperty("re2AloneParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, "%골프%");
+						pstmt.setString(4, "%수영%");
+						pstmt.setString(5, inout);
+						pstmt.setString(6, lecture);
+						pstmt.setString(7, "%불가%");
+					} else {
+						System.out.println("2개/개인/주차불가능 접근성공");
+						query = prop.getProperty("re2AloneNoParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, "%골프%");
+						pstmt.setString(4, "%수영%");
+						pstmt.setString(5, inout);
+						pstmt.setString(6, lecture);
+					}
+				} else {
+					if(parking.equals("유")) {
+						System.out.println("2개/단체/주차가능");
+						query = prop.getProperty("re2TogetherParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, "%축구%");
+						pstmt.setString(4, "%족구%");
+						pstmt.setString(5, "%테니스%");
+						pstmt.setString(6, "%배드민턴%");
+						pstmt.setString(7, "%농구%");
+						pstmt.setString(8, inout);
+						pstmt.setString(9, lecture);
+						pstmt.setString(10, "%불가%");
+					} else {
+						System.out.println("2개/단체/주차불가능");
+						query = prop.getProperty("re2TogetherNoParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, "%축구%");
+						pstmt.setString(4, "%족구%");
+						pstmt.setString(5, "%테니스%");
+						pstmt.setString(6, "%배드민턴%");
+						pstmt.setString(7, "%농구%");
+						pstmt.setString(8, inout);
+						pstmt.setString(9, lecture);
+					}
+					
+				}
+			} else if(locationArr.length == 3) {
+				if(gymType.equals("개인")) {
+					if(parking.equals("유")) {
+						System.out.println("3개/개인/주차가능 접근 성공");
+						query = prop.getProperty("re3AloneParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, locationArr[2]);
+						pstmt.setString(4, "%골프%");
+						pstmt.setString(5, "%수영%");
+						pstmt.setString(6, inout);
+						pstmt.setString(7, lecture);
+						pstmt.setString(8, "%불가%");
+					} else {
+						System.out.println("3개/개인/주차불가능 접근 성공");
+						query = prop.getProperty("re3AloneNoParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, locationArr[2]);
+						pstmt.setString(4, "%골프%");
+						pstmt.setString(5, "%수영%");
+						pstmt.setString(6, inout);
+						pstmt.setString(7, lecture);
+					}
+					
+				} else {
+					if(parking.equals("유")) {
+						System.out.println("3개/단체/주차가능 접근 성공");
+						query = prop.getProperty("re3TogetherParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, locationArr[2]);
+						pstmt.setString(4, "%축구%");
+						pstmt.setString(5, "%족구%");
+						pstmt.setString(6, "%테니스%");
+						pstmt.setString(7, "%배드민턴%");
+						pstmt.setString(8, "%농구%");
+						pstmt.setString(9, inout);
+						pstmt.setString(10, lecture);
+						pstmt.setString(11, "%불가%");
+					} else {
+						System.out.println("3개/단체/주차불가능 접근 성공");
+						query = prop.getProperty("re3TogetherNoParking");
+						
+						pstmt = conn.prepareStatement(query);
+						pstmt.setString(1, locationArr[0]);
+						pstmt.setString(2, locationArr[1]);
+						pstmt.setString(3, locationArr[2]);
+						pstmt.setString(4, "%축구%");
+						pstmt.setString(5, "%족구%");
+						pstmt.setString(6, "%테니스%");
+						pstmt.setString(7, "%배드민턴%");
+						pstmt.setString(8, "%농구%");
+						pstmt.setString(9, inout);
+						pstmt.setString(10, lecture);
+					}
+					
+				}
+			}
 			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				gym = new Gym(rset.getInt("G_NO"), rset.getString("G_TYPE_NM"), rset.getString("G_NAME"));
+				
+				list.add(gym);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
 		}
-		
-		// gymType = "단체" => 축구, 족구, 테니스, 배트민턴, 농구 %
-		// 개인 => 골프, 수영
 		
 		return list;
 	}

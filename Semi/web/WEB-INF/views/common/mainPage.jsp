@@ -726,10 +726,17 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 						type="button" class="btn" id="recommend">운동 추천받기</button>
 				</div>
 				
+				
+				<script>
+				<% if(loginUser != null){ %>
+					userName = "<%= loginUser.getM_name() %>";
+					userLike = "<%= loginUser.getM_like() %>";
+				<% } %>
+				</script>
 				<div class="modal fade" id="recommendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <%@include file="../member/recommend.jsp" %>
+				 	<%@include file="../member/recommend.jsp" %>
 				</div>
-						
+										
 				<div id="pannel3" class="tab-content">
 					<div>
 						<h2 class="main_header" style="margin-bottom: 16px">

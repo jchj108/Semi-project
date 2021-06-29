@@ -53,6 +53,8 @@
 			</div>
 		</div>
 		
+		
+		
 	<script>
 		$('#signUpLogin').on('click', function(){
 			$('#loginModal').modal("hide");
@@ -93,6 +95,10 @@
 				}
 			});
 		}
+		
+		$('#findPwd').on('click', function(){
+			location.href = "<%=request.getContextPath() %>/findPwd.me";
+		});
 		
 		
 		
