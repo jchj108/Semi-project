@@ -1,0 +1,37 @@
+diff a/Semi/src/board/model/service/BoardService.java b/Semi/src/board/model/service/BoardService.java	(rejected hunks)
+@@ -232,16 +232,31 @@
+ 	}
+ 
+ 	public int deleteMyComments(String string) {
+-		System.out.println(string);
++		
++		Connection conn = getConnection();
++				
+ 		String cNo = null;
++		int result = 0;
++		
+ 		if(string != null) {
+-			for(int i = 0; i > string.length(); i++) {
++			for(int i = 0; i < string.split(", ").length; i++) {
+ 				cNo = string.split(", ")[i];
+-				System.out.println(cNo);
+ 				
++				result += new BoardDAO().deleteMyComments(cNo, conn);
++									
+ 			}
++			
++			if(result > 0) {
++				commit(conn);
++			} else {
++				rollback(conn);
++			}		
++			
+ 		}
+-		return 0;
++		
++		close(conn);
++		
++		return result;
+ 	}
+ 
+ 

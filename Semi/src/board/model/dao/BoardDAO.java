@@ -565,7 +565,7 @@ public class BoardDAO {
 	}
 
 
-<<<<<<< HEAD
+
 	public int insertGym(Connection conn, Gym g) {
 		
 		PreparedStatement pstmt = null;
@@ -624,9 +624,26 @@ public class BoardDAO {
 		}
 		return result;
 	}
-=======
-	
 
-	
->>>>>>> parent of 953984c (deleteComment)
+	public int deleteMyComments(String cNo, Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteComments");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(cNo));
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

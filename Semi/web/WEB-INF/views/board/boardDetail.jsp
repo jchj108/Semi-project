@@ -75,11 +75,11 @@
 		    	margin-bottom: 20px;
 		    }
 		    
-		    .commentBtnPack{display: inline-block; float:right}
-		    
-		    .commentUpdate, .commentDelete{background: none; border: none; color:#00b1d2; font-weight:bold;}
-		    
-		    .commentDelete:hover, .commentUpdate:hover{color:grey;}
+		     .commentBtnPack{display: inline-block; float:right}
+
+ 		    .commentUpdate, .commentDelete{background: none; border: none; color:#00b1d2; font-weight:bold;}
+ 		    
+ 		    .commentDelete:hover, .commentUpdate:hover{color:grey;}
 		    
 		    input {
 		    	margin: 5px;
