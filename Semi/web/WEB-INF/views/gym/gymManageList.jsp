@@ -474,7 +474,6 @@ tr, td {
 				type: 'get',
 				data: {gNo : gNo},
 				success: function(data) {
-					console.log(data)
 					for(var i in data) {
 						if(i == 0) {
 							for (var key in data[i]) {
@@ -492,13 +491,24 @@ tr, td {
 								
 							}
 						} else {
-							console.log(data[i]);
-							console.log(data[i].length);
-							for (var x = 0; i < data[i].length; i++) {
-								console.log(data[i][x]);
-							}
+							for (var key in data[i]) {
+								console.log(data[i]);
+								console.log(key);
+								if(key == 0) {
+									var thumbnail = data[i][key].gChangeName;
+								} else if (key != null && key == 1) {
+									var image1 = data[i][key].gChangeName;
+									console.log(image1);
+								} else if (key != null && key == 2) {
+									var image2 = data[i][key].gChangeName;
+									console.log(image2);
+								} else if (key != null && key == 3) {
+									var image3 = data[i][key].gChangeName;
+								}
+							}	
 						}
-					} 
+							
+					}
 					
 					
 					$('#gymUpdateModal').modal("show");
@@ -510,7 +520,36 @@ tr, td {
 					$('#gymUpdateHomepage').val(gymHomepage);
 					$('#gymUpdateParking').val(gymParking);
 					$('#gymUpdateBigo').val(gymBigo);
-//					$('#updateImg1').attr("src", "<%=cp%>/gym_uploadFiles/" + thumbnail);
+					
+					
+					if(thumbnail != null) {
+						$('#updateImg1').attr("src", "<%=cp%>/gym_uploadFiles/" + thumbnail);
+						$('#updateImg1').show();
+					} else {
+						$('#updateImg1').hide();
+					}
+					
+					if(image1 != null) {
+						$('#updateImg2').attr("src", "<%=cp%>/gym_uploadFiles/" + image1);
+						$('#updateImg2').show();
+					} else {
+						$('#updateImg2').hide();
+					} 
+					
+					if (image2 != null) {
+						$('#updateImg3').attr("src", "<%=cp%>/gym_uploadFiles/" + image2);
+						$('#updateImg3').show();
+					} else {
+						$('#updateImg3').hide();
+					} 
+					
+					if (image3 != null) {
+						$('#updateImg4').attr("src", "<%=cp%>/gym_uploadFiles/" + image3);
+						$('#updateImg4').show();
+					} else {
+						$('#updateImg4').hide();
+					}
+					
 					
 					if(gymEduYN == "유") {
 						$('#eduY').attr("checked", true);
