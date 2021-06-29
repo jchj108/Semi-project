@@ -182,7 +182,7 @@
  						<input type="button" value="확인" id="insertComment" style="float: right;">
  						
  				</div>
-+			</form>
+			</form>
  			</div>
          </div>
         <%@include file="../common/footer.jsp" %>
@@ -225,28 +225,33 @@
 					
 					$commentList = $('#commentList');
 					$commentList.html('');
-				
-						for(var i in data) {
-						var div = $("<div>");
-						var $divWriter = div.attr("class", "comment-writer").css('font-weight','bold').text(data[i].writerName);
-						var $divBody = div.attr("class", "comment-body").text(data[i].c_body);
-						var $divBtn = div.attr("class", "commentBtnPack");
+	 				
 						
-						$commentList.append($divWriter);
-						$divWriter.append($divBody);
-						$divBody.append($divBtn);
+					var $tr = $("<tr>");
+					var $tdWriter = $('<td>').attr("class", "comment-writer").css({'font-weight':'bold', 'width':'150px'}).text(data[i].cWriterName);
+					var $tdBody = $('<td>').attr("class", "comment-body").css({'width':'800px'}).text(data[i].c_body);
+					var $tdBtn = $('<td>').attr("class", "commentBtnPack").css({'width':'100px'});
+					
 
-												
-						if(<%=loginUser.getM_no()%> == data[i].writerNo) {
-							var updateBtn = $('<button>').attr({"class": "commentUpdate", "id":"commentUpdate"}).text("수정");							
-							var deleteBtn = $('<button>').attr({"class": "commentDelete", 'id':"commentDelete"}).text("삭제");
-							
-							$divBtn.append(updateBtn);
-							$divBtn.append(deleteBtn);
-						}
+					if(<%=loginUser.getM_no()%> == data[i].writerNo) {
+						var updateBtn = $('<button>').attr({"class": "commentUpdate", "id":"commentUpdate"}).text("수정");							
+						var deleteBtn = $('<button>').attr({"class": "commentDelete", 'id':"commentDelete"}).text("삭제");
+						var cNo = $('<input>').attr({"type":"hidden", "name":"cNo"}).val("data[i].c_no");
+						
+						$tdBtn.append(cNo);
+						$tdBtn.append(updateBtn);
+						$tdBtn.append(deleteBtn);
+					}
+						
+					$tr.append($tdWriter);
+					$tr.append($tdBody);
+					$tr.append($tdBtn);
+					$commentList.append($tr);												
+						
 								
-						$('#com').val("");
-						$('#counter').text(0);
+					$('#com').val("");
+					$('#counter').text(0);
+
 					}
 				},
 				error: function(data) {					
