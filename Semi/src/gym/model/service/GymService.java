@@ -174,4 +174,29 @@ public class GymService {
 		
 		return gFList;
 	}
+
+
+
+	public int updateGym(Gym g, ArrayList<GFile> fileList) {
+		
+		Connection conn = getConnection();
+		
+		GymDAO dao = new GymDAO();
+		
+		int result1 = dao.updateGym(conn, g);
+		int result2 = dao.updateGFile(conn, fileList);
+		
+		System.out.println("Gymservice result1 : " + result1);
+		System.out.println("Gymservice result2 : " + result2);
+		
+		if(result1 > 0 || result2 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1;
+		
+	}
 }

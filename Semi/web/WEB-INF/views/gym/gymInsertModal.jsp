@@ -217,7 +217,7 @@ img src {
 						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio1" value="유">
 						<label class="form-check-label" for="inlineRadio1">유</label>
 					</div>
-					<div class="form-check form-check-inline" style="margin-left: 20px;">
+					<div class="form-check form-check-inline" style="margin-left: 14px;">
 						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio2" value="무" checked>
 						<label class="form-check-label" for="inlineRadio2">무</label>
 					</div>
@@ -255,7 +255,7 @@ img src {
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-lg btn-inline-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">등록 완료</button>
-					<button class="btn btn-lg btn-block btn-secondary" type="reset" style= "width: 250px; margin-top: 0px;">취소</button>
+					<button class="btn btn-lg btn-block btn-secondary" data-dismiss="modal" aria-label="Close" type="reset" onclick="deleteAllImg();" style= "width: 250px; margin-top: 0px;">취소</button>
 				</div>
 			</form>
 		</div>
@@ -294,13 +294,20 @@ img src {
 		}
 	}
 
-	function deleteImg() {
-		$('#gymImg2').val('');
+	function deleteAllImg() {
+		console.log("delete")
+		$('#gymImg1').val("");
+		$('#img1').hide();
+		$('#gymImg2').val("");
 		$('#img2').hide();
+		$('#gymImg3').val("");
+		$('#img3').hide();
+		$('#gymImg4').val("");
+		$('#img4').hide();
 	}
 	
 	function deleteImg(num) {
-		$('#gymImg' + num).val('');
+		$('#gymImg' + num).val("");
 		$('#img'+num).hide();
 	}
 </script>

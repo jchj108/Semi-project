@@ -19,7 +19,7 @@ import gym.model.vo.Gym;
 /**
  * Servlet implementation class GymUpdateAjax
  */
-@WebServlet("/gymUpdate.do")
+@WebServlet("/gymUpdateForm.do")
 public class GymUpdateAjax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,11 +49,6 @@ public class GymUpdateAjax extends HttpServlet {
 		
 		Gson gson = new Gson();
 		gson.toJson(gfList, response.getWriter());
-		
-		for(int i = 0; i < gfList.size(); i++) {
-			System.out.println("gfList : " + gfList.get(i));
-		}
-		
 		
 		response.setContentType("application/json; charset=UTF-8");
 		

@@ -113,6 +113,8 @@ tr, td {
 .search form {
 	display: flex;
 	justify-content: space-between;
+	margin-top: 0px;
+	padding-top: 0px;
 }
 
 #noneLink {
@@ -145,16 +147,26 @@ tr, td {
 }
 
 .sortLeft {
-	margin-top: 5px;
 	display: flex;
-	padding-top: 4px;
 	width: 335px;
+	margin-top:0px !important;
+	padding-top:0px !important;
 	align-content: space-between;
 	justify-content: space-between;
 }
 
+.sortRight {
+	margin-top:0px !important;
+	padding-top:0px !important;
+}
+
 #search-user {
 	align-items: center;
+}
+
+.custom-file-label::after {
+	background-color : #00b1d2 !important;
+	color: white !important;
 }
 </style>
 </head>
@@ -222,9 +234,9 @@ tr, td {
 							</select> <input type="text" name="searchKeyword" maxlength="20" id='searchKeyword' value="${param.searchKeyword }"> <input type="submit"
 								name="searchSubmit" class="btn btn-primary btn-sm" value="검색"
 							>
-						</span> <span class="sortRight"> <input type="button" class="insert-button" value="시설 등록" id="insert-gym"> <input type="button"
-								class="delete-button" value="시설 삭제" id="delete-gym" onclick="deleteGym();"
-							> <input type="button" class="button right" value="돌아가기" onclick="history.go(-1);">
+						</span> <span class="sortRight"> <input type="button" class="insert-button btn btn-info btn-sm" value="시설 등록" id="insert-gym"> <input type="button"
+								class="delete-button btn btn-sm btn-warning" value="시설 삭제" id="delete-gym" onclick="deleteGym();"
+							> <input type="button" class="button right btn btn-default btn-sm" value="돌아가기" onclick="history.go(-1);">
 						</span>
 					</form>
 				</div>
@@ -470,14 +482,15 @@ tr, td {
 			var changeName = [];
 			
 			$.ajax({
-				url: 'gymUpdate.do',
+				url: 'gymUpdateForm.do',
 				type: 'get',
 				data: {gNo : gNo},
 				success: function(data) {
 					for(var i in data) {
 						if(i == 0) {
 							for (var key in data[i]) {
-									
+								var updateGNo = data[i][key].G_NO;	
+								console.log(data[i][key].G_NO);
 								var gymName = data[i][key].G_NAME;
 								var gymType = data[i][key].G_TYPE_NM;
 								var gymAddr = data[i][key].G_ADDRESS;
@@ -496,23 +509,24 @@ tr, td {
 								console.log(key);
 								if(key == 0) {
 									var thumbnail = data[i][key].gChangeName;
+									var originNo1 = data[i][key].gFileNo;
 								} else if (key != null && key == 1) {
 									var image1 = data[i][key].gChangeName;
-									console.log(image1);
+									var originNo2 = data[i][key].gFileNo;
 								} else if (key != null && key == 2) {
 									var image2 = data[i][key].gChangeName;
-									console.log(image2);
+									var originNo3 = data[i][key].gFileNo;
 								} else if (key != null && key == 3) {
 									var image3 = data[i][key].gChangeName;
+									var originNo4 = data[i][key].gFileNo;
 								}
 							}	
 						}
 							
 					}
 					
-					
 					$('#gymUpdateModal').modal("show");
-					$('#gymUpdateNo').val(gNo)
+					$('#gymUpdateNo').val(updateGNo)
 					$('#gymUpdateName').val(gymName);
 					$('#gymUpdateType').val(gymType);
 					$('#gymUpdateAddr').val(gymAddr);
@@ -525,6 +539,7 @@ tr, td {
 					if(thumbnail != null) {
 						$('#updateImg1').attr("src", "<%=cp%>/gym_uploadFiles/" + thumbnail);
 						$('#updateImg1').show();
+						$('#hiddenImg1').val(originNo1);
 					} else {
 						$('#updateImg1').hide();
 					}
@@ -532,6 +547,7 @@ tr, td {
 					if(image1 != null) {
 						$('#updateImg2').attr("src", "<%=cp%>/gym_uploadFiles/" + image1);
 						$('#updateImg2').show();
+						$('#hiddenImg2').val(originNo2);
 					} else {
 						$('#updateImg2').hide();
 					} 
@@ -539,6 +555,7 @@ tr, td {
 					if (image2 != null) {
 						$('#updateImg3').attr("src", "<%=cp%>/gym_uploadFiles/" + image2);
 						$('#updateImg3').show();
+						$('#hiddenImg3').val(originNo3);
 					} else {
 						$('#updateImg3').hide();
 					} 
@@ -546,6 +563,7 @@ tr, td {
 					if (image3 != null) {
 						$('#updateImg4').attr("src", "<%=cp%>/gym_uploadFiles/" + image3);
 						$('#updateImg4').show();
+						$('#hiddenImg4').val(originNo4);
 					} else {
 						$('#updateImg4').hide();
 					}

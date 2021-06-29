@@ -277,7 +277,6 @@ public class BoardDAO {
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
 						rset.getInt("g_COVID"));
-				System.out.println("GYMDAO : " + g);
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -366,7 +365,6 @@ public class BoardDAO {
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
 						rset.getInt("g_COVID"));
-				System.out.println(g);
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -444,7 +442,6 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("dao listCount : " + listCount);
 		
 		return listCount;
 	}

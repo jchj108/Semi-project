@@ -460,4 +460,68 @@ public class GymDAO {
 		}
 		return gym;
 	}
+
+	//UPDATE GYM SET G_TYPE = ?, G_NAME = ?, G_HOME_PAGE = ?, G_PARKING_LOT = ?, G_BIGO = ?, G_ADDRESS = ?, G_GU_NM = ?, G_EDU_YN=?, G_IN_OUT=?, G_COVID=? WHERE G_NO = ?
+	
+	
+	public int updateGym(Connection conn, Gym g) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateGym");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, g.getG_TYPE_NM());
+			pstmt.setString(2, g.getG_NAME());
+			pstmt.setString(3, g.getG_HOMEPAGE());
+			pstmt.setString(4, g.getG_TEL());
+			pstmt.setString(5, g.getG_PARKING_LOT());
+			pstmt.setString(6, g.getG_BIGO());
+			pstmt.setString(7, g.getG_ADDRESS());
+			pstmt.setString(8, g.getG_GU_NM());
+			pstmt.setString(9, g.getG_EDU_YN());
+			pstmt.setString(10, g.getG_IN_OUT());
+			pstmt.setInt(11, g.getG_COVID());
+			pstmt.setInt(12, g.getG_NO());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int updateGFile(Connection conn, ArrayList<GFile> fileList) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//UPDATE GFILE SET G_ORIGIN_NAME = ?, G_CHANGE_NAME = ?, G_FILE_PATH=?, G_FILE_LV = ? WHERE G_NO=? AND G_FILE_NO = ?
+		String query = prop.getProperty("updateGFile");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				GFile f = fileList.get(i);
+				
+				pstmt = conn.prepareStatement(query);
+				pstmt.setString(1, f.getgOriginName());
+				pstmt.setString(2, f.getgChangeName());
+				pstmt.setString(3, f.getgFilePath());
+				pstmt.setInt(4, f.getgFileLv());
+				pstmt.setInt(5, f.getgNo());
+				pstmt.setInt(6, f.getgFileNo());
+				
+				result += pstmt.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
 }
