@@ -75,7 +75,7 @@
 		    	margin-bottom: 20px;
 		    }
 		    
-		     .commentBtnPack{display: inline-block; float:right}
+		    .commentBtnPack{display: inline-block; float:right;}
 
  		    .commentUpdate, .commentDelete{background: none; border: none; color:#00b1d2; font-weight:bold;}
  		    
@@ -159,11 +159,12 @@
 				
 				<table class="commentList" id="commentList">
  					<% if(!cList.isEmpty()) { %>
+ 					
  						<% for(Comments c : cList) {%>
 
 						<tr>
 							<td class="comment-writer" style='font-weight: bold;' width="150px"><%= c.getcWriterName() %></td>
-							<td width="800px" class="comment-body"><%= c.getC_body() %></td>
+							<td width="750px" class="comment-body"><%= c.getC_body() %></td>
 							<td width="100px" class="commentBtnPack">						
 								<% if(loginUser.getM_no() == c.getcWriterNo()) { %>
 									<input type="hidden" id="cNo" name="cNo" value="<%= c.getC_no() %>">
@@ -172,10 +173,11 @@
 								<% } %>
 							</td>							
 						</tr>
- 						<% } %>						
+ 						<% } %>
+ 								
  					<% } %>
-
-					</table>
+				</table>	
+					
 					<br>				
  						<input type="text" max="300" name="com" id="com" placeholder="댓글을 입력하세요.">
  						<span id="counter">0</span>/150
@@ -226,11 +228,11 @@
 					$commentList = $('#commentList');
 					$commentList.html('');
 	 				
-						
-					var $tr = $("<tr>");
-					var $tdWriter = $('<td>').attr("class", "comment-writer").css({'font-weight':'bold', 'width':'150px'}).text(data[i].cWriterName);
-					var $tdBody = $('<td>').attr("class", "comment-body").css({'width':'800px'}).text(data[i].c_body);
-					var $tdBtn = $('<td>').attr("class", "commentBtnPack").css({'width':'100px'});
+					for(var i in data) {
+						var $tr = $("<tr>");
+						var $tdWriter = $('<td>').attr("class", "comment-writer").css({'font-weight':'bold', 'width':'150px'}).text(data[i].cWriterName);
+						var $tdBody = $('<td>').attr("class", "comment-body").css({'width':'750px'}).text(data[i].c_body);
+						var $tdBtn = $('<td>').attr("class", "commentBtnPack").css({'width':'100px'});
 					
 
 					if(<%=loginUser.getM_no()%> == data[i].writerNo) {
@@ -251,8 +253,8 @@
 								
 					$('#com').val("");
 					$('#counter').text(0);
-
 					}
+					
 				},
 				error: function(data) {					
 					console.log("서버 전송 실패");

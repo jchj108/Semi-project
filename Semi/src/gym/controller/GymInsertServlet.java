@@ -91,7 +91,7 @@ public class GymInsertServlet extends HttpServlet {
 			g.setG_TYPE_NM(gymType);
 			g.setG_NAME(gymName);
 			g.setG_HOMEPAGE(gymHomepage);
-			g.setG_PARIKING_LOT(gymParking);
+			g.setG_PARKING_LOT(gymParking);
 			g.setG_BIGO(gymBigo);
 			g.setG_ADDRESS(addr);
 			g.setG_GU_NM(gu);
