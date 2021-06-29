@@ -467,6 +467,7 @@ tr, td {
 		$('#listTable td').click(function() {
 			
 			var gNo = $(this).parent().children().eq(1).text();
+			var changeName = [];
 			
 			$.ajax({
 				url: 'gymUpdate.do',
@@ -475,10 +476,8 @@ tr, td {
 				success: function(data) {
 					console.log(data)
 					for(var i in data) {
-						console.log(i);
 						if(i == 0) {
 							for (var key in data[i]) {
-								console.log(data[i][key]);
 									
 								var gymName = data[i][key].G_NAME;
 								var gymType = data[i][key].G_TYPE_NM;
@@ -493,12 +492,14 @@ tr, td {
 								
 							}
 						} else {
-							for (var key in data[i]) {
-								console.log(data[i][key]);
-								var gymThumb = data[i][key]
-							}	
+							console.log(data[i]);
+							console.log(data[i].length);
+							for (var x = 0; i < data[i].length; i++) {
+								console.log(data[i][x]);
+							}
 						}
-					}
+					} 
+					
 					
 					$('#gymUpdateModal').modal("show");
 					$('#gymUpdateNo').val(gNo)
@@ -509,14 +510,12 @@ tr, td {
 					$('#gymUpdateHomepage').val(gymHomepage);
 					$('#gymUpdateParking').val(gymParking);
 					$('#gymUpdateBigo').val(gymBigo);
-					console.log(gymEduYN);
+//					$('#updateImg1').attr("src", "<%=cp%>/gym_uploadFiles/" + thumbnail);
 					
 					if(gymEduYN == "유") {
 						$('#eduY').attr("checked", true);
-						console.log("유에 들어옴")
 					} else {
 						$('#eduN').attr("checked", true);
-						console.log("무에 들어옴")
 					}
 					
 					if(gymInOut == "실내") {

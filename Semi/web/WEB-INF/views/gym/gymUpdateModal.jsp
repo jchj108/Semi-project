@@ -182,39 +182,39 @@ img src {
 					<input type="text" class="form-control" name="gymUpdateBigo" id="gymUpdateBigo" placeholder="비고를 입력하세요">
 					<label for="signUpProfile" style="margin-bottom: 10px;">대표 사진</label><br>
 					<div class="imgArea">
-						<img class="gymImage" id="img1">
+						<img class="gymImage" id="updateImg1">
 					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="gymImg1" name="gymImg1" onchange="LoadImg(this, 1)" required>
-						<label class="custom-file-label" for="gymImg1">파일선택</label>
+						<input type="file" class="custom-file-input" id="gymUpdateImg1" name="gymUpdateImg1" onchange="LoadUpdateImg(this, 1)" required>
+						<label class="custom-file-label" for="gymUpdateImg1">파일선택</label>
 					</div>
-					<button type="button" class="btn btn-default cancelbtn" onclick="deleteImg(1)">취소</button>
+					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(1)">취소</button>
 					<label style="display: block; margin-bottom: 10px;">일반 사진</label>
 					<div class="imgArea">
-						<img class="gymImage" id="img2">
+						<img class="gymImage" id="updateImg2">
 					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="gymImg2" name="gymImg2" onchange="LoadImg(this, 2)">
-						<label class="custom-file-label" for="gymImg2">파일선택</label>
+						<input type="file" class="custom-file-input" id="gymUpdateImg2" name="gymUpdateImg2" onchange="LoadUpdateImg(this, 2)">
+						<label class="custom-file-label" for="gymUpdateImg2">파일선택</label>
 					</div>
-					<button type="button" class="btn btn-default cancelbtn" onclick="deleteImg(2)">취소</button>
+					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(2)">취소</button>
 					<div class="imgArea">
-						<img class="gymImage" id="img3">
+						<img class="gymImage" id="updateImg3">
 					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="gymImg3" name="gymImg3" onchange="LoadImg(this, 3)">
-						<label class="custom-file-label" for="gymImg3">파일선택</label>
+						<input type="file" class="custom-file-input" id="gymUpdateImg3" name="gymUpdateImg3" onchange="LoadUpdateImg(this, 3)">
+						<label class="custom-file-label" for="gymUpdateImg3">파일선택</label>
 					</div>
-					<button type="button" class="btn btn-default cancelbtn" onclick="deleteImg(3)">취소</button>
+					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(3)">취소</button>
 					<br>
 					<div class="imgArea">
-						<img class="gymImage" id="img4">
+						<img class="gymImage" id="updateImg4">
 					</div>
 					<div class="custom-file d-inline-block align-bottom" style="width: 200px;">
-						<input type="file" class="custom-file-input" id="gymImg4" name="gymImg4" onchange="LoadImg(this, 4)">
-						<label class="custom-file-label" for="gymImg4">파일선택</label>
+						<input type="file" class="custom-file-input" id="gymUpdateImg4" name="gymUpdateImg4" onchange="LoadUpdateImg(this, 4)">
+						<label class="custom-file-label" for="gymUpdateImg4">파일선택</label>
 					</div>
-					<button type="button" class="btn btn-default cancelbtn" onclick="deleteImg(4)">취소</button>
+					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(4)">취소</button>
 					<br> <label for="inlineRadio1">강습</label><br>
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="edu_yn" id="eduY" value="유">
@@ -269,42 +269,38 @@ img src {
 		'margin-top' : '5px',
 		'padding-top' : '4px'
 	});
-	function LoadImg(value, num) {
+	function LoadUpdateImg(value, num) {
 		if (value.files && value.files[0]) {
 			var reader = new FileReader();
 
 			reader.onload = function(e) {
 				switch (num) {
 					case 1 :
-						$("#img1").attr("src", e.target.result);
-						$("#img1").show();
+						console.log(e.target.result);
+						$("#updateImg1").attr("src", e.target.result);
+						$("#updateImg1").show();
 						break;
 					case 2 :
-						$("#img2").attr("src", e.target.result);
-						$("#img2").show();
+						$("#updateImg2").attr("src", e.target.result);
+						$("#updateImg2").show();
 						break;
 					case 3 :
-						$("#img3").attr("src", e.target.result);
-						$("#img3").show();
+						$("#updateImg3").attr("src", e.target.result);
+						$("#updateImg3").show();
 						break;
 					case 4 :
-						$("#img4").attr("src", e.target.result);
-						$("#img4").show();
+						$("#updateImg4").attr("src", e.target.result);
+						$("#updateImg4").show();
 						break;
 				}
 			}
 			reader.readAsDataURL(value.files[0]); // 입력 중 0번째에 있는 것을 들어가게 하겠다. (첨부 파일로 여러 개가 들어가도 1개만 들어가기 처리)
 		}
-	}
+	} 
 
-	function deleteImg() {
-		$('#gymImg2').val('');
-		$('#img2').hide();
-	}
-	
-	function deleteImg(num) {
-		$('#gymImg' + num).val('');
-		$('#img'+num).hide();
+	function deleteUpdateImg(num) {
+		$('#gymUpdateImg' + num).val('');
+		$('#updateImg'+num).hide();
 	}
 </script>
 </html>
