@@ -3,7 +3,7 @@
 %>
 <!DOCTYPE html>
 <%
-	ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
+ArrayList<Gym> list = (ArrayList) request.getAttribute("gymList");
 PageInfo pi = (PageInfo) request.getAttribute("pi");
 String cp = request.getContextPath();
 
@@ -196,7 +196,7 @@ tr, td {
 									<td>
 										<input type="checkbox" name="check" onclick="selectOne();" value="<%= g.getG_NO()%>">
 									</td>
-									<td><input type="hidden" name="selectGNO" value="<%= g.getG_NO()%>"><%=g.getG_NO()%></td>
+									<td><%=g.getG_NO()%></td>
 									<td><%=g.getG_NAME()%></td>
 									<td><%=g.getG_TYPE_NM()%></td>
 									<td><%=g.getG_GU_NM()%></td>
@@ -474,9 +474,64 @@ tr, td {
 				data: {gNo : gNo},
 				success: function(data) {
 					console.log(data)
+					for(var i in data) {
+						console.log(i);
+						if(i == 0) {
+							for (var key in data[i]) {
+								console.log(data[i][key]);
+									
+								var gymName = data[i][key].G_NAME;
+								var gymType = data[i][key].G_TYPE_NM;
+								var gymAddr = data[i][key].G_ADDRESS;
+								var gymTel = data[i][key].G_TEL;
+								var gymHomepage = data[i][key].G_HOMEPAGE;
+								var gymParking = data[i][key].G_PARKING_LOT;
+								var gymBigo = data[i][key].G_BIGO;
+								var gymEduYN = data[i][key].G_EDU_YN;
+								var gymInOut = data[i][key].G_IN_OUT;
+								var gymCovid = data[i][key].G_COVID;
+								
+							}
+						} else {
+							for (var key in data[i]) {
+								console.log(data[i][key]);
+								var gymThumb = data[i][key]
+							}	
+						}
+					}
+					
 					$('#gymUpdateModal').modal("show");
+					$('#gymUpdateNo').val(gNo)
+					$('#gymUpdateName').val(gymName);
+					$('#gymUpdateType').val(gymType);
+					$('#gymUpdateAddr').val(gymAddr);
+					$('#gymUpdateTel').val(gymTel);
+					$('#gymUpdateHomepage').val(gymHomepage);
+					$('#gymUpdateParking').val(gymParking);
+					$('#gymUpdateBigo').val(gymBigo);
+					console.log(gymEduYN);
 					
+					if(gymEduYN == "유") {
+						$('#eduY').attr("checked", true);
+						console.log("유에 들어옴")
+					} else {
+						$('#eduN').attr("checked", true);
+						console.log("무에 들어옴")
+					}
 					
+					if(gymInOut == "실내") {
+						$("#in_outIn").attr("checked", true);
+					} else {
+						$("#in_outOut").attr("checked", true);
+					}
+					
+					switch(gymCovid) {
+						case 1 : $('#covid1').attr("checked", true); break;
+						case 2 : $('#covid2').attr("checked", true); break;
+						case 3 : $('#covid3').attr("checked", true); break;
+						case 4 : $('#covid4').attr("checked", true); break;
+						case 5 : $('#covid5').attr("checked", true); break;
+					}
 				}
 			});
 		});

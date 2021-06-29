@@ -408,7 +408,7 @@ public class GymDAO {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		ArrayList<GFile> gFile = new ArrayList<GFile>();
+		ArrayList<GFile> gFileList = new ArrayList<GFile>();
 
 		String query = prop.getProperty("selectGFile");
 
@@ -416,12 +416,11 @@ public class GymDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, gNo);
 			rset = pstmt.executeQuery();
-
 			while (rset.next()) {
 				GFile gf = new GFile(rset.getInt("g_file_no"), rset.getInt("g_no"), rset.getString("g_origin_name"),
 						rset.getString("g_change_name"), rset.getString("g_file_path"), rset.getDate("g_upload_date"),
 						rset.getInt("g_file_lv"), rset.getString("g_status").charAt(0));
-				gFile.add(gf);
+				gFileList.add(gf);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -429,38 +428,27 @@ public class GymDAO {
 			close(rset);
 			close(pstmt);
 		}
-		return gFile;
+		return gFileList;
 	}
 
 	public ArrayList<Gym> selectGym(Connection conn, int gNo) {
-		
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> gym = new ArrayList<Gym>();
-		
+
 		String query = prop.getProperty("selectGym");
-		
+
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, gNo);
 			rset = pstmt.executeQuery();
 			while (rset.next()) {
-				Gym g = new Gym(
-						rset.getInt("g_No"),
-						rset.getString("g_type_nm"),
-						rset.getString("g_gu_nm"),
-						rset.getString("g_name"),
-						rset.getString("g_address"),
-						rset.getDouble("g_ycode"),
-						rset.getDouble("g_xcode"),
-						rset.getString("g_tel"),
-						rset.getString("g_edu_yn"),
-						rset.getString("g_in_out"),
-						rset.getString("g_status").charAt(0),
-						rset.getInt("g_count"),
-						rset.getInt("g_covid"),
-						rset.getString("g_home_page"),
-						rset.getString("g_parking_Lot"),
+				Gym g = new Gym(rset.getInt("g_No"), rset.getString("g_type_nm"), rset.getString("g_gu_nm"),
+						rset.getString("g_name"), rset.getString("g_address"), rset.getDouble("g_ycode"),
+						rset.getDouble("g_xcode"), rset.getString("g_tel"), rset.getString("g_edu_yn"),
+						rset.getString("g_in_out"), rset.getString("g_status").charAt(0), rset.getInt("g_count"),
+						rset.getInt("g_covid"), rset.getString("g_home_page"), rset.getString("g_parking_Lot"),
 						rset.getString("g_bigo"));
 				gym.add(g);
 			}

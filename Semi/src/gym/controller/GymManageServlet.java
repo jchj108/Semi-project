@@ -33,7 +33,7 @@ public class GymManageServlet extends HttpServlet {
 		int startPage;
 		int endPage;
 
-		ArrayList<Gym> gymList = null;
+		ArrayList<Gym> gymList = new ArrayList();
 
 		String keyword = request.getParameter("searchKeyword");
 		String category = request.getParameter("searchList");

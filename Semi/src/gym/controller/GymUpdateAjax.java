@@ -2,12 +2,15 @@ package gym.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import gym.model.service.GymService;
 import gym.model.vo.GFile;
@@ -38,15 +41,21 @@ public class GymUpdateAjax extends HttpServlet {
 		GymService service = new GymService();
 		
 		ArrayList<Gym> gList = service.selectGym(gNo);		
-		ArrayList<GFile> gFList = service.selectGFile(gNo);
+		ArrayList<GFile> fList = service.selectGFile(gNo);
+		ArrayList gfList = new ArrayList();
 		
-		for(Gym g : gList) {
-			System.out.println(g);
+		gfList.add(gList);
+		gfList.add(fList);
+		
+		Gson gson = new Gson();
+		gson.toJson(gfList, response.getWriter());
+		
+		for(int i = 0; i < gfList.size(); i++) {
+			System.out.println("gfList : " + gfList.get(i));
 		}
 		
-		for(GFile gF : gFList) {
-			System.out.println(gF);
-		}
+		
+		response.setContentType("application/json; charset=UTF-8");
 		
 	}
 

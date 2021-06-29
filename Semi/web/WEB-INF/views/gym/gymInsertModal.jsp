@@ -214,12 +214,12 @@ img src {
 					<button type="button" class="btn btn-default cancelbtn" onclick="deleteImg(4)">취소</button>
 					<br> <label for="inlineRadio1">강습</label><br>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio1" value="Y">
-						<label class="form-check-label" for="inlineRadio1">Y </label>
+						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio1" value="유">
+						<label class="form-check-label" for="inlineRadio1">유</label>
 					</div>
 					<div class="form-check form-check-inline" style="margin-left: 20px;">
-						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio2" value="N" checked>
-						<label class="form-check-label" for="inlineRadio2">N</label>
+						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio2" value="무" checked>
+						<label class="form-check-label" for="inlineRadio2">무</label>
 					</div>
 					<br> <label for="inlineRadio3">장소</label><br>
 					<div class="form-check form-check-inline">

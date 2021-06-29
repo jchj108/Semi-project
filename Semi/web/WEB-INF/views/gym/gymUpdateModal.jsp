@@ -162,24 +162,24 @@ img src {
 			<form class="contents-inside" action="<%=request.getContextPath()%>/insert.fc" method="post" encType="multipart/form-data">
 				<div class="modal-body">
 					<label for="gymType">시설 번호</label>
-					<input type="text" class="form-control" name="gymType" id="gymType1" placeholder="타입을 입력하세요" required>
+					<input type="text" class="form-control" name="gymUpdateNo" id="gymUpdateNo" readonly>
 					<label for="gymName">이름</label>
-					<input type="text" class="form-control" name="gymName" id="gymName" placeholder="이름을 입력하세요" required>
+					<input type="text" class="form-control" name="gymUpdateName" id="gymUpdateName" placeholder="이름을 입력하세요" required>
 					<label for="gymType">타입</label>
-					<input type="text" class="form-control" name="gymType" id="gymType1" placeholder="타입을 입력하세요" required>
+					<input type="text" class="form-control" name="gymUpdateType" id="gymUpdateType" placeholder="타입을 입력하세요" required>
 					<label for="gymAddr">주소</label><br>
-					<input type="text" class="form-control" name="gymAddr" id="gymAddr" placeholder="주소를 입력하세요" style="width: 580px; display: inline-block" required>
+					<input type="text" class="form-control" name="gymUpdateAddr" id="gymUpdateAddr" placeholder="주소를 입력하세요" style="width: 580px; display: inline-block" required>
 					<button type="button" class="btn btn-primary" style="float: right">주소 검색</button>
 					<label for="gymAddrDetail">상세주소</label><br>
-					<input type="text" class="form-control" name="gymAddrDetail" id="gymAddrDetail" placeholder="상세주소">
+					<input type="text" class="form-control" name="gymUpdateAddrDetail" id="gymUpdateAddrDetail" placeholder="상세주소">
 					<label for="gymTel">전화번호</label><br>
-					<input type="text" class="form-control" name="gymTel" id="gymTel" placeholder="전화번호를 입력하세요">
+					<input type="text" class="form-control" name="gymUpdateTel" id="gymUpdateTel" placeholder="전화번호를 입력하세요">
 					<label for="gymHomepage">홈페이지</label><br>
-					<input type="text" class="form-control" name="gymHomepage" id="gymHomepage" placeholder="홈페이지를 입력하세요">
+					<input type="text" class="form-control" name="gymUpdateHomepage" id="gymUpdateHomepage" placeholder="홈페이지를 입력하세요">
 					<label for="gymParking">주차 정보</label><br>
-					<input type="text" class="form-control" name="gymParking" id="gymParking" placeholder="주차 정보를 입력하세요">
+					<input type="text" class="form-control" name="gymUpdateParking" id="gymUpdateParking" placeholder="주차 정보를 입력하세요">
 					<label for="gymBigo">비고</label><br>
-					<input type="text" class="form-control" name="gymBigo" id="gymBigo" placeholder="비고를 입력하세요">
+					<input type="text" class="form-control" name="gymUpdateBigo" id="gymUpdateBigo" placeholder="비고를 입력하세요">
 					<label for="signUpProfile" style="margin-bottom: 10px;">대표 사진</label><br>
 					<div class="imgArea">
 						<img class="gymImage" id="img1">
@@ -217,42 +217,42 @@ img src {
 					<button type="button" class="btn btn-default cancelbtn" onclick="deleteImg(4)">취소</button>
 					<br> <label for="inlineRadio1">강습</label><br>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio1" value="Y">
-						<label class="form-check-label" for="inlineRadio1">Y </label>
+						<input class="form-check-input" type="radio" name="edu_yn" id="eduY" value="유">
+						<label class="form-check-label" for="eduY">유</label>
 					</div>
 					<div class="form-check form-check-inline" style="margin-left: 20px;">
-						<input class="form-check-input" type="radio" name="edu_yn" id="inlineRadio2" value="N">
-						<label class="form-check-label" for="inlineRadio2">N</label>
+						<input class="form-check-input" type="radio" name="edu_yn" id="eduN" value="무">
+						<label class="form-check-label" for="eduN">무</label>
 					</div>
 					<br> <label for="inlineRadio3">장소</label><br>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="in_out" id="inlineRadio3" value="실내">
-						<label class="form-check-label" for="inlineRadio3">실내</label>
+						<input class="form-check-input" type="radio" name="in_out" id="in_outIn" value="실내">
+						<label class="form-check-label" for="in_outIn">실내</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="in_out" id="inlineRadio4" value="실외">
-						<label class="form-check-label" for="inlineRadio4">실외</label>
+						<input class="form-check-input" type="radio" name="in_out" id="in_outOut" value="실외">
+						<label class="form-check-label" for="in_outOut">실외</label>
 					</div>
 					<br> <label for="inlineRadio5">방역도</label><br>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="covid" id="inlineRadio5" value="1">
-						<label class="form-check-label" for="inlineRadio5">1</label>
+						<input class="form-check-input" type="radio" name="covid" id="covid1" value="1">
+						<label class="form-check-label" for="covid1">1</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="covid" id="inlineRadio6" value="2">
-						<label class="form-check-label" for="inlineRadio6">2</label>
+						<input class="form-check-input" type="radio" name="covid" id="covid2" value="2">
+						<label class="form-check-label" for="covid2">2</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="covid" id="inlineRadio7" value="3">
-						<label class="form-check-label" for="inlineRadio7">3</label>
+						<input class="form-check-input" type="radio" name="covid" id="covid3" value="3">
+						<label class="form-check-label" for="covid3">3</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="covid" id="inlineRadio8" value="4">
-						<label class="form-check-label" for="inlineRadio8">4</label>
+						<input class="form-check-input" type="radio" name="covid" id="covid4" value="4">
+						<label class="form-check-label" for="covid4">4</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="covid" id="inlineRadio9" value="5">
-						<label class="form-check-label" for="inlineRadio9">5</label>
+						<input class="form-check-input" type="radio" name="covid" id="covid5" value="5">
+						<label class="form-check-label" for="covid5">5</label>
 					</div>
 					<br>
 				</div>
