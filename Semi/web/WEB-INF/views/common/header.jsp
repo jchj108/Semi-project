@@ -164,7 +164,6 @@
 	
 	<script>
 		$('#login').on('click', function(){
-			console.log('로그인 모달');
 			$('#loginModal').modal("show");
 		});
 		
@@ -189,8 +188,6 @@
 		$('.homeLogo').on('click', function(){
 			location.href = "<%= request.getContextPath() %>/home.do";
 		});
-		
-		
 		
 	</script>
 

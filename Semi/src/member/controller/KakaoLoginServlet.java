@@ -36,7 +36,7 @@ public class KakaoLoginServlet extends HttpServlet {
 		char gender = request.getParameter("gender").charAt(0);
 		String profile = request.getParameter("profile");
 		
-		Member mem = new Member(email, pwd, name, gender, "서울시 강남구 역삼동", null, profile, null);
+		Member mem = new Member(email, pwd, name, gender, "서울시 강남구 역삼동", null, profile, "없음");
 		MemberService mService = new MemberService();
 		
 		// 이메일 중복 체크

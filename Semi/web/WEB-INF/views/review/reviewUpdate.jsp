@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="review.model.vo.*, java.util.ArrayList"%>
-<% Review r = (Review)request.getAttribute("r"); 
+    pageEncoding="UTF-8" import="review.model.vo.*, java.util.*, java.sql.Date"%>
+<% 
+	Review r = (Review)request.getAttribute("r"); 
 	ArrayList<ReviewAttachment> list = (ArrayList)request.getAttribute("list");
 	
 	int total = r.getR_total();
@@ -11,6 +12,12 @@
 	
 	String keyword = r.getR_keyword();
 	String review = r.getR_body();
+	
+	Date upload_date = null;
+	if(list != null){
+		upload_date = list.get(0).getR_upload_date();
+		System.out.println(upload_date + " : jsp 업로드 날짜");
+	}
 	
 	String[] checked = new String[6];
 	
@@ -59,6 +66,7 @@
 	}
 	
 	.review-box{
+		width: 90%;
 		margin: 20px 0px 20px 20px;
 		padding: 15px;
 	}
@@ -101,7 +109,7 @@
 	}
 	
 	.description{
-		display: inline-block;
+/* 		display: inline-block; */
 		margin: 5px 0px 8px 5px;
 	}
 	
@@ -175,153 +183,137 @@
 
 	<%@ include file="../common/header.jsp" %>
 	
-	<div class="reviewContent">
-		<div class="row">
-			<div class="col-lg-3">
-				<div class="list-group list-group-flush text-center">
-					<div class="list-group-item category-title">A 필라테스 평가하기</div>
-					<div class="list-group-item">
-						<img src="image/flower1.PNG">
-					</div>
-					<div class="list-group-item">
-						서울시 강남구 역삼동 <br> 070-1234-5678
-					</div>
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="list-group list-group-flush text-center ml-5">
+				<div class="list-group-item category-title">A 필라테스 평가하기</div>
+				<div class="list-group-item">
+					<img src="image/flower1.PNG">
+				</div>
+				<div class="list-group-item">
+					서울시 강남구 역삼동 <br> 070-1234-5678
 				</div>
 			</div>
+		</div>
 
-			<div class="col-lg-6">
-				<form class="review-box" id="updateForm" action="<%= request.getContextPath() %>/reviewUpdate.re" method="post" encType="multipart/form-data">
-					<div class="section">
-						<div class="title">
-							<strong>전체 평점</strong>
-						</div>
-						<div class="score-box">
-							<div class="rating-box">
-								<div class="rating-box-name">평점</div>
-								<input type="hidden" name="totalStar" value="<%= total %>">
-								<div class="score_star" id="totalStarDiv1">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
-								</div>
+		<div class="col-lg-5">
+			<form class="review-box" id="updateForm" action="<%= request.getContextPath() %>/reviewUpdate.re" method="post" encType="multipart/form-data">
+				<input type="hidden" name="rNo" value="<%= r.getR_no() %>">
+				<input type="hidden" name="upload_date" value="<%= upload_date %>">
+				<div class="section">
+					<div class="title">
+						<strong>전체 평점</strong>
+					</div>
+					<div class="score-box">
+						<div class="rating-box">
+							<div class="rating-box-name">평점</div>
+							<input type="hidden" name="totalStar" value="<%= total %>">
+							<div class="score_star" id="totalStarDiv1">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
 							</div>
 						</div>
 					</div>
-					<hr>
-					<div class="section">
-						<div class="title">
-							<strong>항목별 평점</strong>
-						</div>
+				</div>
+				<hr>
+				<div class="section">
+					<div class="title">
+						<strong>항목별 평점</strong>
+					</div>
 
-						<div class="score-box">
-							<div class="rating-box">
-								<div class="rating-box-name">시설</div>
-								<input type="hidden" name="facilityStar" value="<%= gym %>">
-								<div class="score_star" id="facilityStarDiv1">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
-								</div>
+					<div class="score-box">
+						<div class="rating-box">
+							<div class="rating-box-name">시설</div>
+							<input type="hidden" name="facilityStar" value="<%= gym %>">
+							<div class="score_star" id="facilityStarDiv1">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
 							</div>
-							<div class="rating-box">
-								<div class="rating-box-name">강사</div>
-								<input type="hidden" name="instructorStar" value="<%= teacher %>">
-								<div class="score_star" id="instructorStarDiv1">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
-								</div>
+						</div>
+						<div class="rating-box">
+							<div class="rating-box-name">강사</div>
+							<input type="hidden" name="instructorStar" value="<%= teacher %>">
+							<div class="score_star" id="instructorStarDiv1">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
 							</div>
-							<div class="rating-box">
-								<div class="rating-box-name">서비스</div>
-								<input type="hidden" name="serviceStar" value="<%= service %>">
-								<div class="score_star" id="serviceStarDiv1">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
-								</div>
+						</div>
+						<div class="rating-box">
+							<div class="rating-box-name">서비스</div>
+							<input type="hidden" name="serviceStar" value="<%= service %>">
+							<div class="score_star" id="serviceStarDiv1">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
 							</div>
-							<div class="rating-box">
-								<div class="rating-box-name">가격</div>
-								<input type="hidden" name="priceStar" value="<%= price %>">
-								<div class="score_star" id="priceStarDiv1">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
-								</div>
+						</div>
+						<div class="rating-box">
+							<div class="rating-box-name">가격</div>
+							<input type="hidden" name="priceStar" value="<%= price %>">
+							<div class="score_star" id="priceStarDiv1">
+								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+									class="fas fa-star"></i>
 							</div>
 						</div>
 					</div>
-					<hr>
-					<div class="section">
-						<div class="title">
-							<strong>시설 키워드</strong>
-						</div>
-						<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
-						<div class="div-keyword">
-							<div class="div-addKeyword" class="form-check">
-								<input type="checkbox" name="keyword" id="keyword11" value="체지방 감소" <%= checked[0] %>>
-								<label for="keyword11">체지방 감소</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword12" value="근력 증가" <%= checked[1] %>>
-								<label for="keyword12">근력 증가</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword13" value="재활" <%= checked[2] %>>
-								<label for="keyword13">재활</label>&nbsp;
-								<input type="checkbox" name="keyword" id="keyword14" value="체형교정" <%= checked[3] %>>
-								<label for="keyword14">체형교정</label>&nbsp;
-							</div>
-						</div>
-						<div class="div-keyword">
-							<input type="text" class="addKeyword" placeholder="키워드 직접입력">
-							<button type="button" class="button-keyword">키워드 추가</button>
+				</div>
+				<hr>
+				<div class="section">
+					<div class="title">
+						<strong>시설 키워드</strong>
+					</div>
+					<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
+					<div>
+						<div class="text-center div-addKeyword">
+							<input type="checkbox" name="keyword" id="keyword11" value="체지방 감소" <%= checked[0] %>>
+							<label for="keyword11">체지방 감소</label>&nbsp;
+							<input type="checkbox" name="keyword" id="keyword12" value="근력 증가" <%= checked[1] %>>
+							<label for="keyword12">근력 증가</label>&nbsp;
+							<input type="checkbox" name="keyword" id="keyword13" value="재활" <%= checked[2] %>>
+							<label for="keyword13">재활</label>&nbsp;
+							<input type="checkbox" name="keyword" id="keyword14" value="체형교정" <%= checked[3] %>>
+							<label for="keyword14">체형교정</label>&nbsp;
 						</div>
 					</div>
-					<hr>
-					<div class="section">
-						<div class="title">
-							<strong>이용 후기</strong>
-						</div>
-						<textarea name="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."><%= review %></textarea>
+					<div class="div-keyword">
+						<input type="text" class="addKeyword" placeholder="키워드 직접입력">
+						<button type="button" class="button-keyword">키워드 추가</button>
 					</div>
-					<hr>
-					<div class="section">
-						<div class="title">
-							<strong>사진 올리기</strong>
-						</div>
-						<br>
-						<div class="div-photo">
-							<span class="description">시설 사진이나 운동 사진을 올려주세요. (최대 10개)</span>
-						</div>
-						<div class="image_top">
-						    <div class="image_swiper">
-<%-- 						    	<% --%>
-<!-- // 						    		int index = 0; -->
-<!-- // 						    	 	for(ReviewAttachment ra : list){  -->
-<%-- 						    	%> --%>
-<%-- 						    		<div class="image_div_<%= index %>"> --%>
-<%-- 						    			<label for ="image_plus_<%= index %>" style="background: url('<%= request.getContextPath() %>/review_uploadFiles/<%= ra.getR_change_name() %>') center no-repeat; background-size: 105px 105px;"></label> --%>
-<%-- 						            	<input type="file" name="image_plus_<%= index %>" id="image_plus_<%= index %>"> --%>
-<!-- 						    		</div> -->
-<%-- 						    	<%  --%>
-<!-- // 						    	 		index++; -->
-<!-- // 						    	 	}  -->
-<%-- 						    	%> --%>
-<%-- 						        <div class="image_div_<%= index %>"> --%>
-<%-- 						            <label for ="image_plus_<%= index %>"></label> --%>
-<%-- 						            <input type="file" name="image_plus_<%= index %>" id="image_plus_<%= index %>"> --%>
-<!-- 						        </div> -->
-								<div class="image_div_0">
-						            <label for ="image_plus_0"></label>
-						            <input type="file" name="image_plus_0" id="image_plus_0">
-					        	</div>
-						    </div>
-						</div>
+				</div>
+				<hr>
+				<div class="section">
+					<div class="title">
+						<strong>이용 후기</strong>
 					</div>
-					<div class="button-register">
-						<button type="button" class="updateCancleBtn">취소하기</button>
-						<button type="submit" class="updateBtn">수정하기</button>
+					<textarea name="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."><%= review %></textarea>
+				</div>
+				<hr>
+				<div class="section">
+					<div class="title">
+						<strong>사진 올리기</strong>
 					</div>
-				</form>
-			</div>
+					<br>
+					<div class="div-photo">
+						<span class="description">시설 사진이나 운동 사진을 올려주세요. (최대 10개)</span>
+					</div>
+					<div class="image_top" style="margin-top: 10px;">
+					    <div class="image_swiper">
+							<div class="image_div_0">
+					            <label for ="image_plus_0"></label>
+					            <input type="file" name="image_plus_0" id="image_plus_0">
+				        	</div>
+					    </div>
+					</div>
+				</div>
+				<div class="button-register">
+					<button type="button" class="updateCancleBtn">취소하기</button>
+					<button type="submit" class="updateBtn">수정하기</button>
+				</div>
+			</form>
 		</div>
 	</div>
 	
@@ -366,7 +358,6 @@
 	    });
 	    
 	    /* 사진첨부 */
-<%-- 	    var index = <%= index %>; --%>
 		var index = 0;
  
 	    //이미지 추가 버튼 클릭시
@@ -397,7 +388,7 @@
 	            reader.readAsDataURL(fileList[0]);
 	            //로드 한 후 이미지 요소 설정(스타일,url)
 	            reader.onload = function(e) {
-	                img_div.children('label').css('background','url('+ e.target.result +') center no-repeat').css('background-size','105px 105px').css('margin-left', '5px');
+	                img_div.children('label').css('background','url('+ e.target.result +') center no-repeat').css('background-size','105px 105px');
 	            };
 	 
 	            // 이미지 파일 첨부 버튼 추가 하기

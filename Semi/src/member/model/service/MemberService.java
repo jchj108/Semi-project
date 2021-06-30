@@ -220,6 +220,22 @@ public class MemberService {
 		
 		return list;
 	}
+
+	public int updatePwd(String changePwd, String email) {
+		Connection conn = getConnection();
+		
+		int result = new MemberDAO().updatePwd(conn, changePwd, email);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 	
 	
 }
