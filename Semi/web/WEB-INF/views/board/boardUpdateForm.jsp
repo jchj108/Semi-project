@@ -6,7 +6,6 @@
 	char secret = b.getQ_secret().charAt(0);
 	ArrayList<QnaFile> fileList = (ArrayList)request.getAttribute("fileList");
 	
-	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +95,7 @@
          <%@include file="../common/header.jsp" %>	
         
         <!-- Page Content-->
-        <div class="container" style="height: 700px;">
+        <div class="container" style="height: auto;">
         	<div class="input">
 			<form action="<%=request.getContextPath()%>/boardUpdate.do" method="post" id="boardUpdate" name="boardUpdate" encType="multipart/form-data">
 				<span class="title">제목<input type="hidden" name="qNo" value="<%=b.getQ_no()%>"></span>
@@ -104,25 +103,36 @@
 				<span class="body">내용</span>
 				<textarea rows="10" cols="20" id="bodyInput" name="bodyInput"><%=b.getQ_body() %></textarea><br>
 				
-				
+				<% if(fileList.isEmpty()) { %>
 				<span class="file">파일</span>
-				<%for(int i = 0; i < fileList.size(); i++) { %>
+				
 				<div class="fileInput">		
 				<input type="text" name="fileName1" id="fileName1" style="width: 550px;"disabled="disabled">				
-				<input type="file" name="fileInput1" id="fileInput1" onchange="loadName();" value="<%=fileList.get(0).getQ_file()%>">
-				<input tpye="hidden" name="fileNo" value=<%=fileList.get(0).getQ_file_no()%>">
+				<input type="file" name="fileInput1" id="fileInput1" onchange="loadName1();">
 				<input type="button" value="파일 등록" class="upload" style="top:0;"><br>
 				</div>
-				<span type="button" class="fileDelete" onclick="fileDelete();">파일 삭제</span><br>
+				<span class="fileDelete" onclick="fileDelete1();">파일 삭제</span><br>
 				
 				<span class="file"></span>
 				<div class="fileInput">		
 				<input type="text" name="fileName2" id="fileName2" style="width: 550px;"disabled="disabled">				
-				<input type="file" name="fileInput2" id="fileInput2" onchange="loadName2();" value="<%=fileList.get(1).getQ_file()%>">
-				<input tpye="hidden" name="fileNo" value=<%=fileList.get(1).getQ_file_no()%>">
+				<input type="file" name="fileInput2" id="fileInput2" onchange="loadName2();">
 				<input type="button" value="파일 등록" class="upload" style="top:0;"><br>				
 				</div>
-				<span type="button" class="fileDelete" onclick="fileDelete2();">파일 삭제</span><br>				
+				<span class="fileDelete" onclick="fileDelete2();">파일 삭제</span><br>				
+				<% } else { %>
+					<% for(int i = 0; i < fileList.size(); i++) {%>
+					<span class="file">첨부파일 <%= i + 1 %></span>
+				
+					<div class="fileInput">
+					<input type="hidden" name="fileNo" value="<%= fileList.get(i).getQ_file_no() %>">
+					<input type="text" name="fileName<%= i + 1 %>" id="fileName<%= i + 1 %>" style="width: 550px;"disabled="disabled" value="<%= fileList.get(i).getChangeName() %>">				
+					<input type="file" name="fileInput<%= i + 1 %>" id="fileInput<%= i + 1 %>" onchange="loadName<%= i + 1 %>();" value="<%=fileList.get(i).getQ_file() %><%= fileList.get(i).getChangeName() %>">
+					<input type="button" value="파일 등록" class="upload" style="top:0;"><br>
+					</div><br>
+
+				
+					<% } %>
 				<% } %>
 				<span class="open">공개 여부</span>
 					<input type="radio" id="open" name="openChoice" value="Y"> 공개
@@ -147,7 +157,7 @@
 			$('#nOpen').prop('checked', true);
 		}
          
-         function loadName(){
+         function loadName1(){
         	 document.getElementById('fileName1').value =  document.getElementById('fileInput1').value;
         
          }
@@ -156,7 +166,7 @@
         	 document.getElementById('fileName2').value =  document.getElementById('fileInput2').value;
          }
          
-         function fileDelete(){
+         function fileDelete1(){
         	 document.getElementById('fileInput1').value = "";
         	 document.getElementById('fileName1').value =  document.getElementById('fileInput1').value;  	      	       	 
         		 
@@ -167,6 +177,8 @@
         	 document.getElementById('fileName2').value =  document.getElementById('fileInput2').value;  	      	       	 
         		 
          }
+         
+       
 		
       </script>
     </body>

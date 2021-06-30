@@ -12,19 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
-import page.model.vo.Page;
 
 /**
- * Servlet implementation class FAQListServlet
+ * Servlet implementation class FAQSearchServlet
  */
-@WebServlet("/faq.do")
-public class FAQListServlet extends HttpServlet {
+@WebServlet("/searchFaq.do")
+public class FAQSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FAQListServlet() {
+    public FAQSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,38 +32,50 @@ public class FAQListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String bDiv = "F";
+		String searchList = request.getParameter("searchList");
+		String kw = request.getParameter("searchKeyword");
+		
+		BoardService service = new BoardService();
+		PageInfo pi = null;
+		ArrayList<Board> list = null;
+		
 		int listCount;
-		int currentPage;
-		int pageLimit;
-		int boardLimit;
-		int maxPage;
-		int startPage;
-		int endPage;
-		
-		String str = "F";
-		
-		BoardService bService = new BoardService();
-		listCount = bService.getListCount(str); 
-		
-		currentPage = 1;
+		int currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
 			currentPage = Integer.parseInt(request.getParameter("currentPage"));
 		}
 		
-		pageLimit = 5;
-		boardLimit = 10;
+		int boardLimit = 10;
+		int pageLimit = 5;
 		
-		maxPage = (int)Math.ceil((double)listCount / boardLimit);
+		int maxPage;		
+		int startPage; 
+		int endPage;
 		
-		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
-		
-		endPage = startPage + pageLimit - 1;
-		if(endPage > maxPage) {
-			endPage = maxPage; 
+		if(searchList.equals("제목")) {
+			listCount = service.getSearchTitleList(kw, bDiv);
+			maxPage = (int)Math.ceil((double)listCount / boardLimit);
+			startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+			endPage = (startPage + pageLimit) - 1;
+			if(endPage > maxPage) {
+				endPage = maxPage;
+			}
+			
+			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+			list = service.selectSearchTitleList(pi, kw, bDiv);
+		} else {
+				listCount = service.getSearchWriterList(kw, bDiv);
+				maxPage = (int)Math.ceil((double)listCount / boardLimit);
+				startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+				endPage = (startPage + pageLimit) - 1;
+				if(endPage > maxPage) {
+					endPage = maxPage;
+				}
+				
+				pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+				list = service.selectSearchWriterList(pi, kw, bDiv);
 		}
-		
-		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-		ArrayList<Board> list = bService.selectBoardList(pi, str);
 		
 		String page = null;
 		if(list != null) {
@@ -73,10 +84,9 @@ public class FAQListServlet extends HttpServlet {
 			request.setAttribute("pi", pi);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
-			request.setAttribute("msg", "게시판 조회에 실패하였습니다.");
+			request.setAttribute("msg", "게시판 검색에 실패하였습니다.");
 		}
 		request.getRequestDispatcher(page).forward(request, response);
-		
 	}
 
 	/**

@@ -233,17 +233,34 @@ public class BoardService {
 	}
 
 	public int deleteMyComments(String string) {
-		System.out.println(string);
-		String cNo = null;
-		if(string != null) {
-			for(int i = 0; i > string.length(); i++) {
-				cNo = string.split(", ")[i];
-				System.out.println(cNo);
+			
 				
+		Connection conn = getConnection();
+					
+		String cNo = null;
+		int result = 0;
+			
+		if(string != null) {
+			for(int i = 0; i < string.split(", ").length; i++) {
+				cNo = string.split(", ")[i];
+								
+				result += new BoardDAO().deleteMyComments(cNo, conn);
+										
 			}
-		}
-		return 0;
+				
+			if(result > 0) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}		
+			
+			}
+				
+		close(conn);
+				
+		return result;
 	}
+	
 
 	public int insertGym(Gym g, ArrayList<GFile> fileList) {
 		Connection conn = getConnection();
@@ -258,6 +275,68 @@ public class BoardService {
 		} else {
 			rollback(conn);
 		}
+		close(conn);
+		
+		return result1;
+	}
+
+	public int getSearchTitleList(String kw, String bDiv) {
+		Connection conn = getConnection();
+		
+		int count = new BoardDAO().getSearchTitleList(kw, conn, bDiv);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Board> selectSearchTitleList(PageInfo pi, String kw, String bDiv) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectSearchTitleList(pi, kw, bDiv, conn);
+		
+		close(conn);
+	
+		return list;
+	}
+
+	public int getSearchWriterList(String kw, String bDiv) {
+		Connection conn = getConnection();
+		
+		int count = new BoardDAO().getSearchWriterList(kw, conn, bDiv);
+		
+		close(conn);
+		
+		return count;
+		
+	}
+
+	public ArrayList<Board> selectSearchWriterList(PageInfo pi, String kw, String bDiv) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectSearchWriterList(pi, kw, bDiv, conn);
+		
+		close(conn);
+	
+		return list;
+	}
+
+	public int updateBoard(Board b, ArrayList<QnaFile> fileList) {
+		Connection conn = getConnection();
+		
+		BoardDAO dao = new BoardDAO();
+		
+		int result1 = dao.updateBoard(conn, b);
+		
+		if(result1 > 0) {
+			int result2 = dao.updateBoardFile(b, conn, fileList);
+			
+			commit(conn);
+			
+		} else {
+			rollback(conn);
+		}
+		
 		close(conn);
 		
 		return result1;

@@ -32,8 +32,7 @@ public class GymCategoryServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("category"));
-		
+			
 		GymService service = new GymService();
 		
 		String ca = request.getParameter("category");

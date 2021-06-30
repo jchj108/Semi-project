@@ -308,9 +308,14 @@ public class GymDAO {
 
 			rset = pstmt.executeQuery();
 
-			while (rset.next()) {
-				Gym g = new Gym(rset.getInt("g_no"), rset.getString("g_name"), rset.getString("g_address"),
-						rset.getInt("g_covid"));
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_no"),
+						rset.getString("g_name"),
+						rset.getString("g_address"),
+						rset.getInt("g_covid"),
+						rset.getString("g_change_name"));
+
 				gList.add(g);
 			}
 		} catch (SQLException e) {
@@ -342,9 +347,14 @@ public class GymDAO {
 
 			rset = pstmt.executeQuery();
 
-			while (rset.next()) {
-				Gym g = new Gym(rset.getInt("g_no"), rset.getString("g_name"), rset.getString("g_address"),
-						rset.getInt("g_covid"));
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_no"),
+						rset.getString("g_name"),
+						rset.getString("g_address"),
+						rset.getInt("g_covid"),
+						rset.getString("g_change_name"));
+				
 
 				gList.add(g);
 			}
@@ -953,6 +963,70 @@ public class GymDAO {
 			close(pstmt);
 		}
 
+		return list;
+	}
+
+
+	public int getLocaCount(Connection conn, String loca) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		
+		String query = prop.getProperty("getLocaCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, loca);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+
+	public ArrayList<Gym> locationList(Connection conn, Page pi, String loca) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Gym> list = new ArrayList<Gym>();
+		
+		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int end = start + pi.getBoardLimit() - 1;
+		
+		String query = prop.getProperty("locationList");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, loca);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Gym g = new Gym(rset.getInt("g_no"),
+						rset.getString("g_name"),
+						rset.getString("g_address"),
+						rset.getInt("g_covid"),
+						rset.getString("g_change_name"));
+				
+				list.add(g);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
 	}
 }
