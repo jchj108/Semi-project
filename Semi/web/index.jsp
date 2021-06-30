@@ -7,6 +7,7 @@
 <title>메인페이지</title>
 <script type="text/javascript">
 location.href =  "<%= request.getContextPath() %>/home.do";
+
 </script>
 </head>
 <body>

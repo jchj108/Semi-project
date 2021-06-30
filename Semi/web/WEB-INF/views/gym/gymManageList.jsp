@@ -183,7 +183,7 @@ tr, td {
 						<table class="notice-table" id="listTable">
 							<thead>
 								<tr>
-									<th><input type="checkbox" id="checkAll" onclick="checkAll();"></th>
+									<th><input type="checkbox" id="checkAll"></th>
 									<th>시설 번호</th>
 									<th>이름</th>
 									<th>타입</th>
@@ -196,7 +196,7 @@ tr, td {
 									if (list.isEmpty()) {
 								%>
 								<tr>
-									<td colspan="5">작성된 게시글이 없습니다.</td>
+									<td colspan="5">작성된 시설이 없습니다.</td>
 								</tr>
 								<%
 									} else {
@@ -205,7 +205,7 @@ tr, td {
 									for (Gym g : list) {
 								%>
 								<tr>
-									<td>
+									<td class="checkBoxes">
 										<input type="checkbox" name="check" onclick="selectOne();" value="<%= g.getG_NO()%>">
 									</td>
 									<td><%=g.getG_NO()%></td>
@@ -432,18 +432,17 @@ tr, td {
 	// 체크박스
 	var check = document.getElementsByName('check');
 	
-	function checkAll(){
-		
-		if($('#checkAll').is(":checked")){
-			for(var i = 0; i < check.length; i++){
-				check[i].checked = true;
-			}
-		} else{
+	$('#checkAll').on('click', function(){
+		if($('#checkAll').prop('checked') == false){
 			for(var i = 0; i < check.length; i++){
 				check[i].checked = false;
 			}
+		} else {
+			for(var i = 0; i < check.length; i++){
+				check[i].checked = true;
+			}
 		}
-	}
+	});
 
 	function selectOne(){
 		var count = 0;
@@ -476,7 +475,7 @@ tr, td {
 	});
 	
 	$(function() {
-		$('#listTable td').click(function() {
+		$('#listTable td:not(.checkBoxes)').click(function() {
 			
 			var gNo = $(this).parent().children().eq(1).text();
 			var changeName = [];

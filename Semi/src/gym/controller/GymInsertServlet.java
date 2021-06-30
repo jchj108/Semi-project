@@ -15,11 +15,10 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.oreilly.servlet.MultipartRequest;
 
-import board.model.service.BoardService;
 import common.MyFileRenamePolicy;
+import gym.model.service.GymService;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
-import oracle.net.aso.g;
 
 /**
  * Servlet implementation class GymInsertServlet
@@ -113,8 +112,9 @@ public class GymInsertServlet extends HttpServlet {
 				fileList.add(gFile);
 			}
 
-			int result = new BoardService().insertGym(g, fileList);
-
+			int result = new GymService().insertGym(g, fileList);
+			
+			
 			if (result > 0) {
 				response.sendRedirect("gymManage.do");
 			} else {
