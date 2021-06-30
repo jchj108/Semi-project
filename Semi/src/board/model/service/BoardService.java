@@ -280,46 +280,46 @@ public class BoardService {
 		return result1;
 	}
 
-	public int getSearchTitleList(String kw, String bDiv) {
-		Connection conn = getConnection();
-		
-		int count = new BoardDAO().getSearchTitleList(kw, conn, bDiv);
-		
-		close(conn);
-		
-		return count;
-	}
-
-	public ArrayList<Board> selectSearchTitleList(PageInfo pi, String kw, String bDiv) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> list = new BoardDAO().selectSearchTitleList(pi, kw, bDiv, conn);
-		
-		close(conn);
-	
-		return list;
-	}
-
-	public int getSearchWriterList(String kw, String bDiv) {
-		Connection conn = getConnection();
-		
-		int count = new BoardDAO().getSearchWriterList(kw, conn, bDiv);
-		
-		close(conn);
-		
-		return count;
-		
-	}
-
-	public ArrayList<Board> selectSearchWriterList(PageInfo pi, String kw, String bDiv) {
-		Connection conn = getConnection();
-		
-		ArrayList<Board> list = new BoardDAO().selectSearchWriterList(pi, kw, bDiv, conn);
-		
-		close(conn);
-	
-		return list;
-	}
+//	public int getSearchTitleList(String kw, String bDiv) {
+//		Connection conn = getConnection();
+//		
+//		int count = new BoardDAO().getSearchTitleList(kw, conn, bDiv);
+//		
+//		close(conn);
+//		
+//		return count;
+//	}
+//
+//	public ArrayList<Board> selectSearchTitleList(PageInfo pi, String kw, String bDiv) {
+//		Connection conn = getConnection();
+//		
+//		ArrayList<Board> list = new BoardDAO().selectSearchTitleList(pi, kw, bDiv, conn);
+//		
+//		close(conn);
+//	
+//		return list;
+//	}
+//
+//	public int getSearchWriterList(String kw, String bDiv) {
+//		Connection conn = getConnection();
+//		
+//		int count = new BoardDAO().getSearchWriterList(kw, conn, bDiv);
+//		
+//		close(conn);
+//		
+//		return count;
+//		
+//	}
+//
+//	public ArrayList<Board> selectSearchWriterList(PageInfo pi, String kw, String bDiv) {
+//		Connection conn = getConnection();
+//		
+//		ArrayList<Board> list = new BoardDAO().selectSearchWriterList(pi, kw, bDiv, conn);
+//		
+//		close(conn);
+//	
+//		return list;
+//	}
 
 	public int updateBoard(Board b, ArrayList<QnaFile> fileList) {
 		Connection conn = getConnection();

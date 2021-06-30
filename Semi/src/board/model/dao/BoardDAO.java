@@ -645,154 +645,154 @@ public class BoardDAO {
 	}
 
 
-	public int getSearchTitleList(String kw, Connection conn, String bDiv) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int count = 0;
-		String query = null;	
-		
-		if(bDiv.equals("F")) {
-			query = prop.getProperty("getSearchFaqList");
-		} else {
-			query = prop.getProperty("getSearchQnaList");
-		}
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + kw + "%");
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				count = rset.getInt(1);			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return count;
-	}
-
-
-	public ArrayList<Board> selectSearchTitleList(PageInfo pi, String kw, String bDiv, Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = new ArrayList<Board>();
-		String query = null;
-		
-		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int end = start + pi.getBoardLimit() - 1;
-		
-		if(bDiv.equals("F")) {
-			query = prop.getProperty("searchTitleFaqList");
-		} else {
-			query = prop.getProperty("searchTitleQnaList");
-		}
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + kw + "%");
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Board b = new Board(rset.getInt("q_no"),
-									rset.getString("q_title"),
-									rset.getDate("q_date"),
-									rset.getInt("m_num"),
-									rset.getString("m_name"));
-				
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
-
-
-	public int getSearchWriterList(String kw, Connection conn, String bDiv) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int count = 0;
-		String query = null;	
-		
-		if(bDiv.equals("F")) {
-			query = prop.getProperty("getWriterFaqList");
-		} else {
-			query = prop.getProperty("getWriterQnaList");
-		}
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + kw + "%");
-			
-			rset = pstmt.executeQuery();
-			
-			if(rset.next()) {
-				count = rset.getInt(1);			
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return count;
-		
-	}
-
-
-	public ArrayList<Board> selectSearchWriterList(PageInfo pi, String kw, String bDiv, Connection conn) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<Board> list = new ArrayList<Board>();
-		String query = null;
-		
-		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-		int end = start + pi.getBoardLimit() - 1;
-		
-		if(bDiv.equals("F")) {
-			query = prop.getProperty("searchWriterFaqList");
-		} else {
-			query = prop.getProperty("searchWriterQnaList");
-		}
-		
-		try {
-			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, "%" + kw + "%");
-			pstmt.setInt(2, start);
-			pstmt.setInt(3, end);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()) {
-				Board b = new Board(rset.getInt("q_no"),
-									rset.getString("q_title"),
-									rset.getDate("q_date"),
-									rset.getInt("m_num"),
-									rset.getString("m_name"));
-				
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-		}
-		return list;
-	}
+//	public int getSearchTitleList(String kw, Connection conn, String bDiv) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		int count = 0;
+//		String query = null;	
+//		
+//		if(bDiv.equals("F")) {
+//			query = prop.getProperty("getSearchFaqList");
+//		} else {
+//			query = prop.getProperty("getSearchQnaList");
+//		}
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setString(1, "%" + kw + "%");
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			if(rset.next()) {
+//				count = rset.getInt(1);			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		return count;
+//	}
+//
+//
+//	public ArrayList<Board> selectSearchTitleList(PageInfo pi, String kw, String bDiv, Connection conn) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<Board> list = new ArrayList<Board>();
+//		String query = null;
+//		
+//		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+//		int end = start + pi.getBoardLimit() - 1;
+//		
+//		if(bDiv.equals("F")) {
+//			query = prop.getProperty("searchTitleFaqList");
+//		} else {
+//			query = prop.getProperty("searchTitleQnaList");
+//		}
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setString(1, "%" + kw + "%");
+//			pstmt.setInt(2, start);
+//			pstmt.setInt(3, end);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				Board b = new Board(rset.getInt("q_no"),
+//									rset.getString("q_title"),
+//									rset.getDate("q_date"),
+//									rset.getInt("m_num"),
+//									rset.getString("m_name"));
+//				
+//				list.add(b);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		return list;
+//	}
+//
+//
+//	public int getSearchWriterList(String kw, Connection conn, String bDiv) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		int count = 0;
+//		String query = null;	
+//		
+//		if(bDiv.equals("F")) {
+//			query = prop.getProperty("getWriterFaqList");
+//		} else {
+//			query = prop.getProperty("getWriterQnaList");
+//		}
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setString(1, "%" + kw + "%");
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			if(rset.next()) {
+//				count = rset.getInt(1);			
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		return count;
+//		
+//	}
+//
+//
+//	public ArrayList<Board> selectSearchWriterList(PageInfo pi, String kw, String bDiv, Connection conn) {
+//		PreparedStatement pstmt = null;
+//		ResultSet rset = null;
+//		ArrayList<Board> list = new ArrayList<Board>();
+//		String query = null;
+//		
+//		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+//		int end = start + pi.getBoardLimit() - 1;
+//		
+//		if(bDiv.equals("F")) {
+//			query = prop.getProperty("searchWriterFaqList");
+//		} else {
+//			query = prop.getProperty("searchWriterQnaList");
+//		}
+//		
+//		try {
+//			pstmt = conn.prepareStatement(query);
+//			pstmt.setString(1, "%" + kw + "%");
+//			pstmt.setInt(2, start);
+//			pstmt.setInt(3, end);
+//			
+//			rset = pstmt.executeQuery();
+//			
+//			while(rset.next()) {
+//				Board b = new Board(rset.getInt("q_no"),
+//									rset.getString("q_title"),
+//									rset.getDate("q_date"),
+//									rset.getInt("m_num"),
+//									rset.getString("m_name"));
+//				
+//				list.add(b);
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} finally {
+//			close(rset);
+//			close(pstmt);
+//		}
+//		return list;
+//	}
 
 
 	public int updateBoard(Connection conn, Board b) {
