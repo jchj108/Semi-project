@@ -271,6 +271,7 @@ public class GymService {
 		return list;
 	}
 
+
 	public int getLocaCount(String loca) {
 		Connection conn = getConnection();
 		
@@ -290,5 +291,38 @@ public class GymService {
 		return list;
 	}
 
+
+	
+	public Gym selectGymInfo(String gNo) {
+		Connection conn = getConnection();
+		
+		GymDAO dao = new GymDAO();
+		
+		int resultCount = dao.updateCount(conn, gNo);
+		
+		Gym g = null;
+		if(resultCount > 0) {
+			g = dao.selectGymInfo(conn, gNo);
+			
+			if(g != null) {
+				commit(conn);
+			} else {
+				rollback(conn);
+			}
+		}
+		
+		close(conn);
+		return g;
+	}
+
+	public ArrayList<GFile> selectImage(String gNo) {
+		Connection conn = getConnection();
+		
+		ArrayList<GFile> fileList = new GymDAO().selectImage(conn, gNo);
+	
+		close(conn);
+		return fileList;
+	}
+	
 
 }

@@ -276,8 +276,8 @@
 					</div>
 				</div>
 				<div class="button-register">
-					<button type="button" class="writeCancleBtn">취소하기</button>
-					<button type="submit" class="enrollBtn">등록하기</button>
+					<button type="button" class="writeCancleBtn" onclick="location.href='<%= request.getContextPath()%>/detail.do?gNo=<%=gNo%>'">취소하기</button>
+					<button type="submit" class="enrollBtn" onclick="location.href='<%= request.getContextPath()%>/reviewWrite.re?gNo=<%=gNo%>'">등록하기</button>
 				</div>
 			</form>
 		</div>

@@ -967,6 +967,7 @@ public class GymDAO {
 	}
 
 
+
 	public int getLocaCount(Connection conn, String loca) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -984,12 +985,53 @@ public class GymDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+      	e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+    
+    	return count;
+	}
+=======
+	
+	public Gym selectGymInfo(Connection conn, String gNo) {
+		PreparedStatement pstmt = null;
+		Gym g = null;
+		ResultSet rset = null;
+		
+		String query = prop.getProperty("selectGymInfo");
+
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(gNo));
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				g = new Gym(rset.getInt("g_no"),
+								  rset.getString("g_type_nm"),
+								  rset.getString("g_gu_nm"),
+								  rset.getString("g_name"),
+								  rset.getString("g_address"),
+								  rset.getDouble("g_ycode"),
+								  rset.getDouble("g_xcode"),
+								  rset.getString("g_tel"),
+								  rset.getString("g_edu_yn"),
+								  rset.getString("g_in_out"),
+								  rset.getString("g_status").charAt(0),
+								  rset.getInt("g_count"),
+								  rset.getInt("g_covid"),
+								  rset.getString("g_home_page"),
+								  rset.getString("g_parking_lot"),
+								  rset.getString("g_bigo"));
+			}
+		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-		return count;
+    return g;
 	}
 
 
@@ -1022,11 +1064,60 @@ public class GymDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+		return list;
+	}
+
+
+	public int updateCount(Connection conn, String gNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(gNo));
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList<GFile> selectImage(Connection conn, String gNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<GFile> list = new ArrayList<GFile>();
+		
+		String query = prop.getProperty("selectImage");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(gNo));
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				GFile gf = new GFile();
+				
+				gf.setgNo(rset.getInt("g_no"));
+				gf.setgFileNo(rset.getInt("g_file_no"));
+				gf.setgFileLv(rset.getInt("g_file_lv"));
+				gf.setgFilePath(rset.getString("g_file_path"));
+				
+				list.add(gf);
+			}
+		} catch (SQLException e) {
+
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
+
 		return list;
 	}
+
 }
