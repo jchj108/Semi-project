@@ -55,8 +55,8 @@ public class RecommendServlet extends HttpServlet {
 		
 		ArrayList<Gym> list = new GymService().recommendGym(rGym);
 		
-		for(Gym g : list) {
-			System.out.println(g + ": 결과");
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println(list.get(i));
 		}
 		
 		
