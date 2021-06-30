@@ -43,10 +43,9 @@ public class GymInsertServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		if (ServletFileUpload.isMultipartContent(request)) { // request의 enType이 multipart/form-data로 전송되었는지 확인
+		if (ServletFileUpload.isMultipartContent(request)) { 
 			int maxSize = 1024 * 1024 * 10; // 10Mbtye로 전송파일 용량 제한
-			String root = request.getSession().getServletContext().getRealPath("/"); // 웹 서버 컨테이너 경로 추출(webContent 쪽을
-																						// 이야기한다)
+			String root = request.getSession().getServletContext().getRealPath("/"); 
 			String savePath = root + "gym_uploadFiles/";
 
 			File f = new File(savePath);
@@ -56,16 +55,14 @@ public class GymInsertServlet extends HttpServlet {
 
 			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 					new MyFileRenamePolicy());
-			// 값을 가져올 준비
-			ArrayList<String> saveFiles = new ArrayList<String>(); // 파일의 바뀐 이름을 저장할 공간
-			ArrayList<String> originFiles = new ArrayList<String>(); // 파일의 원래 이름을 저장할 공간
-
-			// request와 흡사하게 MultipartRequest에도 getParameter가 존재한다.
-			Enumeration<String> files = multipartRequest.getFileNames(); // getFilenames() : 폼에서 전송된 파일 리스트들의
-			// enumeration에 이미 거꾸로 담겨 있다.
-			// iterator의 이전버전이다. listIterator는 양방향, iterator는 단방향
-			while (files.hasMoreElements()) { // hasNext와 같다.
-				String name = files.nextElement(); // 이름만 저장한다. 파일 저장은 따로 외부 폴더에 저장된다.
+			
+			ArrayList<String> saveFiles = new ArrayList<String>();
+			ArrayList<String> originFiles = new ArrayList<String>(); 
+			
+			Enumeration<String> files = multipartRequest.getFileNames(); 
+			
+			while (files.hasMoreElements()) { 
+				String name = files.nextElement(); 
 				// getFilesystemName(name) : rename메소드에서 작성한대로 바뀐 파일 명 반환, 파일이 없다면 null
 				if (multipartRequest.getFilesystemName(name) != null) {
 					saveFiles.add(multipartRequest.getFilesystemName(name)); // 그대로 들어가면 된다.

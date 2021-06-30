@@ -253,7 +253,7 @@ public class BoardDAO {
 		ResultSet rset = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
 		
-		String query = prop.getProperty("selectGymList");
+		String query = prop.getProperty("selectGymLists");
 		
 		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
 		int endRow = startRow + pi.getBoardLimit() - 1;
@@ -277,7 +277,6 @@ public class BoardDAO {
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
 						rset.getInt("g_COVID"));
-				System.out.println(g);
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -366,7 +365,6 @@ public class BoardDAO {
 						rset.getString("G_STATUS").charAt(0),
 						rset.getInt("g_COUNT"),
 						rset.getInt("g_COVID"));
-				System.out.println(g);
 				list.add(g);
 			}
 		} catch (SQLException e) {
@@ -444,7 +442,6 @@ public class BoardDAO {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("dao listCount : " + listCount);
 		
 		return listCount;
 	}
