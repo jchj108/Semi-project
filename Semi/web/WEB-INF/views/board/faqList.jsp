@@ -6,7 +6,7 @@
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
-	int maxPage = pi.getMaxPage();
+	int maxPage = pi.getMaxPage();	
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +162,7 @@
 				</div>
 			
 				<div class="search">
-					<form>
+					<form method="post" action="searchFaq.do">
 						<select name="searchList">
 							<option value="제목">제목</option>
 							<option value="작성자">작성자</option>					

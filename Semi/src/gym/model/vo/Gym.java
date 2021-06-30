@@ -1,7 +1,7 @@
 package gym.model.vo;
 
 public class Gym {
-
+	
 	private int G_NO;
 	private String G_TYPE_NM;
 	private String G_GU_NM;
@@ -265,8 +265,19 @@ public class Gym {
 
 	public void setG_PARKING_LOT(String g_PARKING_LOT) {
 		G_PARKING_LOT = g_PARKING_LOT;
-	}
+	} 
 
-	
+   @Override
+   public String toString() {
+      return "Gym [G_NO=" + G_NO + ", G_TYPE_NM=" + G_TYPE_NM + ", G_GU_NM=" + G_GU_NM + ", G_NAME=" + G_NAME
+            + ", G_ADDRESS=" + G_ADDRESS + ", G_YCODE=" + G_YCODE + ", G_XCODE=" + G_XCODE + ", G_TEL=" + G_TEL
+            + ", G_EDU_YN=" + G_EDU_YN + ", G_IN_OUT=" + G_IN_OUT + ", G_STATUS=" + G_STATUS + ", G_COUNT="
+            + G_COUNT + ", G_COVID=" + G_COVID + ", G_HOMEPAGE=" + G_HOMEPAGE + ", G_PARKING_LOT=" + G_PARKING_LOT
+            + ", G_BIGO=" + G_BIGO + ", G_FILE=" + G_FILE + "]";
+   }
+
+
+   
+   
 
 }

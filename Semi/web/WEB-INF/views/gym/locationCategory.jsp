@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.*, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.Gym, page.model.vo.Page"%>
 <%
 	ArrayList<Gym> gList = (ArrayList)request.getAttribute("gList");	
-	String cate = request.getParameter("category");
+	String cate = request.getParameter("g_gu_nm");
 	
 	Page pi = (Page)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
@@ -88,14 +88,7 @@
         margin-bottom: 20px;
       }
 
-      .list-group {
-        width: 230px;
-        padding-top: 40px;
-      }
       
-      .list-group-item {
-        color: black;
-      }
       
       .side:hover {color:#00b1d2;}
       
@@ -107,22 +100,10 @@
     
     <!-- Page Content-->
     <div class="container" style="height: auto;">
-      <div class="row">
-        <div class="col-lg-3">
-          <div class="list-group">
-            <div class="list-group-item" style="font-weight: bold;">운동 카테고리</div>
-            <a class="list-group-item side" href="gymCategory.do?category=all">전체보기</a>
-            <a class="list-group-item side" href="gymCategory.do?category=swimming">수영</a>
-            <a class="list-group-item side" href="gymCategory.do?category=soccer">축구</a>
-            <a class="list-group-item side" href="gymCategory.do?category=tennis">테니스</a>
-            <a class="list-group-item side" href="gymCategory.do?category=golf">골프</a>
-            <a class="list-group-item side" href="gymCategory.do?category=footVolley">족구</a>
-            <a class="list-group-item side" href="gymCategory.do?category=badminton">배드민턴</a>
-            <a class="list-group-item side" href="gymCategory.do?category=basketball">농구</a>
-          </div>
-        </div>
-        <div class="col-lg-9">
-          <div class="title"><h4>내 주변의 운동시설</h4></div>
+     
+        
+        <div class="col-lg-9" style="margin: auto;">
+          <div class="title"><h4><%= cate %> 운동시설</h4></div>
 
           <!-- 정렬 버튼 -->
           <div class="sortPack">
@@ -164,16 +145,17 @@
          <% } %>     
           </div>
         </div>
-      </div>
+       </div>
+      
 
      <div class="page">
 		<ul class="pagination">
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/gymCategory.do?category=<%=cate%>&currentPage=1'">&laquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/category.do?g_gu_nm=<%=cate%>&currentPage=1'">&laquo;</div>
 			</li>
 			
 			<li class="page-item">
-				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/gymCategory.do?category=<%=cate%>&currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </button>
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/category.do?g_gu_nm=<%=cate%>&currentPage=<%= currentPage - 1 %>'" id="beforeBtn"> &lt; </button>
 				<script>
 					if(<%= currentPage %> <= 1) {
 						$('#beforeBtn').attr('disabled', 'true');
@@ -188,12 +170,12 @@
 				</li>
 				<% } else { %>
 				<li class="page-item">
-					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/gymCategory.do?category=<%=cate%>&currentPage=<%= p %>'"><%= p %></div>
+					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/category.do?g_gu_nm=<%=cate%>&currentPage=<%= p %>'"><%= p %></div>
 				</li>						
 				<% } %>
 			<% } %>
 			<li class="page-item">
-				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/gymCategory.do?category=<%=cate%>&currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </button>
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/category.do?g_gu_nm=<%=cate%>&currentPage=<%= currentPage + 1 %>'" id="afterBtn"> &gt; </button>
 				<script>
 					if(<%= currentPage %> >= <%= maxPage %>) {
 						$('#afterBtn').prop('disabled', true);
@@ -202,7 +184,7 @@
 			</li>
 			
 			<li class="page-item">
-				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/gymCategory.do?category=<%=cate%>&currentPage=<%= maxPage %>'">&raquo;</div>
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/category.do?g_gu_nm=<%=cate%>&currentPage=<%= maxPage %>'">&raquo;</div>
 			</li>			    
 		</ul>
 	</div>
@@ -212,17 +194,5 @@
 
   </body>
 
-  <script>
-    $('.sort').mouseenter(function () {
-      $(this).css('cursor', 'pointer')
-    })
-
-    $('#reviewSort').click(function () {
-      // 리뷰 순 정렬하기
-    })
-
-    $('#scoreSort').click(function () {
-      // 평점 높은 순 정렬하기
-    })
-  </script>
+  
 </html>
