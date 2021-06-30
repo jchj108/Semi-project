@@ -1,5 +1,7 @@
 package member.controller;
 
+import static common.Encrypt.getEncryptPwd;
+
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -9,18 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.model.service.MemberService;
+import member.model.vo.Member;
 
 /**
- * Servlet implementation class CheckEmailServlet
+ * Servlet implementation class ChangePwdServlet
  */
-@WebServlet("/checkEmail.me")
-public class CheckEmailServlet extends HttpServlet {
+@WebServlet("/changePwd.me")
+public class ChangePwdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckEmailServlet() {
+    public ChangePwdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,14 +32,14 @@ public class CheckEmailServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String inputEmail = request.getParameter("inputEmail");
 		
-		int result = new MemberService().checkEmail(inputEmail);
-		response.getWriter().println(result);
+		String changePwd = getEncryptPwd(request.getParameter("changePwd"));
+		String email = request.getParameter("email");
 		
-//		request.setAttribute("result", result);
-//		request.setAttribute("checkedEmail", inputEmail);
-//		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
+		int result = new MemberService().updatePwd(changePwd, email);
+		
+		System.out.println(result + " : 비밀번호 변경 성공");
+		
 	}
 
 	/**

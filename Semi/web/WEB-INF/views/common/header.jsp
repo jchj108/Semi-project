@@ -164,7 +164,6 @@
 	
 	<script>
 		$('#login').on('click', function(){
-			console.log('로그인 모달');
 			$('#loginModal').modal("show");
 		});
 		

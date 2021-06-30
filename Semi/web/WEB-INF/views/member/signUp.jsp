@@ -185,6 +185,7 @@
 					
 					isPwd = false;
 				} else {
+					$("#pwdResult").text("");
 					isPwd = true;
 				}
 			});
