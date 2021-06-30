@@ -516,7 +516,7 @@ public class MemberDAO {
 								rset.getString("g_name"),
 								rset.getString("g_address"),
 								rset.getInt("g_covid"),
-								rset.getString("g_file"));
+								rset.getString("g_change_name"));
 				list.add(g);
 			}
 			

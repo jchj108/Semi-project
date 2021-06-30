@@ -259,6 +259,7 @@ public class GymService {
 		return list;
 	}
 
+
 	public ArrayList<Gym> selectGymList(PageInfo pi) {
 		
 		Connection conn = getConnection();
@@ -269,6 +270,28 @@ public class GymService {
 		
 		return list;
 	}
+
+
+	public int getLocaCount(String loca) {
+		Connection conn = getConnection();
+		
+		int count = new GymDAO().getLocaCount(conn, loca);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Gym> locationList(Page pi, String loca) {
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().locationList(conn, pi, loca);
+		
+		close(conn);
+		return list;
+	}
+
+
 	
 	public Gym selectGymInfo(String gNo) {
 		Connection conn = getConnection();
@@ -301,4 +324,5 @@ public class GymService {
 		return fileList;
 	}
 	
+
 }

@@ -162,7 +162,7 @@
 				</div>
 			
 				<div class="search">
-					<form>
+					<form method="post" action="searchQna.do">
 						<select name="searchList">
 							<option value="제목">제목</option>
 							<option value="작성자">작성자</option>					
