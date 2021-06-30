@@ -32,7 +32,6 @@ public class CheckEmailServlet extends HttpServlet {
 		String inputEmail = request.getParameter("inputEmail");
 		
 		int result = new MemberService().checkEmail(inputEmail);
-		
 		response.getWriter().println(result);
 		
 //		request.setAttribute("result", result);

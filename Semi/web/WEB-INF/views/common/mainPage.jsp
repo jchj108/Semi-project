@@ -719,14 +719,24 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 							내게 필요한 <br /> 운동은 뭐가 있을까?
 						</h2>
 					</div>
-					<p
-						style="font-size: 1.1rem; font-weight: 500; line-height: normal; color: #737373; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;"
-					>맞춤형 운동을 제안해드려요</p>
+					<p style="font-size: 1.1rem; font-weight: 500; line-height: normal; color: #737373; margin-block-start: 1em; margin-block-end: 1em; margin-inline-start: 0px; margin-inline-end: 0px;">
+						맞춤형 운동을 제안해드려요</p>
 					<button
 						style="width: 215px; height: 50px; color: #fff; background-color: #00b1d2; border-color: #00b1d2; margin-top: 10px; border-radius: 0.375rem;"
-						type="button" class="btn" id="recommend"
-					>운동 추천받기</button>
+						type="button" class="btn" id="recommend">운동 추천받기</button>
 				</div>
+				
+				
+				<script>
+				<% if(loginUser != null){ %>
+					userName = "<%= loginUser.getM_name() %>";
+					userLike = "<%= loginUser.getM_like() %>";
+				<% } %>
+				</script>
+				<div class="modal fade" id="recommendModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				 	<%@include file="../member/recommend.jsp" %>
+				</div>
+										
 				<div id="pannel3" class="tab-content">
 					<div>
 						<h2 class="main_header" style="margin-bottom: 16px">
@@ -959,12 +969,16 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 		
 		<script>
 			<% if(loginUser == null) { %>
-			$('.local-images').on('click', function() {
-				$('#alertModal').modal("show");
-			});
-			$('#recommend').on('click', function() {
-				$('#alertModal').modal("show");
-			});
+				$('.local-images').on('click', function() {
+					$('#alertModal').modal("show");
+				});
+				$('#recommend').on('click', function() {
+					$('#alertModal').modal("show");
+				});
+			<% } else { %>
+				$('#recommend').on('click', function(){
+					$('#recommendModal').modal("show");
+				});
 			<% } %>
 		</script>
 		

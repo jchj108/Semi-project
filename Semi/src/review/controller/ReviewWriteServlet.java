@@ -71,6 +71,15 @@ public class ReviewWriteServlet extends HttpServlet {
 			
 			ArrayList<ReviewAttachment> fileList = new ArrayList<ReviewAttachment>();
 			
+			if(originFiles.size() == 1) {
+				ReviewAttachment ra = new ReviewAttachment();
+				ra.setR_file_path(savePath);
+				ra.setR_origin_name(originFiles.get(0));
+				ra.setR_change_name(saveFiles.get(0));
+				
+				fileList.add(ra);
+			}
+			
 			for(int i = 1; i >= 0; i--) {
 //				System.out.println(originFiles.get(i));
 				ReviewAttachment ra = new ReviewAttachment();
@@ -124,18 +133,18 @@ public class ReviewWriteServlet extends HttpServlet {
 			r.setR_keyword(keyword);
 			r.setReviewerName(name);
 			r.setReviewerNo(no);
+			r.setGymNo(gNo);
 			
-			int result = new ReviewService().insertReview(fileList, r, gNo);
+			int result = new ReviewService().insertReview(fileList, r);
 			
 			if(result > 0) {
-//				response.sendRedirect("list.th");
 				System.out.println("리뷰 등록 성공");
 			} else {
 				for(int i = 0; i < saveFiles.size(); i++) {
 					File fail = new File(savePath + saveFiles.get(i));
 					fail.delete();
 				}
-				request.setAttribute("msg", "사진 게시판 등록에 실패하였습니다.");
+				request.setAttribute("msg", "리뷰 등록에 실패하였습니다.");
 				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 			}
 			

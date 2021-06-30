@@ -15,10 +15,10 @@ import review.model.vo.ReviewAttachment;
 
 public class ReviewService {
 
-	public int insertReview(ArrayList<ReviewAttachment> fileList, Review r, int gNo) {
+	public int insertReview(ArrayList<ReviewAttachment> fileList, Review r) {
 		Connection conn = getConnection();
 		
-		int result1 = new ReviewDAO().insertReview(conn, r, gNo);
+		int result1 = new ReviewDAO().insertReview(conn, r);
 		int result2 = new ReviewDAO().insertReviewAttachment(conn, fileList);
 		
 		if(result1 > 0 && result2 > 0) {
@@ -51,6 +51,33 @@ public class ReviewService {
 		close(conn);
 		
 		return list;
+	}
+
+	public int updateReview(ArrayList<ReviewAttachment> fileList, Review r) {
+		Connection conn = getConnection();
+		
+		int result1 = new ReviewDAO().updateReview(conn, r);
+		int result2 = new ReviewDAO().deleteReviewAttachment(conn, r);
+		int result3 = 0;
+		
+		System.out.println(result1 + " : 리뷰 업데이트 결과");
+		
+		if(result2 > 0) {
+			result3 = new ReviewDAO().updateReviewAttachment(conn, fileList);
+		}
+		
+		System.out.println(result2 + " : 리뷰 파일 삭제 결과");
+		System.out.println(result3 + " : 리뷰 파일 업데이트 결과");
+		
+		if(result1 > 0 && result3 > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+				
+		close(conn);
+				
+		return result1;
 	}
 
 }
