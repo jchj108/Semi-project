@@ -6,6 +6,7 @@ import static common.JDBCTemplate.getConnection;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import board.model.vo.PageInfo;
 import gym.model.dao.GymDAO;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
@@ -132,6 +133,25 @@ public class GymService {
 		close(conn);
 		
 		return thumbList;
+	}
+
+	public int getLocaCount(String loca) {
+		Connection conn = getConnection();
+		
+		int count = new GymDAO().getLocaCount(conn, loca);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Gym> locationList(Page pi, String loca) {
+		Connection conn = getConnection();
+		
+		ArrayList<Gym> list = new GymDAO().locationList(conn, pi, loca);
+		
+		close(conn);
+		return list;
 	}
 
 }
