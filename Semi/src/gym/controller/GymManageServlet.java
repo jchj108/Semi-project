@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import board.model.service.BoardService;
 import board.model.vo.PageInfo;
+import gym.model.service.GymService;
 import gym.model.vo.Gym;
 
 @WebServlet("/gymManage.do")
@@ -38,9 +38,9 @@ public class GymManageServlet extends HttpServlet {
 		String keyword = request.getParameter("searchKeyword");
 		String category = request.getParameter("searchList");
 		
-		BoardService bService = new BoardService();
+		GymService gService = new GymService();
 		
-		listCount = bService.getGymListCount();
+		listCount = gService.getGymListCount();
 
 		currentPage = 1;
 		
@@ -65,7 +65,9 @@ public class GymManageServlet extends HttpServlet {
 			request.setAttribute("category", category);
 			request.setAttribute("keyword", keyword);
 			
-			listCount = bService.getSearchGymListCount(keyword, category);
+			listCount = gService.getSearchGymListCount(keyword, category);
+			
+			
 			maxPage = (int) Math.ceil((double) listCount / boardLimit);
 			startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
 			endPage = startPage + pageLimit - 1;
@@ -73,9 +75,9 @@ public class GymManageServlet extends HttpServlet {
 				endPage = maxPage;
 			}
 			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-			gymList = bService.searchGym(keyword, category, pi);
+			gymList = gService.searchGym(keyword, category, pi);
 		} else {
-			gymList = bService.selectGymList(pi);
+			gymList = gService.selectGymList(pi);
 		}
 
 		String page = null;
