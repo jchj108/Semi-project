@@ -105,12 +105,12 @@ input {
 	border-radius: 0.375rem;
 }
 
-#bookmark {
+#review-bookmark-btn {
 	text-align: right;
 }
 
 .main-button {
-	width: 100px;
+	width: 120px;
 	height: 40px;
 	margin-left: 10px;
 }
@@ -222,130 +222,70 @@ input {
 				<div>
 					<div>
 						<!-- image -->
-						<div class="carousel slide my-4" id="carouselExampleIndicators"
-							data-ride="carousel" style="width: 700px;">
+            	<div class="carousel slide my-4" id="carouselExampleIndicators" data-ride="carousel" style="width: 700px;">
 
-							<% int count = 0; %>
-							<% if(fList.isEmpty()){ %>
-							<div class="carousel-inner" role="listbox" style="width: 700px;">
-								<!-- 사진 없을때 기본 이미지 출력 -->
-								<div class="carousel-item active">
-									<img class="image"
-										src="<%= request.getContextPath() %>/gym_uploadFiles/202106260943378920.jpg"
-										alt="..." width='900' height='400' />
-								</div>
-							</div>
-							<% } else {%>
-							<!-- 사진 수에 따라 출력 -->
-							<div class="carousel-inner" role="listbox" style="width: 700px;">
-								<ol class="carousel-indicators">
-									<%		for(int i = 0; i < fList.size(); i++){%>
-									<%			if(i == 0){ %>
-									<li class="active" data-target="#carouselExampleIndicators"
-										data-slide-to="<%=i+1%>"></li>
-									<%			} else {%>
-									<li data-target="#carouselExampleIndicators"
-										data-slide-to="<%=i+1%>"></li>
-									<%			}%>
-								</ol>
-								<%		for(int j = 0; j < fList.size(); j++){ %>
-								<% 			if(j == 0){ %>
-								<div class="carousel-item active">
-									<img class="image" src="<%= fList.get(i).getgFilePath() %>"
-										alt="First slide" width='900' height='400' />
-								</div>
-
-
-								<% 			} %>
-								<!-- 사진 모르겠따~~~~~~~~~~~~~ -->
-
-								<%		} %>
-								<div class="carousel-item">
-									<img class="image" src="image/f&g.jpg" alt="Second slide"
-										width='900' height='400' />
-								</div>
-								<div class="carousel-item">
-									<img class="image" src="image/f&g.jpg" alt="Third slide"
-										width='900' height='400' />
-								</div>
-							</div>
-							<a class="carousel-control-prev"
-								href="#carouselExampleIndicators" role="button"
-								data-slide="prev"> <span class="carousel-control-prev-icon"
-								aria-hidden="true"></span> <span class="sr-only">Previous</span>
-							</a> <a class="carousel-control-next"
-								href="#carouselExampleIndicators" role="button"
-								data-slide="next"> <span class="carousel-control-next-icon"
-								aria-hidden="true"></span> <span class="sr-only">Next</span>
-							</a>
-							<% 		} %>
-							<% } %>
-						</div>
-						<!-- 시설 정보 -->
-						<div style="width: 700px;">
-							<div class="main-title">
-								<label id="facilityName"><%=g.getG_NAME() %></label><br> <label
-									id="guName"><%=g.getG_GU_NM() %> | </label> <label id="gymType">
-									<%=g.getG_TYPE_NM() %>
-								</label><br> <label class="point">3명의 평가</label>│<label
-									class="point">4.0점 </label><label class="point"
-									style="color: #00b1d2;">★ ★ ★ ★ ☆</label>
-								<table id="btn">
-									<tr>
-										<td id="grBtn" width="400px;">
-												<input type="button" class="main-button" value="좋아요 0" onclick="location.href='<%= request.getContextPath()%>'">
-											<% if( loginUser != null){ %>
-												<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="location.href='<%= request.getContextPath()%>/reviewWriteForm.re?gNo=<%=g.getG_NO()%>'">
-											<% } else { %>
-												<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="alert('로그인 후 이용하실 수 있습니다.');"> <% } %>
-										</td>
-										<td id="bookmark" width="400px;">
-											<% if( loginUser != null){ %>
-												<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기" onclick="bookmark();">
-											<% } else {%>
-												<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기" onclick="bookmark();">
-											<% } %>
-										</td>
-									</tr>
-								</table>
-							</div>
-							<hr>
-						</div>
-
-						<div class="info" style="width: 700px; font-size: 19px;">
-							<div class="info-content">
-								<table>
-									<tr>
-										<td>상세주소 : <%=g.getG_ADDRESS() %></td>
-									</tr>
-									<tr>
-										<td>연락처 : <%=g.getG_TEL() %></td>
-									</tr>
-									<% if(g.getG_EDU_YN().charAt(0) == '유'){ %>
-									<tr>
-										<td>강습 : 가능</td>
-									</tr>
-									<% } else { %>
-									<tr>
-										<td>강습 : 불가능</td>
-									</tr>
-									<% } %>
-									<tr>
-										<td>주차장 : <%=g.getG_PARKING_LOT() %></td>
-									</tr>
-									<% if(g.getG_BIGO() != null){ %>
-									<tr>
-										<td>시설 규모 : <%=g.getG_BIGO() %></td>
-									</tr>
-									<% } else {%>
-									<tr>
-										<td>시설 규모 : -</td>
-									</tr>
-									<% }%>
-								</table>
-							</div>
-							<hr>
-						</div>
+	                <% if(fList.isEmpty()){ %>
+	                <div class="carousel-inner" role="listbox" style="width: 700px;">
+	                		<div class="carousel-item active"><img class="image" src="<%= request.getContextPath() %>/gym_uploadFiles/202106260943378920.jpg" alt="..." width='900' height='400'/></div>
+	                </div>
+	                <% } else {%>
+	                <div class="carousel-inner" role="listbox" style="width: 700px;">
+	                <%		for(int i = 0; i < fList.size(); i++){ %>
+				                <div class="carousel-item active"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="..." width='900' height='400'/></div>
+	                <%		} %>
+	                </div>
+	                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+	                	<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	                	<span class="sr-only">Previous</span>
+	                </a>
+	                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+	                	<span class="carousel-control-next-icon" aria-hidden="true"></span>
+	                	<span class="sr-only">Next</span>
+	                </a>												
+	                <% } %>
+                </div>
+                <!-- 시설 정보 -->
+                <div style="width: 700px;">
+                	<div class="main-title">
+	                    <label id="facilityName"><%=g.getG_NAME() %></label><br>
+	                    <label id="guName"><%=g.getG_GU_NM() %> | </label> <label id="gymType"> <%=g.getG_TYPE_NM() %> </label><br>
+	                    <label class="point">3명의 평가</label>│<label class="point">4.0점 </label><label class="point" style="color: #00b1d2;">★ ★ ★ ★ ☆</label>
+                        <div id="review-bookmark-btn">
+                        <% if( loginUser != null){ %>
+                        			<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="location.href='<%= request.getContextPath()%>/reviewWriteForm.re?gNo=<%=g.getG_NO()%>'">
+                        			<% } else { %>
+                        			<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="alert('로그인 후 이용하실 수 있습니다.');">
+                        			<% } %>	
+	                        		<% if( loginUser != null){ %>
+	                        		<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기">
+	                        		<% } else {%>
+	                        		<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기 " onclick="alert('로그인 후 이용하실 수 있습니다.');">
+	                        		<% } %>
+	                    </div>
+                    </div>
+                    <hr>
+                </div>
+                    
+                <div class="info" style="width: 700px; font-size: 19px;">
+                	<div class="info-content">
+                    	<table>
+                    		<tr><td>상세주소  : <%=g.getG_ADDRESS() %></td></tr>
+                    		<tr><td>연락처 : <%=g.getG_TEL() %></td></tr>
+                    		<% if(g.getG_EDU_YN().charAt(0) == '유'){ %>
+                    				<tr><td>강습 : 가능</td></tr>
+                    		<% } else { %>
+                    				<tr><td>강습 : 불가능</td></tr>
+                    		<% } %>
+                    		<tr><td>주차장 : <%=g.getG_PARKING_LOT() %></td></tr>
+                    		<% if(g.getG_BIGO() != null){ %>
+	                    			<tr><td>시설 규모 : <%=g.getG_BIGO() %></td></tr>
+                    		<% } else {%>
+	                    			<tr><td>시설 규모 : -</td></tr>
+                    		<% }%>
+                    	</table>
+                    </div>
+                    <hr>
+                </div>
 						<!-- 리뷰 목록 출력  -->
 						<div class="reviewTotal" style="width: 700px;">
 							<div style="font-size: 19px;">
@@ -512,6 +452,16 @@ input {
 				});
 			});
 		<% } %>
+		
+		$('#bookmarkBtn').on('click', function(){
+	  		$.ajax({
+	  			url: 'favorite.do',
+	  			data : {gNo: <%= g.getG_NO()%>},
+	  			success: function(data){
+	  				$('#bookmarkBtn').val(data);
+	  			}
+	  		});
+	  	});
 		
 	</script>
 </body>

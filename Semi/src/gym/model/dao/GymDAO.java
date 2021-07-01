@@ -1111,5 +1111,70 @@ public class GymDAO {
 		}
 		return list;
 	}
+	
+	public int selectFavorite(Connection conn, int gNo, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result = 0;
+
+		String query = "SELECT COUNT(*) FROM FAVORITES WHERE M_NO=? AND G_NO=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			pstmt.setInt(2, gNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				result = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int deleteFavorite(Connection conn, int gNo, int mNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "DELETE FROM FAVORITES WHERE M_NO = ? AND G_NO = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			pstmt.setInt(2, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
+
+	public int insertFavorite(Connection conn, int gNo, int mNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "INSERT INTO FAVORITES VALUES(SEQ_FNO.NEXTVAL, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			pstmt.setInt(2, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
 
 }
