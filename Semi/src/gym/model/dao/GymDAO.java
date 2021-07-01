@@ -413,7 +413,6 @@ public class GymDAO {
 			if (locationArr.length == 1) {
 				String location = locationArr[0];
 				if (gymType.equals("개인")) {
-					
 					if (parking.equals("유")) {
 						System.out.println("개인 / 주차가능 접근 성공");
 						query = prop.getProperty("re1AloneParking");
@@ -1056,18 +1055,12 @@ public class GymDAO {
 				list.add(g);
 			}
 		} catch (SQLException e) {
-<<<<<<< HEAD
-			
-		}
-			return list;
-=======
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
 		
 		return list;
->>>>>>> 98e58cab59fb32ba7f6be729f86f5628469ed794
 	}
 
 	public int updateCount(Connection conn, String gNo) {
@@ -1165,7 +1158,6 @@ public class GymDAO {
 		return result;
 	}
 
-<<<<<<< HEAD
 	public int updateInsertGFile(Connection conn, ArrayList<GFile> fileList) {
 		
 		PreparedStatement pstmt = null;
@@ -1188,7 +1180,15 @@ public class GymDAO {
 					result += pstmt.executeUpdate();
 				}
 			}
-=======
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 	public int insertFavorite(Connection conn, int gNo, int mNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -1199,21 +1199,11 @@ public class GymDAO {
 			pstmt.setInt(1, mNo);
 			pstmt.setInt(2, gNo);
 			result = pstmt.executeUpdate();
->>>>>>> 98e58cab59fb32ba7f6be729f86f5628469ed794
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
 		}
-<<<<<<< HEAD
 		return result;
 	}
-
-=======
-		
-		return result;
-	}
-	
->>>>>>> 98e58cab59fb32ba7f6be729f86f5628469ed794
-
 }
