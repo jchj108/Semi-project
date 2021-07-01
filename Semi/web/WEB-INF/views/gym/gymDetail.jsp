@@ -5,6 +5,13 @@
 	ArrayList<GFile> fList = (ArrayList)request.getAttribute("fileList");
 	ArrayList<Review> rList = (ArrayList)request.getAttribute("rList");
 	ArrayList<ReviewAttachment> raList = (ArrayList)request.getAttribute("raList");
+	
+	int gNo = g.getG_NO();
+	int total = 0;
+	for(Review r : rList){
+		total += r.getR_total();
+	}
+	int avg = (int)Math.round((double)total / rList.size());
 %>
 <!DOCTYPE html>
 <html lang="kor">
@@ -16,6 +23,8 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css"
 	  rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+</head>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -146,6 +155,15 @@ input {
 	height: auto;
 }
 
+/* sns공유 */
+#review-bookmark-btn img{
+	width: 30px;
+}
+
+#review-bookmark-btn{
+	margin-top: 15px;	
+}
+
 /* 리뷰 가져오기  */
 #starTd .score_star{
 	display: inline-block;
@@ -190,15 +208,15 @@ input {
 					<script
 						src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51a2be588394023dffe06fdafc5726ca"></script>
 					<script>
-						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						mapOption = {
-									center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
-									level: 3, // 지도의 확대 레벨
-								    mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-						}; 
+// 						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+// 						mapOption = {
+// 									center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
+// 									level: 3, // 지도의 확대 레벨
+// 								    mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
+// 						}; 
 						
-						// 지도를 생성한다 
-						var map = new kakao.maps.Map(mapContainer, mapOption); 
+// 						// 지도를 생성한다 
+// 						var map = new kakao.maps.Map(mapContainer, mapOption); 
 					</script>
 					<br>
 					<div class="list-group-item" style="font-weight: bold;">운동
@@ -219,9 +237,7 @@ input {
 				</div>
 			</div>
 			<div class="col-lg-9">
-				<div>
-					<div>
-						<!-- image -->
+				<!-- image -->
             	<div class="carousel slide my-4" id="carouselExampleIndicators" data-ride="carousel" style="width: 700px;">
 
 	                <% if(fList.isEmpty()){ %>
@@ -246,24 +262,39 @@ input {
                 </div>
                 <!-- 시설 정보 -->
                 <div style="width: 700px;">
-                	<div class="main-title">
-	                    <label id="facilityName"><%=g.getG_NAME() %></label><br>
-	                    <label id="guName"><%=g.getG_GU_NM() %> | </label> <label id="gymType"> <%=g.getG_TYPE_NM() %> </label><br>
-	                    <label class="point">3명의 평가</label>│<label class="point">4.0점 </label><label class="point" style="color: #00b1d2;">★ ★ ★ ★ ☆</label>
-                        <div id="review-bookmark-btn">
-                        <% if( loginUser != null){ %>
-                        			<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="location.href='<%= request.getContextPath()%>/reviewWriteForm.re?gNo=<%=g.getG_NO()%>'">
-                        			<% } else { %>
-                        			<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="alert('로그인 후 이용하실 수 있습니다.');">
-                        			<% } %>	
-	                        		<% if( loginUser != null){ %>
-	                        		<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기">
-	                        		<% } else {%>
-	                        		<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기 " onclick="alert('로그인 후 이용하실 수 있습니다.');">
-	                        		<% } %>
-	                    </div>
-                    </div>
-                    <hr>
+					<div class="main-title">
+						<label id="facilityName"><%=g.getG_NAME() %></label><br>
+						<label id="guName"><%=g.getG_GU_NM() %> | </label>
+						<label id="gymType"> <%=g.getG_TYPE_NM() %> </label><br>
+						<label class="point"><%=rList.size() %>명의 평가</label>│
+						<label class="point"><%=avg%>점</label>&nbsp;
+						<div class="score_star" id="avgStarDiv" style="display: inline-block;">
+							<span class="fas fa-star"></span>
+							<span class="fas fa-star"></span>
+							<span class="fas fa-star"></span>
+							<span class="fas fa-star"></span>
+							<span class="fas fa-star"></span>
+						</div>
+						<br>
+						<div id="review-bookmark-btn">
+							<span id="share" style="float: left">
+								<a href="javascript:shareKakao()"><img src="<%= request.getContextPath() %>/image/icon-kakao.png"></a>
+								<a href="javascript:shareTwitter()"><img src="<%= request.getContextPath() %>/image/icon-twitter.png"></a>
+								<a href="javascript:shareFacebook()"><img src="<%= request.getContextPath() %>/image/icon-facebook.png"></a>
+							</span>
+							<% if( loginUser != null){ %>
+								<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="location.href='<%= request.getContextPath()%>/reviewWriteForm.re?gNo=<%=g.getG_NO()%>'">
+							<% } else { %>
+								<input type="button" class="main-button" id="reviewBtn" value="리뷰작성" onclick="alert('로그인 후 이용하실 수 있습니다.');">
+							<% } %>	
+							<% if( loginUser != null){ %>
+								<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기">
+							<% } else {%>
+								<input type="button" id="bookmarkBtn" class="main-button" value="즐겨찾기 " onclick="alert('로그인 후 이용하실 수 있습니다.');">
+							<% } %>
+						 </div>
+					</div>
+					<hr>
                 </div>
                     
                 <div class="info" style="width: 700px; font-size: 19px;">
@@ -286,6 +317,82 @@ input {
                     </div>
                     <hr>
                 </div>
+
+                
+				<!-- 리뷰 목록 출력  -->
+				<% for(int i = 0; i < rList.size(); i++){ %>
+				<div class="review-card" style="width: 700px; border: 1px solid lightgray;">
+					<table class="review-info" style="width: 97%;">
+						<tr>
+							<td style="width: 12%;">
+								<img src="<%=request.getContextPath()%>/profile_uploadFiles/<%=rList.get(i).getM_profile()%>" style="height: 70px;">
+							</td>
+							<td colspan="2">
+								<b style="font-size: 20px;"><%= rList.get(i).getReviewerName() %></b><br>
+								<div class="score_star totalStarDiv<%=i%>">
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+								</div>
+								&nbsp;
+								<span><%= rList.get(i).getR_date() %></span>
+							</td>
+						</tr>
+						<tr style="height: 40px;">
+							<td colspan="3" id="starTd">
+								<span>시설</span>
+								<div class="score_star facilityStarDiv<%=i%>">
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+								</div>
+								&nbsp;
+								<span>강사</span>
+								<div class="score_star instructorStarDiv<%=i%>">
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+								</div>
+								&nbsp;
+								<span>서비스</span>
+								<div class="score_star serviceStarDiv<%=i%>">
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+								</div>
+								&nbsp;
+								<span>가격</span>
+								<div class="score_star priceStarDiv<%=i%>">
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" style="padding-top: 20px; padding-bottom: 20px;">
+								<%= rList.get(i).getR_body() %>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" style="padding-top: 20px; padding-bottom: 20px;">
+								<div class="image_top">
+									<% for(int j=0; j < raList.size(); j++){ %>
+										<% if(rList.get(i).getR_no() == raList.get(j).getR_no()){ %>
+											<div class="reviewImgDiv">
+												<img class="reviewImg" src="<%= request.getContextPath() %>/review_uploadFiles/<%= raList.get(j).getR_change_name() %>">
+												</div>
+
 						<!-- 리뷰 목록 출력  -->
 				
 						<div class="reviewTotal" style="width: 700px;">
@@ -385,21 +492,37 @@ input {
 												for(int j = 0; j < keywordArr.length; j++){
 										%>
 											<span class="keywords keyword<%=i%>"><%= keywordArr[j] %></span>
+
 										<% } %>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2">
-										 <span class="fa fa-heart likeBtn<%=i%>"></span>
-										 <span class="likeCount<%=i%>">0</span>
-									</td>
-									<% if(loginUser != null && (rList.get(i).getReviewerNo() == loginUser.getM_no())) {%>
-									<td style="text-align: right;">
-										<input type="button" class="editBtn<%=i%>" value="수정">
-										&nbsp;
-										<input type="button" class="delBtn<%=i%>" value="삭제">
-									</td>
 									<% } %>
+
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" style="padding-bottom: 20px;">
+								<% String[] keywordArr = rList.get(i).getR_keyword().split(",");
+										for(int j = 0; j < keywordArr.length; j++){
+								%>
+									<span class="keywords keyword<%=i%>"><%= keywordArr[j] %></span>
+								<% } %>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								 <span class="fa fa-heart likeBtn<%=i%>"></span>
+								 <span class="likeCount<%=i%>">0</span>
+							</td>
+							<% if(loginUser != null && (rList.get(i).getReviewerNo() == loginUser.getM_no())) {%>
+							<td style="text-align: right;">
+								<input type="button" class="editBtn<%=i%>" value="수정">
+								&nbsp;
+								<input type="button" class="delBtn<%=i%>" value="삭제">
+							</td>
+							<% } %>
+						</tr>
+					</table>
+
 								</tr>
 							</table>
 						</div>
@@ -411,7 +534,9 @@ input {
 						</div>
 				<% } %>
 					</div>
+
 				</div>
+				<% } %>
 			</div>
 		</div>
 	</div>
@@ -423,6 +548,9 @@ input {
 	<!-- 리뷰 목록 출력  -->
 		$('.fa-star').css({'color': 'lightgray'});
 		$('.fa-heart').css({'color':'#EE0000', 'font-size':'20px'});
+		$('#avgStarDiv .fa-star').css({'color':'lightgray', 'font-size':'20px'});
+		
+		$('#avgStarDiv').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2'});
 		
 		<% for(int i = 0; i < rList.size(); i++){ %>
 			$('.totalStarDiv<%=i%>').find(':nth-child(-n+<%= rList.get(i).getR_total() %>)').css({color:'#ffd700'});
@@ -471,6 +599,54 @@ input {
 	  		});
 	  	});
 		
+	  function shareKakao() {
+		  if(!Kakao.isInitialized()){
+			  Kakao.init('07a99d78f7b743ace5cbf5de3b116c13');
+		  }
+		  
+		  Kakao.Link.sendDefault({
+			  	objectType: 'feed',
+		        content: {
+					title: '내일은 운동가야지',
+					description: '시설 상세페이지 공유하기',
+					imageUrl: 'http://localhost:7580/goGym/image/logo2.png',
+		            link: {
+		            	mobileWebUrl: window.location.href,
+		                webUrl: window.location.href,
+		            },
+		        },
+		        buttons: [
+		            {
+		                title: '자세히보기',
+		                link: {
+		                	mobileWebUrl: window.location.href,
+		                    webUrl: window.location.href,
+		                },
+		            }
+		        ],
+			})
+		}
+	  
+		function shareTwitter(){
+			var content = "내일은 운동가야지\n 시설 상세 페이지 공유하기\n";
+			var link = window.location.href;
+			var popOption = "width=600, height=360, resizable=no, scrollbars=no, status=no;";
+			var wp = window.open("http://twitter.com/share?url=" + encodeURIComponent(link) + "&text=" + encodeURIComponent(content), 'twitter', popOption);
+			if (wp) {
+			  wp.focus();
+			}    
+		}
+		
+		function shareFacebook(){
+			var gNo = <%=g.getG_NO() %>
+			var content = "시설 상세 페이지 공유하기";
+			var link = "221.150.23.71/goGym/detail.do?gNo="+gNo;
+			var popOption = "width=600, height=360, resizable=no, scrollbars=no, status=no;";
+			var wp = window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link) + "&text=" + encodeURIComponent(content), 'facebooksharedialog', popOption);
+			if (wp) {
+			  wp.focus();
+			} 
+		}
 	</script>
 </body>
 </html>
