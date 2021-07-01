@@ -293,6 +293,7 @@ input {
                     <hr>
                 </div>
 						<!-- 리뷰 목록 출력  -->
+				
 						<div class="reviewTotal" style="width: 700px;">
 							<div style="font-size: 19px;">
 								<h3>0건의 방문자 평가</h3>
@@ -306,6 +307,7 @@ input {
 							</div>
 							<hr>
 						</div>
+				<% if(!rList.isEmpty()){ %>
 						<% for(int i = 0; i < rList.size(); i++){ %>
 						<div class="review-card" style="width: 700px; border: 1px solid lightgray;">
 							<table class="review-info" style="width: 97%;">
@@ -408,6 +410,12 @@ input {
 							</table>
 						</div>
 						<% } %>
+				<% } else { %>
+						<div style="width: 700px; height: 300px; margin: 10px;">
+						<h3>리뷰</h3>
+							<p style="font-size: 22px; padding-top: 60px; color: gray; text-align: center;">아직 작성된 리뷰가 없어요<br>첫 번째 후기를 남겨주세요!</p>
+						</div>
+				<% } %>
 					</div>
 				</div>
 			</div>
