@@ -12,7 +12,7 @@
 	crossorigin="anonymous">
 <title>헤더/푸터</title>
 <style>
-	*{font-family: 'Noto Sans KR';}
+	*{font-family: 'Noto Sans KR'; font-weight: 500;}
 	
 	/* Header */
 	.navbar-light{
@@ -100,7 +100,7 @@
 							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								style="font-size: 15px;">
 								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
-								<b>&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자</b>
+								&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
 								<button class="dropdown-item" type="button" onclick="location.href='userList.li'">회원정보관리</button>
@@ -135,7 +135,7 @@
 								<% } else { %>
 								<img src="<%= loginUser.getM_profile() %>" style="height: 30px;">								
 								<% } %>
-								<b>&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님</b>
+								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<button class="dropdown-item" style="font-weight: bold; color: black; pointer-events: none;">

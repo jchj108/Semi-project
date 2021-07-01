@@ -418,11 +418,6 @@
 									<span class="userLike"></span>을 제외한 시설입니다
 									<table id="otherTable" style="margin: 10px auto auto auto"></table>							
 								</div>
-<!-- 								<div> -->
-<%-- 									<a href="javascript:sendLink()"><img src="<%=request.getContextPath()%>/image/Kakao.png" /></a> --%>
-<%-- 									<img class="iconDetail" id="facebookShare" src="<%=request.getContextPath()%>/image/Facebook.png"> --%>
-<!-- 								</div> -->
-
 								<input type="button" name="previous-step" class="previous-step" value="이전" />
 							</fieldset>
 						</form>
@@ -502,13 +497,6 @@
 	        return false;
 	    })
 	});
-	
-	function sendLink() { // 카카오톡 공유하기
-		Kakao.init('07a99d78f7b743ace5cbf5de3b116c13'); // 초기화
-		Kakao.Link.sendCustom({
-            templateId: 56063
-        });
-	}
 
 	$('#finishBtn').on('click', function(){
 		var locationArr = new Array();
@@ -531,8 +519,6 @@
 			success: function(data){
 				console.log(data);
 				
-				console.log(typeof data);
-				
 				$('#userName').text(userName);
 				$('.userLike').text(userLike).css({'color':'#00B1D2'});
 				
@@ -545,7 +531,7 @@
 				var j = 1;
 				for(var i=0; i<data.length; i++){
 					var gymName = data[i].gName;
-					var gymType = data[i].gTypeName
+					var gymType = data[i].gTypeName;
 
 					var $resultTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
 					var $otherTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
@@ -570,7 +556,17 @@
 						
 						j++;
 					}
-
+					
+					$('#resultTable td, #otherTable td').mouseenter(function(){
+			   			$(this).parent().css({'cursor':'pointer', 'background':'red'});
+			   		}).mouseout(function(){
+			   			$(this).parent().css({'background':'none'});
+			   		}).click(function(){
+			   			var num = $(this).parent().index();
+			   			var gNo = data[num].gNo;       
+			   			
+			   			window.location.href="<%= request.getContextPath() %>/detail.do?gNo="+gNo; 
+			   		})
 				}
 			},
 			error: function(data){

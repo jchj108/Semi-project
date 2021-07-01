@@ -46,11 +46,6 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 			
-//			if(loginUser.getM_auth() == 0) {
-//				request.getRequestDispatcher("WEB-INF/views/common/adminMain.jsp").forward(request, response);
-//			} else {
-//				response.sendRedirect(request.getContextPath());
-//			}
 			response.sendRedirect(request.getContextPath());
 			
 		} else {
