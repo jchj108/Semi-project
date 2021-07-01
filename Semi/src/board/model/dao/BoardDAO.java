@@ -641,158 +641,7 @@ public class BoardDAO {
 		
 		return result;
 	}
-
-
-//	public int getSearchTitleList(String kw, Connection conn, String bDiv) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		int count = 0;
-//		String query = null;	
-//		
-//		if(bDiv.equals("F")) {
-//			query = prop.getProperty("getSearchFaqList");
-//		} else {
-//			query = prop.getProperty("getSearchQnaList");
-//		}
-//		
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, "%" + kw + "%");
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()) {
-//				count = rset.getInt(1);			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return count;
-//	}
-//
-//
-//	public ArrayList<Board> selectSearchTitleList(PageInfo pi, String kw, String bDiv, Connection conn) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		ArrayList<Board> list = new ArrayList<Board>();
-//		String query = null;
-//		
-//		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-//		int end = start + pi.getBoardLimit() - 1;
-//		
-//		if(bDiv.equals("F")) {
-//			query = prop.getProperty("searchTitleFaqList");
-//		} else {
-//			query = prop.getProperty("searchTitleQnaList");
-//		}
-//		
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, "%" + kw + "%");
-//			pstmt.setInt(2, start);
-//			pstmt.setInt(3, end);
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			while(rset.next()) {
-//				Board b = new Board(rset.getInt("q_no"),
-//									rset.getString("q_title"),
-//									rset.getDate("q_date"),
-//									rset.getInt("m_num"),
-//									rset.getString("m_name"));
-//				
-//				list.add(b);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return list;
-//	}
-//
-//
-//	public int getSearchWriterList(String kw, Connection conn, String bDiv) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		int count = 0;
-//		String query = null;	
-//		
-//		if(bDiv.equals("F")) {
-//			query = prop.getProperty("getWriterFaqList");
-//		} else {
-//			query = prop.getProperty("getWriterQnaList");
-//		}
-//		
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, "%" + kw + "%");
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			if(rset.next()) {
-//				count = rset.getInt(1);			
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return count;
-//		
-//	}
-//
-//
-//	public ArrayList<Board> selectSearchWriterList(PageInfo pi, String kw, String bDiv, Connection conn) {
-//		PreparedStatement pstmt = null;
-//		ResultSet rset = null;
-//		ArrayList<Board> list = new ArrayList<Board>();
-//		String query = null;
-//		
-//		int start = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
-//		int end = start + pi.getBoardLimit() - 1;
-//		
-//		if(bDiv.equals("F")) {
-//			query = prop.getProperty("searchWriterFaqList");
-//		} else {
-//			query = prop.getProperty("searchWriterQnaList");
-//		}
-//		
-//		try {
-//			pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, "%" + kw + "%");
-//			pstmt.setInt(2, start);
-//			pstmt.setInt(3, end);
-//			
-//			rset = pstmt.executeQuery();
-//			
-//			while(rset.next()) {
-//				Board b = new Board(rset.getInt("q_no"),
-//									rset.getString("q_title"),
-//									rset.getDate("q_date"),
-//									rset.getInt("m_num"),
-//									rset.getString("m_name"));
-//				
-//				list.add(b);
-//			}
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		} finally {
-//			close(rset);
-//			close(pstmt);
-//		}
-//		return list;
-//	}
-
-
+	
 	public int updateBoard(Connection conn, Board b) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -856,6 +705,251 @@ public class BoardDAO {
 			close(pstmt2);
 		}
 		return result;
+	}
+
+
+	public int searchFaqCount(Connection conn, String searchList, String kw) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String query = null;
+		
+		if(searchList.equals("제목")) {
+			query = prop.getProperty("searchFaqTitleCount");
+		} else {
+			query = prop.getProperty("searchFaqWriterCount");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + kw + "%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+
+	public ArrayList<Board> selectSearchFaq(Connection conn, PageInfo pi, String searchList, String kw) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		String query = null;
+		
+		if(searchList.equals("제목")) {
+			query = prop.getProperty("searchTitleFaqList");
+		} else {
+			query = prop.getProperty("searchWriterFaqList");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + kw + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board(rset.getInt("q_no"),
+						rset.getString("q_title"),
+						rset.getString("q_body"),
+						rset.getDate("q_date"),
+						rset.getInt("q_count"),
+						rset.getString("q_secret"),
+						rset.getString("q_status"),
+						rset.getString("q_board_div"),
+						rset.getInt("m_num"),
+						rset.getString("m_name"),
+						rset.getString("m_email"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public int getSearchQnaCount1(Connection conn, String searchList, String kw) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String query = null;
+		
+		if(searchList.equals("제목")) {
+			query = prop.getProperty("searchQnaTitleCount1");
+		} else {
+			query = prop.getProperty("searchQnaWriterCount1");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + kw + "%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+
+	public ArrayList<Board> selectSearchQna1(Connection conn, PageInfo pi, String searchList, String kw) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		String query = null;
+		
+		if(searchList.equals("제목")) {
+			query = prop.getProperty("searchTitleQnaList1");
+		} else {
+			query = prop.getProperty("searchWriterQnaList1");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + kw + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board(rset.getInt("q_no"),
+						rset.getString("q_title"),
+						rset.getString("q_body"),
+						rset.getDate("q_date"),
+						rset.getInt("q_count"),
+						rset.getString("q_secret"),
+						rset.getString("q_status"),
+						rset.getString("q_board_div"),
+						rset.getInt("m_num"),
+						rset.getString("m_name"),
+						rset.getString("m_email"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+
+	public int getSearchQnaCount2(Connection conn, String searchList, String kw, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int count = 0;
+		String query = null;
+		
+		if(searchList.equals("제목")) {
+			query = prop.getProperty("searchQnaTitleCount2");
+		} else {
+			query = prop.getProperty("searchQnaWriterCount2");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			pstmt.setString(2, "%" + kw + "%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return count;
+	}
+
+
+	public ArrayList<Board> selectSearchQna2(Connection conn, PageInfo pi, String searchList, String kw, int mNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<Board> list = new ArrayList<Board>();
+		
+		int startRow = (pi.getCurrentPage() - 1) * pi.getBoardLimit() + 1;
+		int endRow = startRow + pi.getBoardLimit() - 1;
+		
+		String query = null;
+		
+		if(searchList.equals("제목")) {
+			query = prop.getProperty("searchTitleQnaList2");
+		} else {
+			query = prop.getProperty("searchWriterQnaList2");
+		}
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, mNo);
+			pstmt.setString(2, "%" + kw + "%");
+			pstmt.setInt(3, startRow);
+			pstmt.setInt(4, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Board b = new Board(rset.getInt("q_no"),
+						rset.getString("q_title"),
+						rset.getString("q_body"),
+						rset.getDate("q_date"),
+						rset.getInt("q_count"),
+						rset.getString("q_secret"),
+						rset.getString("q_status"),
+						rset.getString("q_board_div"),
+						rset.getInt("m_num"),
+						rset.getString("m_name"),
+						rset.getString("m_email"));
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
 	}
 	
 }

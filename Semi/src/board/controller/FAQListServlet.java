@@ -32,40 +32,57 @@ public class FAQListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String searchList = request.getParameter("searchList");
+		String kw = request.getParameter("searchKeyword");
+		
 		int listCount;
-		int currentPage;
-		int pageLimit;
-		int boardLimit;
+		int currentPage = 1;
+		if(request.getParameter("currentPage") != null) {
+			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		};
+		int pageLimit = 5;
+		int boardLimit = 10;
 		int maxPage;
 		int startPage;
 		int endPage;
 		
-		String str = "F";
-		
+		String str = "F";		
 		BoardService bService = new BoardService();
-		listCount = bService.getListCount(str); 
+		PageInfo pi = null;
+		ArrayList<Board> list = null;
 		
-		currentPage = 1;
-		if(request.getParameter("currentPage") != null) {
-			currentPage = Integer.parseInt(request.getParameter("currentPage"));
+		if(kw == null && searchList == null) {
+			listCount = bService.getListCount(str); 
+									
+			maxPage = (int)Math.ceil((double)listCount / boardLimit);
+			
+			startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
+			
+			endPage = startPage + pageLimit - 1;
+			if(endPage > maxPage) {
+				endPage = maxPage; 
+			}
+			
+			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+			list = bService.selectBoardList(pi, str);
+		} else {
+			listCount = bService.searchFaqCount(searchList, kw);
+			maxPage = (int)Math.ceil((double)listCount / boardLimit);
+			
+			startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
+			
+			endPage = startPage + pageLimit - 1;
+			if(endPage > maxPage) {
+				endPage = maxPage; 
+			}
+			
+			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+			list = bService.selectSearchFaq(pi, searchList, kw);
 		}
-		
-		pageLimit = 5;
-		boardLimit = 10;
-		
-		maxPage = (int)Math.ceil((double)listCount / boardLimit);
-		
-		startPage = ((currentPage - 1)/pageLimit) * pageLimit + 1;
-		
-		endPage = startPage + pageLimit - 1;
-		if(endPage > maxPage) {
-			endPage = maxPage; 
-		}
-		
-		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-		ArrayList<Board> list = bService.selectBoardList(pi, str);
-		
+				
 		String page = null;
+		
 		if(list != null) {
 			page = "WEB-INF/views/board/faqList.jsp";
 			request.setAttribute("list", list);

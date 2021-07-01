@@ -97,7 +97,7 @@
        	<% for(Gym g : gList) {%>
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#!"
+                <a href="detail.do?gNo=<%=g.getG_NO()%>"
                   ><img
                     class="card-img-top"
                     src="<%= request.getContextPath() %>/gym_uploadFiles/<%= g.getG_FILE() %>"
@@ -106,7 +106,7 @@
                 /></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#!" style="color: #00b1d2"><%= g.getG_NAME() %></a>
+                    <a href="detail.do?gNo=<%=g.getG_NO()%>" style="color: #00b1d2"><%= g.getG_NAME() %></a>
                   </h4>
 
                   <p class="card-text"><%= g.getG_ADDRESS() %></p>

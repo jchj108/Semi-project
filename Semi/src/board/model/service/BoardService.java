@@ -280,47 +280,6 @@ public class BoardService {
 		return result1;
 	}
 
-//	public int getSearchTitleList(String kw, String bDiv) {
-//		Connection conn = getConnection();
-//		
-//		int count = new BoardDAO().getSearchTitleList(kw, conn, bDiv);
-//		
-//		close(conn);
-//		
-//		return count;
-//	}
-//
-//	public ArrayList<Board> selectSearchTitleList(PageInfo pi, String kw, String bDiv) {
-//		Connection conn = getConnection();
-//		
-//		ArrayList<Board> list = new BoardDAO().selectSearchTitleList(pi, kw, bDiv, conn);
-//		
-//		close(conn);
-//	
-//		return list;
-//	}
-//
-//	public int getSearchWriterList(String kw, String bDiv) {
-//		Connection conn = getConnection();
-//		
-//		int count = new BoardDAO().getSearchWriterList(kw, conn, bDiv);
-//		
-//		close(conn);
-//		
-//		return count;
-//		
-//	}
-//
-//	public ArrayList<Board> selectSearchWriterList(PageInfo pi, String kw, String bDiv) {
-//		Connection conn = getConnection();
-//		
-//		ArrayList<Board> list = new BoardDAO().selectSearchWriterList(pi, kw, bDiv, conn);
-//		
-//		close(conn);
-//	
-//		return list;
-//	}
-
 	public int updateBoard(Board b, ArrayList<QnaFile> fileList) {
 		Connection conn = getConnection();
 		
@@ -354,6 +313,67 @@ public class BoardService {
 		}
 		
 		close(conn);
+		
 		return result;
+	}
+
+	public int searchFaqCount(String searchList, String kw) {
+		Connection conn = getConnection();
+		
+		int count = new BoardDAO().searchFaqCount(conn, searchList, kw);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Board> selectSearchFaq(PageInfo pi, String searchList, String kw) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectSearchFaq(conn, pi, searchList, kw);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int getSearchQnaCount1(String searchList, String kw) {
+		Connection conn = getConnection();
+		
+		int count = new BoardDAO().getSearchQnaCount1(conn, searchList, kw);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Board> selectSearchQna1(PageInfo pi, String searchList, String kw) {
+		Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectSearchQna1(conn, pi, searchList, kw);
+		
+		close(conn);
+		
+		return list;
+	}
+
+	public int getSearchQnaCount2(String searchList, String kw, int mNo) {
+		Connection conn = getConnection();
+		
+		int count = new BoardDAO().getSearchQnaCount2(conn, searchList, kw, mNo);
+		
+		close(conn);
+		
+		return count;
+	}
+
+	public ArrayList<Board> selectSearchQna2(PageInfo pi, String searchList, String kw, int mNo) {
+Connection conn = getConnection();
+		
+		ArrayList<Board> list = new BoardDAO().selectSearchQna2(conn, pi, searchList, kw, mNo);
+		
+		close(conn);
+		
+		return list;
 	}
 }
