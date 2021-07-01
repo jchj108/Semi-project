@@ -33,23 +33,36 @@ public class ReviewUpdateFormServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int rNo = Integer.parseInt(request.getParameter("rNo"));
+		int gNo = Integer.parseInt(request.getParameter("gNo"));
 		
 		ReviewService rs = new ReviewService();
 		Review r = rs.detailReview(rNo);
-		ArrayList<ReviewAttachment> list = rs.detailReviewAttachment(rNo);
-				
+		ArrayList<ReviewAttachment> fList = rs.detailReviewAttachment(rNo);
+		
 		String page = null;
-		if(r != null) {
-			page="WEB-INF/views/review/reviewUpdate.jsp";
+		if(r != null && fList.size() != 0) {
+			request.setAttribute("gNo", gNo);
 			request.setAttribute("r", r);
-			request.setAttribute("list", list);
-			
+			request.setAttribute("list", fList);
+			page="WEB-INF/views/review/reviewUpdate.jsp";
+		} else if(r != null && fList.size() == 0){
+			request.setAttribute("gNo", gNo);
+			request.setAttribute("r", r);
+			page="WEB-INF/views/review/reviewUpdate.jsp";
 		} else {
-			page="WEB-INF/common/errorPage.jsp";
+			page="WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "작성된 리뷰가 없습니다");			
 		}
 		
 		request.getRequestDispatcher(page).forward(request, response);
+		
+		System.out.println(rNo + " : 리뷰번호");
+		System.out.println(gNo + " : 시설번호");
+		System.out.println(r.getR_total() + " : 총점");
+		System.out.println(r.getR_gym() + " : 시설");
+		System.out.println(r.getR_price() + " : 가격");
+		System.out.println(r.getR_service() + " : 서비스");
+		System.out.println(r.getR_teacher() + " : 강사");
 	}
 
 	/**
@@ -59,5 +72,4 @@ public class ReviewUpdateFormServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
