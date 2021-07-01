@@ -1029,7 +1029,7 @@ public class GymDAO {
 	}
 
 	
-	public ArrayList<Gym> locationList(Connection conn, Page pi, String loca) {
+	public ArrayList<Gym> locationList(Connection conn, PageInfo pi, String loca) {
 
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
