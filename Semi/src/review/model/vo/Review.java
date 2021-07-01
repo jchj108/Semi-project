@@ -16,11 +16,14 @@ public class Review {
 	private int reviewerNo; // 작성자 m_no
 	private String reviewerName; // 작성자 이름
 	private int gymNo; // 시설 g_no
+	private String m_profile; // 작성자 프로필 사진
+	private int r_like; // 공감 개수
 	
 	public Review() {}
-
+	
 	public Review(int r_no, String r_body, Date r_date, int r_total, int r_teacher, int r_service, int r_gym,
-			int r_price, String r_keyword, String r_status, int reviewerNo, String reviewerName, int gymNo) {
+			int r_price, String r_keyword, String r_status, int r_like, int reviewerNo, String reviewerName, int gymNo,
+			String m_profile) {
 		super();
 		this.r_no = r_no;
 		this.r_body = r_body;
@@ -32,6 +35,27 @@ public class Review {
 		this.r_price = r_price;
 		this.r_keyword = r_keyword;
 		this.r_status = r_status;
+		this.r_like = r_like;
+		this.reviewerNo = reviewerNo;
+		this.reviewerName = reviewerName;
+		this.gymNo = gymNo;
+		this.m_profile = m_profile;
+	}
+
+	public Review(int r_no, String r_body, Date r_date, int r_total, int r_teacher, int r_service, int r_gym,
+			int r_price, String r_keyword, String r_status, int r_like, int reviewerNo, String reviewerName, int gymNo) {
+		super();
+		this.r_no = r_no;
+		this.r_body = r_body;
+		this.r_date = r_date;
+		this.r_total = r_total;
+		this.r_teacher = r_teacher;
+		this.r_service = r_service;
+		this.r_gym = r_gym;
+		this.r_price = r_price;
+		this.r_keyword = r_keyword;
+		this.r_status = r_status;
+		this.r_like = r_like;
 		this.reviewerNo = reviewerNo;
 		this.reviewerName = reviewerName;
 		this.gymNo = gymNo;
@@ -173,15 +197,29 @@ public class Review {
 		this.r_price = r_price;
 	}
 
+	public String getM_profile() {
+		return m_profile;
+	}
+
+	public void setM_profile(String m_profile) {
+		this.m_profile = m_profile;
+	}
+
+	public int getR_like() {
+		return r_like;
+	}
+
+	public void setR_like(int r_like) {
+		this.r_like = r_like;
+	}
+
 	@Override
 	public String toString() {
 		return "Review [r_no=" + r_no + ", r_body=" + r_body + ", r_date=" + r_date + ", r_total=" + r_total
 				+ ", r_teacher=" + r_teacher + ", r_service=" + r_service + ", r_gym=" + r_gym + ", r_price=" + r_price
 				+ ", r_keyword=" + r_keyword + ", r_status=" + r_status + ", reviewerNo=" + reviewerNo
-				+ ", reviewerName=" + reviewerName + ", gymNo=" + gymNo + "]";
+				+ ", reviewerName=" + reviewerName + ", gymNo=" + gymNo + ", m_profile=" + m_profile + ", r_like="
+				+ r_like + "]";
 	}
-
-	
-	
 	
 }

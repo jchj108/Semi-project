@@ -103,8 +103,8 @@
            
             <div class="col-lg-9" style="height: 650px;">
             	<div class="title"><h4>리뷰 관리</h4></div>
-                	<form action="reviewUpdateForm.re" method="post" id="reviewListForm">
-	                	<table class="reviewList">
+                	<form action="#" method="post" id="reviewListForm">
+	                	<table class="reviewList" id="reviewList">
 							<tr>
 								<th width="50px;"><input type="checkbox" id="allSelect"></th>
 								<th width="80px;">리뷰 번호</th>
@@ -119,15 +119,14 @@
 							</tr>
 							<% } else { %>
 								<% for(Review r : list) { %>
-								<% gNo = r.getGymNo(); %>
 							<tr>
-								<input type="hidden" name="gNo" id="gNo" value="<%=gNo%>">
+								<input type="hidden" name="gNo" value="<%= r.getGymNo() %>">
 								<input type="hidden" name="rNo" value="<%= r.getR_no() %>">																
 								<td><input type="checkbox" class="select" name="select" onclick="selectOne();"></td>
 								<td><%= r.getR_no() %></td>
 								<td class="reviewBody"><%= r.getR_body() %></td>							
 								<td><%= r.getR_date() %></td>
-								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
+								<td><button type="button" class="correctButton">수정</button></td>
 							</tr>
 								<% } %>					
 							<% } %>					
@@ -215,12 +214,20 @@
 				var check = window.confirm("정말 삭제하시겠습니까?");
 			
 				if(check) {
-					$('#reviewListForm').attr('action', 'reviewDelete.do');
+					$('#reviewListForm').attr('action', 'reviewDelete.re');
 					$('#reviewListForm').submit();
 				}
 			} else {
 				alert("삭제할 리뷰를 선택해 주세요.");
 			}
+		});
+		
+		// 수정
+		$('#reviewList button[type=button]').on('click', function(){
+			var gNo = $(this).parent().parent().children().eq(0).val();
+			var rNo = $(this).parent().parent().children().eq(1).val();
+			
+			location.href="<%= request.getContextPath() %>/reviewUpdateForm.re?rNo="+rNo+"&gNo="+gNo;
 		});
 		
 		// 전체 선택 및 해제

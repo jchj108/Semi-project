@@ -130,6 +130,31 @@ public class Gym{
 		G_COUNT = g_COUNT;
 		G_COVID = g_COVID;
 	}
+	
+	
+
+	public Gym(int g_NO, String g_TYPE_NM, String g_GU_NM, String g_NAME, String g_ADDRESS, double g_YCODE,
+			double g_XCODE, String g_TEL, String g_EDU_YN, String g_IN_OUT, char g_STATUS, int g_COUNT, int g_COVID,
+			String g_HOMEPAGE, String g_PARKING_LOT, String g_BIGO, String g_FILE) {
+		super();
+		G_NO = g_NO;
+		G_TYPE_NM = g_TYPE_NM;
+		G_GU_NM = g_GU_NM;
+		G_NAME = g_NAME;
+		G_ADDRESS = g_ADDRESS;
+		G_YCODE = g_YCODE;
+		G_XCODE = g_XCODE;
+		G_TEL = g_TEL;
+		G_EDU_YN = g_EDU_YN;
+		G_IN_OUT = g_IN_OUT;
+		G_STATUS = g_STATUS;
+		G_COUNT = g_COUNT;
+		G_COVID = g_COVID;
+		G_HOMEPAGE = g_HOMEPAGE;
+		G_PARKING_LOT = g_PARKING_LOT;
+		G_BIGO = g_BIGO;
+		G_FILE = g_FILE;
+	}
 
 	public int getG_NO() {
 		return G_NO;

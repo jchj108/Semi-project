@@ -79,9 +79,9 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 					<ul class="nav nav-pills ml-auto">
-							<li class="nav-item active" id="signUp">회원가입</li>
+							<li class="nav-item active" id="signUp"><b>회원가입</b></li>
 							<li>&nbsp; &nbsp;</li>
-							<li class="nav-item active" id="login">로그인</li>
+							<li class="nav-item active" id="login"><b>로그인</b></li>
 					</ul>
 				</div>
 			</div>
@@ -100,7 +100,7 @@
 							<p class="nav-link dropdown-toggle m-auto" id="navbarDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
 								style="font-size: 15px;">
 								<img src="<%= request.getContextPath() %>/profile_uploadFiles/<%= loginUser.getM_profile() %>" style="height: 30px;">
-								&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자
+								<b>&nbsp;<%= loginUser.getM_name() %>&nbsp;관리자</b>
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
 								<button class="dropdown-item" type="button" onclick="location.href='userList.li'">회원정보관리</button>
@@ -135,7 +135,7 @@
 								<% } else { %>
 								<img src="<%= loginUser.getM_profile() %>" style="height: 30px;">								
 								<% } %>
-								&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님
+								<b>&nbsp;<%= loginUser.getM_name() %>&nbsp;고객님</b>
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<button class="dropdown-item" style="font-weight: bold; color: black; pointer-events: none;">

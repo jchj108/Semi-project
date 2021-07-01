@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="review.model.vo.*, java.util.*, java.sql.Date"%>
-<% 
-	Review r = (Review)request.getAttribute("r"); 
+<%
+	int gNo = (int)request.getAttribute("gNo");
+	Review r = (Review)request.getAttribute("r");
 	ArrayList<ReviewAttachment> list = (ArrayList)request.getAttribute("list");
 	
 	int total = r.getR_total();
@@ -16,7 +17,6 @@
 	Date upload_date = null;
 	if(list != null){
 		upload_date = list.get(0).getR_upload_date();
-		System.out.println(upload_date + " : jsp 업로드 날짜");
 	}
 	
 	String[] checked = new String[6];
@@ -199,6 +199,7 @@
 		<div class="col-lg-5">
 			<form class="review-box" id="updateForm" action="<%= request.getContextPath() %>/reviewUpdate.re" method="post" encType="multipart/form-data">
 				<input type="hidden" name="rNo" value="<%= r.getR_no() %>">
+				<input type="hidden" name="gNo" value="<%= gNo %>">
 				<input type="hidden" name="upload_date" value="<%= upload_date %>">
 				<div class="section">
 					<div class="title">
@@ -310,7 +311,7 @@
 					</div>
 				</div>
 				<div class="button-register">
-					<button type="button" class="updateCancleBtn">취소하기</button>
+					<button type="button" class="updateCancleBtn" onclick="location.href='<%= request.getContextPath()%>/detail.do?gNo=<%=gNo%>'">취소하기</button>
 					<button type="submit" class="updateBtn">수정하기</button>
 				</div>
 			</form>

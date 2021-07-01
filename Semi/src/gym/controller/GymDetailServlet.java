@@ -14,6 +14,7 @@ import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 import review.model.service.ReviewService;
 import review.model.vo.Review;
+import review.model.vo.ReviewAttachment;
 
 /**
  * Servlet implementation class GymDetailServlet
@@ -37,22 +38,24 @@ public class GymDetailServlet extends HttpServlet {
 		String gNo = request.getParameter("gNo");
 		
 		GymService gService = new GymService();
+		ReviewService rService = new ReviewService();
 		
 		Gym g = gService.selectGymInfo(gNo);
-		
 		ArrayList<GFile> fileList = gService.selectImage(gNo);
-//		ArrayList<Review> rList = new ReviewService().selectReview(gNo);
+		ArrayList<Review> rList = rService.selectReview(gNo);
+		ArrayList<ReviewAttachment> raList = rService.selectReviewAttachment(gNo);
 		
 		String page = null;
 		if(g != null) {
 			page = "WEB-INF/views/gym/gymDetail.jsp";
 			request.setAttribute("g", g);
 			request.setAttribute("fileList", fileList);
+			request.setAttribute("rList", rList);
+			request.setAttribute("raList", raList);
 		} else {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "시설 조회에 실패하였습니다.");
 		}
-		page = "WEB-INF/views/gym/gymDetail.jsp";
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 

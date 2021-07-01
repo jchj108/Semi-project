@@ -80,24 +80,24 @@ public class ReviewWriteServlet extends HttpServlet {
 				fileList.add(ra);
 			}
 			
-			for(int i = 1; i >= 0; i--) {
-//				System.out.println(originFiles.get(i));
-				ReviewAttachment ra = new ReviewAttachment();
-				ra.setR_file_path(savePath);
-				ra.setR_origin_name(originFiles.get(i));
-				ra.setR_change_name(saveFiles.get(i));
+			if(originFiles.size() > 1) {
+				for(int i = 1; i >= 0; i--) {
+					ReviewAttachment ra = new ReviewAttachment();
+					ra.setR_file_path(savePath);
+					ra.setR_origin_name(originFiles.get(i));
+					ra.setR_change_name(saveFiles.get(i));
+					
+					fileList.add(ra);
+				}
 				
-				fileList.add(ra);
-			}
-			
-			for(int i = originFiles.size()-1; i >= 2; i--) {
-//				System.out.println(originFiles.get(i));
-				ReviewAttachment ra = new ReviewAttachment();
-				ra.setR_file_path(savePath);
-				ra.setR_origin_name(originFiles.get(i));
-				ra.setR_change_name(saveFiles.get(i));
-				
-				fileList.add(ra);
+				for(int i = originFiles.size()-1; i >= 2; i--) {
+					ReviewAttachment ra = new ReviewAttachment();
+					ra.setR_file_path(savePath);
+					ra.setR_origin_name(originFiles.get(i));
+					ra.setR_change_name(saveFiles.get(i));
+					
+					fileList.add(ra);
+				}
 			}
 			
 			Member loginUser = ((Member)request.getSession().getAttribute("loginUser"));
@@ -135,10 +135,10 @@ public class ReviewWriteServlet extends HttpServlet {
 			r.setReviewerNo(no);
 			r.setGymNo(gNo);
 			
-			int result = new ReviewService().insertReview(fileList, r);
+			int result = new ReviewService().insertReview(fileList, r);				
 			
 			if(result > 0) {
-				System.out.println("리뷰 등록 성공");
+				response.sendRedirect("detail.do?gNo="+gNo);
 			} else {
 				for(int i = 0; i < saveFiles.size(); i++) {
 					File fail = new File(savePath + saveFiles.get(i));
