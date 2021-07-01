@@ -40,10 +40,8 @@ public class BoardUpdateFormServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		if(ServletFileUpload.isMultipartContent(request)) {
-			
+		if(ServletFileUpload.isMultipartContent(request)) {			
 			BoardService bService = new BoardService();
-		
 			int maxSize = 1024*1024*10;
 			String root = request.getSession().getServletContext().getRealPath("/"); 
 			String savePath = root + "board_uploadFiles/";
@@ -69,6 +67,7 @@ public class BoardUpdateFormServlet extends HttpServlet {
 			
 			request.getRequestDispatcher(page).forward(request, response);
 		}
+
 	}
 
 	/**

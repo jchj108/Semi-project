@@ -137,7 +137,7 @@
                 <a href="#!"
                   ><img
                     class="card-img-top"
-                    src="<%= request.getContextPath() %>/image/gym/<%= g.getG_FILE() %>"
+                    src="<%= request.getContextPath() %>/gym_uploadFiles/<%= g.getG_FILE() %>"
                     alt="..."
                 /></a>
                 <div class="card-body">
@@ -149,10 +149,10 @@
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">
-                  	<% for(int i = 0; i < g.getG_COVID(); i++) { %>
+                  	<% for(int i = 0; i < 5 - g.getG_COVID(); i++) { %>
                   		★
                   	<% } %>
-                  	<% for(int i = 0; i < 5 - g.getG_COVID(); i++) { %>
+                  	<% for(int i = 0; i < g.getG_COVID(); i++) { %>
                   		☆
                   	<% } %>
                   	</small>

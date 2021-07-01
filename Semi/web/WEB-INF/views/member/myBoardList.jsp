@@ -101,7 +101,7 @@
            
             <div class="col-lg-9" style="height: 650px;">
             	<div class="title"><h4>게시물 관리</h4></div>
-                	<form action="boardUpdateForm.do" method="post" id="boardListForm">
+                	<form action="boardUpdateForm.do" method="post" id="boardListForm" encType="multipart/form-data">
 	                	<table class="boardList">
 							<tr>
 								<th width="50px;"><input type="checkbox" id="allSelect"></th>
@@ -123,7 +123,7 @@
 								<td><%= b.getQ_no()%></td>
 								<td class="boardTitle"><%= b.getQ_title() %></td>							
 								<td><%= b.getQ_date() %></td>
-								<td><button type="submit" class="correctButton" id="correctBtn">수정</button></td>
+								<td><button type="submit" class="correctButton" id="correctBtn" name="qNo" value="<%= b.getQ_no()%>">수정</button></td>
 							</tr>
 													
 								<% } %>					

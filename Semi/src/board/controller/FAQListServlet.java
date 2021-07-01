@@ -44,7 +44,7 @@ public class FAQListServlet extends HttpServlet {
 		String str = "F";
 		
 		BoardService bService = new BoardService();
-		listCount = bService.getListCount(str); // listCount가 안먹히고 있음
+		listCount = bService.getListCount(str); 
 		
 		currentPage = 1;
 		if(request.getParameter("currentPage") != null) {
