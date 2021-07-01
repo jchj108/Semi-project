@@ -16,7 +16,7 @@ import java.util.Properties;
 import board.model.vo.PageInfo;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
+
 
 public class GymDAO {
 
@@ -291,7 +291,7 @@ public class GymDAO {
 		return count;
 	}
 
-	public ArrayList<Gym> selectGList(Connection conn, Page pi, String category) {
+	public ArrayList<Gym> selectGList(Connection conn, PageInfo pi, String category) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> gList = new ArrayList<Gym>();
@@ -329,7 +329,7 @@ public class GymDAO {
 		return gList;
 	}
 
-	public ArrayList<Gym> selectGEList(Connection conn, Page pi) {
+	public ArrayList<Gym> selectGEList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> gList = new ArrayList<Gym>();
@@ -987,6 +987,7 @@ public class GymDAO {
     
     	return count;
 	}
+
 	
 	public Gym selectGymInfo(Connection conn, String gNo) {
 		PreparedStatement pstmt = null;
@@ -1026,8 +1027,10 @@ public class GymDAO {
 		}
 		return g;
 	}
+
 	
-	public ArrayList<Gym> locationList(Connection conn, Page pi, String loca) {
+	public ArrayList<Gym> locationList(Connection conn, PageInfo pi, String loca) {
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
@@ -1057,10 +1060,13 @@ public class GymDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
-		
+
+
 		return list;
+		
 	}
 
 	public int updateCount(Connection conn, String gNo) {

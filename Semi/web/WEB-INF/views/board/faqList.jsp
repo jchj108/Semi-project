@@ -7,6 +7,10 @@
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();	
+	
+	String search = request.getParameter("searchList");
+	String kw = request.getParameter("searchKeyword");
+
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -162,7 +166,7 @@
 				</div>
 			
 				<div class="search">
-					<form method="post" action="searchFaq.do">
+					<form method="post" action="faq.do">
 						<select name="searchList">
 							<option value="제목">제목</option>
 							<option value="작성자">작성자</option>					
@@ -175,6 +179,7 @@
 		</div>
 					
 		<!-- 페이지 넘기기 -->
+		<% if(kw == null || kw.equals("")){ %>
 		<div class="page">
 		<ul class="pagination">
 			<li class="page-item">
@@ -212,7 +217,45 @@
 			</li>			    
 		</ul>
 	</div>
-        
+	<% } else { %>
+	<div class="page">
+		<ul class="pagination">
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=1&searchList=<%=search%>&searchKeyword=<%=kw%>'">&laquo;</div>
+			</li>
+			<li class="page-item">
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= currentPage - 1 %>&searchList=<%=search%>&searchKeyword=<%=kw%>'" id="beforeBtn"> &lt; </button>
+				<script>
+					if(<%= currentPage %> <= 1) {
+						$('#beforeBtn').attr('disabled', 'true');
+					}
+				</script>
+			</li>
+			<% for(int p = startPage; p <= endPage; p++) { %>
+				<% if(p == currentPage) { %>
+				<li class="page-item">
+					<button class="page-link" disabled><%= p %></button>
+				</li>
+				<% } else { %>
+				<li class="page-item">
+					<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= p %>&searchList=<%=search%>&searchKeyword=<%=kw%>'"><%= p %></div>
+				</li>						
+				<% } %>
+			<% } %>
+			<li class="page-item">
+				<button class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= currentPage + 1 %>&searchList=<%=search%>&searchKeyword=<%=kw%>'" id="afterBtn"> &gt; </button>
+				<script>
+					if(<%= currentPage %> >= <%= maxPage %>) {
+						$('#afterBtn').prop('disabled', true);
+					}
+				</script>
+			</li>
+			<li class="page-item">
+				<div class="page-link" onclick="location.href='<%= request.getContextPath() %>/faq.do?currentPage=<%= maxPage %>&searchList=<%=search%>&searchKeyword=<%=kw%>'">&raquo;</div>
+			</li>			    
+		</ul>
+	</div>
+    <% } %>    
         <%@include file="../common/footer.jsp" %>
         
         <script>	        

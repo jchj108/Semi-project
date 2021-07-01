@@ -17,7 +17,6 @@ import board.model.vo.Comments;
 import board.model.vo.PageInfo;
 import gym.model.vo.Gym;
 import member.model.vo.Member;
-import page.model.vo.Page;
 import review.model.vo.Review;
 
 public class MemberDAO {
@@ -155,7 +154,7 @@ public class MemberDAO {
 		return result;
 	}
 
-	public ArrayList<Board> selectMyBoard(Connection conn, int mNo, Page pageInfo) {
+	public ArrayList<Board> selectMyBoard(Connection conn, int mNo, PageInfo pageInfo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Board> list = new ArrayList<Board>();
@@ -243,7 +242,7 @@ public class MemberDAO {
 		return count;
 	}
 
-	public ArrayList<Review> selectMyReview(Connection conn, int mNo, Page pageInfo) {
+	public ArrayList<Review> selectMyReview(Connection conn, int mNo, PageInfo pageInfo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Review> list = new ArrayList<Review>();
@@ -299,7 +298,7 @@ public class MemberDAO {
 		return count;
 	}
 
-	public ArrayList<Comments> selectMyComment(Connection conn, int mNo, Page pageInfo) {
+	public ArrayList<Comments> selectMyComment(Connection conn, int mNo, PageInfo pageInfo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Comments> list = new ArrayList<Comments>();
@@ -494,7 +493,7 @@ public class MemberDAO {
 	 		return count;
 		}
 
-	public ArrayList<Gym> selectMyFav(Connection conn, Page pi, int mNo) {
+	public ArrayList<Gym> selectMyFav(Connection conn, PageInfo pi, int mNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
