@@ -5,7 +5,6 @@ import static common.JDBCTemplate.close;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -101,7 +100,8 @@ public class ReviewDAO {
 				r = new Review(rset.getInt("R_NO"), rset.getString("R_BODY"), rset.getDate("R_DATE"),
 							   rset.getInt("R_TOTAL"), rset.getInt("R_TEACHER"), rset.getInt("R_SERVICE"),
 							   rset.getInt("R_GYM"), rset.getInt("R_PRICE"), rset.getString("R_KEYWORD"),
-							   rset.getString("R_STATUS"), rset.getInt("M_NO"), rset.getString("M_NAME"), rset.getInt("G_NO"));
+							   rset.getString("R_STATUS"), rset.getInt("R_LIKE"), rset.getInt("M_NO"),
+							   rset.getString("M_NAME"), rset.getInt("G_NO"));
 			}
 			
 		} catch (SQLException e) {
@@ -152,8 +152,6 @@ public class ReviewDAO {
 		String query = prop.getProperty("updateReview");
 		
 		try {
-			// R_BODY=?, R_TOTAL=?, R_TEACHER=?, R_SERVICE=?, R_GYM=?, R_KEYWORD=?, R_PRICE=? WHERE R_NO=? AND R_STATUS='N'
-			// UPDATE REVIEW SET R_BODY=?, R_TOTAL=?, R_TEACHER=?, R_SERVICE=?, R_GYM=?, R_KEYWORD=?, R_DATE=?, R_PRICE=? WHERE R_NO=?
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, r.getR_body());
 			pstmt.setInt(2, r.getR_total());
@@ -224,9 +222,113 @@ public class ReviewDAO {
 		return result;
 	}
 
-	
+	public ArrayList<Review> selectReview(Connection conn, String gNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Review r = null;
+		ArrayList<Review> list = null;
+		
+		String query = prop.getProperty("selectReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(gNo));
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<Review>();
+			
+			while(rset.next()) {
+				r = new Review(rset.getInt("R_NO"), rset.getString("R_BODY"), rset.getDate("R_DATE"),
+						   rset.getInt("R_TOTAL"), rset.getInt("R_TEACHER"), rset.getInt("R_SERVICE"),
+						   rset.getInt("R_GYM"), rset.getInt("R_PRICE"), rset.getString("R_KEYWORD"),
+						   rset.getString("R_STATUS"), rset.getInt("R_LIKE"), rset.getInt("M_NO"), rset.getString("M_NAME"),
+						   rset.getInt("G_NO"), rset.getString("M_PROFILE"));
+				list.add(r);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
-	
+	public ArrayList<ReviewAttachment> selectReviewAttachment(Connection conn, String gNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ReviewAttachment> list = null;
+		ReviewAttachment ra = null;
+		
+		String query = prop.getProperty("selectReviewAttachment");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, Integer.parseInt(gNo));
+			
+			rset = pstmt.executeQuery();
+			
+			list = new ArrayList<ReviewAttachment>();
+			
+			while(rset.next()) {
+				ra = new ReviewAttachment(rset.getInt("R_FILE_NO"), rset.getString("R_FILE_PATH"),
+						  rset.getString("R_ORIGIN_NAME"), rset.getString("R_CHANGE_NAME"),
+						  rset.getDate("R_UPLOAD_DATE"), rset.getString("R_STATUS"), rset.getInt("R_NO"),
+						  rset.getInt("G_NO"), rset.getInt("M_NO"), rset.getString("M_NAME"));
+				
+				list.add(ra);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 
+	public int updateLikeCount(Connection conn, int rNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("updateLikeCount");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int deleteReview(Connection conn, int rNo) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = prop.getProperty("deleteReview");
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, rNo);
+			result = pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 
 }

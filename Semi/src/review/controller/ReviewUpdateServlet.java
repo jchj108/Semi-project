@@ -43,6 +43,7 @@ public class ReviewUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(ServletFileUpload.isMultipartContent(request)) {
 			int maxSize = 1024*1024*10;	
 			String root = request.getSession().getServletContext().getRealPath("/");
@@ -60,7 +61,6 @@ public class ReviewUpdateServlet extends HttpServlet {
 			
 			Enumeration<String> files = mr.getFileNames(); 
 			
-			// file의 name 반환
 			while(files.hasMoreElements()) {
 				String name = files.nextElement();
 				
@@ -73,6 +73,7 @@ public class ReviewUpdateServlet extends HttpServlet {
 			ArrayList<ReviewAttachment> fileList = new ArrayList<ReviewAttachment>();
 			
 			int rNo = Integer.parseInt(mr.getParameter("rNo"));
+			int gNo = Integer.parseInt(mr.getParameter("gNo"));
 			
 			if(originFiles.size() == 1) {
 				ReviewAttachment ra = new ReviewAttachment();
@@ -143,7 +144,9 @@ public class ReviewUpdateServlet extends HttpServlet {
 			int result = new ReviewService().updateReview(fileList, r);
 			
 			if(result > 0) {
-				System.out.println("리뷰 수정 성공");
+				response.sendRedirect("detail.do?gNo="+gNo);
+				response.getWriter().println(result);
+				
 			} else {
 				for(int i = 0; i < saveFiles.size(); i++) {
 					File fail = new File(savePath + saveFiles.get(i));

@@ -150,136 +150,138 @@
 
 	<%@ include file="../common/header.jsp" %>
 	
-	<div class="row">
-		<div class="col-lg-3">
-			<div class="list-group list-group-flush text-center ml-5">
-				<div class="list-group-item category-title">A 필라테스 평가하기</div>
-				<div class="list-group-item">
-					<img src="image/flower1.PNG">
-				</div>
-				<div class="list-group-item">
-					서울시 강남구 역삼동 <br> 070-1234-5678
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="list-group list-group-flush text-center ml-5">
+					<div class="list-group-item category-title">A 필라테스 평가하기</div>
+					<div class="list-group-item">
+						<img src="image/flower1.PNG">
+					</div>
+					<div class="list-group-item">
+						서울시 강남구 역삼동 <br> 070-1234-5678
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="col-lg-5">
-			<form class="review-box" id="reviewForm" action="<%= request.getContextPath() %>/reviewWrite.re" method="post" encType="multipart/form-data">
-				<input type="hidden" name="gNo" value="<%= gNo %>">
-				<div class="section">
-					<div class="title">
-						<strong>전체 평점</strong>
-					</div>
-					<div class="score-box">
-						<div class="rating-box">
-							<div class="rating-box-name">평점</div>
-							<input type="hidden" name="totalStar" id="totalStar">
-							<div class="score_star" id="totalStarDiv">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
+	
+			<div class="col-lg-7">
+				<form class="review-box" id="reviewForm" action="<%= request.getContextPath() %>/reviewWrite.re" method="post" encType="multipart/form-data">
+					<input type="hidden" name="gNo" value="<%= gNo %>">
+					<div class="section">
+						<div class="title">
+							<strong>전체 평점</strong>
+						</div>
+						<div class="score-box">
+							<div class="rating-box">
+								<div class="rating-box-name">평점</div>
+								<input type="hidden" name="totalStar" id="totalStar">
+								<div class="score_star" id="totalStarDiv">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>항목별 평점</strong>
-					</div>
-
-					<div class="score-box">
-						<div class="rating-box">
-							<div class="rating-box-name">시설</div>
-							<input type="hidden" name="facilityStar">
-							<div class="score_star" id="facilityStarDiv">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>항목별 평점</strong>
+						</div>
+	
+						<div class="score-box">
+							<div class="rating-box">
+								<div class="rating-box-name">시설</div>
+								<input type="hidden" name="facilityStar">
+								<div class="score_star" id="facilityStarDiv">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
+							</div>
+							<div class="rating-box">
+								<div class="rating-box-name">강사</div>
+								<input type="hidden" name="instructorStar">
+								<div class="score_star" id="instructorStarDiv">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
+							</div>
+							<div class="rating-box">
+								<div class="rating-box-name">서비스</div>
+								<input type="hidden" name="serviceStar">
+								<div class="score_star" id="serviceStarDiv">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
+							</div>
+							<div class="rating-box">
+								<div class="rating-box-name">가격</div>
+								<input type="hidden" name="priceStar">
+								<div class="score_star" id="priceStarDiv">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
 							</div>
 						</div>
-						<div class="rating-box">
-							<div class="rating-box-name">강사</div>
-							<input type="hidden" name="instructorStar">
-							<div class="score_star" id="instructorStarDiv">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
+					</div>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>시설 키워드</strong>
+						</div>
+						<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
+						<div>
+							<div class="text-center div-addKeyword">
+								<input type="checkbox" name="keyword" id="keyword1" value="체지방 감소">
+								<label for="keyword1">체지방 감소</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword2" value="근력 증가">
+								<label for="keyword2">근력 증가</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword3" value="재활">
+								<label for="keyword3">재활</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword4" value="체형교정">
+								<label for="keyword4">체형교정</label>&nbsp;
 							</div>
 						</div>
-						<div class="rating-box">
-							<div class="rating-box-name">서비스</div>
-							<input type="hidden" name="serviceStar">
-							<div class="score_star" id="serviceStarDiv">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
-							</div>
-						</div>
-						<div class="rating-box">
-							<div class="rating-box-name">가격</div>
-							<input type="hidden" name="priceStar">
-							<div class="score_star" id="priceStarDiv">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
-							</div>
+						<div class="div-keyword">
+							<input type="text" class="addKeyword" placeholder="키워드 직접입력">
+							<button type="button" class="button-keyword">키워드 추가</button>
 						</div>
 					</div>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>시설 키워드</strong>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>이용 후기</strong>
+						</div>
+						<textarea name="reviewText" id="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."></textarea>
 					</div>
-					<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
-					<div>
-						<div class="text-center div-addKeyword">
-							<input type="checkbox" name="keyword" id="keyword1" value="체지방 감소">
-							<label for="keyword1">체지방 감소</label>&nbsp;
-							<input type="checkbox" name="keyword" id="keyword2" value="근력 증가">
-							<label for="keyword2">근력 증가</label>&nbsp;
-							<input type="checkbox" name="keyword" id="keyword3" value="재활">
-							<label for="keyword3">재활</label>&nbsp;
-							<input type="checkbox" name="keyword" id="keyword4" value="체형교정">
-							<label for="keyword4">체형교정</label>&nbsp;
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>사진 올리기</strong>
+						</div>
+						<br>
+						<div class="div-photo">
+							<span class="description">시설 사진이나 운동 사진을 올려주세요. (최대 10개)</span>
+						</div>
+						<div class="image_top" style="margin-top: 10px;">
+						    <div class="image_swiper">
+						        <div class="image_div_0">
+						            <label for ="image_plus_0"></label>
+						            <input type="file" name="image_plus_0" id="image_plus_0">
+						        </div>
+						    </div>
 						</div>
 					</div>
-					<div class="div-keyword">
-						<input type="text" class="addKeyword" placeholder="키워드 직접입력">
-						<button type="button" class="button-keyword">키워드 추가</button>
+					<div class="button-register">
+						<button type="button" class="writeCancleBtn">취소하기</button>
+						<button type="submit" class="enrollBtn">등록하기</button>
 					</div>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>이용 후기</strong>
-					</div>
-					<textarea name="reviewText" id="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."></textarea>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>사진 올리기</strong>
-					</div>
-					<br>
-					<div class="div-photo">
-						<span class="description">시설 사진이나 운동 사진을 올려주세요. (최대 10개)</span>
-					</div>
-					<div class="image_top" style="margin-top: 10px;">
-					    <div class="image_swiper">
-					        <div class="image_div_0">
-					            <label for ="image_plus_0"></label>
-					            <input type="file" name="image_plus_0" id="image_plus_0">
-					        </div>
-					    </div>
-					</div>
-				</div>
-				<div class="button-register">
-					<button type="button" class="writeCancleBtn">취소하기</button>
-					<button type="submit" class="enrollBtn">등록하기</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 	
@@ -312,7 +314,7 @@
 	    /* 키워드 추가 */
 	    $('.button-keyword').on('click', function(){
 	    	var addKeyword = $('.addKeyword').val();
-	    	$('.div-addKeyword').append("&nbsp;").append('<input type="checkbox" checked name="keyword" id="keyword5" value=' + addKeyword + '/>')
+	    	$('.div-addKeyword').append("&nbsp;").append('<input type="checkbox" checked name="keyword" id="keyword5" value=' + addKeyword + '>')
 	    	.append('<label for="keyword5">' + addKeyword + '</lable>'); 
 	    });
 	    
@@ -354,7 +356,6 @@
 	            };
 	 
 	            // 이미지 파일 첨부 버튼 추가 하기
-	            // 새로운 div 생성
 	            var div = document.createElement('div');
 	 
 	            index++;
@@ -366,11 +367,7 @@
 	            // 추가
 	            $('.image_swiper').append(div);
 	 
-	            // 테스트
-	            //alert($(this).parent().attr('class'));
-	            //alert(index);
-	            //$(this).parent().attr('class')
-	        }else{
+	        } else {
 	            alert("이미지 없음");
 	        }
 	    });
