@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.vo.PageInfo;
 import member.model.service.MemberService;
 import member.model.vo.Member;
-import page.model.vo.Page;
 import review.model.vo.Review;
 
 /**
@@ -53,7 +53,7 @@ public class MyReviewListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		Page pageInfo = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+		PageInfo pageInfo = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
 		ArrayList<Review> list = mService.selectMyReview(mNo, pageInfo);
 		

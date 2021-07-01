@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>게시글 조회하기</title>
+        <title>게시글 조회</title>
    
         <!-- Core theme CSS (includes Bootstrap)-->
 <!--         <link href="css/styles.css" rel="stylesheet" /> -->
@@ -72,14 +72,11 @@
 		    .comment-body {
 		    	margin: 8px;
 		    	display: inline-block;
-		    	margin-bottom: 20px;
 		    }
 		    
-		    .commentBtnPack{display: inline-block; float:right;}
-
- 		    .commentUpdate, .commentDelete{background: none; border: none; color:#00b1d2; font-weight:bold;}
+ 		   .commentDelete{color:#00b1d2; font-weight:bold; border: none; background: none;}
  		    
- 		    .commentDelete:hover, .commentUpdate:hover{color:grey;}
+ 		   .commentDelete:hover{color:grey; cursor: pointer;}
 		    
 		    input {
 		    	margin: 5px;
@@ -151,7 +148,7 @@
 				</div>
 			</form>
 				<hr style='clear:both;'>
-				<form method="post" id="commetsForm">
+			<form method="post" id="commentArea">
 				<div class="comment">				
  					<div class="comment-head">댓글 (<%= cList.size() %>)</div>					
  					<hr>
@@ -161,17 +158,13 @@
  					<% if(!cList.isEmpty()) { %>
  					
  						<% for(Comments c : cList) {%>
-
+						<input type="hidden" id="qNo" name="qNo" value="<%=c.getbNo() %>">
 						<tr>
 							<td class="comment-writer" style='font-weight: bold;' width="150px"><%= c.getcWriterName() %></td>
-							<td width="750px" class="comment-body"><%= c.getC_body() %></td>
-							<td width="100px" class="commentBtnPack">						
-								<% if(loginUser.getM_no() == c.getcWriterNo()) { %>
-									<input type="hidden" id="cNo" name="cNo" value="<%= c.getC_no() %>">
-									<button class="commentUpdate" id="commentUpdate">수정</button>
-									<button class="commentDelete" id="commentDelete">삭제</button>									
-								<% } %>
-							</td>							
+							<td width="850px" class="comment-body"><%= c.getC_body() %></td>
+							<% if(loginUser.getM_no() == c.getcWriterNo() || loginUser.getM_auth() == 0) { %>
+							<td width="50px"><button name="cNo" value="<%= c.getC_no() %>" class="commentDelete">삭제</button></td>
+							<% } %>
 						</tr>
  						<% } %>
  								
@@ -184,7 +177,8 @@
  						<input type="button" value="확인" id="insertComment" style="float: right;">
  						
  				</div>
-			</form>
+ 			</form>
+			
  			</div>
          </div>
         <%@include file="../common/footer.jsp" %>
@@ -231,23 +225,19 @@
 					for(var i in data) {
 						var $tr = $("<tr>");
 						var $tdWriter = $('<td>').attr("class", "comment-writer").css({'font-weight':'bold', 'width':'150px'}).text(data[i].cWriterName);
-						var $tdBody = $('<td>').attr("class", "comment-body").css({'width':'750px'}).text(data[i].c_body);
-						var $tdBtn = $('<td>').attr("class", "commentBtnPack").css({'width':'100px'});
-					
-
-					if(<%=loginUser.getM_no()%> == data[i].writerNo) {
-						var updateBtn = $('<button>').attr({"class": "commentUpdate", "id":"commentUpdate"}).text("수정");							
-						var deleteBtn = $('<button>').attr({"class": "commentDelete", 'id':"commentDelete"}).text("삭제");
-						var cNo = $('<input>').attr({"type":"hidden", "name":"cNo"}).val("data[i].c_no");
+						var $tdBody = $('<td>').attr("class", "comment-body").css({'width':'850px'}).text(data[i].c_body);
 						
-						$tdBtn.append(cNo);
-						$tdBtn.append(updateBtn);
-						$tdBtn.append(deleteBtn);
-					}
+						if(<%=loginUser.getM_no()%> == data[i].cWriterNo || <%=loginUser.getM_auth()%> == 0){
+							var $tdDel = $('<td>').css({'width':'50px'})
+							var $button = $('<button>').attr({"name":"cNo", "class":"commentDelete", "value":data[i].c_no}).text("삭제");							
+							$tdDel.append($button);
+						}
 						
+						
+				
 					$tr.append($tdWriter);
 					$tr.append($tdBody);
-					$tr.append($tdBtn);
+					$tr.append($tdDel);
 					$commentList.append($tr);												
 						
 								
@@ -267,12 +257,16 @@
 		});
 		
 		// 댓글 삭제
-		$('.commentDelete').on('click', function(){
+		
+			$('.commentDelete').click(function(){
 				if(window.confirm("정말 삭제하시겠습니까?")){
+					$('#commentArea').attr('action', 'deleteComment.do');
+					$('#commentArea').submit();
 					
 				}
-			
-		});
+			});
+		
+		
 		
 	</script>
     </body>

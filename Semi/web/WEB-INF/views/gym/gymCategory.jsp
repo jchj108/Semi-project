@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.*, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.*, board.model.vo.PageInfo"%>
 <%
 	ArrayList<Gym> gList = (ArrayList)request.getAttribute("gList");	
 	String cate = request.getParameter("category");
 	
-	Page pi = (Page)request.getAttribute("pi");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -51,24 +51,7 @@
         color: #00b1d2;
         
       }
-
-      .sortPack {
-        text-align: right;
-        margin-bottom: 10px;
-      }
-
-      .sort {
-        display: inline-block;
-        text-decoration: none;
-        color: white;
-        background: #00b1d2;
-        padding: 0.5rem;
-        width: 150px;
-        text-align: center;
-        margin: 10px;
-        border-radius: 10px;
-      }
-
+     
      .page {margin-bottom: 50px; margin-top: 50px;}
 		 		
 	 .pagination {
@@ -85,7 +68,7 @@
 
       .title {
         margin-top: 50px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
       }
 
       .list-group {
@@ -124,25 +107,22 @@
         <div class="col-lg-9">
           <div class="title"><h4>내 주변의 운동시설</h4></div>
 
-          <!-- 정렬 버튼 -->
-          <div class="sortPack">
-            <span class="sort" id="reviewSort">리뷰 순 정렬</span>
-            <span class="sort" id="scoreSort">평점 순 정렬</span>
-          </div>         
+                  
         <div class="row">
        <% if(!gList.isEmpty()) { %>
        	<% for(Gym g : gList) {%>
             <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#!"
+                <a href="detail.do?gNo=<%=g.getG_NO()%>"
                   ><img
                     class="card-img-top"
                     src="<%= request.getContextPath() %>/gym_uploadFiles/<%= g.getG_FILE() %>"
                     alt="..."
+                    height="170"
                 /></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#!" style="color: #00b1d2"><%= g.getG_NAME() %></a>
+                    <a href="detail.do?gNo=<%=g.getG_NO()%>"  style="color: #00b1d2"><%= g.getG_NAME() %></a>
                   </h4>
 
                   <p class="card-text"><%= g.getG_ADDRESS() %></p>
@@ -217,12 +197,5 @@
       $(this).css('cursor', 'pointer')
     })
 
-    $('#reviewSort').click(function () {
-      // 리뷰 순 정렬하기
-    })
-
-    $('#scoreSort').click(function () {
-      // 평점 높은 순 정렬하기
-    })
   </script>
 </html>

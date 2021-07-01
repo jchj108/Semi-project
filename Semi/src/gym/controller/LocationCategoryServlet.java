@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.vo.PageInfo;
 import gym.model.service.GymService;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
+
 
 /**
  * Servlet implementation class LocationCategoryServlet
@@ -50,7 +51,7 @@ public class LocationCategoryServlet extends HttpServlet {
 			endPage = maxPage; 
 		}	
 		
-		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		ArrayList<Gym> gList = service.locationList(pi, loca);
 		
 		String page = null;

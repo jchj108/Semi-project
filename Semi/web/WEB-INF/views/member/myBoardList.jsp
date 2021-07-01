@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.Board, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.Board, board.model.vo.PageInfo"%>
 <%
 	ArrayList<Board> list = (ArrayList)request.getAttribute("list");
-	Page pageInfo = (Page)request.getAttribute("pageInfo");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();

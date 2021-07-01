@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.vo.PageInfo;
 import gym.model.service.GymService;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
+
 
 /**
  * Servlet implementation class GymCategoryServlet
@@ -51,7 +52,7 @@ public class GymCategoryServlet extends HttpServlet {
 		int startPage;
 		int endPage;
 
-		Page pi = null;	
+		PageInfo pi = null;	
 		ArrayList<Gym> gList = null;
 		
 		if(ca.equals("all")) {
@@ -63,7 +64,7 @@ public class GymCategoryServlet extends HttpServlet {
 				endPage = maxPage;
 			}
 			
-			pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			gList = service.selectGEList(pi);
 			
 		} else {
@@ -87,7 +88,7 @@ public class GymCategoryServlet extends HttpServlet {
 				endPage = maxPage;
 			}
 			
-			pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
 			gList = service.selectGList(category, pi);
 		}

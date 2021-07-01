@@ -12,7 +12,7 @@ import board.model.vo.PageInfo;
 import gym.model.dao.GymDAO;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
+
 
 public class GymService {
 
@@ -106,7 +106,7 @@ public class GymService {
 		return count;
 	}
 
-	public ArrayList<Gym> selectGList(String category, Page pi) {
+	public ArrayList<Gym> selectGList(String category, PageInfo pi) {
 		Connection conn = getConnection();
 
 		ArrayList<Gym> gList = new GymDAO().selectGList(conn, pi, category);
@@ -116,7 +116,7 @@ public class GymService {
 		return gList;
 	}
 
-	public ArrayList<Gym> selectGEList(Page pi) {
+	public ArrayList<Gym> selectGEList(PageInfo pi) {
 		Connection conn = getConnection();
 
 		ArrayList<Gym> gList = new GymDAO().selectGEList(conn, pi);
@@ -189,12 +189,27 @@ public class GymService {
 		Connection conn = getConnection();
 
 		GymDAO dao = new GymDAO();
-
+		
+		int result3 = 0;
+		
+		for(int i = 0; i < fileList.size(); i++) {
+			if(fileList.get(i).getgFileNo() == -1) { // -1일 때만 이미지삽입 쿼리 실행
+				result3 = dao.updateInsertGFile(conn, fileList);
+				if(result3>0) {
+					fileList.remove(i); // 삽입 완료 되면 해당 리스트 삭제
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+			}
+		}
 		int result1 = dao.updateGym(conn, g);
 		int result2 = dao.updateGFile(conn, fileList);
+		
 
-		System.out.println("Gymservice result1 : " + result1);
-		System.out.println("Gymservice result2 : " + result2);
+		System.out.println("Gymservice result1(시설 수정) : " + result1);
+		System.out.println("Gymservice result2(파일 수정) : " + result2);
+		System.out.println("Gymservice result3(파일 수정+삽입) : " + result3);
 
 		if (result1 > 0 || result2 > 0) {
 			commit(conn);
@@ -281,7 +296,7 @@ public class GymService {
 		return count;
 	}
 
-	public ArrayList<Gym> locationList(Page pi, String loca) {
+	public ArrayList<Gym> locationList(PageInfo pi, String loca) {
 		Connection conn = getConnection();
 		
 		ArrayList<Gym> list = new GymDAO().locationList(conn, pi, loca);
