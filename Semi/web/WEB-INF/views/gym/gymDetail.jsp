@@ -109,8 +109,6 @@ input {
 	text-align: right;
 }
 
-#bookmarkBtn{width: 120px;}
-
 .main-button {
 	width: 120px;
 	height: 40px;
@@ -233,11 +231,7 @@ input {
 	                <% } else {%>
 	                <div class="carousel-inner" role="listbox" style="width: 700px;">
 	                <%		for(int i = 0; i < fList.size(); i++){ %>
-	                <%			if(i == 0){ %>
-				                <div class="carousel-item active"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="No.<%=i %> slide" width='900' height='400'/></div>
-	                <%			} else { %>
-	                			<div class="carousel-item"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="No.<%=i %> slide" width='900' height='400'/></div>
-	                <%			} %>
+				                <div class="carousel-item active"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="..." width='900' height='400'/></div>
 	                <%		} %>
 	                </div>
 	                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -293,6 +287,7 @@ input {
                     <hr>
                 </div>
 						<!-- 리뷰 목록 출력  -->
+				
 						<div class="reviewTotal" style="width: 700px;">
 							<div style="font-size: 19px;">
 								<h3>0건의 방문자 평가</h3>
@@ -306,6 +301,7 @@ input {
 							</div>
 							<hr>
 						</div>
+				<% if(!rList.isEmpty()){ %>
 						<% for(int i = 0; i < rList.size(); i++){ %>
 						<div class="review-card" style="width: 700px; border: 1px solid lightgray;">
 							<table class="review-info" style="width: 97%;">
@@ -408,6 +404,12 @@ input {
 							</table>
 						</div>
 						<% } %>
+				<% } else { %>
+						<div style="width: 700px; height: 300px; margin: 10px;">
+						<h3>리뷰</h3>
+							<p style="font-size: 22px; padding-top: 60px; color: gray; text-align: center;">아직 작성된 리뷰가 없어요<br>첫 번째 후기를 남겨주세요!</p>
+						</div>
+				<% } %>
 					</div>
 				</div>
 			</div>
