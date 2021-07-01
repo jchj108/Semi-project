@@ -1100,6 +1100,7 @@ public class GymDAO {
 				gf.setgFileNo(rset.getInt("g_file_no"));
 				gf.setgFileLv(rset.getInt("g_file_lv"));
 				gf.setgFilePath(rset.getString("g_file_path"));
+				gf.setgChangeName(rset.getString("g_change_name"));
 				
 				list.add(gf);
 			}
