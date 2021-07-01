@@ -466,16 +466,11 @@ tr, td {
 			$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
 		}).mouseout(function(){
 			$(this).parent().css('background', 'none');
-		}).click(function(){
-// 			var bId = $(this).parent().children().eq(0).text();
-			
-<%-- 			location.href='<%= request.getContextPath() %>/detail.bo?bId=' + bId; --%>
-			
 		});
 	});
 	
 	$(function() {
-		$('#listTable td:not(.checkBoxes)').click(function() {
+		$('#listTable td:not(.checkBoxes)').click(function() { // 체크박스 시 modal popup 제외
 			
 			var gNo = $(this).parent().children().eq(1).text();
 			var changeName = [];
@@ -485,6 +480,7 @@ tr, td {
 				type: 'get',
 				data: {gNo : gNo},
 				success: function(data) {
+					console.log(data);
 					for(var i in data) {
 						if(i == 0) {
 							for (var key in data[i]) {
@@ -504,8 +500,6 @@ tr, td {
 							}
 						} else {
 							for (var key in data[i]) {
-								console.log(data[i]);
-								console.log(key);
 								if(key == 0) {
 									var thumbnail = data[i][key].gChangeName;
 									var originNo1 = data[i][key].gFileNo;
@@ -521,7 +515,6 @@ tr, td {
 								}
 							}	
 						}
-							
 					}
 					
 					$('#gymUpdateModal').modal("show");
@@ -534,36 +527,60 @@ tr, td {
 					$('#gymUpdateParking').val(gymParking);
 					$('#gymUpdateBigo').val(gymBigo);
 					
-					
 					if(thumbnail != null) {
 						$('#updateImg1').attr("src", "<%=cp%>/gym_uploadFiles/" + thumbnail);
 						$('#updateImg1').show();
-						$('#hiddenImg1').val(originNo1);
+						
+						$('#gymUpdateImg1').on("change", function() {
+							$('#hiddenImg1').val(originNo1);
+						});
 					} else {
+						$('#hiddenImg1').val('-1');
 						$('#updateImg1').hide();
 					}
 					
 					if(image1 != null) {
 						$('#updateImg2').attr("src", "<%=cp%>/gym_uploadFiles/" + image1);
 						$('#updateImg2').show();
-						$('#hiddenImg2').val(originNo2);
+						
+						$('#gymUpdateImg2').on("change", function() {
+							$('#hiddenImg2').val(originNo2); 
+						});
 					} else {
+						$('#gymUpdateImg2').on("change", function() {
+							$('#hiddenImg2').val('-1');
+							console.log($('#hiddenImg2').val());
+
+						});
 						$('#updateImg2').hide();
 					} 
 					
 					if (image2 != null) {
 						$('#updateImg3').attr("src", "<%=cp%>/gym_uploadFiles/" + image2);
 						$('#updateImg3').show();
-						$('#hiddenImg3').val(originNo3);
+						$('#gymUpdateImg3').on("change", function() {
+							$('#hiddenImg3').val(originNo3); 
+						});
 					} else {
+						$('#gymUpdateImg3').on("change", function() {
+							$('#hiddenImg3').val('-1');
+							console.log($('#hiddenImg3').val());
+						});
 						$('#updateImg3').hide();
 					} 
 					
 					if (image3 != null) {
 						$('#updateImg4').attr("src", "<%=cp%>/gym_uploadFiles/" + image3);
 						$('#updateImg4').show();
-						$('#hiddenImg4').val(originNo4);
+						$('#gymUpdateImg4').on("change", function() {
+							console.log($('#hiddenImg4').val()); 
+							$('#hiddenImg4').val(originNo4); 
+						});
 					} else {
+						$('#gymUpdateImg4').on("change", function() {
+							$('#hiddenImg4').val('-1');
+							console.log($('#hiddenImg4').val());
+						});
 						$('#updateImg4').hide();
 					}
 					

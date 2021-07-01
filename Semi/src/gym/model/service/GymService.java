@@ -189,12 +189,27 @@ public class GymService {
 		Connection conn = getConnection();
 
 		GymDAO dao = new GymDAO();
-
+		
+		int result3 = 0;
+		
+		for(int i = 0; i < fileList.size(); i++) {
+			if(fileList.get(i).getgFileNo() == -1) { // -1일 때만 이미지삽입 쿼리 실행
+				result3 = dao.updateInsertGFile(conn, fileList);
+				if(result3>0) {
+					fileList.remove(i); // 삽입 완료 되면 해당 리스트 삭제
+					commit(conn);
+				} else {
+					rollback(conn);
+				}
+			}
+		}
 		int result1 = dao.updateGym(conn, g);
 		int result2 = dao.updateGFile(conn, fileList);
+		
 
-		System.out.println("Gymservice result1 : " + result1);
-		System.out.println("Gymservice result2 : " + result2);
+		System.out.println("Gymservice result1(시설 수정) : " + result1);
+		System.out.println("Gymservice result2(파일 수정) : " + result2);
+		System.out.println("Gymservice result3(파일 수정+삽입) : " + result3);
 
 		if (result1 > 0 || result2 > 0) {
 			commit(conn);

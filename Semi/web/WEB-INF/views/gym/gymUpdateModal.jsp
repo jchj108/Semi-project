@@ -254,10 +254,16 @@ img src {
 						<input class="form-check-input" type="radio" name="covid" id="covid5" value="5">
 						<label class="form-check-label" for="covid5">5</label>
 					</div>
-					<input type="hidden" id="hiddenImg1" name="hiddenImgs">
-					<input type="hidden" id="hiddenImg2" name="hiddenImgs">
-					<input type="hidden" id="hiddenImg3" name="hiddenImgs">
-					<input type="hidden" id="hiddenImg4" name="hiddenImgs">
+					<input type="hidden" id="hiddenImg1" name="hiddenImgs" value="0">
+					<input type="hidden" id="hiddenImg2" name="hiddenImgs" value="0">
+					<input type="hidden" id="hiddenImg3" name="hiddenImgs" value="0">
+					<input type="hidden" id="hiddenImg4" name="hiddenImgs" value="0"> <!-- 초기값을 0을 주고 변경될 때만 1로 바꿈 -->
+					<input type="hidden" id="checkUpload1" name="checkUpload">
+					<input type="hidden" id="checkUpload2" name="checkUpload">
+					<input type="hidden" id="checkUpload3" name="checkUpload">
+					<input type="hidden" id="checkUpload4" name="checkUpload">
+					
+					
 					<br>
 				</div>
 				<div class="modal-footer">
@@ -276,7 +282,6 @@ img src {
 	function LoadUpdateImg(value, num) {
 		if (value.files && value.files[0]) {
 			var reader = new FileReader();
-
 			reader.onload = function(e) {
 				switch (num) {
 					case 1 :
@@ -303,6 +308,7 @@ img src {
 	}
 	
 	
+	
 	function deleteAllImg() {
 		console.log("delete")
 		$('#gymImg1').val("");
@@ -319,5 +325,19 @@ img src {
 		$('#gymUpdateImg' + num).val('');
 		$('#updateImg'+num).hide();
 	}
+	
+		$('#gymUpdateImg1').on("change", function() {
+			$('#checkUpload1').val('1');
+		});
+		$('#gymUpdateImg2').on("change", function() {
+			$('#checkUpload2').val('2');
+		});
+		$('#gymUpdateImg3').on("change", function() {
+			$('#checkUpload3').val('3');
+		});
+		$('#gymUpdateImg4').on("change", function() {
+			$('#checkUpload4').val('4');
+		});
+	
 </script>
 </html>

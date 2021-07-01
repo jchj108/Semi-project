@@ -16,24 +16,15 @@ import gym.model.service.GymService;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 
-/**
- * Servlet implementation class GymUpdateAjax
- */
 @WebServlet("/gymUpdateForm.do")
 public class GymUpdateAjax extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public GymUpdateAjax() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int gNo = Integer.parseInt(request.getParameter("gNo"));
@@ -47,6 +38,11 @@ public class GymUpdateAjax extends HttpServlet {
 		gfList.add(gList);
 		gfList.add(fList);
 		
+		for(int i = 0; i < gfList.size(); i++) {
+			System.out.println("gymUpdateAjax gfList : " + gfList.get(i));
+		}
+		
+		
 		Gson gson = new Gson();
 		gson.toJson(gfList, response.getWriter());
 		
@@ -54,11 +50,7 @@ public class GymUpdateAjax extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
