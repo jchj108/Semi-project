@@ -727,10 +727,10 @@ public class GymDAO {
 				pstmt.setString(1, f.getgOriginName());
 				pstmt.setString(2, f.getgChangeName());
 				pstmt.setString(3, f.getgFilePath());
-				pstmt.setInt(4, f.getgFileLv());
-				pstmt.setInt(5, f.getgNo());
-				pstmt.setInt(6, f.getgFileNo());
+				pstmt.setInt(4, f.getgNo());
+				pstmt.setInt(5, f.getgFileNo());
 				
+				System.out.println("dao fileNo" +f.getgFileNo());
 				result += pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -1058,7 +1058,6 @@ public class GymDAO {
 				list.add(g);
 			}
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		} finally {
 			close(rset);
@@ -1107,7 +1106,6 @@ public class GymDAO {
 				gf.setgFileNo(rset.getInt("g_file_no"));
 				gf.setgFileLv(rset.getInt("g_file_lv"));
 				gf.setgFilePath(rset.getString("g_file_path"));
-				gf.setgChangeName(rset.getString("g_change_name"));
 				
 				list.add(gf);
 			}
@@ -1165,6 +1163,37 @@ public class GymDAO {
 		return result;
 	}
 
+	public int updateInsertGFile(Connection conn, ArrayList<GFile> fileList) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//insertGFile=INSERT INTO G_FILE VALUES(GFILE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, 0, DEFAULT)
+		String query = prop.getProperty("updateInsertGFile");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				if(fileList.get(i).getgFileNo() == -1) {
+					GFile f = fileList.get(i);
+					
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1, f.getgNo());
+					pstmt.setString(2, f.getgOriginName());
+					pstmt.setString(3, f.getgChangeName());
+					pstmt.setString(4, f.getgFilePath());
+					
+					System.out.println("dao updateInsert fileNo" +f.getgFileNo());
+					result += pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 	public int insertFavorite(Connection conn, int gNo, int mNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -1180,9 +1209,6 @@ public class GymDAO {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
-	
-
 }
