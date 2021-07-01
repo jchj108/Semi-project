@@ -56,8 +56,6 @@ public class GymDetailServlet extends HttpServlet {
 			page = "WEB-INF/views/common/errorPage.jsp";
 			request.setAttribute("msg", "시설 조회에 실패하였습니다.");
 		}
-		
-		page = "WEB-INF/views/gym/gymDetail.jsp";
 		request.getRequestDispatcher(page).forward(request, response);
 	}
 

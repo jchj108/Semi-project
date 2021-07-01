@@ -321,4 +321,46 @@ public class GymService {
 		
 		return fileList;
 	}
+	
+	public int selectFavorite(int gNo, int mNo) {
+		Connection conn = getConnection();
+		
+		int result = new GymDAO().selectFavorite(conn, gNo, mNo);
+
+		close(conn);
+		
+		return result;
+	}
+
+	public int deleteFavorite(int gNo, int mNo) {
+		Connection conn = getConnection();
+		
+		int result = new GymDAO().deleteFavorite(conn, gNo, mNo);
+
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
+
+	public int insertFavorite(int gNo, int mNo) {
+		Connection conn = getConnection();
+		
+		int result = new GymDAO().insertFavorite(conn, gNo, mNo);
+
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		
+		return result;
+	}
 }

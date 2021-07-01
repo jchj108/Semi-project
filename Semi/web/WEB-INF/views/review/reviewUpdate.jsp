@@ -311,7 +311,7 @@
 					</div>
 				</div>
 				<div class="button-register">
-					<button type="button" class="updateCancleBtn">취소하기</button>
+					<button type="button" class="updateCancleBtn" onclick="location.href='<%= request.getContextPath()%>/detail.do?gNo=<%=gNo%>'">취소하기</button>
 					<button type="submit" class="updateBtn">수정하기</button>
 				</div>
 			</form>
