@@ -821,22 +821,34 @@ public class BoardDAO {
 
 	public int updateBoardFile(Board b, Connection conn, ArrayList<QnaFile> fileList) {
 		PreparedStatement pstmt = null;
+		PreparedStatement pstmt2 = null;
 		int result = 0;
 		
 		String query = prop.getProperty("deleteBoardFile");
 		String query2 = prop.getProperty("updateBooardFile");
 				
 				
-		try {
+		try {			
+			
 			for(int i = 0; i < fileList.size(); i++) {
-				QnaFile qf = fileList.get(i); 
-				pstmt = conn.prepareStatement(query2);				
-				pstmt.setString(1, qf.getQ_file());	
-				pstmt.setInt(2, b.getQ_no());
-				pstmt.setString(3, qf.getOriginName());
-				pstmt.setString(4, qf.getChangeName());
+				QnaFile qf = fileList.get(i);
 				
-				result += pstmt.executeUpdate();
+				if(qf.getQ_file_no() != 0) {
+					for(int j = 0; j <= i; j++) {
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1, qf.getQ_file_no());
+					
+					result += pstmt.executeUpdate();
+					}
+				}
+				
+				pstmt2 = conn.prepareStatement(query2);				
+				pstmt2.setString(1, qf.getQ_file());	
+				pstmt2.setInt(2, b.getQ_no());
+				pstmt2.setString(3, qf.getOriginName());
+				pstmt2.setString(4, qf.getChangeName());
+				
+				result += pstmt2.executeUpdate();
 			}
 			
 		} catch (SQLException e) {
@@ -844,6 +856,7 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
+			close(pstmt2);
 		}
 		return result;
 	}

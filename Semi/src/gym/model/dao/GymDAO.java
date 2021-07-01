@@ -993,7 +993,7 @@ public class GymDAO {
     
     	return count;
 	}
-=======
+
 	
 	public Gym selectGymInfo(Connection conn, String gNo) {
 		PreparedStatement pstmt = null;
@@ -1063,8 +1063,13 @@ public class GymDAO {
 				list.add(g);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
 		return list;
+		
 	}
 
 
