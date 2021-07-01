@@ -271,7 +271,6 @@ public class GymService {
 		return list;
 	}
 
-
 	public int getLocaCount(String loca) {
 		Connection conn = getConnection();
 		
@@ -290,8 +289,6 @@ public class GymService {
 		close(conn);
 		return list;
 	}
-
-
 	
 	public Gym selectGymInfo(String gNo) {
 		Connection conn = getConnection();
@@ -321,8 +318,7 @@ public class GymService {
 		ArrayList<GFile> fileList = new GymDAO().selectImage(conn, gNo);
 	
 		close(conn);
+		
 		return fileList;
 	}
-	
-
 }

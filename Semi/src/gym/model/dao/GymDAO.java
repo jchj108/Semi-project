@@ -413,7 +413,6 @@ public class GymDAO {
 			if (locationArr.length == 1) {
 				String location = locationArr[0];
 				if (gymType.equals("개인")) {
-
 					if (parking.equals("유")) {
 						System.out.println("개인 / 주차가능 접근 성공");
 						query = prop.getProperty("re1AloneParking");
@@ -436,7 +435,6 @@ public class GymDAO {
 						pstmt.setString(4, inout);
 						pstmt.setString(5, lecture);
 					}
-
 				} else {
 					if (parking.equals("유")) {
 						System.out.println("단체 / 주차가능 접근성공");
@@ -524,7 +522,6 @@ public class GymDAO {
 						pstmt.setString(8, inout);
 						pstmt.setString(9, lecture);
 					}
-
 				}
 			} else if (locationArr.length == 3) {
 				if (gymType.equals("개인")) {
@@ -554,7 +551,6 @@ public class GymDAO {
 						pstmt.setString(6, inout);
 						pstmt.setString(7, lecture);
 					}
-
 				} else {
 					if (parking.equals("유")) {
 						System.out.println("3개/단체/주차가능 접근 성공");
@@ -966,8 +962,6 @@ public class GymDAO {
 		return list;
 	}
 
-
-
 	public int getLocaCount(Connection conn, String loca) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -993,7 +987,6 @@ public class GymDAO {
     
     	return count;
 	}
-=======
 	
 	public Gym selectGymInfo(Connection conn, String gNo) {
 		PreparedStatement pstmt = null;
@@ -1031,10 +1024,9 @@ public class GymDAO {
 			close(rset);
 			close(pstmt);
 		}
-    return g;
+		return g;
 	}
-
-
+	
 	public ArrayList<Gym> locationList(Connection conn, Page pi, String loca) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
@@ -1064,9 +1056,12 @@ public class GymDAO {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+		} finally {
+			close(pstmt);
+		}
+		
 		return list;
 	}
-
 
 	public int updateCount(Connection conn, String gNo) {
 		PreparedStatement pstmt = null;
@@ -1086,7 +1081,6 @@ public class GymDAO {
 		
 		return result;
 	}
-
 
 	public ArrayList<GFile> selectImage(Connection conn, String gNo) {
 		PreparedStatement pstmt = null;
@@ -1110,13 +1104,11 @@ public class GymDAO {
 				list.add(gf);
 			}
 		} catch (SQLException e) {
-
 			e.printStackTrace();
 		} finally {
 			close(rset);
 			close(pstmt);
 		}
-
 		return list;
 	}
 
