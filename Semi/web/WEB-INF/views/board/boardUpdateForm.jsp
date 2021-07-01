@@ -126,11 +126,10 @@
 				
 					<div class="fileInput">
 					<input type="hidden" name="fileNo" value="<%= fileList.get(i).getQ_file_no() %>">
-					<input type="text" name="fileName<%= i + 1 %>" id="fileName<%= i + 1 %>" style="width: 550px;"disabled="disabled" value="<%= fileList.get(i).getChangeName() %>">				
+					<input type="text" name="fileName<%= i + 1 %>" id="fileName<%= i + 1 %>" style="width: 650px;"disabled="disabled" value="<%= fileList.get(i).getChangeName() %>">				
 					<input type="file" name="fileInput<%= i + 1 %>" id="fileInput<%= i + 1 %>" onchange="loadName<%= i + 1 %>();" value="<%=fileList.get(i).getQ_file() %><%= fileList.get(i).getChangeName() %>">
 					<input type="button" value="파일 등록" class="upload" style="top:0;"><br>
-					</div><br>
-
+					</div><br>			
 				
 					<% } %>
 				<% } %>

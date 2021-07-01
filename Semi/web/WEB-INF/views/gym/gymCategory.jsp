@@ -139,6 +139,7 @@
                     class="card-img-top"
                     src="<%= request.getContextPath() %>/gym_uploadFiles/<%= g.getG_FILE() %>"
                     alt="..."
+                    height="150"
                 /></a>
                 <div class="card-body">
                   <h4 class="card-title">

@@ -341,4 +341,19 @@ public class BoardService {
 		
 		return result1;
 	}
+
+	public int deleteComment(String cNo) {
+		Connection conn = getConnection();
+		
+		int result = new BoardDAO().deleteMyComments(cNo, conn);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		
+		close(conn);
+		return result;
+	}
 }

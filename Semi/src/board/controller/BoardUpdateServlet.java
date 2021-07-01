@@ -81,10 +81,8 @@ public class BoardUpdateServlet extends HttpServlet {
 				qf.setQ_file(savePath);
 				qf.setOriginName(originFiles.get(i));
 				qf.setChangeName(saveFiles.get(i));
-				if(fNums != null) {
-					for(int j = 0; j < fNums.length; j++) {
-						qf.setQ_file_no(Integer.parseInt(fNums[j]));
-					}
+				if(fNums != null) {					
+					qf.setQ_file_no(Integer.parseInt(fNums[i]));
 				}
 				fileList.add(qf);
 				

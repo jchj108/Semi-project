@@ -834,12 +834,11 @@ public class BoardDAO {
 				QnaFile qf = fileList.get(i);
 				
 				if(qf.getQ_file_no() != 0) {
-					for(int j = 0; j <= i; j++) {
 					pstmt = conn.prepareStatement(query);
 					pstmt.setInt(1, qf.getQ_file_no());
 					
 					result += pstmt.executeUpdate();
-					}
+	
 				}
 				
 				pstmt2 = conn.prepareStatement(query2);				
@@ -860,4 +859,5 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
 }
