@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.Gym, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.Gym, board.model.vo.PageInfo"%>
 <%
 	ArrayList<Gym> gList = (ArrayList)request.getAttribute("gList");	
 	String cate = request.getParameter("g_gu_nm");
 	
-	Page pi = (Page)request.getAttribute("pi");
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
 	int endPage = pi.getEndPage();
@@ -52,22 +52,7 @@
         
       }
 
-      .sortPack {
-        text-align: right;
-        margin-bottom: 10px;
-      }
-
-      .sort {
-        display: inline-block;
-        text-decoration: none;
-        color: white;
-        background: #00b1d2;
-        padding: 0.5rem;
-        width: 150px;
-        text-align: center;
-        margin: 10px;
-        border-radius: 10px;
-      }
+     
 
      .page {margin-bottom: 50px; margin-top: 50px;}
 		 		
@@ -85,12 +70,12 @@
 
       .title {
         margin-top: 50px;
-        margin-bottom: 20px;
+        margin-bottom: 30px;
       }
 
       
       
-      .side:hover {color:#00b1d2;}
+    
       
     </style>
   </head>
@@ -106,10 +91,7 @@
           <div class="title"><h4><%= cate %> 운동시설</h4></div>
 
           <!-- 정렬 버튼 -->
-          <div class="sortPack">
-            <span class="sort" id="reviewSort">리뷰 순 정렬</span>
-            <span class="sort" id="scoreSort">평점 순 정렬</span>
-          </div>         
+              
         <div class="row">
        <% if(!gList.isEmpty()) { %>
        	<% for(Gym g : gList) {%>
@@ -120,7 +102,7 @@
                     class="card-img-top"
                     src="<%= request.getContextPath() %>/gym_uploadFiles/<%= g.getG_FILE() %>"
                     alt="..."
-                    height="150"
+                    height="170"
                 /></a>
                 <div class="card-body">
                   <h4 class="card-title">

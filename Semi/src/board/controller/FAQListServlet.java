@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import board.model.service.BoardService;
 import board.model.vo.Board;
 import board.model.vo.PageInfo;
-import page.model.vo.Page;
 
 /**
  * Servlet implementation class FAQListServlet

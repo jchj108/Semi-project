@@ -12,7 +12,7 @@ import board.model.vo.PageInfo;
 import gym.model.dao.GymDAO;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
+
 
 public class GymService {
 
@@ -106,7 +106,7 @@ public class GymService {
 		return count;
 	}
 
-	public ArrayList<Gym> selectGList(String category, Page pi) {
+	public ArrayList<Gym> selectGList(String category, PageInfo pi) {
 		Connection conn = getConnection();
 
 		ArrayList<Gym> gList = new GymDAO().selectGList(conn, pi, category);
@@ -116,7 +116,7 @@ public class GymService {
 		return gList;
 	}
 
-	public ArrayList<Gym> selectGEList(Page pi) {
+	public ArrayList<Gym> selectGEList(PageInfo pi) {
 		Connection conn = getConnection();
 
 		ArrayList<Gym> gList = new GymDAO().selectGEList(conn, pi);
@@ -282,7 +282,7 @@ public class GymService {
 		return count;
 	}
 
-	public ArrayList<Gym> locationList(Page pi, String loca) {
+	public ArrayList<Gym> locationList(PageInfo pi, String loca) {
 		Connection conn = getConnection();
 		
 		ArrayList<Gym> list = new GymDAO().locationList(conn, pi, loca);

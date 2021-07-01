@@ -13,7 +13,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>게시글 조회하기</title>
+        <title>게시글 조회</title>
    
         <!-- Core theme CSS (includes Bootstrap)-->
 <!--         <link href="css/styles.css" rel="stylesheet" /> -->

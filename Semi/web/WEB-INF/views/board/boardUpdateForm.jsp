@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>게시물 작성하기</title>
+        <title>게시물 수정</title>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <style>
         	*{font-family: 'Noto Sans KR';}

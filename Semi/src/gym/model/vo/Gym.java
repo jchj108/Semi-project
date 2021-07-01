@@ -1,6 +1,6 @@
 package gym.model.vo;
 
-public class Gym {
+public class Gym{
 	
 	private int G_NO;
 	private String G_TYPE_NM;
@@ -275,9 +275,7 @@ public class Gym {
             + G_COUNT + ", G_COVID=" + G_COVID + ", G_HOMEPAGE=" + G_HOMEPAGE + ", G_PARKING_LOT=" + G_PARKING_LOT
             + ", G_BIGO=" + G_BIGO + ", G_FILE=" + G_FILE + "]";
    }
-
-
    
-   
+	  
 
 }

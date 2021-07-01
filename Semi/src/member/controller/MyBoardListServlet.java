@@ -10,9 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import board.model.vo.Board;
+import board.model.vo.PageInfo;
 import member.model.service.MemberService;
 import member.model.vo.Member;
-import page.model.vo.Page;
+
 
 /**
  * Servlet implementation class MyBoardListServlet
@@ -53,7 +54,7 @@ public class MyBoardListServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		Page pageInfo = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+		PageInfo pageInfo = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 			
 		ArrayList<Board> list = mService.selectMyBoard(mNo, pageInfo);
 		

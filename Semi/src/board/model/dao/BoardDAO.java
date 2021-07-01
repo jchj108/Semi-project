@@ -19,8 +19,6 @@ import board.model.vo.PageInfo;
 import board.model.vo.QnaFile;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
-
 public class BoardDAO {
 	private Properties prop = new Properties();
 	

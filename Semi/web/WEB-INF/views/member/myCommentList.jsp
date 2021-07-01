@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.Comments, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, board.model.vo.Comments, board.model.vo.PageInfo"%>
 <%
 	ArrayList<Comments> list = (ArrayList)request.getAttribute("list");
 	int qNo = 0;
 	
-	Page pageInfo = (Page)request.getAttribute("pageInfo");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();

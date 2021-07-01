@@ -9,10 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import board.model.vo.PageInfo;
 import gym.model.vo.Gym;
 import member.model.service.MemberService;
 import member.model.vo.Member;
-import page.model.vo.Page;
+
 
 /**
  * Servlet implementation class MyFavoritesServlet
@@ -53,7 +54,7 @@ public class MyFavoritesServlet extends HttpServlet {
 			endPage = maxPage;
 		}
 		
-		Page pi = new Page(listCount, startPage, endPage, maxPage, pageLimit, boardLimit, currentPage);
+		PageInfo pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		ArrayList<Gym> list = mService.selectMyFav(mNo, pi);
 		
