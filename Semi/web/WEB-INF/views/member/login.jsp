@@ -79,7 +79,7 @@
 		});
 		
 		window.Kakao.init("07a99d78f7b743ace5cbf5de3b116c13");
-// 		console.log(Kakao.isInitialized());
+		console.log(Kakao.isInitialized());
 		
 		function kakaoLogin(){
 			$('#loginModal').modal("hide");
