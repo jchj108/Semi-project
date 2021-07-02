@@ -35,13 +35,10 @@ public class GymUpdateServlet extends HttpServlet {
 			int maxSize = 1024 * 1024 * 10; // 10Mbtye로 전송파일 용량 제한
 			String root = request.getSession().getServletContext().getRealPath("/"); 
 			String savePath = root + "gym_uploadFiles/";
-
 			File f = new File(savePath);
 			if (!f.exists()) {
 				f.mkdirs();
 			}
-			
-			
 
 			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 					new MyFileRenamePolicy());
