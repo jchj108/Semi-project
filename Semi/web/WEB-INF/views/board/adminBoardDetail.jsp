@@ -142,11 +142,10 @@
 						<% } %>
 					</div>	
 					<% } %>
-									 
 				<div class="buttonPack">
 				<% if(loginUser != null && (loginUser.getM_no() == b.getWriterNo() || loginUser.getM_auth() == 0)) { %>
-					<button type="submit" id="update">수정</button>
 					<button type="button" id="delete">삭제</button>
+					<button type="submit" id="update">수정</button>
 				<% } %>
 				</div>
 			</form>

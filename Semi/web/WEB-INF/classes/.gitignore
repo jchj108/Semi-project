@@ -1,5 +1,8 @@
 /board/
+/common/
 /gym/
-/member/
-/sql/
 /map/
+/member/
+/review/
+/sql/
+/visit/
