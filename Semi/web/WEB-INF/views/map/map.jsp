@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="java.util.ArrayList,map.model.vo.Map"%>
 <%
 	ArrayList<Map> list = (ArrayList<Map>) request.getAttribute("list");
+	String cp = request.getContextPath();
 %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -23,12 +24,12 @@
 	font-family: 'Noto Sans KR';
 }
 /* a태그 설정 */
-.nav a, .f2 a {
+.side {
 	text-decoration: none;
 	color: black;
 }
 
-.nav a:hover, .f2 a:hover {
+.side:hover{
 	text-decoration: none;
 	color: #00B1D2;
 }
@@ -120,17 +121,17 @@ footer {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
-				<h1 class="my-4">지도로 찾기</h1>
-				<div class="list-group">
-					<a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=all'>전체보기</a> <a class="list-group-item"
+				<div class="list-group" style="margin-top: 20px;">
+					<div class="list-group-item" style="font-weight:bold;">지도로 찾기</div>
+					<a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=all'>전체보기</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=living'
-					>생활체육관</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=pool'>수영장</a> <a class="list-group-item"
+					>생활체육관</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=pool'>수영장</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=soccer'
-					>축구장</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=school'>학교체육시설</a> <a class="list-group-item"
+					>축구장</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=school'>학교체육시설</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=tennis'
-					>테니스장</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=golf'>골프연습장</a> <a class="list-group-item"
+					>테니스장</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=golf'>골프연습장</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=footVolley'
-					>족구장</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=etc'>기타</a>
+					>족구장</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=etc'>기타</a>
 				</div>
 			</div>
 			<div class="col-lg-9">
@@ -147,7 +148,7 @@ footer {
 						 minZoom:11,
 					     maxBounds: seoul,
 					}) 
-					
+				
 					function CustomMarker(lat, lng, gymID, category, gymGubun, name, address) {
 						var contents_html = "";
 
@@ -156,6 +157,8 @@ footer {
 								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#C62828; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');" onclick="javascript:detailGym(\''
 										+ gymID
 										+ '\');">'
 										+ '<div style="font-weight: bold; font-size:14px"> '
@@ -170,6 +173,8 @@ footer {
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
 										+ gymID
+										+ '\');" onclick="javascript:detailGym(\''
+										+ gymID
 										+ '\');">'
 										+ '<div style="font-weight: bold; font-size:14px"> '
 										+ gymGubun
@@ -181,6 +186,8 @@ footer {
 								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#6A1B9A; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');" onclick="javascript:detailGym(\''
 										+ gymID
 										+ '\');">'
 										+ '<div style="font-weight: bold; font-size:14px"> '
@@ -194,6 +201,8 @@ footer {
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
 										+ gymID
+										+ '\');" onclick="javascript:detailGym(\''
+										+ gymID
 										+ '\');">'
 										+ '<div style="font-weight: bold; font-size:14px"> '
 										+ gymGubun
@@ -205,6 +214,8 @@ footer {
 								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#283593; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
+										+ gymID
+										+ '\');" onclick="javascript:detailGym(\''
 										+ gymID
 										+ '\');">'
 										+ '<div style="font-weight: bold; font-size:14px"> '
@@ -218,6 +229,8 @@ footer {
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
 										+ gymID
+										+ '\');" onclick="javascript:detailGym(\''
+										+ gymID
 										+ '\');">'
 										+ '<div style="font-weight: bold; font-size:14px"> '
 										+ gymGubun
@@ -230,6 +243,8 @@ footer {
 										+ gymID
 										+ '\');" onmouseout="javascript:outGym(\''
 										+ gymID
+										+ '\');" onclick="javascript:detailGym(\''
+										+ gymID
 										+ '\');">'
 										+ '<div style="font-weight: bold; font-size:14px"> '
 										+ gymGubun
@@ -241,6 +256,8 @@ footer {
 								contents_html = '<div style="padding-top:5px; padding-bottom:5px; padding-left:5px; padding-right:5px; background-color:#558B2F; color:white; text-align:center; border:1px solid #831616; border-radius:14px; opacity:75%" onmouseover="javascript:overGym(\''
 									+ gymID
 									+ '\');" onmouseout="javascript:outGym(\''
+									+ gymID
+									+ '\');" onclick="javascript:detailGym(\''
 									+ gymID
 									+ '\');">'
 									+ '<div style="font-weight: bold; font-size:14px"> '
@@ -304,7 +321,7 @@ footer {
 
 								var markerClustering = new MarkerClustering({
 									minClusterSize: 2,
-									maxZoom: 15,
+									maxZoom: 14,
 									map: map,
 									markers: markers,
 									disableClickZoom: false,
@@ -324,6 +341,11 @@ footer {
 						function outGym(childID) {
 							$('#' + childID).hide()
 						}
+						
+						function detailGym(childID) {
+							location.href = "<%=cp%>/detail.do?gNo="+childID;
+						}
+						
 				</script>
 			</div>
 		</div>
