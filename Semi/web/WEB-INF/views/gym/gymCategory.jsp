@@ -3,7 +3,6 @@
 <%
 	ArrayList<Gym> gList = (ArrayList)request.getAttribute("gList");	
 	String cate = request.getParameter("category");
-	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -82,6 +81,23 @@
       
       .side:hover {color:#00b1d2;}
       
+      .sortPack {
+        text-align: right;
+        margin-bottom: 10px;
+      }
+
+      .sort {
+        display: inline-block;
+        text-decoration: none;
+        color: white;
+        background: #00b1d2;
+        padding: 0.5rem;
+        width: 150px;
+        text-align: center;
+        margin: 10px;
+        border-radius: 10px;
+      }
+      
     </style>
   </head>
   <body>
@@ -107,6 +123,10 @@
         <div class="col-lg-9">
           <div class="title"><h4>내 주변의 운동시설</h4></div>
 
+         <div class="sortPack">
+           <span class="sort" id="reviewSort">리뷰 순 정렬</span>
+           <span class="sort" id="scoreSort">평점 순 정렬</span>
+         </div>
                   
         <div class="row">
        <% if(!gList.isEmpty()) { %>
@@ -196,6 +216,12 @@
     $('.sort').mouseenter(function () {
       $(this).css('cursor', 'pointer')
     })
+    
+    $('#reviewSort').on('click', function(){
+ 		
+    	$.ajax
+ 		  	
+    });
 
   </script>
 </html>
