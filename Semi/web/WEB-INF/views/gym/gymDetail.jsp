@@ -6,8 +6,6 @@
 	ArrayList<Review> rList = (ArrayList)request.getAttribute("rList");
 	ArrayList<ReviewAttachment> raList = (ArrayList)request.getAttribute("raList");
 	
-	double xCode = g.getG_XCODE();
-	double yCode = g.getG_YCODE();
 	int gNo = g.getG_NO();
 	int total = 0;
 	for(Review r : rList){
@@ -26,7 +24,8 @@
 	  rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51a2be588394023dffe06fdafc5726ca&libraries=services"></script>
+
 </head>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -207,18 +206,75 @@ input {
 			<div class="col-lg-3">
 				<div class="list-group">
 					<!-- 지도 -->
-					<div id="map" style="width: 230px; height: 230px;"></div>
-					<script>
-					var map = new naver.maps.Map('map', {
-					    center: new naver.maps.LatLng(<%=yCode%>, <%=xCode%>),
-					    zoom: 15
-					});
-
-					var marker = new naver.maps.Marker({
-					    position: new naver.maps.LatLng(<%=yCode%>, <%=xCode%>),
-					    map: map
-					});
-					</script>
+ 				<div id="map" style="width: 230px; height: 230px;"></div>
+ 					<script>
+	 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+	 					
+	 				    mapOption = {
+	 				        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	 				        level: 4 // 지도의 확대 레벨
+	 				    };  
+		 				var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		 				var geocoder = new kakao.maps.services.Geocoder();
+		 				
+						if(<%=g.getG_XCODE() %> != 0 && <%= g.getG_YCODE() %> != 0) { // 데이터베이스의 값을 우선적으로 고려함, 값이 없다면 주소->좌표 검색 실행
+							console.log("xycode true");
+							var coords = new kakao.maps.LatLng(<%=g.getG_YCODE() %>, <%=g.getG_XCODE() %>)
+							var marker = new kakao.maps.Marker({
+								map:map,
+								position: coords
+							});
+ 				            var infowindow = new kakao.maps.InfoWindow({
+	 				            content: '<div style="width:170px;text-align:center;padding:6px 0; font-size:13px;"><%= g.getG_NAME() %></div>'
+	 				        });
+	 				        infowindow.open(map, marker);
+	 				        
+	 				        map.setCenter(coords);
+							
+	 				        var markerOn = true;
+	 				        kakao.maps.event.addListener(marker, 'click', function() {
+	 				        	if(markerOn) {
+	 				        		infowindow.close(map, marker);
+	 				        		markerOn = false;
+	 				        	} else {
+	 				        		infowindow.open(map, marker);
+	 				        		markerOn = true;
+	 				        	}
+	 				        });
+						} else {
+		 					console.log("xycode false");
+			 				geocoder.addressSearch('<%=g.getG_ADDRESS()%>', function(result, status) {
+			
+			 				    if (status === kakao.maps.services.Status.OK) {
+		
+			 				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			
+			 				        var marker = new kakao.maps.Marker({
+			 				            map: map,
+			 				            position: coords
+			 				        });
+			 				            var infowindow = new kakao.maps.InfoWindow({
+			 				            content: '<div style="width:170px;text-align:center;padding:6px 0; font-size:13px;"><%= g.getG_NAME() %></div>'
+			 				        });
+			 				        infowindow.open(map, marker);
+		
+		 				    	    // 지도의 중심을 결과값으로 받은 위치로 이동
+		 				 	 	    map.setCenter(coords);
+			 				    	var markerOn = true; // marker onoff
+				 				    kakao.maps.event.addListener(marker, 'click', function() {
+				 				    	if(markerOn) {
+					 						infowindow.close(map, marker);  
+					 						markerOn = false;
+				 				    	} else {
+				 				    		infowindow.open(map, marker);
+				 				    		markerOn = true;
+					 					}
+					 				});
+						 		} 
+							});    
+						}
+ 					</script>
 					<br>
 					<div class="list-group-item" style="font-weight: bold;">운동
 						카테고리</div>

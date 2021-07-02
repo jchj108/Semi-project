@@ -143,6 +143,13 @@ img src {
 	margin-right: 0px;
 }
 
+.xyCode {
+	display: inline-block;
+	width: 640px;
+	float: right;
+	margin-top: 5px;
+}
+
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/css/bootstrap2/bootstrap-switch.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.min.js"></script>
@@ -165,10 +172,8 @@ img src {
 					<label for="gymName">이름</label>
 					<input type="text" class="form-control" name="gymName" id="gymName" placeholder="이름을 입력하세요" required>
 					<label for="gymAddr">주소</label><br>
-					<input type="text" class="form-control" name="gymAddr" id="gymAddr" placeholder="주소를 입력하세요" style="width: 580px; display: inline-block" required>
-					<button type="button" class="btn btn-primary" style="float: right">주소 검색</button>
-					<label for="gymAddrDetail">상세주소</label><br>
-					<input type="text" class="form-control" name="gymAddrDetail" id="gymAddrDetail" placeholder="상세주소">
+					<input type="text" class="form-control" name="gymAddr" id="gymAddr" placeholder="주소를 입력하세요" required>
+<!-- 					<button type="button" class="btn btn-primary" style="float: right">주소 검색</button>  -->
 					<label for="gymTel">전화번호</label><br>
 					<input type="text" class="form-control" name="gymTel" id="gymTel" placeholder="전화번호를 입력하세요">
 					<label for="gymHomepage">홈페이지</label><br>

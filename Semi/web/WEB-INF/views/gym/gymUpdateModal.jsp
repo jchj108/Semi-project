@@ -168,10 +168,8 @@ img src {
 					<label for="gymType">타입</label>
 					<input type="text" class="form-control" name="gymUpdateType" id="gymUpdateType" placeholder="타입을 입력하세요" required>
 					<label for="gymAddr">주소</label><br>
-					<input type="text" class="form-control" name="gymUpdateAddr" id="gymUpdateAddr" placeholder="주소를 입력하세요" style="width: 580px; display: inline-block" required>
-					<button type="button" class="btn btn-primary" style="float: right">주소 검색</button>
-					<label for="gymAddrDetail">상세주소</label><br>
-					<input type="text" class="form-control" name="gymUpdateAddrDetail" id="gymUpdateAddrDetail" placeholder="상세주소">
+					<input type="text" class="form-control" name="gymUpdateAddr" id="gymUpdateAddr" placeholder="주소를 입력하세요" required>
+<!-- 				<button type="button" class="btn btn-primary" style="float: right">주소 검색</button>  -->	
 					<label for="gymTel">전화번호</label><br>
 					<input type="text" class="form-control" name="gymUpdateTel" id="gymUpdateTel" placeholder="전화번호를 입력하세요">
 					<label for="gymHomepage">홈페이지</label><br>
