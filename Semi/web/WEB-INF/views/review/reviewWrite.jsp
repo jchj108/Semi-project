@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<% int gNo = (int)request.getAttribute("gNo"); %>
+    pageEncoding="UTF-8" import="gym.model.vo.*, java.util.*"%>
+<%
+	Gym g = (Gym)request.getAttribute("g");
+	ArrayList<GFile> fList= (ArrayList)request.getAttribute("fList");
+	int gNo = g.getG_NO();
+	
+	System.out.println(g);
+	for(GFile gf : fList){
+		System.out.println(gf);
+	}
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -154,17 +164,20 @@
 		<div class="row">
 			<div class="col-lg-3">
 				<div class="list-group list-group-flush text-center ml-5">
-					<div class="list-group-item category-title">A 필라테스 평가하기</div>
+					<div class="list-group-item category-title"><%= g.getG_NAME() %><br>평가하기</div>
 					<div class="list-group-item">
-						<img src="image/flower1.PNG">
+						<img src="<%= request.getContextPath() %>/gym_uploadFiles/<%= fList.get(0).getgChangeName() %>">
 					</div>
 					<div class="list-group-item">
-						서울시 강남구 역삼동 <br> 070-1234-5678
+						<%= g.getG_ADDRESS() %><br>
+						<% if(g.getG_TEL() != null) {%>
+						<%= g.getG_TEL() %>
+						<% } %>
 					</div>
 				</div>
 			</div>
 	
-			<div class="col-lg-7">
+			<div class="col-lg-7" style="margin-left: 20px;">
 				<form class="review-box" id="reviewForm" action="<%= request.getContextPath() %>/reviewWrite.re" method="post" encType="multipart/form-data">
 					<input type="hidden" name="gNo" value="<%= gNo %>">
 					<div class="section">

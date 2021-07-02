@@ -562,7 +562,7 @@
 			   		}).mouseout(function(){
 			   			$(this).parent().css({'background':'none'});
 			   		}).click(function(){
-			   			var num = $(this).parent().index();
+			   			var num = $(this).parent().index()+1;
 			   			var gNo = data[num].gNo;       
 			   			
 			   			window.location.href="<%= request.getContextPath() %>/detail.do?gNo="+gNo; 
