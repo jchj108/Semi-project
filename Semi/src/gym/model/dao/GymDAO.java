@@ -414,7 +414,6 @@ public class GymDAO {
 				String location = locationArr[0];
 				if (gymType.equals("개인")) {
 					if (parking.equals("유")) {
-						System.out.println("개인 / 주차가능 접근 성공");
 						query = prop.getProperty("re1AloneParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -425,7 +424,6 @@ public class GymDAO {
 						pstmt.setString(5, lecture);
 						pstmt.setString(6, "%불가%");
 					} else {
-						System.out.println("개인 / 주차불가능 접근 성공");
 						query = prop.getProperty("re1AloneNoParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -437,7 +435,6 @@ public class GymDAO {
 					}
 				} else {
 					if (parking.equals("유")) {
-						System.out.println("단체 / 주차가능 접근성공");
 						query = prop.getProperty("re1TogetherParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -451,7 +448,6 @@ public class GymDAO {
 						pstmt.setString(8, lecture);
 						pstmt.setString(9, "%불가%");
 					} else {
-						System.out.println("단체 / 주차불가능 접근성공");
 						query = prop.getProperty("re1TogetherNoParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -468,7 +464,6 @@ public class GymDAO {
 			} else if (locationArr.length == 2) {
 				if (gymType.equals("개인")) {
 					if (parking.equals("유")) {
-						System.out.println("2개/개인/주차가능 접근성공");
 						query = prop.getProperty("re2AloneParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -480,7 +475,6 @@ public class GymDAO {
 						pstmt.setString(6, lecture);
 						pstmt.setString(7, "%불가%");
 					} else {
-						System.out.println("2개/개인/주차불가능 접근성공");
 						query = prop.getProperty("re2AloneNoParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -493,7 +487,6 @@ public class GymDAO {
 					}
 				} else {
 					if (parking.equals("유")) {
-						System.out.println("2개/단체/주차가능");
 						query = prop.getProperty("re2TogetherParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -508,7 +501,6 @@ public class GymDAO {
 						pstmt.setString(9, lecture);
 						pstmt.setString(10, "%불가%");
 					} else {
-						System.out.println("2개/단체/주차불가능");
 						query = prop.getProperty("re2TogetherNoParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -526,7 +518,6 @@ public class GymDAO {
 			} else if (locationArr.length == 3) {
 				if (gymType.equals("개인")) {
 					if (parking.equals("유")) {
-						System.out.println("3개/개인/주차가능 접근 성공");
 						query = prop.getProperty("re3AloneParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -539,7 +530,6 @@ public class GymDAO {
 						pstmt.setString(7, lecture);
 						pstmt.setString(8, "%불가%");
 					} else {
-						System.out.println("3개/개인/주차불가능 접근 성공");
 						query = prop.getProperty("re3AloneNoParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -553,7 +543,6 @@ public class GymDAO {
 					}
 				} else {
 					if (parking.equals("유")) {
-						System.out.println("3개/단체/주차가능 접근 성공");
 						query = prop.getProperty("re3TogetherParking");
 
 						pstmt = conn.prepareStatement(query);
@@ -569,7 +558,6 @@ public class GymDAO {
 						pstmt.setString(10, lecture);
 						pstmt.setString(11, "%불가%");
 					} else {
-						System.out.println("3개/단체/주차불가능 접근 성공");
 						query = prop.getProperty("re3TogetherNoParking");
 
 						pstmt = conn.prepareStatement(query);

@@ -1,11 +1,4 @@
 /board/
-/sql/
 /gym/
-<<<<<<< master
-/sql/
-=======
->>>>>>> master
 /member/
-/board/
-/visit/
-/review/
+/sql/
