@@ -2,13 +2,14 @@
     pageEncoding="UTF-8" import="java.util.ArrayList, review.model.vo.Review, board.model.vo.PageInfo"%>
 <%
 	ArrayList<Review> list = (ArrayList)request.getAttribute("list");
-	int gNo = 0;
 	
 	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
 	int maxPage = pageInfo.getMaxPage();
+	
+	int gNo = 0;
 %>
 <!DOCTYPE html>
 <html lang="kor">

@@ -1,29 +1,23 @@
-package review.controller;
+package board.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import gym.model.service.GymService;
-import gym.model.vo.GFile;
-import gym.model.vo.Gym;
-
 /**
- * Servlet implementation class ReviewServlet
+ * Servlet implementation class AdminStatisticsServlet
  */
-@WebServlet("/reviewWriteForm.re")
-public class ReviewWriteFormServlet extends HttpServlet {
+@WebServlet("/adminStatistics.li")
+public class AdminStatisticsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewWriteFormServlet() {
+    public AdminStatisticsServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +26,7 @@ public class ReviewWriteFormServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String gNo = request.getParameter("gNo");
-		
-		GymService gService = new GymService();
-		Gym g = gService.selectGymInfo(gNo);
-		ArrayList<GFile> fList = gService.selectImage(gNo);
-		
-		request.setAttribute("g", g);
-		request.setAttribute("fList", fList);
-		request.getRequestDispatcher("WEB-INF/views/review/reviewWrite.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("WEB-INF/views/board/adminStatistics.jsp").forward(request, response);
 	}
 
 	/**

@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="review.model.vo.*, java.util.*, java.sql.Date"%>
+    pageEncoding="UTF-8" import="review.model.vo.*, gym.model.vo.*, java.util.*, java.sql.Date"%>
 <%
-	int gNo = (int)request.getAttribute("gNo");
 	Review r = (Review)request.getAttribute("r");
-	ArrayList<ReviewAttachment> list = (ArrayList)request.getAttribute("list");
+	Gym g = (Gym)request.getAttribute("g");
+	int gNo = g.getG_NO();
+	ArrayList<ReviewAttachment> ralist = (ArrayList)request.getAttribute("ralist");
+	ArrayList<GFile> gfList = (ArrayList)request.getAttribute("gfList");
 	
 	int total = r.getR_total();
 	int gym = r.getR_gym();
@@ -15,8 +17,8 @@
 	String review = r.getR_body();
 	
 	Date upload_date = null;
-	if(list != null){
-		upload_date = list.get(0).getR_upload_date();
+	if(ralist != null){
+		upload_date = ralist.get(0).getR_upload_date();
 	}
 	
 	String[] checked = new String[6];
@@ -183,138 +185,143 @@
 
 	<%@ include file="../common/header.jsp" %>
 	
-	<div class="row">
-		<div class="col-lg-3">
-			<div class="list-group list-group-flush text-center ml-5">
-				<div class="list-group-item category-title">A 필라테스 평가하기</div>
-				<div class="list-group-item">
-					<img src="image/flower1.PNG">
-				</div>
-				<div class="list-group-item">
-					서울시 강남구 역삼동 <br> 070-1234-5678
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-3">
+				<div class="list-group list-group-flush text-center ml-5">
+					<div class="list-group-item category-title"><%= g.getG_NAME() %><br>평가하기</div>
+					<div class="list-group-item">
+						<img src="<%= request.getContextPath() %>/gym_uploadFiles/<%= gfList.get(0).getgChangeName() %>">
+					</div>
+					<div class="list-group-item">
+						<%= g.getG_ADDRESS() %><br>
+						<% if(g.getG_TEL() != null) {%>
+						<%= g.getG_TEL() %>
+						<% } %>
+					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="col-lg-5">
-			<form class="review-box" id="updateForm" action="<%= request.getContextPath() %>/reviewUpdate.re" method="post" encType="multipart/form-data">
-				<input type="hidden" name="rNo" value="<%= r.getR_no() %>">
-				<input type="hidden" name="gNo" value="<%= gNo %>">
-				<input type="hidden" name="upload_date" value="<%= upload_date %>">
-				<div class="section">
-					<div class="title">
-						<strong>전체 평점</strong>
-					</div>
-					<div class="score-box">
-						<div class="rating-box">
-							<div class="rating-box-name">평점</div>
-							<input type="hidden" name="totalStar" value="<%= total %>">
-							<div class="score_star" id="totalStarDiv1">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
+	
+			<div class="col-lg-7" style="margin-left: 20px;">
+				<form class="review-box" id="updateForm" action="<%= request.getContextPath() %>/reviewUpdate.re" method="post" encType="multipart/form-data">
+					<input type="hidden" name="rNo" value="<%= r.getR_no() %>">
+					<input type="hidden" name="gNo" value="<%= gNo %>">
+					<input type="hidden" name="upload_date" value="<%= upload_date %>">
+					<div class="section">
+						<div class="title">
+							<strong>전체 평점</strong>
+						</div>
+						<div class="score-box">
+							<div class="rating-box">
+								<div class="rating-box-name">평점</div>
+								<input type="hidden" name="totalStar" value="<%= total %>">
+								<div class="score_star" id="totalStarDiv1">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>항목별 평점</strong>
-					</div>
-
-					<div class="score-box">
-						<div class="rating-box">
-							<div class="rating-box-name">시설</div>
-							<input type="hidden" name="facilityStar" value="<%= gym %>">
-							<div class="score_star" id="facilityStarDiv1">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>항목별 평점</strong>
+						</div>
+	
+						<div class="score-box">
+							<div class="rating-box">
+								<div class="rating-box-name">시설</div>
+								<input type="hidden" name="facilityStar" value="<%= gym %>">
+								<div class="score_star" id="facilityStarDiv1">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
+							</div>
+							<div class="rating-box">
+								<div class="rating-box-name">강사</div>
+								<input type="hidden" name="instructorStar" value="<%= teacher %>">
+								<div class="score_star" id="instructorStarDiv1">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
+							</div>
+							<div class="rating-box">
+								<div class="rating-box-name">서비스</div>
+								<input type="hidden" name="serviceStar" value="<%= service %>">
+								<div class="score_star" id="serviceStarDiv1">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
+							</div>
+							<div class="rating-box">
+								<div class="rating-box-name">가격</div>
+								<input type="hidden" name="priceStar" value="<%= price %>">
+								<div class="score_star" id="priceStarDiv1">
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
+										class="fas fa-star"></i>
+								</div>
 							</div>
 						</div>
-						<div class="rating-box">
-							<div class="rating-box-name">강사</div>
-							<input type="hidden" name="instructorStar" value="<%= teacher %>">
-							<div class="score_star" id="instructorStarDiv1">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
+					</div>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>시설 키워드</strong>
+						</div>
+						<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
+						<div>
+							<div class="text-center div-addKeyword">
+								<input type="checkbox" name="keyword" id="keyword11" value="체지방 감소" <%= checked[0] %>>
+								<label for="keyword11">체지방 감소</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword12" value="근력 증가" <%= checked[1] %>>
+								<label for="keyword12">근력 증가</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword13" value="재활" <%= checked[2] %>>
+								<label for="keyword13">재활</label>&nbsp;
+								<input type="checkbox" name="keyword" id="keyword14" value="체형교정" <%= checked[3] %>>
+								<label for="keyword14">체형교정</label>&nbsp;
 							</div>
 						</div>
-						<div class="rating-box">
-							<div class="rating-box-name">서비스</div>
-							<input type="hidden" name="serviceStar" value="<%= service %>">
-							<div class="score_star" id="serviceStarDiv1">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
-							</div>
-						</div>
-						<div class="rating-box">
-							<div class="rating-box-name">가격</div>
-							<input type="hidden" name="priceStar" value="<%= price %>">
-							<div class="score_star" id="priceStarDiv1">
-								<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-									class="fas fa-star"></i>
-							</div>
+						<div class="div-keyword">
+							<input type="text" class="addKeyword" placeholder="키워드 직접입력">
+							<button type="button" class="button-keyword">키워드 추가</button>
 						</div>
 					</div>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>시설 키워드</strong>
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>이용 후기</strong>
+						</div>
+						<textarea name="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."><%= review %></textarea>
 					</div>
-					<div class="description">이 운동시설은 어떤 운동시설에 적합하나요? (복수선택가능)</div>
-					<div>
-						<div class="text-center div-addKeyword">
-							<input type="checkbox" name="keyword" id="keyword11" value="체지방 감소" <%= checked[0] %>>
-							<label for="keyword11">체지방 감소</label>&nbsp;
-							<input type="checkbox" name="keyword" id="keyword12" value="근력 증가" <%= checked[1] %>>
-							<label for="keyword12">근력 증가</label>&nbsp;
-							<input type="checkbox" name="keyword" id="keyword13" value="재활" <%= checked[2] %>>
-							<label for="keyword13">재활</label>&nbsp;
-							<input type="checkbox" name="keyword" id="keyword14" value="체형교정" <%= checked[3] %>>
-							<label for="keyword14">체형교정</label>&nbsp;
+					<hr>
+					<div class="section">
+						<div class="title">
+							<strong>사진 올리기</strong>
+						</div>
+						<br>
+						<div class="div-photo">
+							<span class="description">시설 사진이나 운동 사진을 올려주세요. (최대 10개)</span>
+						</div>
+						<div class="image_top" style="margin-top: 10px;">
+						    <div class="image_swiper">
+								<div class="image_div_0">
+						            <label for ="image_plus_0"></label>
+						            <input type="file" name="image_plus_0" id="image_plus_0">
+					        	</div>
+						    </div>
 						</div>
 					</div>
-					<div class="div-keyword">
-						<input type="text" class="addKeyword" placeholder="키워드 직접입력">
-						<button type="button" class="button-keyword">키워드 추가</button>
+					<div class="button-register">
+						<button type="button" class="updateCancleBtn" onclick="location.href='<%= request.getContextPath()%>/detail.do?gNo=<%=gNo%>'">취소하기</button>
+						<button type="submit" class="updateBtn">수정하기</button>
 					</div>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>이용 후기</strong>
-					</div>
-					<textarea name="reviewText" style="width: 95%; height: 150px; margin-top: 10px;" placeholder="300자 이내로 입력해주세요."><%= review %></textarea>
-				</div>
-				<hr>
-				<div class="section">
-					<div class="title">
-						<strong>사진 올리기</strong>
-					</div>
-					<br>
-					<div class="div-photo">
-						<span class="description">시설 사진이나 운동 사진을 올려주세요. (최대 10개)</span>
-					</div>
-					<div class="image_top" style="margin-top: 10px;">
-					    <div class="image_swiper">
-							<div class="image_div_0">
-					            <label for ="image_plus_0"></label>
-					            <input type="file" name="image_plus_0" id="image_plus_0">
-				        	</div>
-					    </div>
-					</div>
-				</div>
-				<div class="button-register">
-					<button type="button" class="updateCancleBtn" onclick="location.href='<%= request.getContextPath()%>/detail.do?gNo=<%=gNo%>'">취소하기</button>
-					<button type="submit" class="updateBtn">수정하기</button>
-				</div>
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 	

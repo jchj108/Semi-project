@@ -170,6 +170,11 @@
 	border-spacing: 30px;
 	border-collapse: separate;
 }
+
+#resultFieldset span{
+	font-size: 18px;
+}
+
 </style>
 <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 </head>
@@ -407,15 +412,17 @@
 								<input type="button" name="next-step" class="next-step" id="finishBtn" value="다음" />
 								<input type="button" name="previous-step" class="previous-step" value="이전" />
 							</fieldset>
-							<fieldset class="fieldset">
+							<fieldset class="fieldset" id="resultFieldset">
 								<div id="nameDiv">
-									<h5>추천 결과 중</h5>
-									<span id="userName"></span> 님이 선호하시는 <span class="userLike"></span>시설 입니다
+									<h4>추천 결과 중</h4>
+									<span id="userName"></span><span>님이 선호하시는</span>
+									<span class="userLike"></span><span>시설 입니다</span><br>
+									<span style="font-size: 15px; color: gray;">클릭하면 시설 상세페이지로 이동합니다</span>
 									<table id="resultTable" style="margin: 10px auto auto auto"></table>
 								</div>
 								<div style="margin-top: 40px; margin-bottom: 50px;">
-									<h5>추천 결과 중</h5>
-									<span class="userLike"></span>을 제외한 시설입니다
+									<h4>추천 결과 중</h4>
+									<span class="userLike"></span><span>을 제외한 시설입니다</span>
 									<table id="otherTable" style="margin: 10px auto auto auto"></table>							
 								</div>
 								<input type="button" name="previous-step" class="previous-step" value="이전" />
@@ -535,8 +542,9 @@
 
 					var $resultTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
 					var $otherTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
+					var check = gymType.includes(userLike);
 					
-					if(gymType.substring(0,2) == userLike){
+					if(check){
 						$num = $('<td>').text(i+1).css('width', '30px');
 						$name = $('<td>').text(gymName).css({'text-align':'left'});
 						
@@ -558,9 +566,9 @@
 					}
 					
 					$('#resultTable td, #otherTable td').mouseenter(function(){
-			   			$(this).parent().css({'cursor':'pointer', 'background':'red'});
+			   			$(this).parent().css({'cursor':'pointer', 'color':'#00B1D2'});
 			   		}).mouseout(function(){
-			   			$(this).parent().css({'background':'none'});
+			   			$(this).parent().css({'color':'black'});
 			   		}).click(function(){
 			   			var num = $(this).parent().index();
 			   			var gNo = data[num].gNo;       
