@@ -3,7 +3,6 @@
 <%
 	ArrayList<Gym> gList = (ArrayList)request.getAttribute("gList");	
 	String cate = request.getParameter("category");
-	
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -82,6 +81,8 @@
       
       .side:hover {color:#00b1d2;}
       
+    
+      
     </style>
   </head>
   <body>
@@ -107,7 +108,7 @@
         <div class="col-lg-9">
           <div class="title"><h4>내 주변의 운동시설</h4></div>
 
-                  
+         
         <div class="row">
        <% if(!gList.isEmpty()) { %>
        	<% for(Gym g : gList) {%>
@@ -193,9 +194,7 @@
   </body>
 
   <script>
-    $('.sort').mouseenter(function () {
-      $(this).css('cursor', 'pointer')
-    })
+  
 
   </script>
 </html>

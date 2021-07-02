@@ -24,12 +24,12 @@
 	font-family: 'Noto Sans KR';
 }
 /* a태그 설정 */
-.nav a, .f2 a {
+.side {
 	text-decoration: none;
 	color: black;
 }
 
-.nav a:hover, .f2 a:hover {
+.side:hover{
 	text-decoration: none;
 	color: #00B1D2;
 }
@@ -121,17 +121,17 @@ footer {
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-3">
-				<h1 class="my-4">지도로 찾기</h1>
-				<div class="list-group">
-					<a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=all'>전체보기</a> <a class="list-group-item"
+				<div class="list-group" style="margin-top: 20px;">
+					<div class="list-group-item" style="font-weight:bold;">지도로 찾기</div>
+					<a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=all'>전체보기</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=living'
-					>생활체육관</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=pool'>수영장</a> <a class="list-group-item"
+					>생활체육관</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=pool'>수영장</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=soccer'
-					>축구장</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=school'>학교체육시설</a> <a class="list-group-item"
+					>축구장</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=school'>학교체육시설</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=tennis'
-					>테니스장</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=golf'>골프연습장</a> <a class="list-group-item"
+					>테니스장</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=golf'>골프연습장</a> <a class="list-group-item side"
 						href='<%=request.getContextPath()%>/map.do?type=footVolley'
-					>족구장</a> <a class="list-group-item" href='<%=request.getContextPath()%>/map.do?type=etc'>기타</a>
+					>족구장</a> <a class="list-group-item side" href='<%=request.getContextPath()%>/map.do?type=etc'>기타</a>
 				</div>
 			</div>
 			<div class="col-lg-9">
