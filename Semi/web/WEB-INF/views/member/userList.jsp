@@ -19,7 +19,6 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>회원 목록</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link
       rel="stylesheet"
       href="https://unpkg.com/swiper/swiper-bundle.min.css"
@@ -136,7 +135,7 @@
 							<% } else { %>
 							<%		for(Member m : list){  %>
 							<tr>
-								<td><input type="checkbox" name="check" onclick="selectOne();" value="<%= m.getM_email() %>"></td>
+								<td><input type="checkbox" name="check" onclick="selectOne();" id="check<%=m.getM_no() %>" value="<%= m.getM_email() %>"></td>
 								<td><%= m.getM_no() %></td>
 								<td><%= m.getM_email() %></td>
 								<td><%= m.getM_name() %></td>
@@ -268,19 +267,21 @@
 			}
 		};
 		
-		
-		
 		$(function(){
 			$('#listTable td').mouseenter(function(){
 				$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
 			}).mouseout(function(){
 				$(this).parent().css('background', 'none');
-			}).click(function(){ // 리스트 클릭했을 때 동작
-//	 			var bId = $(this).parent().children().eq(0).text();
-				
-	<%-- 			location.href='<%= request.getContextPath() %>/detail.bo?bId=' + bId; --%>
-				
+			}).click(function(){ 
+				var checkArea = $(this).eq(0).val();
+			
+				if(checkArea == $(this).text()){
+				} else {
+					var mNo = $(this).parent().children().eq(1).text();
+					location.href='<%= request.getContextPath() %>/userDetail.ad?mNo=' + mNo;
+				}
 			});
+			
 		});
 	</script>
 	<!-- Bootstrap core JS-->

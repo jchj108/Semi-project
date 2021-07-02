@@ -15,7 +15,7 @@ import board.model.vo.PageInfo;
 import gym.model.vo.Gym;
 import member.model.dao.MemberDAO;
 import member.model.vo.Member;
-import page.model.vo.Page;
+
 import review.model.vo.Review;
 
 
@@ -71,7 +71,7 @@ public class MemberService {
 		return result;
 	}
 
-	public ArrayList<Board> selectMyBoard(int mNo, Page pageInfo) {
+	public ArrayList<Board> selectMyBoard(int mNo, PageInfo pageInfo) {
 		Connection conn = getConnection();
 		
 		ArrayList<Board> list = new MemberDAO().selectMyBoard(conn, mNo, pageInfo);
@@ -101,7 +101,7 @@ public class MemberService {
 		return count;
 	}
 
-	public ArrayList<Review> selectMyReview(int mNo, Page pageInfo) {
+	public ArrayList<Review> selectMyReview(int mNo, PageInfo pageInfo) {
 		Connection conn = getConnection();
 		
 		ArrayList<Review> list = new MemberDAO().selectMyReview(conn, mNo, pageInfo);
@@ -122,7 +122,7 @@ public class MemberService {
 		
 	}
 
-	public ArrayList<Comments> selectMyComment(int mNo, Page pageInfo) {
+	public ArrayList<Comments> selectMyComment(int mNo, PageInfo pageInfo) {
 		Connection conn = getConnection();
 		
 		ArrayList<Comments> list = new MemberDAO().selectMyComment(conn, mNo, pageInfo);
@@ -213,7 +213,7 @@ public class MemberService {
 		return count;
 	}
 
-	public ArrayList<Gym> selectMyFav(int mNo, Page pi) {
+	public ArrayList<Gym> selectMyFav(int mNo, PageInfo pi) {
 		Connection conn = getConnection();
 		
 		ArrayList<Gym> list = new MemberDAO().selectMyFav(conn, pi, mNo);

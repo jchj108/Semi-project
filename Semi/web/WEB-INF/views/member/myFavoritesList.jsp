@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.*, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, gym.model.vo.*, board.model.vo.PageInfo"%>
     
 <%
 	ArrayList<Gym> list = (ArrayList)request.getAttribute("list");
 	
-	Page pageInfo = (Page)request.getAttribute("pageInfo");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
@@ -18,7 +18,7 @@
 <meta name="description" content="" />
 <meta name="author" content="" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<title>마이페이지 - 리뷰관리</title>
+<title>마이페이지 - 즐겨찾기</title>
 <!-- Favicon-->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Core theme CSS (includes Bootstrap)-->
@@ -107,15 +107,16 @@
 		        <% for(Gym g : list) {%>	           
 	            <div class="col-lg-4 col-md-6 mb-4">
 	              <div class="card h-100">
-	                <a href="#!"
+	                <a href="detail.do?gNo=<%=g.getG_NO()%>"
 	                  ><img
 	                    class="card-img-top"
 	                    src="<%=request.getContextPath()%>/gym_uploadFiles/<%= g.getG_FILE() %>"
 	                    alt="..."
+	                    height="170"
 	                /></a>
 	                <div class="card-body">
 	                  <h4 class="card-title">
-	                    <a href="#!" style="color: #00b1d2"><%= g.getG_NAME() %></a>
+	                    <a href="detail.do?gNo=<%=g.getG_NO()%>" style="color: #00b1d2"><%= g.getG_NAME() %></a>
 	                  </h4>
 	
 	                  <p class="card-text"><%=g.getG_ADDRESS() %></p>

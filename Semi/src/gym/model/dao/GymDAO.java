@@ -16,7 +16,7 @@ import java.util.Properties;
 import board.model.vo.PageInfo;
 import gym.model.vo.GFile;
 import gym.model.vo.Gym;
-import page.model.vo.Page;
+
 
 public class GymDAO {
 
@@ -291,7 +291,7 @@ public class GymDAO {
 		return count;
 	}
 
-	public ArrayList<Gym> selectGList(Connection conn, Page pi, String category) {
+	public ArrayList<Gym> selectGList(Connection conn, PageInfo pi, String category) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> gList = new ArrayList<Gym>();
@@ -329,7 +329,7 @@ public class GymDAO {
 		return gList;
 	}
 
-	public ArrayList<Gym> selectGEList(Connection conn, Page pi) {
+	public ArrayList<Gym> selectGEList(Connection conn, PageInfo pi) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> gList = new ArrayList<Gym>();
@@ -727,10 +727,10 @@ public class GymDAO {
 				pstmt.setString(1, f.getgOriginName());
 				pstmt.setString(2, f.getgChangeName());
 				pstmt.setString(3, f.getgFilePath());
-				pstmt.setInt(4, f.getgFileLv());
-				pstmt.setInt(5, f.getgNo());
-				pstmt.setInt(6, f.getgFileNo());
+				pstmt.setInt(4, f.getgNo());
+				pstmt.setInt(5, f.getgFileNo());
 				
+				System.out.println("dao fileNo" +f.getgFileNo());
 				result += pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -987,6 +987,7 @@ public class GymDAO {
     
     	return count;
 	}
+
 	
 	public Gym selectGymInfo(Connection conn, String gNo) {
 		PreparedStatement pstmt = null;
@@ -1026,8 +1027,10 @@ public class GymDAO {
 		}
 		return g;
 	}
+
 	
-	public ArrayList<Gym> locationList(Connection conn, Page pi, String loca) {
+	public ArrayList<Gym> locationList(Connection conn, PageInfo pi, String loca) {
+
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Gym> list = new ArrayList<Gym>();
@@ -1055,12 +1058,15 @@ public class GymDAO {
 				list.add(g);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally {
+			close(rset);
 			close(pstmt);
 		}
-		
+
+
 		return list;
+		
 	}
 
 	public int updateCount(Connection conn, String gNo) {
@@ -1100,7 +1106,6 @@ public class GymDAO {
 				gf.setgFileNo(rset.getInt("g_file_no"));
 				gf.setgFileLv(rset.getInt("g_file_lv"));
 				gf.setgFilePath(rset.getString("g_file_path"));
-				gf.setgChangeName(rset.getString("g_change_name"));
 				
 				list.add(gf);
 			}
@@ -1158,6 +1163,37 @@ public class GymDAO {
 		return result;
 	}
 
+	public int updateInsertGFile(Connection conn, ArrayList<GFile> fileList) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		//insertGFile=INSERT INTO G_FILE VALUES(GFILE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, 0, DEFAULT)
+		String query = prop.getProperty("updateInsertGFile");
+		
+		try {
+			for(int i = 0; i < fileList.size(); i++) {
+				if(fileList.get(i).getgFileNo() == -1) {
+					GFile f = fileList.get(i);
+					
+					pstmt = conn.prepareStatement(query);
+					pstmt.setInt(1, f.getgNo());
+					pstmt.setString(2, f.getgOriginName());
+					pstmt.setString(3, f.getgChangeName());
+					pstmt.setString(4, f.getgFilePath());
+					
+					System.out.println("dao updateInsert fileNo" +f.getgFileNo());
+					result += pstmt.executeUpdate();
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+
 	public int insertFavorite(Connection conn, int gNo, int mNo) {
 		PreparedStatement pstmt = null;
 		int result = 0;
@@ -1173,9 +1209,6 @@ public class GymDAO {
 		} finally {
 			close(pstmt);
 		}
-		
 		return result;
 	}
-	
-
 }

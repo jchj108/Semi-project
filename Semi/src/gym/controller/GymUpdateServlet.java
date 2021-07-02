@@ -3,6 +3,7 @@ package gym.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 
 import javax.servlet.ServletException;
@@ -39,9 +40,19 @@ public class GymUpdateServlet extends HttpServlet {
 			if (!f.exists()) {
 				f.mkdirs();
 			}
+			
+			
 
 			MultipartRequest multipartRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8",
 					new MyFileRenamePolicy());
+
+			
+			// 파일 첨부 여부 확인
+			String[] checkImgArr = multipartRequest.getParameterValues("checkUpload");
+			
+			for(int i = 0; i < checkImgArr.length; i++) {
+				System.out.println("checkUpload : " + checkImgArr[i]);
+			}
 			
 			ArrayList<String> saveFiles = new ArrayList<String>();
 			ArrayList<String> originFiles = new ArrayList<String>(); 
@@ -51,10 +62,11 @@ public class GymUpdateServlet extends HttpServlet {
 			while (files.hasMoreElements()) { 
 				String name = files.nextElement(); 
 				// getFilesystemName(name) : rename메소드에서 작성한대로 바뀐 파일 명 반환, 파일이 없다면 null
-				System.out.println(multipartRequest.getFilesystemName(name));
+				System.out.println("getfileSystemName : " + multipartRequest.getFilesystemName(name));
+				System.out.println("originalfilename : " + multipartRequest.getOriginalFileName(name));
 				
 				if (multipartRequest.getFilesystemName(name) != null) {
-					saveFiles.add(multipartRequest.getFilesystemName(name)); // 그대로 들어가면 된다.
+					saveFiles.add(multipartRequest.getFilesystemName(name)); // 그대로 들어가면 된다.					multipartRequest.getFile
 					originFiles.add(multipartRequest.getOriginalFileName(name)); // 원래 이름은 getOriginalFilename
 					// getOriginalFileName(name) : 실제 사용자가 업로드 할 때의 파일 명 반환
 				}
@@ -87,62 +99,42 @@ public class GymUpdateServlet extends HttpServlet {
 			g.setG_IN_OUT(in_out);
 			g.setG_COVID(covid);
 			
-			System.out.println("updateServlet : " + g);
-			
 			String[] hiddenImgs = multipartRequest.getParameterValues("hiddenImgs");
-			int count = 0;
 			
-			for(int i = 0; i < hiddenImgs.length; i++) {
-				if(!hiddenImgs[i].equals("")) {
-					count ++;
-				}
-			}
+			ArrayList<Integer> originImgNoList = new ArrayList<Integer>(); // array -> arraylist
 
-			int[] iArr = new int[count];
-			
-			for(int i = 0; i < hiddenImgs.length; i++) {
-				if(!hiddenImgs[i].equals("")) {
-					iArr[i] = Integer.parseInt(hiddenImgs[i]);
+			for(int i = 0; i<hiddenImgs.length; i++) {
+				if(!hiddenImgs[i].equals("0")) {
+				originImgNoList.add(Integer.parseInt(hiddenImgs[i]));
 				}
 			}
-			
-			for(int i = 0; i< iArr.length; i++) {
-				System.out.println("iArr: "+iArr[i]);
+			for(int i : originImgNoList) {
+				System.out.println("originImgNoList : " + i);
 			}
 			
-			ArrayList<Integer> originImgList = new ArrayList<Integer>(); // array -> arraylist
-			for(int i = 0; i<iArr.length; i++) {
-				originImgList.add(iArr[i]);
-			}
+			Collections.reverse(originImgNoList);
+			System.out.println("originImgNoList size : " + originImgNoList.size());
 			
-			for(int i : originImgList) {
-				System.out.println("originImgList : " + i);
-			}
-			
+			System.out.println("originFiles.size : " + originFiles.size());
 			ArrayList<GFile> fileList = new ArrayList<GFile>();
-			for (int i = originFiles.size() - 1; i >= 0; i--) {
+			for (int i = originFiles.size() - 1; i >= 0; i--) { // 파일 업로드 횟수만큼
 				GFile gFile = new GFile();
 				
 				gFile.setgNo(gymNo);
-				gFile.setgFileNo(originImgList.get(i));
+				gFile.setgFileNo(originImgNoList.get(i));
+				System.out.println("originImgNoList(들어가는 파일넘버) :" + originImgNoList.get(i));
+				
 				gFile.setgFilePath(savePath);
 				gFile.setgOriginName(originFiles.get(i));
 				gFile.setgChangeName(saveFiles.get(i));
 
-				// 0이 들어가면 썸네일, 1이면 일반
-				
-				if (i == originFiles.size() - 1) { // size는 4가 반환되기 때문에 -1을 해주어야 한다.
-					gFile.setgFileLv(0);
-				} else {
-					gFile.setgFileLv(1);
-				}
 				fileList.add(gFile);
 			}
 			
 			for(GFile gf : fileList) {
-				System.out.println("gFList : " + gf);
+				System.out.println("fileList : " + gf);
 			}
-
+			System.out.println("fileList size : " + fileList.size());
 			int result = new GymService().updateGym(g, fileList);
 
 			if (result > 0) {
@@ -152,7 +144,7 @@ public class GymUpdateServlet extends HttpServlet {
 					File fail = new File(savePath + saveFiles.get(i));
 					fail.delete(); // 제대로 가져오지 못하면 지워준다.
 				}
-				request.setAttribute("msg", "시설 등록에 실패하였습니다.");
+				request.setAttribute("msg", "시설 수정에 실패하였습니다.");
 				request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
 			}
 		}

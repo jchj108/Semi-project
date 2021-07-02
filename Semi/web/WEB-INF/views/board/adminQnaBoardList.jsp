@@ -273,11 +273,15 @@
 		}).mouseout(function(){
 			$(this).parent().css('background', 'none');
 		}).click(function(){
-// 			var bId = $(this).parent().children().eq(0).text();
-
-<%-- 			location.href='<%= request.getContextPath() %>/detail.bo?bId=' + bId; --%>
-			
+			var checkArea = $(this).eq(0).val();
+		
+			if(checkArea == $(this).text()){
+			} else {
+				var qNo = $(this).parent().children().eq(1).text();
+				location.href='<%= request.getContextPath() %>/adminBoardDetail.ad?qNo=' + qNo;
+			}
 		});
+		
 	});
 	
     </script>

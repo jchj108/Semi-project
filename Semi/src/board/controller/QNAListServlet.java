@@ -33,6 +33,10 @@ public class QNAListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		String searchList = request.getParameter("searchList");
+		String kw = request.getParameter("searchKeyword");
+		
 		Member m = (Member)request.getSession().getAttribute("loginUser");
 		int mNo = m.getM_no();
 		String bDiv = "Q";
@@ -55,27 +59,53 @@ public class QNAListServlet extends HttpServlet {
 		int endPage;
 		
 		if(m.getM_auth() == 0) {
-			listCount = bService.getListCount(bDiv);
-			maxPage = (int)Math.ceil((double)listCount / boardLimit);
-			startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
-			endPage = (startPage + pageLimit) - 1;
-			if(endPage > maxPage) {
-				endPage = maxPage;
+			if(kw == null && searchList == null) {
+				listCount = bService.getListCount(bDiv);
+				maxPage = (int)Math.ceil((double)listCount / boardLimit);
+				startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+				endPage = (startPage + pageLimit) - 1;
+				if(endPage > maxPage) {
+					endPage = maxPage;
+				}
+				
+				pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+				qList = bService.selectBoardList(pi, bDiv);
+			} else {
+				listCount = bService.getSearchQnaCount1(searchList, kw);
+				maxPage = (int)Math.ceil((double)listCount / boardLimit);
+				startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+				endPage = (startPage + pageLimit) - 1;
+				if(endPage > maxPage) {
+					endPage = maxPage;
+				}
+				
+				pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+				qList = bService.selectSearchQna1(pi, searchList, kw);
 			}
-			
-			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-			qList = bService.selectBoardList(pi, bDiv);
 		} else {
-			listCount = bService.getQListCount(mNo);
-			maxPage = (int)Math.ceil((double)listCount / boardLimit);
-			startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
-			endPage = (startPage + pageLimit) - 1;
-			if(endPage > maxPage) {
-				endPage = maxPage;
+			if(kw == null && searchList == null) {
+				listCount = bService.getQListCount(mNo);
+				maxPage = (int)Math.ceil((double)listCount / boardLimit);
+				startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+				endPage = (startPage + pageLimit) - 1;
+				if(endPage > maxPage) {
+					endPage = maxPage;
+				}
+				
+				pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+				qList = bService.selectQList(pi, mNo);
+			} else {
+				listCount = bService.getSearchQnaCount2(searchList, kw, mNo);
+				maxPage = (int)Math.ceil((double)listCount / boardLimit);
+				startPage = ((currentPage - 1) / pageLimit) * pageLimit + 1;
+				endPage = (startPage + pageLimit) - 1;
+				if(endPage > maxPage) {
+					endPage = maxPage;
+				}
+				
+				pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
+				qList = bService.selectSearchQna2(pi, searchList, kw, mNo);
 			}
-			
-			pi = new PageInfo(currentPage, listCount, pageLimit, boardLimit, maxPage, startPage, endPage);
-			qList = bService.selectQList(pi, mNo);
 		}
 		
 		String page = null;

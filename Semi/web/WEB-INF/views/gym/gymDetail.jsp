@@ -118,8 +118,6 @@ input {
 	text-align: right;
 }
 
-#bookmarkBtn{width: 120px;}
-
 .main-button {
 	width: 120px;
 	height: 40px;
@@ -249,11 +247,7 @@ input {
 	                <% } else {%>
 	                <div class="carousel-inner" role="listbox" style="width: 700px;">
 	                <%		for(int i = 0; i < fList.size(); i++){ %>
-	                <%			if(i == 0){ %>
-				                <div class="carousel-item active"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="No.<%=i %> slide" width='900' height='400'/></div>
-	                <%			} else { %>
-	                			<div class="carousel-item"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="No.<%=i %> slide" width='900' height='400'/></div>
-	                <%			} %>
+				                <div class="carousel-item active"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="..." width='900' height='400'/></div>
 	                <%		} %>
 	                </div>
 	                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -323,6 +317,7 @@ input {
                     </div>
                     <hr>
                 </div>
+
                 
 				<!-- 리뷰 목록 출력  -->
 				<% for(int i = 0; i < rList.size(); i++){ %>
@@ -397,8 +392,110 @@ input {
 											<div class="reviewImgDiv">
 												<img class="reviewImg" src="<%= request.getContextPath() %>/review_uploadFiles/<%= raList.get(j).getR_change_name() %>">
 												</div>
+
+						<!-- 리뷰 목록 출력  -->
+				
+						<div class="reviewTotal" style="width: 700px;">
+							<div style="font-size: 19px;">
+								<h3>0건의 방문자 평가</h3>
+								<br> <label>0.0점</label>&nbsp;<label class='star'>☆☆☆☆☆</label><br>
+								<label>시설</label> <label class="star">★</label><label>0.0</label>&nbsp;&nbsp;&nbsp;<label>서비스</label>
+								<label class="star">★</label><label>0.0</label>&nbsp;&nbsp;&nbsp;<label>강사</label>
+								<label class="star">★</label><label>0.0</label><br> <br>
+								<label>방문목적</label>&nbsp;&nbsp;<span class="keyword"
+									style="font-size: 16px;"> 체지방 감소(2) </span>&nbsp;<span
+									class="keyword" style="font-size: 16px;"> 체지방 감소(2) </span>
+							</div>
+							<hr>
+						</div>
+				<% if(!rList.isEmpty()){ %>
+						<% for(int i = 0; i < rList.size(); i++){ %>
+						<div class="review-card" style="width: 700px; border: 1px solid lightgray;">
+							<table class="review-info" style="width: 97%;">
+								<tr>
+									<td style="width: 12%;">
+										<img src="<%=request.getContextPath()%>/profile_uploadFiles/<%=rList.get(i).getM_profile()%>" style="height: 70px;">
+									</td>
+									<td colspan="2">
+										<b style="font-size: 20px;"><%= rList.get(i).getReviewerName() %></b><br>
+										<div class="score_star totalStarDiv<%=i%>">
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+										</div>
+										&nbsp;
+										<span><%= rList.get(i).getR_date() %></span>
+									</td>
+								</tr>
+								<tr style="height: 40px;">
+									<td colspan="3" id="starTd">
+										<span>시설</span>
+										<div class="score_star facilityStarDiv<%=i%>">
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+										</div>
+										&nbsp;
+										<span>강사</span>
+										<div class="score_star instructorStarDiv<%=i%>">
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+										</div>
+										&nbsp;
+										<span>서비스</span>
+										<div class="score_star serviceStarDiv<%=i%>">
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+										</div>
+										&nbsp;
+										<span>가격</span>
+										<div class="score_star priceStarDiv<%=i%>">
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+											<span class="fas fa-star"></span>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3" style="padding-top: 20px; padding-bottom: 20px;">
+										<%= rList.get(i).getR_body() %>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3" style="padding-top: 20px; padding-bottom: 20px;">
+										<div class="image_top">
+											<% for(int j=0; j < raList.size(); j++){ %>
+												<% if(rList.get(i).getR_no() == raList.get(j).getR_no()){ %>
+													<div class="reviewImgDiv">
+														<img class="reviewImg" src="<%= request.getContextPath() %>/review_uploadFiles/<%= raList.get(j).getR_change_name() %>">
+	 												</div>
+												<% } %>
+											<% } %>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="3" style="padding-bottom: 20px;">
+										<% String[] keywordArr = rList.get(i).getR_keyword().split(",");
+												for(int j = 0; j < keywordArr.length; j++){
+										%>
+											<span class="keywords keyword<%=i%>"><%= keywordArr[j] %></span>
+
 										<% } %>
 									<% } %>
+
 								</div>
 							</td>
 						</tr>
@@ -425,6 +522,19 @@ input {
 							<% } %>
 						</tr>
 					</table>
+
+								</tr>
+							</table>
+						</div>
+						<% } %>
+				<% } else { %>
+						<div style="width: 700px; height: 300px; margin: 10px;">
+						<h3>리뷰</h3>
+							<p style="font-size: 22px; padding-top: 60px; color: gray; text-align: center;">아직 작성된 리뷰가 없어요<br>첫 번째 후기를 남겨주세요!</p>
+						</div>
+				<% } %>
+					</div>
+
 				</div>
 				<% } %>
 			</div>

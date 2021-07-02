@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList, review.model.vo.Review, page.model.vo.Page"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList, review.model.vo.Review, board.model.vo.PageInfo"%>
 <%
 	ArrayList<Review> list = (ArrayList)request.getAttribute("list");
 	int gNo = 0;
 	
-	Page pageInfo = (Page)request.getAttribute("pageInfo");
+	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
 	int currentPage = pageInfo.getCurrentPage();
 	int startPage = pageInfo.getStartPage();
 	int endPage = pageInfo.getEndPage();
