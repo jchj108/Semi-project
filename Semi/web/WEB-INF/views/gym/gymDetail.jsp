@@ -6,6 +6,8 @@
 	ArrayList<Review> rList = (ArrayList)request.getAttribute("rList");
 	ArrayList<ReviewAttachment> raList = (ArrayList)request.getAttribute("raList");
 	
+	double xCode = g.getG_XCODE();
+	double yCode = g.getG_YCODE();
 	int gNo = g.getG_NO();
 	int total = 0;
 	for(Review r : rList){
@@ -24,6 +26,7 @@
 	  rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"></script>
 </head>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -205,18 +208,16 @@ input {
 				<div class="list-group">
 					<!-- 지도 -->
 					<div id="map" style="width: 230px; height: 230px;"></div>
-					<script
-						src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=51a2be588394023dffe06fdafc5726ca"></script>
 					<script>
-						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						mapOption = {
-									center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
-									level: 3, // 지도의 확대 레벨
-								    mapTypeId : kakao.maps.MapTypeId.ROADMAP // 지도종류
-						}; 
-						
-						// 지도를 생성한다 
-						var map = new kakao.maps.Map(mapContainer, mapOption); 
+					var map = new naver.maps.Map('map', {
+					    center: new naver.maps.LatLng(<%=yCode%>, <%=xCode%>),
+					    zoom: 15
+					});
+
+					var marker = new naver.maps.Marker({
+					    position: new naver.maps.LatLng(<%=yCode%>, <%=xCode%>),
+					    map: map
+					});
 					</script>
 					<br>
 					<div class="list-group-item" style="font-weight: bold;">운동
@@ -450,7 +451,8 @@ input {
 				</div>
 				<% } %>
 			</div>
-
+		</div>
+	</div>
 	<!-- Footer-->
 	<%@include file="../common/footer.jsp"%>
 	

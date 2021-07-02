@@ -299,7 +299,7 @@ input#search_service {
 .swiper-slide img {
 	display: block;
 	width: 100%;
-	height: 100%;
+	height: 223.812px;
 	object-fit: cover;
 	border-radius: 10px;
 	margin-bottom: 5px;
@@ -922,7 +922,6 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 				<div style="position:absolute; top:30%; margin-left:25px">📍 서울시 공공 체육 시설을 자치구별로 확인하세요</div></div>
 				<ul class="location-list">
 					<li>종로구</li>
-					<li>중구</li>
 					<li>용산구</li>
 					<li>성동구</li>
 					<li>광진구</li>
