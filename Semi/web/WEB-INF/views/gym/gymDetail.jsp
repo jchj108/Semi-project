@@ -204,8 +204,7 @@ input {
 	<div class="container" style="height: auto;">
 		<div class="row">
 			<div class="col-lg-3">
-				<div class="float_sidebar">
-					<div class="list-group">
+				<div class="list-group">
 					<!-- 지도 -->
 	 				<div id="map" style="width: 230px; height: 230px;"></div>
 	 					<script>
@@ -294,7 +293,6 @@ input {
 							href="gymCategory.do?category=basketball">농구</a>
 					</div>
 				</div>
-			</div>
 			<div class="col-lg-9">
 				<!-- image -->
 				<div class="carousel slide my-4" id="carouselExampleIndicators"
@@ -330,14 +328,7 @@ input {
 						<label id="facilityName"><%=g.getG_NAME() %></label><br> <label
 							id="guName"><%=g.getG_GU_NM() %> | </label> <label id="gymType">
 							<%=g.getG_TYPE_NM() %>
-						</label><br> <label class="point"><%=rList.size() %>명의 평가</label>│ <label
-							class="point"><%=avg%>점</label>&nbsp;
-						<div class="score_star" id="avgStarDiv"
-							style="display: inline-block;">
-							<span class="fas fa-star"></span> <span class="fas fa-star"></span>
-							<span class="fas fa-star"></span> <span class="fas fa-star"></span>
-							<span class="fas fa-star"></span>
-						</div>
+						</label>
 						<br>
 						<div id="review-bookmark-btn">
 							<span id="share" style="float: left"> <a
@@ -438,27 +429,27 @@ input {
                 		<label>시설</label> 
                 		<span class="fas fa-star rev"></span>
                 		<label><%=(double)Math.round(gSum/rList.size()*10)/10 %></label>
-                		&nbsp&nbsp&nbsp
+                		&nbsp;&nbsp;&nbsp;
                 		<label>서비스</label> 
                 		<span class="fas fa-star rev"></span>
                 		<label><%=(double)Math.round(sSum/rList.size()*10)/10 %></label>
-                		&nbsp&nbsp&nbsp<label>강사</label> 
+                		&nbsp;&nbsp;&nbsp;<label>강사</label> 
                 		<span class="fas fa-star rev"></span>
                 		<label><%=(double)Math.round(tSum/rList.size()*10)/10 %></label>
                 		</div>
                 		<br>
                 		<br>
                 		<label>방문목적</label>
-                		&nbsp
-                		&nbsp
+                		&nbsp;
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="fatloss"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="strength"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="remedial"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="bodyShape"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="etc"></span>
                 	</div>
                 	<hr>
@@ -572,8 +563,6 @@ input {
 	<!-- 리뷰 목록 출력  -->
 		$('.fa-star').css({'color': 'lightgray'});
 		$('.fa-heart').css({'color':'#EE0000', 'font-size':'20px'});
-		$('#avgStarDiv .fa-star').css({'color':'lightgray', 'font-size':'20px'});
-		$('#avgStarDiv').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2'});
 		
 		<% for(int i = 0; i < rList.size(); i++){ %>
 			$('.totalStarDiv<%=i%>').find(':nth-child(-n+<%= rList.get(i).getR_total() %>)').css({color:'#ffd700'});
@@ -613,7 +602,7 @@ input {
 		<% } %>
 		
 		
-		$('#reviewAvgStar').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2'});
+		$('#reviewAvgStar').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2', 'font-size':'20px'});
 		
 		$('#bookmarkBtn').on('click', function(){
 	  		$.ajax({
@@ -675,32 +664,6 @@ input {
 		}
 		
 		$('.rev').css({'color':'#00B1D2'});
-		
-		$(function(){
-			var $win = $(window);
-			var top = $(window).scrollTop(); // 현재 스크롤바 위치값 반환
-			
-			var speed = 500;
-			var easing = 'linear';
-			var $layer = $('.float_sidebar');
-			var layerTopOffset = 0;
-			$layer.css('position', 'relative').css('z-index', '1');
-			
-			if(top > 0){
-				$win.scrollTop(layerTopOffset+top);
-			} else {
-				$win.scrollTop(0);
-			}
-			
-			$(window).scroll(function(){
-				yPosition = $win.scrollTop() - 100;
-				if(yPosition < 0){
-					yPosition = 0;
-				}
-				
-				$layer.animate({"top":yPosition}, {duration:speed, easing:easing, queue:false});
-			});
-		});
 		
 		$(window).ready(function(){
 			$.ajax({

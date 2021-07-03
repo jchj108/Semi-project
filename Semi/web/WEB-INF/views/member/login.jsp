@@ -57,6 +57,9 @@
 		$('#signUpLogin').on('click', function(){
 			$('#loginModal').modal("hide");
 			$('#signUpModal').modal("show");
+			
+			$('body').css("overflow", "hidden");
+			$('#signUpModal').css("overflow", "scroll");
 		});
 		
 		window.Kakao.init("07a99d78f7b743ace5cbf5de3b116c13");
@@ -96,7 +99,6 @@
 		
 		$('#findPwd').on('click', function(){
 			$('#loginModal').modal("hide");
-//  			$('#exampleModal').modal("show");
 			
 			location.href = "<%=request.getContextPath() %>/findPwdForm.me";
 		});
