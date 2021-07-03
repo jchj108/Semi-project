@@ -38,13 +38,13 @@
 	}
 	
 	/* login */
-	#signUpLogin:hover, #findPwd:hover{
+	#signUpLogin:hover, #findPwd:hover {
 		cursor: pointer;
 		text-decoration: none;
 		color: #00B1D2;
 	}
 	
-	#loginDiv, #signUpDiv{
+	#loginDiv, #signUpDiv, #adminDiv{
 		max-width: 680px;
 		margin-top: 80px;
 		padding: 20px;
@@ -104,9 +104,9 @@
 							</p>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">								
 								<button class="dropdown-item" type="button" onclick="location.href='userList.li'">회원정보관리</button>
-								<button class="dropdown-item" type="button" onclick="location.href='gymManage.do'">시설관리</button>
 								<button class="dropdown-item" type="button" onclick="location.href='qnaBoardList.li'">게시글관리</button>
-								<button class="dropdown-item" type="button" onclick="location.href='adminStatistics.li'">통계조회</button>
+								<button class="dropdown-item" type="button" onclick="location.href='gymManage.do'">시설관리</button>
+								<button class="dropdown-item" type="button" id="adminView">방문자수</button>
 								<div class="dropdown-divider"></div>
 								<button class="dropdown-item text-right" type="button" id="logout">로그아웃</button>
 							</div>
@@ -162,6 +162,11 @@
 		<%@include file="../member/signUp.jsp" %>
 	</div>
 	
+	<!-- 통계조회 -->
+	<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+		<%@include file="../board/adminStatistics.jsp" %>
+	</div>
+	
 	<script>
 		$('#login').on('click', function(){
 			$('#loginModal').modal("show");
@@ -183,6 +188,10 @@
 		
 		$('#signUp').on('click', function() {
 			$('#signUpModal').modal("show");		
+		});
+		
+		$('#adminView').on('click', function() {
+			$('#adminModal').modal("show");		
 		});
 		
 		$('.homeLogo').on('click', function(){
