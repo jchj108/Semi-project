@@ -76,8 +76,22 @@ public class GymInsertServlet extends HttpServlet {
 			String gymParking = multipartRequest.getParameter("gymParking");
 			String gymBigo = multipartRequest.getParameter("gymBigo");
 			String addr = multipartRequest.getParameter("gymAddr");
+			
 			String[] addrArray = addr.split(" "); // 입력받은 주소를 띄어쓰기로 나눔
-			String gu = addrArray[0]; // 첫 번째 배열을 gu에 저장. 구, 동, 상세 주소로 입력받음
+			String[] guArr = {"강남구", "강동구", "강서구", "강북구", "관악구", "광진구", "구로구", "금천구", 
+							  "노원구", "동대문구", "도봉구", "동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구",
+							  "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구"};
+			String gu= "-";
+			loop: // 다중 루프 빠져나오기 위한 이름
+			for(int i = 0; i<addrArray.length; i++) {
+				for(int j = 0; j < guArr.length; j++) {
+					if(addrArray[i].equals(guArr[j])) {
+						gu = guArr[j];
+						break loop;
+					} 
+				}
+			}
+			
 			String edu_yn = multipartRequest.getParameter("edu_yn");
 			String in_out = multipartRequest.getParameter("in_out");
 			int covid = Integer.parseInt(multipartRequest.getParameter("covid"));

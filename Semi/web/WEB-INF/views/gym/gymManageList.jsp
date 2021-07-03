@@ -56,6 +56,10 @@ String searchKeyword = (String) request.getAttribute("keyword");
 	text-align: center;
 }
 
+.notice {
+	margin-bottom: 50px;
+}
+
 th {
 	width: 240px;
 	background-color: #00b1d2;
@@ -76,7 +80,14 @@ th:nth-child(4n) {
 	width: 500px;
 }
 
+th:nth-child(5n) {
+	width: 200px;
+}
 th:nth-child(6n) {
+	width: 200px;
+}
+
+th:nth-child(7n) {
 	width: 200px;
 }
 
@@ -189,6 +200,7 @@ tr, td {
 									<th>타입</th>
 									<th>군/구</th>
 									<th>조회수</th>
+									<th>상세보기</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -196,7 +208,7 @@ tr, td {
 									if (list.isEmpty()) {
 								%>
 								<tr>
-									<td colspan="5">작성된 시설이 없습니다.</td>
+									<td colspan="7">작성된 시설이 없습니다.</td>
 								</tr>
 								<%
 									} else {
@@ -213,6 +225,7 @@ tr, td {
 									<td><%=g.getG_TYPE_NM()%></td>
 									<td><%=g.getG_GU_NM()%></td>
 									<td><%=g.getG_COUNT()%></td>
+									<td class="detail"><a href="<%=cp %>/detail.do?gNo=<%=g.getG_NO() %>"><button type="button" class="btn btn-default btn-sm">상세보기</button></a></td>
 								</tr>
 								<%
 									}
@@ -462,15 +475,15 @@ tr, td {
 	}
 	
 	$(function(){
-		$('#listTable td').mouseenter(function(){
+		$('#listTable td').mouseover(function(){
 			$(this).parent().css({'background':'darkgray', 'cursor':'pointer'});
-		}).mouseout(function(){
+		}).mouseleave(function(){
 			$(this).parent().css('background', 'none');
 		});
 	});
 	
 	$(function() {
-		$('#listTable td:not(.checkBoxes)').click(function() { // 체크박스 시 modal popup 제외
+		$('#listTable td:not(.checkBoxes, .detail)').click(function() { // 체크박스 시 modal popup 제외
 			
 			var gNo = $(this).parent().children().eq(1).text();
 			var changeName = [];

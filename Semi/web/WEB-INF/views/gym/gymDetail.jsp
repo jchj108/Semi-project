@@ -6,8 +6,6 @@
 	ArrayList<Review> rList = (ArrayList)request.getAttribute("rList");
 	ArrayList<ReviewAttachment> raList = (ArrayList)request.getAttribute("raList");
 	
-	double xCode = g.getG_XCODE();
-	double yCode = g.getG_YCODE();
 	int gNo = g.getG_NO();
 	int total = 0;
 	for(Review r : rList){
@@ -26,7 +24,8 @@
 	  rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/JavaScript" src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=9u1ajgwv8z"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=51a2be588394023dffe06fdafc5726ca&libraries=services"></script>
+
 </head>
 <meta charset="utf-8" />
 <meta name="viewport"
@@ -205,61 +204,115 @@ input {
 	<div class="container" style="height: auto;">
 		<div class="row">
 			<div class="col-lg-3">
-				<div class="list-group">
+				<div class="float_sidebar">
+					<div class="list-group">
 					<!-- 지도 -->
-					<div id="map" style="width: 230px; height: 230px;"></div>
-					<script>
-					var map = new naver.maps.Map('map', {
-					    center: new naver.maps.LatLng(<%=yCode%>, <%=xCode%>),
-					    zoom: 15
-					});
-
-					var marker = new naver.maps.Marker({
-					    position: new naver.maps.LatLng(<%=yCode%>, <%=xCode%>),
-					    map: map
-					});
-					</script>
-					<br>
-					<div class="list-group-item" style="font-weight: bold;">운동
-						카테고리</div>
-					<a class="list-group-item side" href="gymCategory.do?category=all">전체보기</a>
-					<a class="list-group-item side"
-						href="gymCategory.do?category=swimming">수영</a> <a
-						class="list-group-item side" href="gymCategory.do?category=soccer">축구</a>
-					<a class="list-group-item side"
-						href="gymCategory.do?category=tennis">테니스</a> <a
-						class="list-group-item side" href="gymCategory.do?category=golf">골프</a>
-					<a class="list-group-item side"
-						href="gymCategory.do?category=footVolley">족구</a> <a
-						class="list-group-item side"
-						href="gymCategory.do?category=badminton">배드민턴</a> <a
-						class="list-group-item side"
-						href="gymCategory.do?category=basketball">농구</a>
+	 				<div id="map" style="width: 230px; height: 230px;"></div>
+	 					<script>
+		 					var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		 					
+		 				    mapOption = {
+		 				        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+		 				        level: 4 // 지도의 확대 레벨
+		 				    };  
+			 				var map = new kakao.maps.Map(mapContainer, mapOption); 
+			
+			 				var geocoder = new kakao.maps.services.Geocoder();
+			 				
+							if(<%=g.getG_XCODE() %> != 0 && <%= g.getG_YCODE() %> != 0) { // 데이터베이스의 값을 우선적으로 고려함, 값이 없다면 주소->좌표 검색 실행
+								console.log("xycode true");
+								var coords = new kakao.maps.LatLng(<%=g.getG_YCODE() %>, <%=g.getG_XCODE() %>)
+								var marker = new kakao.maps.Marker({
+									map:map,
+									position: coords
+								});
+	 				            var infowindow = new kakao.maps.InfoWindow({
+		 				            content: '<div style="width:170px;text-align:center;padding:6px 0; font-size:13px;"><%= g.getG_NAME() %></div>'
+		 				        });
+		 				        infowindow.open(map, marker);
+		 				        
+		 				        map.setCenter(coords);
+								
+		 				        var markerOn = true;
+		 				        kakao.maps.event.addListener(marker, 'click', function() {
+		 				        	if(markerOn) {
+		 				        		infowindow.close(map, marker);
+		 				        		markerOn = false;
+		 				        	} else {
+		 				        		infowindow.open(map, marker);
+		 				        		markerOn = true;
+		 				        	}
+		 				        });
+							} else {
+			 					console.log("xycode false");
+				 				geocoder.addressSearch('<%=g.getG_ADDRESS()%>', function(result, status) {
+				
+				 				    if (status === kakao.maps.services.Status.OK) {
+			
+				 				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				
+				 				        var marker = new kakao.maps.Marker({
+				 				            map: map,
+				 				            position: coords
+				 				        });
+				 				            var infowindow = new kakao.maps.InfoWindow({
+				 				            content: '<div style="width:170px;text-align:center;padding:6px 0; font-size:13px;"><%= g.getG_NAME() %></div>'
+				 				        });
+				 				        infowindow.open(map, marker);
+			
+			 				    	    // 지도의 중심을 결과값으로 받은 위치로 이동
+			 				 	 	    map.setCenter(coords);
+				 				    	var markerOn = true; // marker onoff
+					 				    kakao.maps.event.addListener(marker, 'click', function() {
+					 				    	if(markerOn) {
+						 						infowindow.close(map, marker);  
+						 						markerOn = false;
+					 				    	} else {
+					 				    		infowindow.open(map, marker);
+					 				    		markerOn = true;
+						 					}
+						 				});
+							 		} 
+								});    
+							}
+	 					</script>
+						<br>
+						<div class="list-group-item" style="font-weight: bold;">운동
+							카테고리</div>
+						<a class="list-group-item side" href="gymCategory.do?category=all">전체보기</a>
+						<a class="list-group-item side"
+							href="gymCategory.do?category=swimming">수영</a> <a
+							class="list-group-item side" href="gymCategory.do?category=soccer">축구</a>
+						<a class="list-group-item side"
+							href="gymCategory.do?category=tennis">테니스</a> <a
+							class="list-group-item side" href="gymCategory.do?category=golf">골프</a>
+						<a class="list-group-item side"
+							href="gymCategory.do?category=footVolley">족구</a> <a
+							class="list-group-item side"
+							href="gymCategory.do?category=badminton">배드민턴</a> <a
+							class="list-group-item side"
+							href="gymCategory.do?category=basketball">농구</a>
+					</div>
 				</div>
 			</div>
 			<div class="col-lg-9">
 				<!-- image -->
 				<div class="carousel slide my-4" id="carouselExampleIndicators"
 					data-ride="carousel" style="width: 700px;">
-
-					<% if(fList.isEmpty()){ %>
-					<div class="carousel-inner" role="listbox" style="width: 700px;">
-						<div class="carousel-item active">
-							<img class="image"
-								src="<%= request.getContextPath() %>/gym_uploadFiles/202106260943378920.jpg"
-								alt="..." width='900' height='400' />
-						</div>
-					</div>
-					<% } else {%>
-					<div class="carousel-inner" role="listbox" style="width: 700px;">
-						<%		for(int i = 0; i < fList.size(); i++){ %>
-						<div class="carousel-item active">
-							<img class="image"
-								src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>"
-								alt="..." width='900' height='400' />
-						</div>
-						<%		} %>
-					</div>
+	                <% if(fList.isEmpty()){ %>
+	                <div class="carousel-inner" role="listbox" style="width: 700px;">
+	                		<div class="carousel-item active"><img class="image" src="<%= request.getContextPath() %>/image/no_image.jpg" alt="..." width='900' height='400'/></div>
+	                </div>
+	                <% } else {%>
+	                <div class="carousel-inner" role="listbox" style="width: 700px;">
+	                <%		for(int i = 0; i < fList.size(); i++){ %>
+	                <%			if(i == 0) {%>
+				                <div class="carousel-item active"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="..." width='900' height='400'/></div>
+				    <%			} else {%>
+				                <div class="carousel-item"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="..." width='900' height='400'/></div>
+				    <%		 	}%>
+	                <%		} %>
+	                </div>
 					<a class="carousel-control-prev" href="#carouselExampleIndicators"
 						role="button" data-slide="prev"> <span
 						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
@@ -349,8 +402,67 @@ input {
 					</div>
 					<hr>
 				</div>
-
-
+                <div class="reviewTotal" style="width: 700px;">
+             		<div style="font-size: 19px;">
+                		<h3><%=rList.size() %>건의 방문자 평가</h3><br>
+                		<% double totalAvg = 0; %>
+                		<% double sSum = 0; %>
+                		<% double tSum = 0; %>
+                		<% double gSum = 0; %>
+                		<% for(int i = 0; i < rList.size(); i++){ %>
+                		<%		sSum += rList.get(i).getR_service(); %>
+                		<%		tSum += rList.get(i).getR_teacher(); %>
+                		<%		gSum += rList.get(i).getR_gym(); %>
+                		<% } %>
+                		<% totalAvg = (sSum + tSum + gSum)/ 3 / rList.size(); %>
+                		<label><%=(double)Math.round(totalAvg * 10)/10 %>점</label>&nbsp
+                		<% if(!rList.isEmpty()){ %>
+                		<% 	  for(int i = 0; i < rList.size(); i++){ %>
+                		<% 	  } %>
+		                		<div id="reviewAvgStar" id="reviewAvg"
+									style="display: inline-block;">
+									<span class="fas fa-star"></span> <span class="fas fa-star"></span>
+									<span class="fas fa-star"></span> <span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+								</div>
+                		<% } else { %>
+                				<div class="score_star" id="reviewAvg"
+									style="display: inline-block;">
+									<span class="fas fa-star"></span> <span class="fas fa-star"></span>
+									<span class="fas fa-star"></span> <span class="fas fa-star"></span>
+									<span class="fas fa-star"></span>
+								</div>
+                		<% } %>
+                		<br>
+                		<div class="reviewTotalStar">
+                		<label>시설</label> 
+                		<span class="fas fa-star rev"></span>
+                		<label><%=(double)Math.round(gSum/rList.size()*10)/10 %></label>
+                		&nbsp&nbsp&nbsp
+                		<label>서비스</label> 
+                		<span class="fas fa-star rev"></span>
+                		<label><%=(double)Math.round(sSum/rList.size()*10)/10 %></label>
+                		&nbsp&nbsp&nbsp<label>강사</label> 
+                		<span class="fas fa-star rev"></span>
+                		<label><%=(double)Math.round(tSum/rList.size()*10)/10 %></label>
+                		</div>
+                		<br>
+                		<br>
+                		<label>방문목적</label>
+                		&nbsp
+                		&nbsp
+                		<span class="keyword" style="font-size: 16px;" id="fatloss"></span>
+                		&nbsp
+                		<span class="keyword" style="font-size: 16px;" id="strength"></span>
+                		&nbsp
+                		<span class="keyword" style="font-size: 16px;" id="remedial"></span>
+                		&nbsp
+                		<span class="keyword" style="font-size: 16px;" id="bodyShape"></span>
+                		&nbsp
+                		<span class="keyword" style="font-size: 16px;" id="etc"></span>
+                	</div>
+                	<hr>
+                </div>
 				<!-- 리뷰 목록 출력  -->
 				<% if(!rList.isEmpty()){ %>
 				<% for(int i = 0; i < rList.size(); i++){ %>
@@ -444,8 +556,7 @@ input {
 				<% } else { %>
 				<div style="width: 700px; height: 300px; margin: 10px;">
 					<h3>리뷰</h3>
-					<p
-						style="font-size: 22px; padding-top: 60px; color: gray; text-align: center;">
+					<p style="font-size: 22px; padding-top: 60px; color: gray; text-align: center;">
 						아직 작성된 리뷰가 없어요<br>첫 번째 후기를 남겨주세요!
 					</p>
 				</div>
@@ -462,7 +573,6 @@ input {
 		$('.fa-star').css({'color': 'lightgray'});
 		$('.fa-heart').css({'color':'#EE0000', 'font-size':'20px'});
 		$('#avgStarDiv .fa-star').css({'color':'lightgray', 'font-size':'20px'});
-		
 		$('#avgStarDiv').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2'});
 		
 		<% for(int i = 0; i < rList.size(); i++){ %>
@@ -501,6 +611,9 @@ input {
 				});
 			});
 		<% } %>
+		
+		
+		$('#reviewAvgStar').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2'});
 		
 		$('#bookmarkBtn').on('click', function(){
 	  		$.ajax({
@@ -551,7 +664,7 @@ input {
 		}
 		
 		function shareFacebook(){
-			var gNo = <%=g.getG_NO() %>
+			var gNo = <%=g.getG_NO()%>
 			var content = "시설 상세 페이지 공유하기";
 			var link = "221.150.23.71/goGym/detail.do?gNo="+gNo;
 			var popOption = "width=600, height=360, resizable=no, scrollbars=no, status=no;";
@@ -560,6 +673,71 @@ input {
 			  wp.focus();
 			} 
 		}
+		
+		$('.rev').css({'color':'#00B1D2'});
+		
+		$(function(){
+			var $win = $(window);
+			var top = $(window).scrollTop(); // 현재 스크롤바 위치값 반환
+			
+			var speed = 500;
+			var easing = 'linear';
+			var $layer = $('.float_sidebar');
+			var layerTopOffset = 0;
+			$layer.css('position', 'relative').css('z-index', '1');
+			
+			if(top > 0){
+				$win.scrollTop(layerTopOffset+top);
+			} else {
+				$win.scrollTop(0);
+			}
+			
+			$(window).scroll(function(){
+				yPosition = $win.scrollTop() - 100;
+				if(yPosition < 0){
+					yPosition = 0;
+				}
+				
+				$layer.animate({"top":yPosition}, {duration:speed, easing:easing, queue:false});
+			});
+		});
+		
+		$(window).ready(function(){
+			$.ajax({
+				url: 'keyword.do',
+				data: {gNo: <%= g.getG_NO()%>},
+				success: function(data){
+					
+					var fatloss = data[0];
+					var strength = data[1];
+					var remedial = data[2];
+					var bodyShape = data[3];
+					var etc = data[4];
+					
+					if(fatloss != 0){
+						$('#fatloss').text('체지방 감소(' + fatloss + ')');
+					}
+					
+					if(strength != 0){
+						$('#strength').text('근력 증가(' + strength + ')');
+					}
+					
+					if(remedial != 0){
+						$('#remedial').text('재활(' + remedial + ')');
+					}
+					
+					if(bodyShape != 0){
+						$('#bodyShape').text('체형교정(' + bodyShape + ')');
+					}
+					
+					if(etc != 0){
+						$('#etc').text('기타(' + etc + ')');
+					}
+					
+				}
+			});
+		});
+		
 	</script>
 </body>
 </html>
