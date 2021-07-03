@@ -299,10 +299,9 @@ input {
 				<!-- image -->
 				<div class="carousel slide my-4" id="carouselExampleIndicators"
 					data-ride="carousel" style="width: 700px;">
-
 	                <% if(fList.isEmpty()){ %>
 	                <div class="carousel-inner" role="listbox" style="width: 700px;">
-	                		<div class="carousel-item active"><img class="image" src="<%= request.getContextPath() %>/gym_uploadFiles/202106260943378920.jpg" alt="..." width='900' height='400'/></div>
+	                		<div class="carousel-item active"><img class="image" src="<%= request.getContextPath() %>/image/no_image.jpg" alt="..." width='900' height='400'/></div>
 	                </div>
 	                <% } else {%>
 	                <div class="carousel-inner" role="listbox" style="width: 700px;">
