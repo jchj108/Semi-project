@@ -109,12 +109,12 @@
 								<th width="50px;"><input type="checkbox" id="allSelect"></th>
 								<th width="80px;">댓글 번호</th>
 								<th>내용</th>						
-								<th width="100px;">작성일</th>								
+								<th width="100px;">작성일</th>														
 							</tr>
 							
 							<% if(list.isEmpty()) { %>
 							<tr>
-								<td colspan="5">작성한 댓글이 없습니다.</td>
+								<td colspan="4">작성한 댓글이 없습니다.</td>
 							</tr>
 							<% } else { %>
 								<% for(Comments c : list) { %>
