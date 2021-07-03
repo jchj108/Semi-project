@@ -225,7 +225,7 @@ tr, td {
 									<td><%=g.getG_TYPE_NM()%></td>
 									<td><%=g.getG_GU_NM()%></td>
 									<td><%=g.getG_COUNT()%></td>
-									<td class="detail"><a href="<%=cp %>/detail.do?gNo=<%=g.getG_NO() %>"><button type="button" class="btn btn-default btn-sm">상세보기</button></a></td>
+									<td class="detail"><a href="<%=cp %>/detail.do?gNo=<%=g.getG_NO() %>"><button type="button" class="btn btn-secondary btn-sm">상세보기</button></a></td>
 								</tr>
 								<%
 									}
@@ -482,146 +482,8 @@ tr, td {
 		});
 	});
 	
-	$(function() {
-		$('#listTable td:not(.checkBoxes, .detail)').click(function() { // 체크박스 시 modal popup 제외
-			
-			var gNo = $(this).parent().children().eq(1).text();
-			var changeName = [];
-			
-			$.ajax({
-				url: 'gymUpdateForm.do',
-				type: 'get',
-				data: {gNo : gNo},
-				success: function(data) {
-					console.log(data);
-					for(var i in data) {
-						if(i == 0) {
-							for (var key in data[i]) {
-								var updateGNo = data[i][key].G_NO;	
-								console.log(data[i][key].G_NO);
-								var gymName = data[i][key].G_NAME;
-								var gymType = data[i][key].G_TYPE_NM;
-								var gymAddr = data[i][key].G_ADDRESS;
-								var gymTel = data[i][key].G_TEL;
-								var gymHomepage = data[i][key].G_HOMEPAGE;
-								var gymParking = data[i][key].G_PARKING_LOT;
-								var gymBigo = data[i][key].G_BIGO;
-								var gymEduYN = data[i][key].G_EDU_YN;
-								var gymInOut = data[i][key].G_IN_OUT;
-								var gymCovid = data[i][key].G_COVID;
-								
-							}
-						} else {
-							for (var key in data[i]) {
-								if(key == 0) {
-									var thumbnail = data[i][key].gChangeName;
-									var originNo1 = data[i][key].gFileNo;
-								} else if (key != null && key == 1) {
-									var image1 = data[i][key].gChangeName;
-									var originNo2 = data[i][key].gFileNo;
-								} else if (key != null && key == 2) {
-									var image2 = data[i][key].gChangeName;
-									var originNo3 = data[i][key].gFileNo;
-								} else if (key != null && key == 3) {
-									var image3 = data[i][key].gChangeName;
-									var originNo4 = data[i][key].gFileNo;
-								}
-							}	
-						}
-					}
-					
-					$('#gymUpdateModal').modal("show");
-					$('#gymUpdateNo').val(updateGNo)
-					$('#gymUpdateName').val(gymName);
-					$('#gymUpdateType').val(gymType);
-					$('#gymUpdateAddr').val(gymAddr);
-					$('#gymUpdateTel').val(gymTel);
-					$('#gymUpdateHomepage').val(gymHomepage);
-					$('#gymUpdateParking').val(gymParking);
-					$('#gymUpdateBigo').val(gymBigo);
-					
-					if(thumbnail != null) {
-						$('#updateImg1').attr("src", "<%=cp%>/gym_uploadFiles/" + thumbnail);
-						$('#updateImg1').show();
-						
-						$('#gymUpdateImg1').on("change", function() {
-							$('#hiddenImg1').val(originNo1);
-						});
-					} else {
-						$('#hiddenImg1').val('-1');
-						$('#updateImg1').hide();
-					}
-					
-					if(image1 != null) {
-						$('#updateImg2').attr("src", "<%=cp%>/gym_uploadFiles/" + image1);
-						$('#updateImg2').show();
-						
-						$('#gymUpdateImg2').on("change", function() {
-							$('#hiddenImg2').val(originNo2); 
-						});
-					} else {
-						$('#gymUpdateImg2').on("change", function() {
-							$('#hiddenImg2').val('-1');
-							console.log($('#hiddenImg2').val());
 
-						});
-						$('#updateImg2').hide();
-					} 
-					
-					if (image2 != null) {
-						$('#updateImg3').attr("src", "<%=cp%>/gym_uploadFiles/" + image2);
-						$('#updateImg3').show();
-						$('#gymUpdateImg3').on("change", function() {
-							$('#hiddenImg3').val(originNo3); 
-						});
-					} else {
-						$('#gymUpdateImg3').on("change", function() {
-							$('#hiddenImg3').val('-1');
-							console.log($('#hiddenImg3').val());
-						});
-						$('#updateImg3').hide();
-					} 
-					
-					if (image3 != null) {
-						$('#updateImg4').attr("src", "<%=cp%>/gym_uploadFiles/" + image3);
-						$('#updateImg4').show();
-						$('#gymUpdateImg4').on("change", function() {
-							console.log($('#hiddenImg4').val()); 
-							$('#hiddenImg4').val(originNo4); 
-						});
-					} else {
-						$('#gymUpdateImg4').on("change", function() {
-							$('#hiddenImg4').val('-1');
-							console.log($('#hiddenImg4').val());
-						});
-						$('#updateImg4').hide();
-					}
-					
-					
-					if(gymEduYN == "유") {
-						$('#eduY').attr("checked", true);
-					} else {
-						$('#eduN').attr("checked", true);
-					}
-					
-					if(gymInOut == "실내") {
-						$("#in_outIn").attr("checked", true);
-					} else {
-						$("#in_outOut").attr("checked", true);
-					}
-					
-					switch(gymCovid) {
-						case 1 : $('#covid1').attr("checked", true); break;
-						case 2 : $('#covid2').attr("checked", true); break;
-						case 3 : $('#covid3').attr("checked", true); break;
-						case 4 : $('#covid4').attr("checked", true); break;
-						case 5 : $('#covid5').attr("checked", true); break;
-					}
-				}
-			});
-		});
-	});
-
+	
 	
 	function deleteGym() {
 		

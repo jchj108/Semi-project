@@ -120,7 +120,6 @@ public class GymUpdateServlet extends HttpServlet {
 				gFile.setgNo(gymNo);
 				gFile.setgFileNo(originImgNoList.get(i));
 				System.out.println("originImgNoList(들어가는 파일넘버) :" + originImgNoList.get(i));
-				
 				gFile.setgFilePath(savePath);
 				gFile.setgOriginName(originFiles.get(i));
 				gFile.setgChangeName(saveFiles.get(i));

@@ -1157,7 +1157,7 @@ public class GymDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		//insertGFile=INSERT INTO G_FILE VALUES(GFILE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, 0, DEFAULT)
-		String query = prop.getProperty("updateInsertGFile");
+		String query = "INSERT INTO G_FILE VALUES(GFILE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, 1, DEFAULT)";
 		
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
@@ -1192,6 +1192,24 @@ public class GymDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mNo);
 			pstmt.setInt(2, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteGymFile(int fileNo, Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "DELETE FROM G_FILE WHERE G_FILE_NO = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, fileNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

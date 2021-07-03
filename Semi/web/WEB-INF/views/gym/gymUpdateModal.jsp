@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% String cp2 = request.getContextPath(); %>
 
 <!DOCTYPE html>
 <html>
@@ -187,6 +188,7 @@ img src {
 						<label class="custom-file-label" for="gymUpdateImg1">파일선택</label>
 					</div>
 					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(1)">취소</button>
+					<button type="button" id="deleteFile1" class="btn btn-danger cancelbtn" >파일 삭제</button>  	
 					<label style="display: block; margin-bottom: 10px;">일반 사진</label>
 					<div class="imgArea">
 						<img class="gymImage" id="updateImg2">
@@ -196,6 +198,7 @@ img src {
 						<label class="custom-file-label" for="gymUpdateImg2">파일선택</label>
 					</div>
 					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(2)">취소</button>
+					<button type="button" id="deleteFile2" class="btn btn-danger cancelbtn" >파일 삭제</button>
 					<div class="imgArea">
 						<img class="gymImage" id="updateImg3">
 					</div>
@@ -204,6 +207,7 @@ img src {
 						<label class="custom-file-label" for="gymUpdateImg3">파일선택</label>
 					</div>
 					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(3)">취소</button>
+					<button type="button" id="deleteFile3" class="btn btn-danger cancelbtn" >파일 삭제</button>
 					<br>
 					<div class="imgArea">
 						<img class="gymImage" id="updateImg4">
@@ -213,6 +217,8 @@ img src {
 						<label class="custom-file-label" for="gymUpdateImg4">파일선택</label>
 					</div>
 					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(4)">취소</button>
+					<button type="button" id="deleteFile4" class="btn btn-danger cancelbtn" >파일 삭제</button>
+					
 					<br> <label for="inlineRadio1">강습</label><br>
 					<div class="form-check form-check-inline">
 						<input class="form-check-input" type="radio" name="edu_yn" id="eduY" value="유">
@@ -323,6 +329,262 @@ img src {
 		$('#gymUpdateImg' + num).val('');
 		$('#updateImg'+num).hide();
 	}
+	
+	
+	$(function() {
+		var deleteGNo;
+		
+		$('#listTable td:not(.checkBoxes, .detail)').click(function() { 
+			
+			var gNo = $(this).parent().children().eq(1).text();
+			deleteGNo = $(this).parent().children().eq(1).text();
+			
+			var changeName = [];
+			
+			$.ajax({
+				url: 'gymUpdateForm.do',
+				type: 'get',
+				async: false,
+				data: {gNo : gNo},
+				success: function(data) {
+					console.log(data);
+					for(var i in data) {
+						if(i == 0) {
+							for (var key in data[i]) {
+								var updateGNo = data[i][key].G_NO;	
+								var gymName = data[i][key].G_NAME;
+								var gymType = data[i][key].G_TYPE_NM;
+								var gymAddr = data[i][key].G_ADDRESS;
+								var gymTel = data[i][key].G_TEL;
+								var gymHomepage = data[i][key].G_HOMEPAGE;
+								var gymParking = data[i][key].G_PARKING_LOT;
+								var gymBigo = data[i][key].G_BIGO;
+								var gymEduYN = data[i][key].G_EDU_YN;
+								var gymInOut = data[i][key].G_IN_OUT;
+								var gymCovid = data[i][key].G_COVID;
+								
+							}
+						} else {
+							for (var key in data[i]) {
+								if(key == 0) {
+									var thumbnail = data[i][key].gChangeName;
+									var originNo1 = data[i][key].gFileNo;
+								} else if (key != null && key == 1) {
+									var image1 = data[i][key].gChangeName;
+									var originNo2 = data[i][key].gFileNo;
+								} else if (key != null && key == 2) {
+									var image2 = data[i][key].gChangeName;
+									var originNo3 = data[i][key].gFileNo;
+								} else if (key != null && key == 3) {
+									var image3 = data[i][key].gChangeName;
+									var originNo4 = data[i][key].gFileNo;
+								}
+							}	
+						}
+					}
+					$('#gymUpdateModal').modal("show");
+					$('#gymUpdateNo').val(updateGNo)
+					$('#gymUpdateName').val(gymName);
+					$('#gymUpdateType').val(gymType);
+					$('#gymUpdateAddr').val(gymAddr);
+					$('#gymUpdateTel').val(gymTel);
+					$('#gymUpdateHomepage').val(gymHomepage);
+					$('#gymUpdateParking').val(gymParking);
+					$('#gymUpdateBigo').val(gymBigo);
+					
+/*					if(originNo1) {
+						console.log(originNo1);
+						$('#deleteFile1').show();
+						$('#deleteFile1').unbind('click').bind('click', function() { // unbind를 해줘야 중복 실행 방지된다
+							if(window.confirm("정말 삭제하시겠습니까?")) { // yes일 때만 ajax
+								$.ajax({
+									url : 'FileDelete.Gym',
+									data : {fileNo : originNo1},
+									async : false,
+									success : function(data) {
+										if(data != '0') {
+											deleteUpdateImg(1);
+											console.log("파일삭제 result : " + data);
+											window.alert('파일 삭제가 완료되었습니다');
+										} else {
+											window.alert('파일 삭제에 실패하였습니다');	
+										}
+									},
+									error : function(data) {
+										window.alert('서버 접속 실패');
+									}
+								});
+							} 
+						});
+					} else {
+						$('#deleteFile1').hide();
+					} */
+					
+					$('#deleteFile1').unbind('click').bind('click', function() { // unbind를 해줘야 중복 실행 방지된다
+						window.alert("대표 사진은 삭제가 불가능합니다.");
+					});
+					
+					if(originNo2) {
+						console.log(originNo2);
+						$('#deleteFile2').show();
+						$('#deleteFile2').unbind('click').bind('click', function() { // unbind를 해줘야 중복 실행 방지된다
+							if(window.confirm("정말 삭제하시겠습니까?")) { // yes일 때만 ajax
+								$.ajax({
+									url : 'FileDelete.Gym',
+									data : {fileNo : originNo2},
+									async : false,
+									success : function(data) {
+										if(data != '0') {
+											deleteUpdateImg(2);
+											console.log("파일삭제 result : " + data);
+											window.alert('파일 삭제가 완료되었습니다');
+										} else {
+											window.alert('파일 삭제에 실패하였습니다');	
+										}
+									},
+									error : function(data) {
+										window.alert('서버 접속 실패');
+									}
+								});
+							} 
+						});
+					} else {
+						$('#deleteFile2').hide();
+					}
+					
+					if(originNo3) {
+						console.log(originNo3);
+						$('#deleteFile3').show();
+						$('#deleteFile3').unbind('click').bind('click', function() { // unbind를 해줘야 중복 실행 방지된다
+							if(window.confirm("정말 삭제하시겠습니까?")) { // yes일 때만 ajax
+								$.ajax({
+									url : 'FileDelete.Gym',
+									data : {fileNo : originNo3},
+									async : false,
+									success : function(data) {
+										if(data != '0') {
+											deleteUpdateImg(3);
+											console.log("파일삭제 result : " + data);
+											window.alert('파일 삭제가 완료되었습니다');
+										} else {
+											window.alert('파일 삭제에 실패하였습니다');	
+										}
+									},
+									error : function(data) {
+										window.alert('서버 접속 실패');
+									}
+								});
+							} 
+						});
+					} else {
+						$('#deleteFile3').hide();
+					}
+					
+					if(originNo4) {
+						console.log(originNo4);
+						$('#deleteFile4').show();
+						$('#deleteFile4').unbind('click').bind('click', function() { // unbind를 해줘야 중복 실행 방지된다
+							if(window.confirm("정말 삭제하시겠습니까?")) { // yes일 때만 ajax
+								$.ajax({
+									url : 'FileDelete.Gym',
+									data : {fileNo : originNo4},
+									async : false,
+									success : function(data) {
+										if(data != '0') {
+											deleteUpdateImg(4);
+											console.log("파일삭제 result : " + data);
+											window.alert('파일 삭제가 완료되었습니다');
+										} else {
+											window.alert('파일 삭제에 실패하였습니다');	
+										}
+									},
+									error : function(data) {
+										window.alert('서버 접속 실패');
+									}
+								});
+							} 
+						});
+					} else {
+						$('#deleteFile4').hide();
+					}
+					
+					
+					if(thumbnail != null) { // thumbnail엔 gchange네임을 담음
+						$('#updateImg1').attr("src", "<%=cp2%>/gym_uploadFiles/" + thumbnail);
+						$('#updateImg1').show();
+						
+						$('#gymUpdateImg1').on("change", function() {
+							$('#hiddenImg1').val(originNo1); // 전달받은 파일넘버를 input type hidden에 담는다
+						});
+					} else {
+						$('#hiddenImg1').val('-1');
+						$('#updateImg1').hide();
+					}
+					
+					if(image1 != null) {
+						$('#updateImg2').attr("src", "<%=cp2%>/gym_uploadFiles/" + image1);
+						$('#updateImg2').show();
+						
+						$('#gymUpdateImg2').on("change", function() {
+							$('#hiddenImg2').val(originNo2); 
+						});
+					} else {
+						$('#gymUpdateImg2').on("change", function() {
+							$('#hiddenImg2').val('-1');
+						});
+						$('#updateImg2').hide();
+					} 
+					
+					if (image2 != null) {
+						$('#updateImg3').attr("src", "<%=cp2%>/gym_uploadFiles/" + image2);
+						$('#updateImg3').show();
+						$('#gymUpdateImg3').on("change", function() {
+							$('#hiddenImg3').val(originNo3); 
+						});
+					} else {
+						$('#gymUpdateImg3').on("change", function() {
+							$('#hiddenImg3').val('-1');
+						});
+						$('#updateImg3').hide();
+					} 
+					
+					if (image3 != null) {
+						$('#updateImg4').attr("src", "<%=cp2%>/gym_uploadFiles/" + image3);
+						$('#updateImg4').show();
+						$('#gymUpdateImg4').on("change", function() {
+							$('#hiddenImg4').val(originNo4); 
+						});
+					} else {
+						$('#gymUpdateImg4').on("change", function() {
+							$('#hiddenImg4').val('-1');
+						});
+						$('#updateImg4').hide();
+					}
+					
+					
+					if(gymEduYN == "유") {
+						$('#eduY').attr("checked", true);
+					} else {
+						$('#eduN').attr("checked", true);
+					}
+					
+					if(gymInOut == "실내") {
+						$("#in_outIn").attr("checked", true);
+					} else {
+						$("#in_outOut").attr("checked", true);
+					}
+					
+					switch(gymCovid) {
+						case 1 : $('#covid1').attr("checked", true); break;
+						case 2 : $('#covid2').attr("checked", true); break;
+						case 3 : $('#covid3').attr("checked", true); break;
+						case 4 : $('#covid4').attr("checked", true); break;
+						case 5 : $('#covid5').attr("checked", true); break;
+					}
+				},
+			});
+		});
+	});
 	
 		$('#gymUpdateImg1').on("change", function() {
 			$('#checkUpload1').val('1');
