@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% String cp2 = request.getContextPath(); %>
 
 <!DOCTYPE html>
 <html>
@@ -509,7 +510,7 @@ img src {
 					
 					
 					if(thumbnail != null) { // thumbnail엔 gchange네임을 담음
-						$('#updateImg1').attr("src", "<%=cp%>/gym_uploadFiles/" + thumbnail);
+						$('#updateImg1').attr("src", "<%=cp2%>/gym_uploadFiles/" + thumbnail);
 						$('#updateImg1').show();
 						
 						$('#gymUpdateImg1').on("change", function() {
@@ -521,7 +522,7 @@ img src {
 					}
 					
 					if(image1 != null) {
-						$('#updateImg2').attr("src", "<%=cp%>/gym_uploadFiles/" + image1);
+						$('#updateImg2').attr("src", "<%=cp2%>/gym_uploadFiles/" + image1);
 						$('#updateImg2').show();
 						
 						$('#gymUpdateImg2').on("change", function() {
@@ -535,7 +536,7 @@ img src {
 					} 
 					
 					if (image2 != null) {
-						$('#updateImg3').attr("src", "<%=cp%>/gym_uploadFiles/" + image2);
+						$('#updateImg3').attr("src", "<%=cp2%>/gym_uploadFiles/" + image2);
 						$('#updateImg3').show();
 						$('#gymUpdateImg3').on("change", function() {
 							$('#hiddenImg3').val(originNo3); 
@@ -548,7 +549,7 @@ img src {
 					} 
 					
 					if (image3 != null) {
-						$('#updateImg4').attr("src", "<%=cp%>/gym_uploadFiles/" + image3);
+						$('#updateImg4').attr("src", "<%=cp2%>/gym_uploadFiles/" + image3);
 						$('#updateImg4').show();
 						$('#gymUpdateImg4').on("change", function() {
 							$('#hiddenImg4').val(originNo4); 
