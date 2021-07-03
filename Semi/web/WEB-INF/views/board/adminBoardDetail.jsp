@@ -188,8 +188,6 @@
          </div>
         <%@include file="../common/footer.jsp" %>
         
-     
-        
         <script>
 		
 		$('#com').keyup(function(){
