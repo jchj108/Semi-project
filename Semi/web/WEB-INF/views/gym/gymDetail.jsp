@@ -306,7 +306,11 @@ input {
 	                <% } else {%>
 	                <div class="carousel-inner" role="listbox" style="width: 700px;">
 	                <%		for(int i = 0; i < fList.size(); i++){ %>
+	                <%			if(i == 0) {%>
 				                <div class="carousel-item active"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="..." width='900' height='400'/></div>
+				    <%			} else {%>
+				                <div class="carousel-item"><img class="image" src="<%= request.getContextPath()%>/gym_uploadFiles/<%= fList.get(i).getgChangeName() %>" alt="..." width='900' height='400'/></div>
+				    <%		 	}%>
 	                <%		} %>
 	                </div>
 					<a class="carousel-control-prev" href="#carouselExampleIndicators"
