@@ -9,6 +9,21 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
 	
+	String category = null;
+	
+	switch(cate) {
+	case "all": category="운동"; break;
+	case "swimming": category="수영"; break;
+	case "soccer": category="축구"; break;
+	case "tennis": category="테니스"; break;
+	case "golf": category="골프"; break;
+	case "footVolley": category="족구"; break;
+	case "badminton": category="배드민턴"; break;
+	case "basketball": category="농구"; break;
+	}
+	
+			
+	
 %>
 <!DOCTYPE html>
 <html lang="kor">
@@ -106,7 +121,7 @@
           </div>
         </div>
         <div class="col-lg-9">
-          <div class="title"><h4>내 주변의 운동시설</h4></div>
+          <div class="title"><h4>서울시의 <%=category %> 시설</h4></div>
 
          
         <div class="row">
