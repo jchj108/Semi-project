@@ -5,11 +5,9 @@
 	ArrayList<GFile> fList= (ArrayList)request.getAttribute("fList");
 	int gNo = g.getG_NO();
 	
-	System.out.println(g);
 	for(GFile gf : fList){
-		System.out.println(gf);
+		System.out.println(gf + " : write폼");
 	}
-
 %>
 <!DOCTYPE html>
 <html>
