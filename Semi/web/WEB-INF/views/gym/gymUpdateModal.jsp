@@ -187,7 +187,7 @@ img src {
 						<label class="custom-file-label" for="gymUpdateImg1">파일선택</label>
 					</div>
 					<button type="button" class="btn btn-default cancelbtn" onclick="deleteUpdateImg(1)">취소</button>
-	 				<button type="button" id="deleteFile1" class="btn btn-danger cancelbtn" >파일 삭제</button> 	
+					<button type="button" id="deleteFile1" class="btn btn-danger cancelbtn" >파일 삭제</button>  	
 					<label style="display: block; margin-bottom: 10px;">일반 사진</label>
 					<div class="imgArea">
 						<img class="gymImage" id="updateImg2">
@@ -391,7 +391,7 @@ img src {
 					$('#gymUpdateParking').val(gymParking);
 					$('#gymUpdateBigo').val(gymBigo);
 					
-					if(originNo1) {
+/*					if(originNo1) {
 						console.log(originNo1);
 						$('#deleteFile1').show();
 						$('#deleteFile1').unbind('click').bind('click', function() { // unbind를 해줘야 중복 실행 방지된다
@@ -417,7 +417,11 @@ img src {
 						});
 					} else {
 						$('#deleteFile1').hide();
-					}
+					} */
+					
+					$('#deleteFile1').unbind('click').bind('click', function() { // unbind를 해줘야 중복 실행 방지된다
+						window.alert("대표 사진은 삭제가 불가능합니다.");
+					});
 					
 					if(originNo2) {
 						console.log(originNo2);

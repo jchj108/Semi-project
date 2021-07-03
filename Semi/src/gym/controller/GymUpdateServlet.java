@@ -131,7 +131,7 @@ public class GymUpdateServlet extends HttpServlet {
 				System.out.println("fileList : " + gf);
 			}
 			System.out.println("fileList size : " + fileList.size());
-			int result = new GymService().updateGym(g, fileList, checkImgArr);
+			int result = new GymService().updateGym(g, fileList);
 
 			if (result > 0) {
 				response.sendRedirect("gymManage.do");

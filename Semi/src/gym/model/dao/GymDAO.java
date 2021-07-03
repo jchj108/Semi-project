@@ -1157,7 +1157,7 @@ public class GymDAO {
 		PreparedStatement pstmt = null;
 		int result = 0;
 		//insertGFile=INSERT INTO G_FILE VALUES(GFILE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, 0, DEFAULT)
-		String query = prop.getProperty("updateInsertGFile");
+		String query = "INSERT INTO G_FILE VALUES(GFILE_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, 1, DEFAULT)";
 		
 		try {
 			for(int i = 0; i < fileList.size(); i++) {
@@ -1169,7 +1169,6 @@ public class GymDAO {
 					pstmt.setString(2, f.getgOriginName());
 					pstmt.setString(3, f.getgChangeName());
 					pstmt.setString(4, f.getgFilePath());
-					pstmt.setInt(5, f.getgFileLv());
 					
 					System.out.println("dao updateInsert fileNo" +f.getgFileNo());
 					result += pstmt.executeUpdate();
