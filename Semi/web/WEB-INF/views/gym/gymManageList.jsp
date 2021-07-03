@@ -249,7 +249,7 @@ tr, td {
 							>
 						</span> <span class="sortRight"> <input type="button" class="insert-button btn btn-info btn-sm" value="시설 등록" id="insert-gym"> <input type="button"
 								class="delete-button btn btn-sm btn-warning" value="시설 삭제" id="delete-gym" onclick="deleteGym();"
-							> <input type="button" class="button right btn btn-default btn-sm" value="돌아가기" onclick="history.go(-1);">
+							> <a href =" <%= cp %>"> <input type="button" class="button right btn btn-default btn-sm" value="돌아가기" > </a>
 						</span>
 					</form>
 				</div>
