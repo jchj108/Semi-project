@@ -194,6 +194,7 @@ public class GymService {
 		
 		for(int i = 0; i < fileList.size(); i++) {
 			if(fileList.get(i).getgFileNo() == -1) { // -1일 때만 이미지삽입 쿼리 실행
+				
 				result3 = dao.updateInsertGFile(conn, fileList);
 				if(result3>0) {
 					fileList.remove(i); // 삽입 완료 되면 해당 리스트 삭제
@@ -376,6 +377,21 @@ public class GymService {
 		
 		close(conn);
 		
+		return result;
+	}
+
+	public int deleteGymFile(int fileNo) {
+		
+		Connection conn = getConnection();
+		
+		System.out.println("service fileNo : " +  fileNo);
+		int result = new GymDAO().deleteGymFile(fileNo, conn);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		return result;
 	}
 }
