@@ -153,17 +153,17 @@
 	<% } %>
 	
 	<!-- login -->
-	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="static">
 		<%@include file="../member/login.jsp" %>
 	</div>
 	
 	<!-- signUp -->
-	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal fade" id="signUpModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static">
 		<%@include file="../member/signUp.jsp" %>
 	</div>
 	
 	<!-- 통계조회 -->
-	<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true" data-backdrop="static">
 		<%@include file="../board/adminStatistics.jsp" %>
 	</div>
 	
