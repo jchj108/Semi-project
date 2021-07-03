@@ -1169,6 +1169,7 @@ public class GymDAO {
 					pstmt.setString(2, f.getgOriginName());
 					pstmt.setString(3, f.getgChangeName());
 					pstmt.setString(4, f.getgFilePath());
+					pstmt.setInt(5, f.getgFileLv());
 					
 					System.out.println("dao updateInsert fileNo" +f.getgFileNo());
 					result += pstmt.executeUpdate();
@@ -1192,6 +1193,24 @@ public class GymDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, mNo);
 			pstmt.setInt(2, gNo);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+
+	public int deleteGymFile(int fileNo, Connection conn) {
+		
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		String query = "DELETE FROM G_FILE WHERE G_FILE_NO = ?";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, fileNo);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

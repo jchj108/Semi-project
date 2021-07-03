@@ -120,7 +120,6 @@ public class GymUpdateServlet extends HttpServlet {
 				gFile.setgNo(gymNo);
 				gFile.setgFileNo(originImgNoList.get(i));
 				System.out.println("originImgNoList(들어가는 파일넘버) :" + originImgNoList.get(i));
-				
 				gFile.setgFilePath(savePath);
 				gFile.setgOriginName(originFiles.get(i));
 				gFile.setgChangeName(saveFiles.get(i));
@@ -132,7 +131,7 @@ public class GymUpdateServlet extends HttpServlet {
 				System.out.println("fileList : " + gf);
 			}
 			System.out.println("fileList size : " + fileList.size());
-			int result = new GymService().updateGym(g, fileList);
+			int result = new GymService().updateGym(g, fileList, checkImgArr);
 
 			if (result > 0) {
 				response.sendRedirect("gymManage.do");

@@ -17,10 +17,10 @@ import gym.model.vo.GFile;
 import gym.model.vo.Gym;
 
 @WebServlet("/gymUpdateForm.do")
-public class GymUpdateAjax extends HttpServlet {
+public class GymUpdateForm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public GymUpdateAjax() {
+    public GymUpdateForm() {
         super();
         // TODO Auto-generated constructor stub
     }

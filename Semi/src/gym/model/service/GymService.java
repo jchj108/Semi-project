@@ -184,7 +184,7 @@ public class GymService {
 		return gFList;
 	}
 
-	public int updateGym(Gym g, ArrayList<GFile> fileList) {
+	public int updateGym(Gym g, ArrayList<GFile> fileList, String[] checkIndex) {
 
 		Connection conn = getConnection();
 
@@ -194,6 +194,16 @@ public class GymService {
 		
 		for(int i = 0; i < fileList.size(); i++) {
 			if(fileList.get(i).getgFileNo() == -1) { // -1일 때만 이미지삽입 쿼리 실행
+				
+				for(int j = 0; j < checkIndex.length; j++) { // 인덱스 1번일때만 파일레벨을 0으로.
+					if(checkIndex[j].equals("1")) {
+						System.out.println("썸네일들어옴");
+						fileList.get(i).setgFileLv(0); 
+						break;
+					} else {
+						fileList.get(i).setgFileLv(1);
+					}
+				}
 				result3 = dao.updateInsertGFile(conn, fileList);
 				if(result3>0) {
 					fileList.remove(i); // 삽입 완료 되면 해당 리스트 삭제
@@ -376,6 +386,21 @@ public class GymService {
 		
 		close(conn);
 		
+		return result;
+	}
+
+	public int deleteGymFile(int fileNo) {
+		
+		Connection conn = getConnection();
+		
+		System.out.println("service fileNo : " +  fileNo);
+		int result = new GymDAO().deleteGymFile(fileNo, conn);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
 		return result;
 	}
 }
