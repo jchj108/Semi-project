@@ -330,14 +330,7 @@ input {
 						<label id="facilityName"><%=g.getG_NAME() %></label><br> <label
 							id="guName"><%=g.getG_GU_NM() %> | </label> <label id="gymType">
 							<%=g.getG_TYPE_NM() %>
-						</label><br> <label class="point"><%=rList.size() %>명의 평가</label>│ <label
-							class="point"><%=avg%>점</label>&nbsp;
-						<div class="score_star" id="avgStarDiv"
-							style="display: inline-block;">
-							<span class="fas fa-star"></span> <span class="fas fa-star"></span>
-							<span class="fas fa-star"></span> <span class="fas fa-star"></span>
-							<span class="fas fa-star"></span>
-						</div>
+						</label>
 						<br>
 						<div id="review-bookmark-btn">
 							<span id="share" style="float: left"> <a
@@ -438,27 +431,27 @@ input {
                 		<label>시설</label> 
                 		<span class="fas fa-star rev"></span>
                 		<label><%=(double)Math.round(gSum/rList.size()*10)/10 %></label>
-                		&nbsp&nbsp&nbsp
+                		&nbsp;&nbsp;&nbsp;
                 		<label>서비스</label> 
                 		<span class="fas fa-star rev"></span>
                 		<label><%=(double)Math.round(sSum/rList.size()*10)/10 %></label>
-                		&nbsp&nbsp&nbsp<label>강사</label> 
+                		&nbsp;&nbsp;&nbsp;<label>강사</label> 
                 		<span class="fas fa-star rev"></span>
                 		<label><%=(double)Math.round(tSum/rList.size()*10)/10 %></label>
                 		</div>
                 		<br>
                 		<br>
                 		<label>방문목적</label>
-                		&nbsp
-                		&nbsp
+                		&nbsp;
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="fatloss"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="strength"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="remedial"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="bodyShape"></span>
-                		&nbsp
+                		&nbsp;
                 		<span class="keyword" style="font-size: 16px;" id="etc"></span>
                 	</div>
                 	<hr>
@@ -572,8 +565,6 @@ input {
 	<!-- 리뷰 목록 출력  -->
 		$('.fa-star').css({'color': 'lightgray'});
 		$('.fa-heart').css({'color':'#EE0000', 'font-size':'20px'});
-		$('#avgStarDiv .fa-star').css({'color':'lightgray', 'font-size':'20px'});
-		$('#avgStarDiv').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2'});
 		
 		<% for(int i = 0; i < rList.size(); i++){ %>
 			$('.totalStarDiv<%=i%>').find(':nth-child(-n+<%= rList.get(i).getR_total() %>)').css({color:'#ffd700'});
@@ -613,7 +604,7 @@ input {
 		<% } %>
 		
 		
-		$('#reviewAvgStar').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2'});
+		$('#reviewAvgStar').find(':nth-child(-n+<%= avg %>)').css({color:'#00b1d2', 'font-size':'20px'});
 		
 		$('#bookmarkBtn').on('click', function(){
 	  		$.ajax({
