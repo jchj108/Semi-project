@@ -165,9 +165,9 @@ public class MemberDAO {
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			pstmt.setInt(3, mNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			pstmt.setInt(1, mNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -253,9 +253,9 @@ public class MemberDAO {
 		int end = start + pageInfo.getBoardLimit() - 1;
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			pstmt.setInt(3, mNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			pstmt.setInt(1, mNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -309,9 +309,9 @@ public class MemberDAO {
 		int end = start + pageInfo.getBoardLimit() - 1;
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, start);
-			pstmt.setInt(2, end);
-			pstmt.setInt(3, mNo);
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			pstmt.setInt(1, mNo);
 			
 			rset = pstmt.executeQuery();
 			
