@@ -64,6 +64,14 @@
             color: white;
             font-size: 20px;
         }
+        
+        th:nth-child(1n) {
+        	width: 100px;
+        }
+        
+        th:nth-child(4n) {
+			width: 400px;
+		}
 
         tr, td {
             padding: 10px;
