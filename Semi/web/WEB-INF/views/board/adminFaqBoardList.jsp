@@ -171,8 +171,8 @@
 				</div>
 					
 				<!-- 페이지 넘기기 -->
-				<div class="page-div">
- 					<ul class="pagination">
+			<div class="page-div">
+					<ul class="pagination">
 						<!-- 처음으로 -->
 						<li class="page-item">
 							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=1'">&laquo;</a>
