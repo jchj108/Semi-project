@@ -204,8 +204,7 @@ input {
 	<div class="container" style="height: auto;">
 		<div class="row">
 			<div class="col-lg-3">
-				<div class="float_sidebar">
-					<div class="list-group">
+				<div class="list-group">
 					<!-- 지도 -->
 	 				<div id="map" style="width: 230px; height: 230px;"></div>
 	 					<script>
@@ -294,7 +293,6 @@ input {
 							href="gymCategory.do?category=basketball">농구</a>
 					</div>
 				</div>
-			</div>
 			<div class="col-lg-9">
 				<!-- image -->
 				<div class="carousel slide my-4" id="carouselExampleIndicators"
@@ -666,32 +664,6 @@ input {
 		}
 		
 		$('.rev').css({'color':'#00B1D2'});
-		
-		$(function(){
-			var $win = $(window);
-			var top = $(window).scrollTop(); // 현재 스크롤바 위치값 반환
-			
-			var speed = 500;
-			var easing = 'linear';
-			var $layer = $('.float_sidebar');
-			var layerTopOffset = 0;
-			$layer.css('position', 'relative').css('z-index', '1');
-			
-			if(top > 0){
-				$win.scrollTop(layerTopOffset+top);
-			} else {
-				$win.scrollTop(0);
-			}
-			
-			$(window).scroll(function(){
-				yPosition = $win.scrollTop() - 100;
-				if(yPosition < 0){
-					yPosition = 0;
-				}
-				
-				$layer.animate({"top":yPosition}, {duration:speed, easing:easing, queue:false});
-			});
-		});
 		
 		$(window).ready(function(){
 			$.ajax({
