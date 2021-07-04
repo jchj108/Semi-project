@@ -19,7 +19,7 @@
 	overflow: hidden;
 }
 
-.modal-body {
+.gymModal {
 	overflow-y: scroll; /* to get scrollbar only for y axis */
 	height: 660px;
 	padding-bottom: 40px;
@@ -79,7 +79,7 @@
 	padding-bottom: 0px !important;
 }
 
-.modal-body label {
+.gymModal label {
 	margin-top: 15px;
 	font-weight: bold;
 }
@@ -161,7 +161,7 @@ img src {
 				</button>
 			</div>
 			<form class="contents-inside" action="<%=request.getContextPath()%>/gymUpdate.do" method="post" encType="multipart/form-data">
-				<div class="modal-body">
+				<div class="modal-body gymModal">
 					<label for="gymType">시설 번호</label>
 					<input type="text" class="form-control" name="gymUpdateNo" id="gymUpdateNo" readonly>
 					<label for="gymName">이름</label>
