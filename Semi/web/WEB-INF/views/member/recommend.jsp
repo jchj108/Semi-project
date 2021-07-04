@@ -539,33 +539,36 @@
 					var $nameDiv = $('#nameDiv');
 					
 					var j = 1;
+					var k = 1;
 					for(var i=0; i<data.length; i++){
 						var gymName = data[i].gName;
 						var gymType = data[i].gTypeName;
+						var gymNo = data[i].gNo;
 	
 						var $resultTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
 						var $otherTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
 						var check = gymType.includes(userLike);
 						
 						if(check){
-							$num = $('<td>').text(i+1).css('width', '30px');
+							$num = $('<td>').text(k++).css('width', '30px');
 							$name = $('<td>').text(gymName).css({'text-align':'left'});
+							$no = $('<input type="hidden" value=' + gymNo + '>');
 							
 							$resultTr.append($num);
 							$resultTr.append($name);
+							$resultTr.append($no);
 							
 							$resultTable.append($resultTr);
-							
 						} else {
-							$otherNum = $('<td>').text(j).css('width', '30px');
+							$otherNum = $('<td>').text(j++).css('width', '30px');
 							$otherName = $('<td>').text(gymName).css('text-align', 'left');
+							$no = $('<input type="hidden" value=' + gymNo + '>');
 							
 							$otherTr.append($otherNum);
 							$otherTr.append($otherName);
+							$resultTr.append($no);
 							
 							$otherTable.append($otherTr);
-							
-							j++;
 						}
 						
 						$('#resultTable td, #otherTable td').mouseenter(function(){
@@ -573,8 +576,7 @@
 				   		}).mouseout(function(){
 				   			$(this).parent().css({'color':'black'});
 				   		}).click(function(){
-				   			var num = $(this).parent().index();
-				   			var gNo = data[num].gNo;       
+							var gNo = $(this).parent().children('input').val();
 				   			
 				   			window.location.href="<%= request.getContextPath() %>/detail.do?gNo="+gNo; 
 				   		})

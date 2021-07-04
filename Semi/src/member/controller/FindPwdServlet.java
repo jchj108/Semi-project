@@ -45,7 +45,7 @@ public class FindPwdServlet extends HttpServlet {
         final String password = "%uHBR&eAXdbz)-8";//자신의 네이버 패스워드
         
         //메일 받을 주소
-        String to_email = email;
+        String to_email = user;
 //        String to_email = user;
         
         //SMTP 서버 정보를 설정한다.

@@ -540,9 +540,14 @@ input {
 								<span class="likeCount<%=i%>">0</span>
 							</td>
 							<% if(loginUser != null && (rList.get(i).getReviewerNo() == loginUser.getM_no())) {%>
-							<td style="text-align: right;"><input type="button"
-								class="editBtn<%=i%>" value="수정"> &nbsp; <input
-								type="button" class="delBtn<%=i%>" value="삭제">
+							<td style="text-align: right;">
+								<input type="button" class="editBtn<%=i%>" value="수정"> &nbsp;
+								<input type="button" class="delBtn<%=i%>" value="삭제">
+							</td>
+							<% } %>
+							<% if(loginUser != null && (loginUser.getM_auth() == 0)) {%>
+							<td style="text-align: right;">
+								<input type="button" class="delBtn<%=i%>" value="삭제">
 							</td>
 							<% } %>
 						</tr>
