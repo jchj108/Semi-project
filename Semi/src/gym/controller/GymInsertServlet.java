@@ -62,14 +62,11 @@ public class GymInsertServlet extends HttpServlet {
 			
 			while (files.hasMoreElements()) { 
 				String name = files.nextElement(); 
-				// getFilesystemName(name) : rename메소드에서 작성한대로 바뀐 파일 명 반환, 파일이 없다면 null
 				if (multipartRequest.getFilesystemName(name) != null) {
-					saveFiles.add(multipartRequest.getFilesystemName(name)); // 그대로 들어가면 된다.
-					originFiles.add(multipartRequest.getOriginalFileName(name)); // 원래 이름은 getOriginalFilename
-					// getOriginalFileName(name) : 실제 사용자가 업로드 할 때의 파일 명 반환
+					saveFiles.add(multipartRequest.getFilesystemName(name)); 
+					originFiles.add(multipartRequest.getOriginalFileName(name)); 
 				}
 			}
-			// multipartRequest를 사용. 인코딩 타입이 multipart이기 때문이다.
 			String gymType = multipartRequest.getParameter("gymType");
 			String gymName = multipartRequest.getParameter("gymName");
 			String gymHomepage = multipartRequest.getParameter("gymHomepage");
@@ -82,7 +79,7 @@ public class GymInsertServlet extends HttpServlet {
 							  "노원구", "동대문구", "도봉구", "동작구", "마포구", "서대문구", "성동구", "성북구", "서초구", "송파구",
 							  "영등포구", "용산구", "양천구", "은평구", "종로구", "중구", "중랑구"};
 			String gu= "-";
-			loop: // 다중 루프 빠져나오기 위한 이름
+			loop: // 다중 루프 빠져나오기
 			for(int i = 0; i<addrArray.length; i++) {
 				for(int j = 0; j < guArr.length; j++) {
 					if(addrArray[i].equals(guArr[j])) {
@@ -117,7 +114,7 @@ public class GymInsertServlet extends HttpServlet {
 				gFile.setgChangeName(saveFiles.get(i));
 
 				// 0이 들어가면 썸네일, 1이면 일반
-				if (i == originFiles.size() - 1) { // size는 4가 반환되기 때문에 -1을 해주어야 한다.
+				if (i == originFiles.size() - 1) {
 					gFile.setgFileLv(0);
 				} else {
 					gFile.setgFileLv(1);
