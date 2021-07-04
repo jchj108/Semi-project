@@ -43,22 +43,9 @@ public class RecommendServlet extends HttpServlet {
 		String lecture = request.getParameter("lecture");
 		String parking = request.getParameter("parking");
 		
-//		System.out.println(userName + " : 이름");
-//		System.out.println(userLike + " : 선호운동");
-//		System.out.println(gymType + " : 단체개인");
-//		System.out.println(locationStr + " : 위치");
-//		System.out.println(lecture + " : 강습");
-//		System.out.println(inout + " : 실내실외");
-//		System.out.println(parking + " : 주차");
-		
 		Gym rGym = new Gym(gymType, locationStr, lecture, inout, parking);
 		
 		ArrayList<Gym> list = new GymService().recommendGym(rGym);
-		
-//		for(int i = 0; i < list.size(); i++) {
-//			System.out.println(list.get(i));
-//		}
-		
 		
 		JSONArray arr = new JSONArray();
 		JSONObject json = null;

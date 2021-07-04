@@ -46,6 +46,7 @@ public class FindPwdServlet extends HttpServlet {
         
         //메일 받을 주소
         String to_email = email;
+//        String to_email = user;
         
         //SMTP 서버 정보를 설정한다.
         Properties props = new Properties();
@@ -57,12 +58,12 @@ public class FindPwdServlet extends HttpServlet {
         //인증 번호 생성기
         StringBuffer temp =new StringBuffer();
         Random rnd = new Random();
-        for(int i=0; i<10; i++)
-        {
+        for(int i=0; i<10; i++) {
             int rIndex = rnd.nextInt(3);
+            // 0-2사이 숫자가 랜덤으로 switch에 들어가고, 그게 10번 반복
             switch (rIndex) {
             case 0:
-                // a-z
+                // a-z : 알파벳이 26자 이므로 0~25까지 랜덤 + 아스키코드 알파벳 소문자가 97부터 시작 => 97부터 97+25까지 랜덤한 알파벳 소문자
                 temp.append((char) ((int) (rnd.nextInt(26)) + 97));
                 break;
             case 1:
@@ -70,7 +71,7 @@ public class FindPwdServlet extends HttpServlet {
                 temp.append((char) ((int) (rnd.nextInt(26)) + 65));
                 break;
             case 2:
-                // 0-9
+                // 0-9 사이 랜덤
                 temp.append((rnd.nextInt(10)));
                 break;
             }
@@ -88,18 +89,19 @@ public class FindPwdServlet extends HttpServlet {
         //email 전송
         try {
             MimeMessage msg = new MimeMessage(session);
-            msg.setFrom(new InternetAddress(user, "KH Books"));
+            msg.setFrom(new InternetAddress(user, "내일은 운동가야지"));
             msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to_email));
             
             //메일 제목
             msg.setSubject("안녕하세요 '내일은 운동가야지' 인증 메일입니다.");
             //메일 내용
-            msg.setText("인증 번호는 :" + temp);
+            msg.setText("인증 번호 :" + temp);
             
             Transport.send(msg);
             System.out.println("이메일 전송");
             
         } catch (Exception e) {
+        	e.printStackTrace();
         }
 	        HttpSession saveKey = request.getSession();
 	        saveKey.setAttribute("AuthenticationKey", AuthenticationKey);
