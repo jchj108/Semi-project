@@ -946,7 +946,6 @@ public class GymDAO {
 			close(rset);
 			close(pstmt);
 		}
-
 		return list;
 	}
 

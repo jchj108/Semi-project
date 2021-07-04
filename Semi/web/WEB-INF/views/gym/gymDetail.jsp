@@ -400,12 +400,14 @@ input {
                 		<% double sSum = 0; %>
                 		<% double tSum = 0; %>
                 		<% double gSum = 0; %>
+                		<% double pSum = 0; %>
                 		<% for(int i = 0; i < rList.size(); i++){ %>
                 		<%		sSum += rList.get(i).getR_service(); %>
                 		<%		tSum += rList.get(i).getR_teacher(); %>
                 		<%		gSum += rList.get(i).getR_gym(); %>
+                		<%		pSum += rList.get(i).getR_price(); %>
                 		<% } %>
-                		<% totalAvg = (sSum + tSum + gSum)/ 3 / rList.size(); %>
+                		<% totalAvg = (sSum + tSum + gSum + pSum)/ 4 / rList.size(); %>
                 		<label><%=(double)Math.round(totalAvg * 10)/10 %>점</label>&nbsp
                 		<% if(!rList.isEmpty()){ %>
                 		<% 	  for(int i = 0; i < rList.size(); i++){ %>
@@ -436,6 +438,9 @@ input {
                 		&nbsp;&nbsp;&nbsp;<label>강사</label> 
                 		<span class="fas fa-star rev"></span>
                 		<label><%=(double)Math.round(tSum/rList.size()*10)/10 %></label>
+                		&nbsp;&nbsp;&nbsp;<label>가격</label> 
+                		<span class="fas fa-star rev"></span>
+                		<label><%=(double)Math.round(pSum/rList.size()*10)/10 %></label>
                 		</div>
                 		<br>
                 		<br>

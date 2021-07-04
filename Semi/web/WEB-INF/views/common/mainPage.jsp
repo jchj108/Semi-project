@@ -629,9 +629,6 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 						                       });
 						                    },    // source 는 자동 완성 대상
 						                select : function(event, ui) {    //아이템 선택시
-						                    console.log(ui);//사용자가 오토컴플릿이 만들어준 목록에서 선택을 하면 반환되는 객체
-						                    console.log(ui.item.label);    
-						                    console.log(ui.item.url);
 						                    
 						                    var url = ui.item.gNo; // 보낼 경로
 						                    location.href=url; 
@@ -645,14 +642,6 @@ a { text-decoration:none !important } a:hover { text-decoration:none !important 
 						                classes: {    
 						                    "ui-autocomplete": "highlight"
 						                },
-//						                delay: 300,    //검색창에 글자 써지고 나서 autocomplete 창 뜰 때 까지 딜레이 시간(ms)
-/*						                open: function(event, ui) {
-						                	$(this).autocomplete("widget").css({
-						                		"width" : 433
-						                	});
-						                }, */
-//						                disabled: true, //자동완성 기능 끄기
-/*						                position: { my : "right top", at: "right bottom" },    //잘 모르겠음 */
 						                close : function(event){    //자동완성창 닫아질때 호출
 						                    console.log(event);
 						                }
