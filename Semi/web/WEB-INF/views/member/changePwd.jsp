@@ -17,14 +17,14 @@
 	
 	<div class="container">
 		<div class="row justify-content-md-center">
-			<form action="<%=request.getContextPath()%>/changePwd.me" method="post" id="changePwdForm">
+			<form>
 				<div class="form-group mt-5 mb-4 text-center">
 					<h4>비밀번호 변경</h4>
 				</div>
 				<div class="form-group mb-3">
 					<label for="userEmail">인증번호</label>
 					<input type="text" class="form-control" name="inputKey" id="inputKey" placeholder="인증번호 입력" required>
-					<input type="hidden" name="email" value="<%= email %>">
+					<input type="hidden" name="email" id="email" value="<%= email %>">
 				</div>
 				
 				<div class="mb-3">
@@ -44,7 +44,7 @@
 				</div>
 	
 				<div class="form-group mb-5">
-					<button type="submit" class="btn btn-block" style="background-color: #00B1D2; color: white; width: 405px;">비밀번호 변경</button>
+					<button type="button" class="btn btn-block" id="subBtn" style="background-color: #00B1D2; color: white; width: 405px;">비밀번호 변경</button>
 				</div>
 			</form>
 		</div>
@@ -66,7 +66,7 @@
 	var isPwd = false;
 	var isPwd2 = false;
 
-	$('#changePwd').change(function(){
+	$('#changePwd').on('change',function(){
 		var regExp = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
 		
 		if(!regExp.test($(this).val())) {
@@ -80,7 +80,7 @@
 		}
 	});
 	
-	$('#changePwd2').change(function(){
+	$('#changePwd2').on('change', function(){
 		var pwd = $('#changePwd').val();
 		var pwd2 = $('#changePwd2').val();
 		
@@ -96,20 +96,40 @@
 		}
 	});
 				
-	$('#changePwdForm').submit(function(){
-		if(isPwd && isPwd2 == true){
-		 	alert('비밀번호가 변경되었습니다.');
-		 	
-			return true;
-		} else {
-			if(!isPwd){
-				$('#changePwd').focus();
-			}
-			else if(!isPwd2){
-				$('#changePwd2').focus();
-			}
+	$('#subBtn').on('click', function(){
+		
+		if(!isPwd){
+			$('#changePwd').focus();
 			return false;
 		}
+		else if(!isPwd2){
+			$('#changePwd2').focus();
+			return false;
+		}
+		
+		var email = $('#email').val();
+		var changePwd = $('#changePwd').val();
+		
+		$.ajax({
+			url: '<%=request.getContextPath()%>/changePwd.me',
+			type: 'post',
+			data: {changePwd:changePwd, email:email},
+			success: function(data){
+				$('#inputKey').val('');
+				$('#changePwd').val('');
+				$('#changePwd2').val('');
+				$('#newPwdResult').html('');
+				$('#newPwd2Result').html('');
+				
+				
+				alert('비밀번호 변경에 성공했습니다. 새로운 비밀번호로 로그인해주세요');
+				$('#loginModal').modal("show");
+				
+			},
+			error: function(data){
+				console.log('실패');
+			}
+		});
 	});
 
 </script>

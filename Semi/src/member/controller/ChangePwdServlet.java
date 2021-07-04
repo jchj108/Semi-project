@@ -32,13 +32,20 @@ public class ChangePwdServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("비밀번호 변경 시도");
 		
 		String changePwd = getEncryptPwd(request.getParameter("changePwd"));
 		String email = request.getParameter("email");
 		
 		int result = new MemberService().updatePwd(changePwd, email);
 		
-		System.out.println(result + " : 비밀번호 변경 성공");
+		if(result > 0) {
+			response.getWriter().println(result);
+			System.out.println("비밀번호 변경 성공");
+		} else {
+			request.setAttribute("msg", "비밀번호 변경에 실패하였습니다.");
+			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+		}
 		
 	}
 

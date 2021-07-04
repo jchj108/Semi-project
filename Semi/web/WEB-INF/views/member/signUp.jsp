@@ -86,7 +86,7 @@
 			
 							<div class="mb-4">
 								<label for="signUpAddress">주소</label>
-								<input type="text" class="form-control" id="signUpAddress" name="signUpAddress" placeholder="서울특별시 강남구 역삼동 (동까지 기재)" required>
+								<input type="text" class="form-control" id="signUpAddress" name="signUpAddress" placeholder="서울특별시 강남구 (구까지 기재)" required>
 							</div>
 			
 							<div class="row mb-4">
