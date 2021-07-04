@@ -242,8 +242,8 @@ public class ReviewDAO {
 				r = new Review(rset.getInt("R_NO"), rset.getString("R_BODY"), rset.getDate("R_DATE"),
 						   rset.getInt("R_TOTAL"), rset.getInt("R_TEACHER"), rset.getInt("R_SERVICE"),
 						   rset.getInt("R_GYM"), rset.getInt("R_PRICE"), rset.getString("R_KEYWORD"),
-						   rset.getString("R_STATUS"), rset.getInt("R_LIKE"), rset.getInt("M_NO"), rset.getString("M_NAME"),
-						   rset.getInt("G_NO"), rset.getString("M_PROFILE"));
+						   rset.getString("R_STATUS"), rset.getInt("R_LIKE"), rset.getInt("M_NO"),
+						   rset.getString("M_NAME"), rset.getInt("G_NO"), rset.getString("M_PROFILE"));
 				list.add(r);
 			}
 			

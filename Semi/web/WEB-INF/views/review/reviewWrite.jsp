@@ -4,10 +4,6 @@
 	Gym g = (Gym)request.getAttribute("g");
 	ArrayList<GFile> fList= (ArrayList)request.getAttribute("fList");
 	int gNo = g.getG_NO();
-	
-	for(GFile gf : fList){
-		System.out.println(gf + " : write폼");
-	}
 %>
 <!DOCTYPE html>
 <html>
@@ -130,7 +126,7 @@
 	  display: inline-block;
 	  width: 105px;
 	  height: 105px;
-	  z-index: 1;
+ 	  z-index: 1;
 	}
 	
 	.image_swiper div input[type=file]{
@@ -145,7 +141,7 @@
 	  background: url("<%= request.getContextPath() %>/image/add.png") no-repeat center;
 	  background-size: 30px;
 	  border: 1px dashed lightgray; 
-	  z-index: 0;
+ 	  z-index: 0;
 	}
 	
 	.image_swiper div label:hover{
@@ -187,9 +183,9 @@
 								<div class="rating-box-name">평점</div>
 								<input type="hidden" name="totalStar" id="totalStar">
 								<div class="score_star" id="totalStarDiv">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
 								</div>
 							</div>
 						</div>
@@ -205,36 +201,36 @@
 								<div class="rating-box-name">시설</div>
 								<input type="hidden" name="facilityStar">
 								<div class="score_star" id="facilityStarDiv">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
 								</div>
 							</div>
 							<div class="rating-box">
 								<div class="rating-box-name">강사</div>
 								<input type="hidden" name="instructorStar">
 								<div class="score_star" id="instructorStarDiv">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
 								</div>
 							</div>
 							<div class="rating-box">
 								<div class="rating-box-name">서비스</div>
 								<input type="hidden" name="serviceStar">
 								<div class="score_star" id="serviceStarDiv">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
 								</div>
 							</div>
 							<div class="rating-box">
 								<div class="rating-box-name">가격</div>
 								<input type="hidden" name="priceStar">
 								<div class="score_star" id="priceStarDiv">
-									<i class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i> <i class="fas fa-star"></i> <i
-										class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i> <i class="fas fa-star"></i>
+									<i class="fas fa-star"></i>
 								</div>
 							</div>
 						</div>

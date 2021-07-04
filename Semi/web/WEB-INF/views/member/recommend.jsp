@@ -374,7 +374,7 @@
 											</tr>
 											<tr>
 												<td>
-													<input type="radio" name="lecture" id="lYes" value="유" required>
+													<input type="radio" name="lecture" id="lYes" value="유">
 													<label for="lYes">강습희망</label>
 												</td>
 												<td>
@@ -397,7 +397,7 @@
 											</tr>
 											<tr>
 												<td>
-													<input type="radio" name="parking" id="pYes" value="유" required>
+													<input type="radio" name="parking" id="pYes" value="유">
 													<label for="pYes">주차필요</label>
 												</td>
 												<td>
@@ -451,7 +451,7 @@
 	        currentGfgStep = $(this).parent();
 	        nextGfgStep = $(this).parent().next();
 	  
-	        $("#progressbar li").eq($("fieldset").index(nextGfgStep)).addClass("active");
+// 	        $("#progressbar li").eq($("fieldset").index(nextGfgStep)).addClass("active");
 	  
 	        nextGfgStep.show();
 	        currentGfgStep.animate({ opacity: 0 }, {
@@ -517,69 +517,74 @@
 		var lecture = $("input[name=lecture]:checked").val();
 		var parking = $("input[name=parking]:checked").val();
 		
-	    var allData = {"userLike":userLike, "userName":userName, "location":location, "inout":inout, "gymType":gymType, "lecture":lecture, "parking":parking};
-		
-		$.ajax({
-			url: '<%= request.getContextPath() %>/recommend.me',
-			data: allData,
-			success: function(data){
-				console.log(data);
-				
-				$('#userName').text(userName);
-				$('.userLike').text(userLike).css({'color':'#00B1D2'});
-				
-				var $resultTable = $('#resultTable');
-				$resultTable.html('');
-				var $otherTable = $('#otherTable');
-				$otherTable.html('');
-				var $nameDiv = $('#nameDiv');
-				
-				var j = 1;
-				for(var i=0; i<data.length; i++){
-					var gymName = data[i].gName;
-					var gymType = data[i].gTypeName;
-
-					var $resultTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
-					var $otherTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
-					var check = gymType.includes(userLike);
+		if(location == null || inout == null || gymType == null || lecture == null || parking == null){
+			alert('모든 항목을 선택해주세요');
+		} else {
+			
+		    var allData = {"userLike":userLike, "userName":userName, "location":location, "inout":inout, "gymType":gymType, "lecture":lecture, "parking":parking};
+			
+			$.ajax({
+				url: '<%= request.getContextPath() %>/recommend.me',
+				data: allData,
+				success: function(data){
+					console.log(data);
 					
-					if(check){
-						$num = $('<td>').text(i+1).css('width', '30px');
-						$name = $('<td>').text(gymName).css({'text-align':'left'});
+					$('#userName').text(userName);
+					$('.userLike').text(userLike).css({'color':'#00B1D2'});
+					
+					var $resultTable = $('#resultTable');
+					$resultTable.html('');
+					var $otherTable = $('#otherTable');
+					$otherTable.html('');
+					var $nameDiv = $('#nameDiv');
+					
+					var j = 1;
+					for(var i=0; i<data.length; i++){
+						var gymName = data[i].gName;
+						var gymType = data[i].gTypeName;
+	
+						var $resultTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
+						var $otherTr = $('<tr>').css({'height':'40px', 'border-bottom':'0.5px dashed gray'});
+						var check = gymType.includes(userLike);
 						
-						$resultTr.append($num);
-						$resultTr.append($name);
+						if(check){
+							$num = $('<td>').text(i+1).css('width', '30px');
+							$name = $('<td>').text(gymName).css({'text-align':'left'});
+							
+							$resultTr.append($num);
+							$resultTr.append($name);
+							
+							$resultTable.append($resultTr);
+							
+						} else {
+							$otherNum = $('<td>').text(j).css('width', '30px');
+							$otherName = $('<td>').text(gymName).css('text-align', 'left');
+							
+							$otherTr.append($otherNum);
+							$otherTr.append($otherName);
+							
+							$otherTable.append($otherTr);
+							
+							j++;
+						}
 						
-						$resultTable.append($resultTr);
-						
-					} else {
-						$otherNum = $('<td>').text(j).css('width', '30px');
-						$otherName = $('<td>').text(gymName).css('text-align', 'left');
-						
-						$otherTr.append($otherNum);
-						$otherTr.append($otherName);
-						
-						$otherTable.append($otherTr);
-						
-						j++;
+						$('#resultTable td, #otherTable td').mouseenter(function(){
+				   			$(this).parent().css({'cursor':'pointer', 'color':'#00B1D2'});
+				   		}).mouseout(function(){
+				   			$(this).parent().css({'color':'black'});
+				   		}).click(function(){
+				   			var num = $(this).parent().index();
+				   			var gNo = data[num].gNo;       
+				   			
+				   			window.location.href="<%= request.getContextPath() %>/detail.do?gNo="+gNo; 
+				   		})
 					}
-					
-					$('#resultTable td, #otherTable td').mouseenter(function(){
-			   			$(this).parent().css({'cursor':'pointer', 'color':'#00B1D2'});
-			   		}).mouseout(function(){
-			   			$(this).parent().css({'color':'black'});
-			   		}).click(function(){
-			   			var num = $(this).parent().index();
-			   			var gNo = data[num].gNo;       
-			   			
-			   			window.location.href="<%= request.getContextPath() %>/detail.do?gNo="+gNo; 
-			   		})
+				},
+				error: function(data){
+					console.log('실패');
 				}
-			},
-			error: function(data){
-				console.log('실패');
-			}
-		});
+			});
+		}
 		
 	});
 	

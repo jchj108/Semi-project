@@ -34,9 +34,6 @@ public class CheckEmailServlet extends HttpServlet {
 		int result = new MemberService().checkEmail(inputEmail);
 		response.getWriter().println(result);
 		
-//		request.setAttribute("result", result);
-//		request.setAttribute("checkedEmail", inputEmail);
-//		request.getRequestDispatcher("WEB-INF/views/member/checkEmail.jsp").forward(request, response);
 	}
 
 	/**
