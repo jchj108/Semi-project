@@ -36,7 +36,7 @@
 		list-style-type: none;
 		display: block;
 		text-align: center;
-		margin-left: 45%;
+		margin-left: 40%;
 		}
 				 	
 		.page-item {
