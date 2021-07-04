@@ -562,17 +562,20 @@
 						} else {
 							$otherNum = $('<td>').text(j++).css('width', '30px');
 							$otherName = $('<td>').text(gymName).css('text-align', 'left');
-							$no = $('<input type="hidden" value=' + gymNo + '>');
+							$otherNo = $('<input type="hidden" value=' + gymNo + '>');
 							
 							$otherTr.append($otherNum);
 							$otherTr.append($otherName);
-							$resultTr.append($no);
+							$otherTr.append($otherNo);
 							
 							$otherTable.append($otherTr);
 						}
 						
 						$('#resultTable td, #otherTable td').mouseenter(function(){
 				   			$(this).parent().css({'cursor':'pointer', 'color':'#00B1D2'});
+				   			
+				   			var gNo = $(this).parent().children('input').val();
+				   			console.log(gNo + " : 시설 번호");
 				   		}).mouseout(function(){
 				   			$(this).parent().css({'color':'black'});
 				   		}).click(function(){
