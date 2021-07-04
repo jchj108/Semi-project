@@ -191,7 +191,7 @@
 									</li>
 						<%		} else { %>
 									<li class="page-item">
-										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= p %>'"><%=p%></a>
+										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=<%= p %>'"><%=p%></a>
 									</li>
 						<%		} %>
 						<%	} %>
