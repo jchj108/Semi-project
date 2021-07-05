@@ -271,7 +271,7 @@ img src {
 					<br>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-lg btn-inline-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">등록 완료</button>
+					<button class="btn btn-lg btn-inline-block" type="submit" style="background-color: #00B1D2; color: white; width: 250px; margin-top: 0px">수정 완료</button>
 					<button class="btn btn-lg btn-block btn-secondary" onclick="deleteAllImg();" data-dismiss="modal" aria-label="Close" type="reset" style= "width: 250px; margin-top: 0px;">취소</button>
 				</div>
 			</form>
