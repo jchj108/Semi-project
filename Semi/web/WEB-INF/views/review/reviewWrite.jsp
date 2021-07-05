@@ -378,7 +378,12 @@
 	            alert("이미지 없음");
 	        }
 	    });
-
+		
+	    $('#reviewText').on('keyup', function(){
+	    	if($(this).val().length > 300) {
+	    		alert('리뷰 작성은 300자까지 가능합니다.');
+	    	}
+	    });
     </script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
