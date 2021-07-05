@@ -69,6 +69,7 @@ public class GymInsertServlet extends HttpServlet {
 			}
 			String gymType = multipartRequest.getParameter("gymType");
 			String gymName = multipartRequest.getParameter("gymName");
+			String gymTel = multipartRequest.getParameter("gymTel");
 			String gymHomepage = multipartRequest.getParameter("gymHomepage");
 			String gymParking = multipartRequest.getParameter("gymParking");
 			String gymBigo = multipartRequest.getParameter("gymBigo");
@@ -97,6 +98,7 @@ public class GymInsertServlet extends HttpServlet {
 			
 			g.setG_TYPE_NM(gymType);
 			g.setG_NAME(gymName);
+			g.setG_TEL(gymTel);
 			g.setG_HOMEPAGE(gymHomepage);
 			g.setG_PARKING_LOT(gymParking);
 			g.setG_BIGO(gymBigo);
