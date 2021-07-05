@@ -64,6 +64,14 @@
             color: white;
             font-size: 20px;
         }
+        
+        th:nth-child(1n) {
+        	width: 100px;
+        }
+        
+        th:nth-child(4n) {
+			width: 400px;
+		}
 
         tr, td {
             padding: 10px;
@@ -183,7 +191,7 @@
 									</li>
 						<%		} else { %>
 									<li class="page-item">
-										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=<%= p %>'"><%=p%></a>
+										<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/qnaBoardList.li?currentPage=<%= p %>'"><%=p%></a>
 									</li>
 						<%		} %>
 						<%	} %>

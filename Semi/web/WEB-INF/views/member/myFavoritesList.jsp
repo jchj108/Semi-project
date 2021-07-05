@@ -100,7 +100,7 @@
                         <div class="list-group-item side" id="myComment">댓글 관리</div>
                     </div>
                 </div>
-          <div class="col-lg-9" style="height: 650px;">
+          <div class="col-lg-9" style="height: auto;">
            <div class="title"><h4>즐겨찾기</h4></div>
 	           <div class="row">
 	         <% if(!list.isEmpty()) {%>

@@ -64,6 +64,14 @@
             color: white;
             font-size: 20px;
         }
+        
+        th:nth-child(1n) {
+        	width: 100px;
+        }
+        
+        th:nth-child(4n) {
+			width: 400px;
+		}
 
         tr, td {
             padding: 10px;
@@ -163,8 +171,8 @@
 				</div>
 					
 				<!-- 페이지 넘기기 -->
-				<div class="page-div">
- 					<ul class="pagination">
+			<div class="page-div">
+					<ul class="pagination">
 						<!-- 처음으로 -->
 						<li class="page-item">
 							<a class="page-link" onclick="location.href='<%= request.getContextPath() %>/faqBoardList.li?currentPage=1'">&laquo;</a>
