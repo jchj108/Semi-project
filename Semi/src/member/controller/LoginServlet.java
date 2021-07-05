@@ -3,6 +3,7 @@ package member.controller;
 import static common.Encrypt.getEncryptPwd;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,12 +46,9 @@ public class LoginServlet extends HttpServlet {
 		if(loginUser != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
-			
-			response.sendRedirect(request.getContextPath());
-			
+			response.getWriter().print(true);
 		} else {
-			request.setAttribute("msg", "로그인 실패");
-			request.getRequestDispatcher("WEB-INF/views/common/errorPage.jsp").forward(request, response);
+			response.getWriter().print(false);
 		}
 	}
 

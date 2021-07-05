@@ -20,7 +20,7 @@
 					</button>
 				</div>
 				<div class="login-form-background mx-auto row">
-					<form action="<%= request.getContextPath() %>/login.me" method="post" id="loginForm">
+					<form>
 						<div class="form-group mt-4 mb-3">
 							<label for="userEmail">이메일</label> <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="you@example.com" required>
 							<div class="invalid-feedback">이메일을 입력해주세요.</div>
@@ -36,7 +36,7 @@
 						</div>
 		
 						<div class="form-group">
-							<button type="submit" class="btn btn-lg btn-block" style="background-color: #00B1D2; color: white; width: 405px;">로그인</button>
+							<button type="button" class="btn btn-lg btn-block" id="loginBtn" style="background-color: #00B1D2; color: white; width: 405px;">로그인</button>
 						</div>
 						<div class="form-group">
 							<button type="button" class="btn btn-lg btn-block" id="kakaoLogin" style="background-color: #FEE500">
@@ -61,6 +61,34 @@
 			$('body').css("overflow", "hidden");
 			$('#signUpModal').css("overflow", "scroll");
 		});
+		
+		$('#loginBtn').on('click', function(){
+			var userEmail = $('#userEmail').val();
+			var userPwd = $('#userPwd').val();
+			
+			$.ajax({
+				url: 'login.me',
+				data: {userEmail:userEmail, userPwd:userPwd},
+				success: function(data){
+					if(data == 'true'){
+						$('#loginModal').modal("hide");
+						reload();
+					} else {
+						alert('이메일 또는 비밀번호를 확인해주세요');
+						$('#userEmail').val('');
+						$('#userPwd').val('');
+					}
+				},
+				error: function(data){
+					console.log('실패');
+				}
+				
+			});
+		});
+		
+		function reload(){  
+		       location.reload();
+		}
 		
 		window.Kakao.init("07a99d78f7b743ace5cbf5de3b116c13");
 		console.log(Kakao.isInitialized());
