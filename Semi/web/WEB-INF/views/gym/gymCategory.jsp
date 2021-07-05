@@ -9,10 +9,9 @@
 	int endPage = pi.getEndPage();
 	int maxPage = pi.getMaxPage();
 	
-	String category = null;
+	String category = "운동";
 	
 	switch(cate) {
-	case "all": category="운동"; break;
 	case "swimming": category="수영"; break;
 	case "soccer": category="축구"; break;
 	case "tennis": category="테니스"; break;
