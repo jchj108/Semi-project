@@ -363,10 +363,18 @@ input {
 					<div class="info-content">
 						<table>
 							<tr>
+							<% if(g.getG_ADDRESS() != null){ %>
 								<td>상세주소 : <%=g.getG_ADDRESS() %></td>
+							<% } else { %>
+								<td>상세주소 : - </td>
+							<% } %>
 							</tr>
 							<tr>
+							<% if(g.getG_TEL() != null){ %>
 								<td>연락처 : <%=g.getG_TEL() %></td>
+							<% } else { %>
+								<td>연락처 : - </td>
+							<% } %>
 							</tr>
 							<% if(g.getG_EDU_YN().charAt(0) == '유'){ %>
 							<tr>
@@ -378,7 +386,11 @@ input {
 							</tr>
 							<% } %>
 							<tr>
+							<% if(g.getG_PARKING_LOT() != null){ %>
 								<td>주차장 : <%=g.getG_PARKING_LOT() %></td>
+							<% } else { %>
+								<td>주차장 : - </td>
+							<% } %>
 							</tr>
 							<% if(g.getG_BIGO() != null){ %>
 							<tr>
@@ -386,7 +398,7 @@ input {
 							</tr>
 							<% } else {%>
 							<tr>
-								<td>시설 규모 : -</td>
+								<td>시설 규모 : - </td>
 							</tr>
 							<% }%>
 						</table>
