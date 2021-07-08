@@ -2,6 +2,8 @@ package map.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,28 +36,19 @@ public class MapServlet extends HttpServlet {
 		ArrayList<Map> footVolleyList = new ArrayList();
 		ArrayList<Map> etcList = new ArrayList();
 		
-//		ArrayList<Map> tmpList = new ArrayList();
-//		tmpList.addAll(list);
-//		ArrayList<Map> allList = new ArrayList();
-//		
-//		System.out.println(list.get(0));
-//		allList.add(list.get(1));
-//		
-//		for(int i = 0; i < list.size(); i++) {
-//			for(int j = 0; j < allList.size(); j++) {
-//				if(allList.get(j).getG_XCODE() != list.get(i).getG_XCODE()) {
-//					allList.add(list.get(i));
-//				}
-//			}
-//		}
-//		
-//		
-//		
-//		for(Map m : allList) {
-//			System.out.println(m);
-//			System.out.println(allList.size());
-//		}
+		ArrayList<Double> allList = new ArrayList();
 
+		for(int i = 0; i< list.size(); i++) {
+			allList.add(list.get(i).getG_XCODE());
+		}
+
+		Set<Double> targetSet = new HashSet<Double>(allList);
+		
+		for(double d : targetSet) {
+			System.out.println("d : " + d);
+		}
+		System.out.println("targetSet: " + targetSet.size());
+		
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).getG_TYPE_NM().equals("생활체육관")) {
 				livingList.add(list.get(i));
